@@ -1,19 +1,41 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import API from '../services/api';
-
-export const AuthContext = createContext();
+import { AuthContext } from './AuthContextType';
+export { AuthContext };
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const loggedInUser = localStorage.getItem('user');
-        if (loggedInUser) {
-            setUser(JSON.parse(loggedInUser));
+    const [user, setUser] = useState(() => {
+        try {
+            const saved = localStorage.getItem('user');
+            if (saved && saved !== 'undefined') return JSON.parse(saved);
+        } catch (error) {
+            console.error('Auth initialization error:', error);
         }
-        setLoading(false);
-    }, []);
+        const guestUser = {
+            id: 'guest_user_123',
+            name: 'Guest Learner',
+            email: 'guest@example.com',
+            token: 'mock_token'
+        };
+        localStorage.setItem('user', JSON.stringify(guestUser));
+        localStorage.setItem('token', 'mock_token');
+        return guestUser;
+    });
+    const loading = false;
+
+    // Persist user changes and check token integrity
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem('user', JSON.stringify(user));
+            // Force the mock token if it's missing to prevent 401s in guest mode
+            if (!localStorage.getItem('token')) {
+                localStorage.setItem('token', 'mock_token');
+            }
+        } else {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+        }
+    }, [user]);
 
     const login = async (email, password) => {
         const { data } = await API.post('/auth/login', { email, password });

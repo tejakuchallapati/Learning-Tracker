@@ -5,7 +5,7 @@ const LearningGoal = require('../models/LearningGoal');
 // @route   POST /api/goals/create
 // @access  Private
 const createGoal = asyncHandler(async (req, res) => {
-    const { technology, durationDays, dailyTargetHours, startDate, endDate } = req.body;
+    const { technology, durationDays, dailyTargetHours, startDate, endDate, category, subTasks } = req.body;
 
     if (!technology || !durationDays || !dailyTargetHours || !endDate) {
         res.status(400);
@@ -15,6 +15,8 @@ const createGoal = asyncHandler(async (req, res) => {
     const goal = await LearningGoal.create({
         userId: req.user.id,
         technology,
+        category,
+        subTasks: subTasks || [],
         durationDays,
         dailyTargetHours,
         startDate: startDate || Date.now(),
@@ -80,9 +82,59 @@ const deleteGoal = asyncHandler(async (req, res) => {
     res.status(200).json({ id: req.params.id });
 });
 
+// @desc    Get pre-defined goal templates
+// @route   GET /api/goals/templates
+// @access  Private
+const getGoalTemplates = asyncHandler(async (req, res) => {
+    const templates = [
+        {
+            category: 'Frontend',
+            technology: 'Frontend Web Development',
+            durationDays: 90,
+            dailyTargetHours: 2,
+            subTasks: [
+                { title: 'HTML5 & Semantic HTML', completed: false },
+                { title: 'CSS3 & Flexbox/Grid', completed: false },
+                { title: 'JavaScript (ES6+)', completed: false },
+                { title: 'React Fundamentals', completed: false },
+                { title: 'State Management (Redux/Context API)', completed: false },
+            ]
+        },
+        {
+            category: 'Backend',
+            technology: 'Backend Development (Node.js)',
+            durationDays: 60,
+            dailyTargetHours: 2,
+            subTasks: [
+                { title: 'Node.js Basics', completed: false },
+                { title: 'Express.js Framework', completed: false },
+                { title: 'RESTful APIs', completed: false },
+                { title: 'MongoDB & Mongoose', completed: false },
+                { title: 'Authentication (JWT)', completed: false },
+            ]
+        },
+        {
+            category: 'Full Stack',
+            technology: 'MERN Full Stack',
+            durationDays: 120,
+            dailyTargetHours: 3,
+            subTasks: [
+                { title: 'Frontend Basics (HTML/CSS/JS)', completed: false },
+                { title: 'React JS', completed: false },
+                { title: 'Node & Express Server', completed: false },
+                { title: 'Database (MongoDB)', completed: false },
+                { title: 'Connecting Frontend to Backend', completed: false },
+                { title: 'Deployment (Render/Vercel)', completed: false },
+            ]
+        }
+    ];
+    res.status(200).json(templates);
+});
+
 module.exports = {
     createGoal,
     getGoals,
     updateGoal,
     deleteGoal,
+    getGoalTemplates,
 };

@@ -6,11 +6,18 @@ import { AuthContext } from './context/AuthContext';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
-import Goals from './pages/Goals';
+import CourseCatalog from './pages/CourseCatalog';
+import CourseRoadmap from './pages/CourseRoadmap';
+import CourseDetail from './pages/CourseDetail';
+import TopicContent from './pages/TopicContent';
 import Progress from './pages/Progress';
-import Analytics from './pages/Analytics';
+import Insights from './pages/Insights';
 import Settings from './pages/Settings';
+import Notes from './pages/Notes';
+import DevChatSection from './pages/DevChatSection';
+import Bookmarks from './pages/Bookmarks';
 
 // Layout
 import Sidebar from './components/Sidebar';
@@ -42,36 +49,20 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-
-        {/* Protected Routes */}
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <DashboardLayout><Dashboard /></DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/goals" element={
-          <ProtectedRoute>
-            <DashboardLayout><Goals /></DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/progress" element={
-          <ProtectedRoute>
-            <DashboardLayout><Progress /></DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/analytics" element={
-          <ProtectedRoute>
-            <DashboardLayout><Analytics /></DashboardLayout>
-          </ProtectedRoute>
-        } />
-        <Route path="/settings" element={
-          <ProtectedRoute>
-            <DashboardLayout><Settings /></DashboardLayout>
-          </ProtectedRoute>
-        } />
+        <Route path="/" element={<Landing />} />
+        <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout><Dashboard /></DashboardLayout></ProtectedRoute>} />
+        <Route path="/courses" element={<DashboardLayout><CourseCatalog /></DashboardLayout>} />
+        <Route path="/roadmap/:id" element={<DashboardLayout><CourseRoadmap /></DashboardLayout>} />
+        <Route path="/roadmap/:courseId/:stepIdx" element={<DashboardLayout><CourseDetail /></DashboardLayout>} />
+        <Route path="/roadmap/:courseId/:stepIdx/:topicIdx" element={<DashboardLayout><TopicContent /></DashboardLayout>} />
+        <Route path="/progress" element={<DashboardLayout><Progress /></DashboardLayout>} />
+        <Route path="/analytics" element={<DashboardLayout><Insights /></DashboardLayout>} />
+        <Route path="/chat" element={<DashboardLayout><DevChatSection /></DashboardLayout>} />
+        <Route path="/notes" element={<DashboardLayout><Notes /></DashboardLayout>} />
+        <Route path="/bookmarks" element={<DashboardLayout><Bookmarks /></DashboardLayout>} />
+        <Route path="/settings" element={<DashboardLayout><Settings /></DashboardLayout>} />
+        {/* Redirect any other path to dashboard */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Router>
   );

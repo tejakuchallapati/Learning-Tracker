@@ -1,20 +1,21 @@
 import { NavLink } from 'react-router-dom';
-
-import { FiHome, FiTarget, FiActivity, FiPieChart, FiSettings } from 'react-icons/fi';
+import { FiLayout, FiBookOpen, FiActivity, FiSettings, FiEdit, FiCpu, FiBookmark } from 'react-icons/fi';
 
 const Sidebar = () => {
     const navItems = [
-        { name: 'Dashboard', path: '/dashboard', icon: <FiHome className="w-5 h-5" /> },
-        { name: 'Goals', path: '/goals', icon: <FiTarget className="w-5 h-5" /> },
-        { name: 'Progress', path: '/progress', icon: <FiActivity className="w-5 h-5" /> },
-        { name: 'Analytics', path: '/analytics', icon: <FiPieChart className="w-5 h-5" /> },
-        { name: 'Settings', path: '/settings', icon: <FiSettings className="w-5 h-5" /> },
+        { name: 'Dashboard', path: '/dashboard', icon: <FiLayout size={20} /> },
+        { name: 'Roadmaps', path: '/courses', icon: <FiBookOpen size={20} /> },
+        { name: 'AI Assistant', path: '/chat', icon: <FiCpu size={20} /> },
+        { name: 'Study Notes', path: '/notes', icon: <FiEdit size={20} /> },
+        { name: 'Resources', path: '/bookmarks', icon: <FiBookmark size={20} /> },
+        { name: 'Insights', path: '/analytics', icon: <FiActivity size={20} /> },
+        { name: 'Settings', path: '/settings', icon: <FiSettings size={20} /> },
     ];
 
     return (
-        <aside className="w-64 bg-indigo-900 text-white flex-shrink-0 hidden md:flex flex-col">
-            <div className="h-16 flex items-center px-6 border-b border-indigo-800">
-                <h1 className="text-2xl font-bold tracking-tight">DevTrack</h1>
+        <aside className="w-72 bg-slate-900 text-white flex-shrink-0 hidden md:flex flex-col border-r border-slate-800">
+            <div className="h-24 flex items-center px-8">
+                <h1 className="text-3xl font-black tracking-tighter text-indigo-500">DevTrack<span className="text-white">.</span></h1>
             </div>
 
             <nav className="flex-1 py-6 px-3 space-y-2">

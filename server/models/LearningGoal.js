@@ -11,6 +11,17 @@ const goalSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a technology to learn'],
         },
+        category: {
+            type: String,
+            enum: ['Frontend', 'Backend', 'Full Stack', 'Other'],
+            default: 'Other'
+        },
+        subTasks: [
+            {
+                title: String,
+                completed: { type: Boolean, default: false }
+            }
+        ],
         durationDays: {
             type: Number,
             required: [true, 'Please add the duration in days'],

@@ -24,7 +24,10 @@ const Goals = () => {
     };
 
     useEffect(() => {
-        fetchGoals();
+        const loadGoals = async () => {
+            await fetchGoals();
+        };
+        loadGoals();
     }, []);
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
