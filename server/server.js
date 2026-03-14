@@ -30,6 +30,10 @@ app.use('/api/goals', require('./routes/goalRoutes'));
 app.use('/api/progress', require('./routes/progressRoutes'));
 app.use('/api/time', require('./routes/timeRoutes'));
 app.use('/api/analytics', require('./routes/analyticsRoutes'));
+app.use('/api/daily-goals', require('./routes/dailyGoalRoutes'));
+
+// Initialize cron jobs
+require('./utils/cronJobs');
 
 // Error handling middleware
 app.use((err, req, res, next) => {

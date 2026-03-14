@@ -1,5 +1,6 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { FiActivity, FiAward, FiClock, FiList, FiCheckCircle, FiLock, FiDownload } from 'react-icons/fi';
+import DailyGoalsSection from '../components/DailyGoalsSection';
 
 const badges = [
     { icon: '🚀', name: 'First Launch',    desc: 'Logged first study session',    earned: true },
@@ -152,6 +153,9 @@ const Insights = () => {
                     ))}
                 </div>
             </div>
+
+            {/* Daily Goals & Reminders Section */}
+            <DailyGoalsSection />
         </div>
     );
 };

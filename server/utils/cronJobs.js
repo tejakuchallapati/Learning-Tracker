@@ -1,0 +1,56 @@
+const cron = require('node-cron');
+const DailyGoal = require('../models/DailyGoal');
+const sendEmail = require('./emailService');
+
+// Schedule a daily job at 8:00 AM server time
+cron.schedule('0 8 * * *', async () => {
+    console.log('Running daily goal reminder check...');
+
+    try {
+        // Find all daily goals that are incomplete and have email reminders enabled
+        const incompleteGoals = await DailyGoal.find({ 
+            completed: false, 
+            emailReminders: true 
+        }).populate('userId', 'name email');
+
+        if (incompleteGoals.length === 0) {
+            console.log('No reminders to send today.');
+            return;
+        }
+
+        // Group incomplete goals by user
+        const goalsByUser = {};
+        incompleteGoals.forEach((goal) => {
+            const userId = goal.userId._id.toString();
+            if (!goalsByUser[userId]) {
+                goalsByUser[userId] = {
+                    user: goal.userId,
+                    goals: []
+                };
+            }
+            goalsByUser[userId].goals.push(goal);
+        });
+
+        // Send an email to each user summarizing their pending tasks
+        for (const userId in goalsByUser) {
+            const { user, goals } = goalsByUser[userId];
+            
+            const goalListText = goals.map(g => `- ${g.title}`).join('\n');
+            
+            const message = `Hello ${user.name},\n\nYou have some pending daily goals in DevTrack to complete today:\n\n${goalListText}\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe DevTrack Team`;
+
+            try {
+                await sendEmail({
+                    email: user.email,
+                    subject: 'DevTrack - Daily Reminder: Pending Goals',
+                    message,
+                });
+                console.log(`Reminder email sent to ${user.email}`);
+            } catch (err) {
+                console.error(`Failed to send email to ${user.email}:`, err.message);
+            }
+        }
+    } catch (err) {
+        console.error('Error running daily goal cron job:', err);
+    }
+});

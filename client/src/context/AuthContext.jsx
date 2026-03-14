@@ -11,26 +11,14 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Auth initialization error:', error);
         }
-        const guestUser = {
-            id: 'guest_user_123',
-            name: 'Guest Learner',
-            email: 'guest@example.com',
-            token: 'mock_token'
-        };
-        localStorage.setItem('user', JSON.stringify(guestUser));
-        localStorage.setItem('token', 'mock_token');
-        return guestUser;
+        return null;
     });
     const loading = false;
 
-    // Persist user changes and check token integrity
+    // Persist user changes
     useEffect(() => {
         if (user) {
             localStorage.setItem('user', JSON.stringify(user));
-            // Force the mock token if it's missing to prevent 401s in guest mode
-            if (!localStorage.getItem('token')) {
-                localStorage.setItem('token', 'mock_token');
-            }
         } else {
             localStorage.removeItem('user');
             localStorage.removeItem('token');
@@ -51,14 +39,27 @@ export const AuthProvider = ({ children }) => {
         setUser(data);
     };
 
-    const logout = () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        setUser(null);
+    const googleLogin = async (credential) => {
+        const { data } = await API.post('/auth/google', { credential });
+        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('token', data.token);
+        setUser(data);
+    };
+
+    const logout = async () => {
+        try {
+            await API.get('/auth/logout');
+        } catch (error) {
+            console.error('Logout API failed:', error);
+        } finally {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            setUser(null);
+        }
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, register, googleLogin, logout, loading }}>
             {!loading && children}
         </AuthContext.Provider>
     );

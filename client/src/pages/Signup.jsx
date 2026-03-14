@@ -1,12 +1,26 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Signup = () => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
     const [error, setError] = useState('');
-    const { register } = useContext(AuthContext);
+    const { register, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try {
+            await googleLogin(credentialResponse.credential);
+            navigate('/dashboard');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Google sign up failed');
+        }
+    };
+
+    const handleGoogleError = () => {
+        setError('Google sign up was unsuccessful');
+    };
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -59,6 +73,24 @@ const Signup = () => {
                             <button type="submit" className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none">Sign up</button>
                         </div>
                     </form>
+
+                    <div className="mt-6">
+                        <div className="relative">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-gray-300"></div>
+                            </div>
+                            <div className="relative flex justify-center text-sm">
+                                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                            </div>
+                        </div>
+
+                        <div className="mt-6 flex justify-center">
+                            <GoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={handleGoogleError}
+                            />
+                        </div>
+                    </div>
 
                     <div className="mt-6 text-center text-sm">
                         <span className="text-gray-600">Already have an account? </span>

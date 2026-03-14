@@ -24,9 +24,21 @@ import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
+  
+  if (loading) return <div>Loading...</div>;
   if (!user) {
     return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
+const PublicRoute = ({ children }) => {
+  const { user, loading } = useContext(AuthContext);
+  
+  if (loading) return <div>Loading...</div>;
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
   }
   return children;
 };
@@ -50,6 +62,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout><Dashboard /></DashboardLayout></ProtectedRoute>} />
         <Route path="/courses" element={<DashboardLayout><CourseCatalog /></DashboardLayout>} />
         <Route path="/roadmap/:id" element={<DashboardLayout><CourseRoadmap /></DashboardLayout>} />

@@ -7,11 +7,7 @@ const API = axios.create({
 // Add a request interceptor to attach the JWT token
 API.interceptors.request.use(
     (config) => {
-        let token = localStorage.getItem('token');
-        if (!token && localStorage.getItem('user')) {
-            token = 'mock_token';
-            localStorage.setItem('token', token);
-        }
+        const token = localStorage.getItem('token');
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -20,20 +16,14 @@ API.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-// Add a response interceptor to handle 401s gracefully in guest mode
+// Add a response interceptor
 API.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            console.warn('Unauthorized API call, providing mock fallback data.');
-            // Fallback for dashboard
-            if (error.config.url.includes('/analytics/dashboard')) {
-                return Promise.resolve({ data: { totalStudyHours: 42, weeklyStudyHours: 12, completionRate: 75 } });
-            }
-            // Fallback for goals
-            if (error.config.url.includes('/goals')) {
-                return Promise.resolve({ data: [] });
-            }
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            // Optional: window.location.href = '/login';
         }
         return Promise.reject(error);
     }

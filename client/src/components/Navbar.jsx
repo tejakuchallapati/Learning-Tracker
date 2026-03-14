@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { courses } from '../data/CourseData';
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([]);
@@ -150,7 +150,10 @@ const Navbar = () => {
                                 {darkMode ? 'Light Mode' : 'Dark Mode'}
                             </button>
                             <div className="pt-2 mt-2 border-t border-gray-50">
-                                <button className="w-full text-left p-3 hover:bg-rose-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-rose-600">
+                                <button 
+                                    onClick={() => { setShowProfileMenu(false); logout(); navigate('/login'); }}
+                                    className="w-full text-left p-3 hover:bg-rose-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-rose-600"
+                                >
                                     <FiLogOut /> Sign Out
                                 </button>
                             </div>
