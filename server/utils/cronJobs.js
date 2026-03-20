@@ -2,6 +2,17 @@ const cron = require('node-cron');
 const DailyGoal = require('../models/DailyGoal');
 const sendEmail = require('./emailService');
 
+// Schedule a daily job at 00:00 (midnight) to reset daily goals
+cron.schedule('0 0 * * *', async () => {
+    console.log('Running midnight daily goal reset...');
+    try {
+        const result = await DailyGoal.updateMany({}, { completed: false });
+        console.log(`Reset ${result.modifiedCount} goals to incomplete.`);
+    } catch (err) {
+        console.error('Error resetting daily goals at midnight:', err);
+    }
+});
+
 // Schedule a daily job at 8:00 AM server time
 cron.schedule('0 8 * * *', async () => {
     console.log('Running daily goal reminder check...');
@@ -35,7 +46,13 @@ cron.schedule('0 8 * * *', async () => {
         for (const userId in goalsByUser) {
             const { user, goals } = goalsByUser[userId];
             
-            const goalListText = goals.map(g => `- ${g.title}`).join('\n');
+            const goalListText = goals.map(g => {
+                let streakText = "";
+                if (g.streak > 0) {
+                    streakText = ` (Current Streak: ${g.streak} 🔥)`;
+                }
+                return `- ${g.title}${streakText}`;
+            }).join('\n');
             
             const message = `Hello ${user.name},\n\nYou have some pending daily goals in DevTrack to complete today:\n\n${goalListText}\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe DevTrack Team`;
 

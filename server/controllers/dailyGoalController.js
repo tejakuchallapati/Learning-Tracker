@@ -50,6 +50,43 @@ const updateDailyGoal = asyncHandler(async (req, res) => {
         throw new Error('User not authorized');
     }
 
+    // Handle streak logic if completed status is being updated
+    if (req.body.completed !== undefined && req.body.completed !== goal.completed) {
+        if (req.body.completed) {
+            // Goal is being marked as completed
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (goal.lastCompletedDate) {
+                const lastDate = new Date(goal.lastCompletedDate);
+                lastDate.setHours(0, 0, 0, 0);
+
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
+
+                if (lastDate.getTime() === yesterday.getTime()) {
+                    // Completed yesterday, increment streak
+                    req.body.streak = (goal.streak || 0) + 1;
+                } else if (lastDate.getTime() === today.getTime()) {
+                    // Already completed today, keep current streak
+                    req.body.streak = goal.streak;
+                } else {
+                    // Gap in completion, reset streak to 1
+                    req.body.streak = 1;
+                }
+            } else {
+                // First time completion
+                req.body.streak = 1;
+            }
+            req.body.lastCompletedDate = today;
+        } else {
+            // Goal is being unmarked (rare but possible)
+            // We could decrement streak if it was incremented today, but for simplicity
+            // let's just keep the streak as is or handle it based on requirements.
+            // Usually, unmarking doesn't reset the streak unless it's a new day and was never marked.
+        }
+    }
+
     const updatedGoal = await DailyGoal.findByIdAndUpdate(
         req.params.id,
         req.body,

@@ -145,6 +145,12 @@ const DailyGoalsSection = () => {
                                 <span className={`text-base font-medium transition-all ${goal.completed ? 'text-slate-400 line-through' : 'text-slate-800'}`}>
                                     {goal.title}
                                 </span>
+                                {goal.streak > 0 && (
+                                    <div className="flex items-center gap-1 bg-orange-50 text-orange-600 px-2 py-0.5 rounded-full text-[10px] font-black border border-orange-100">
+                                        <span>{goal.streak}</span>
+                                        <span role="img" aria-label="streak">🔥</span>
+                                    </div>
+                                )}
                             </div>
                             
                             <div className="flex items-center gap-3 shrink-0 ml-4">

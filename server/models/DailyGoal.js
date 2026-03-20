@@ -19,6 +19,13 @@ const dailyGoalSchema = mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        streak: {
+            type: Number,
+            default: 0,
+        },
+        lastCompletedDate: {
+            type: Date,
+        },
     },
     {
         timestamps: true,
