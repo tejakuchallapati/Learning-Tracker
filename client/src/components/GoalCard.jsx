@@ -5,15 +5,15 @@ const GoalCard = ({ goal, onDelete, onEdit }) => {
     const endDate = new Date(goal.endDate).toLocaleDateString();
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-5 hover:shadow-md transition-shadow">
             <div className="flex justify-between items-start mb-4">
                 <div>
-                    <h3 className="text-lg font-bold text-gray-800">{goal.technology}</h3>
+                    <h3 className="text-lg font-bold text-gray-800 dark:text-white">{goal.technology}</h3>
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">
                         Active
                     </span>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 text-slate-400">
                     <button
                         onClick={() => onEdit && onEdit(goal)}
                         className="text-gray-400 hover:text-indigo-600 transition-colors"
@@ -30,11 +30,11 @@ const GoalCard = ({ goal, onDelete, onEdit }) => {
             </div>
 
             <div className="grid grid-cols-2 gap-4 mt-4">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-400">
                     <FiCalendar className="text-indigo-500" />
                     <span>{goal.durationDays} Days</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-400">
                     <FiClock className="text-indigo-500" />
                     <span>{goal.dailyTargetHours} hrs/day</span>
                 </div>
