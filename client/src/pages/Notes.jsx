@@ -15,10 +15,10 @@ const Notes = () => {
 
     return (
         <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-6 border-b border-slate-100">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-6 border-b border-slate-100 dark:border-slate-800">
                 <div className="max-w-2xl">
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight leading-tight">Engineering Logs</h1>
-                    <p className="text-slate-500 mt-4 text-xl font-medium leading-relaxed">Persistent documentation of your daily technical growth.</p>
+                    <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Engineering Logs</h1>
+                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Persistent documentation of your daily technical growth.</p>
                 </div>
                 <button 
                     onClick={handleSave}
@@ -30,19 +30,19 @@ const Notes = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 {/* Column 1: Today's Learnings */}
-                <div className="glass-card premium-shadow p-12 rounded-[4rem] border border-white/50 space-y-10">
+                <div className="glass-card premium-shadow p-12 rounded-[4rem] border border-white/50 dark:border-slate-800 space-y-10">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-xs font-black text-slate-900 flex items-center gap-4 uppercase tracking-[0.2em]">
-                            <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shadow-sm"><FiEdit size={20} /></div>
+                        <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-4 uppercase tracking-[0.2em]">
+                            <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center shadow-sm"><FiEdit size={20} /></div>
                             Daily Manifest
                         </h3>
-                        <span className="px-6 py-2.5 bg-slate-50 text-slate-400 rounded-[1.2rem] text-[9px] font-black uppercase tracking-widest border border-slate-100/50">{new Date().toLocaleDateString()}</span>
+                        <span className="px-6 py-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 dark:text-slate-500 rounded-[1.2rem] text-[9px] font-black uppercase tracking-widest border border-slate-100/50 dark:border-slate-700">{new Date().toLocaleDateString()}</span>
                     </div>
                     <textarea 
                         value={learned}
                         onChange={(e) => setLearned(e.target.value)}
                         placeholder="Mastered Flexbox centering, implemented async/await logic in the API service..."
-                        className="w-full h-[500px] bg-slate-50/50 border-none rounded-[3rem] p-10 text-sm font-bold text-slate-700 focus:ring-4 focus:ring-indigo-50 transition-all resize-none placeholder-slate-300 leading-relaxed font-mono"
+                        className="w-full h-[500px] bg-slate-50/50 dark:bg-slate-800/50 border-none rounded-[3rem] p-10 text-sm font-bold text-slate-700 dark:text-slate-300 focus:ring-4 focus:ring-indigo-50 transition-all resize-none placeholder-slate-300 dark:placeholder-slate-600 leading-relaxed font-mono"
                     />
                 </div>
 
@@ -69,11 +69,11 @@ const Notes = () => {
             </div>
 
             {/* Persistence Reminder */}
-            <div className="p-10 bg-slate-50/50 rounded-[3rem] border border-slate-100 flex items-center gap-8 group">
-                <div className="w-16 h-16 rounded-[1.5rem] bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl shrink-0 shadow-sm group-hover:rotate-12 transition-transform duration-500"><FiTrash2 /></div>
+            <div className="p-10 bg-slate-50/50 dark:bg-slate-800/50 rounded-[3rem] border border-slate-100 dark:border-slate-700 flex items-center gap-8 group">
+                <div className="w-16 h-16 rounded-[1.5rem] bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl shrink-0 shadow-sm group-hover:rotate-12 transition-transform duration-500"><FiTrash2 /></div>
                 <div>
-                    <p className="text-xs font-black text-slate-900 uppercase tracking-widest">Client-Side Persistence Active</p>
-                    <p className="text-[10px] text-slate-400 font-bold mt-2 uppercase tracking-tight leading-relaxed">Log data is stored in the local storage instance of this browser. No external telemetry is active.</p>
+                    <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Client-Side Persistence Active</p>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-2 uppercase tracking-tight leading-relaxed">Log data is stored in the local storage instance of this browser. No external telemetry is active.</p>
                 </div>
             </div>
         </div>

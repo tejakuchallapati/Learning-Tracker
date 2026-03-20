@@ -93,8 +93,8 @@ const TopicContent = () => {
                 </button>
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
                     <div className="max-w-3xl">
-                        <h1 className="text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">{topic.title}</h1>
-                        <p className="text-slate-500 mt-6 text-xl leading-relaxed font-medium">{topic.detail}</p>
+                        <h1 className="text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">{topic.title}</h1>
+                        <p className="text-slate-500 dark:text-slate-400 mt-6 text-xl leading-relaxed font-medium">{topic.detail}</p>
                     </div>
                     <div className="flex flex-col gap-4 shrink-0">
                         <button 
@@ -114,38 +114,38 @@ const TopicContent = () => {
             </div>
 
             {/* Content Rendering Zone */}
-            <div className="bg-white rounded-[4rem] border border-gray-100 shadow-sm overflow-hidden premium-shadow">
+            <div className="bg-white dark:bg-slate-900 rounded-[4rem] border border-gray-100 dark:border-slate-800 shadow-sm overflow-hidden premium-shadow">
                 <div className="p-12 md:p-20 space-y-16 lg:space-y-24">
                     <div className="space-y-8">
-                        <div className="inline-flex items-center gap-2 px-4 py-1 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-black uppercase tracking-widest">
+                        <div className="inline-flex items-center gap-2 px-4 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-[10px] font-black uppercase tracking-widest">
                             <FiBookOpen /> Architecture &amp; Logic
                         </div>
-                        <h2 className="text-4xl font-black text-slate-900 leading-tight">Mastering the Core</h2>
-                        <div className="prose prose-slate max-w-none text-slate-600 leading-[1.8] text-lg font-medium">
+                        <h2 className="text-4xl font-black text-slate-900 dark:text-white leading-tight">Mastering the Core</h2>
+                        <div className="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 leading-[1.8] text-lg font-medium">
                             {topic.deepContent?.description || 'In-depth technical analysis focusing on architecture, implementation patterns, and industry best practices. This section covers the fundamental internal mechanics and how this technology integrates into modern production environments.'}
                         </div>
                     </div>
 
                     {topic.deepContent?.table && (
                         <div className="space-y-8">
-                            <h3 className="text-2xl font-black text-slate-900 flex items-center gap-4">
-                                <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl"><FiLayout size={20} /></div>
+                            <h3 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-4">
+                                <div className="p-3 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-2xl"><FiLayout size={20} /></div>
                                 Performance &amp; Structure
                             </h3>
-                            <div className="overflow-x-auto rounded-[2.5rem] border border-slate-100 bg-slate-50/30 p-2">
-                                <table className="w-full text-left border-collapse">
+                            <div className="overflow-x-auto rounded-[2.5rem] border border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-800/30 p-2">
+                                <table className="w-full text-left border-collapse dark:text-slate-300">
                                     <thead>
                                         <tr>
                                             {topic.deepContent.table.headers.map((h, i) => (
-                                                <th key={i} className="px-8 py-6 text-[10px] font-black text-slate-400 border-b border-slate-100 uppercase tracking-widest">{h}</th>
+                                                <th key={i} className="px-8 py-6 text-[10px] font-black text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-800 uppercase tracking-widest">{h}</th>
                                             ))}
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {topic.deepContent.table.rows.map((row, i) => (
-                                            <tr key={i} className="hover:bg-white transition-all group">
+                                            <tr key={i} className="hover:bg-white dark:hover:bg-slate-800 transition-all group border-b border-slate-50/50 dark:border-slate-800/50 last:border-none">
                                                 {row.map((cell, j) => (
-                                                    <td key={j} className="px-8 py-6 text-sm font-bold text-slate-700 border-b border-slate-50/50 group-last:border-none">{cell}</td>
+                                                    <td key={j} className="px-8 py-6 text-sm font-bold text-slate-700 dark:text-slate-400">{cell}</td>
                                                 ))}
                                             </tr>
                                         ))}
@@ -157,8 +157,8 @@ const TopicContent = () => {
 
                     {topic.deepContent?.code && (
                         <div className="space-y-8">
-                            <h3 className="text-2xl font-black text-slate-900 flex items-center gap-4">
-                                <div className="p-3 bg-rose-50 text-rose-600 rounded-2xl"><FiSearch size={20} /></div>
+                            <h3 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-4">
+                                <div className="p-3 bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-2xl"><FiSearch size={20} /></div>
                                 Implementation Snippet
                             </h3>
                             <div className="bg-slate-900 rounded-[3rem] p-10 shadow-3xl relative overflow-hidden">
@@ -178,11 +178,11 @@ const TopicContent = () => {
                         </div>
                     )}
 
-                    <div className="pt-16 border-t border-slate-100 space-y-10">
+                    <div className="pt-16 border-t border-slate-100 dark:border-slate-800 space-y-10">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                             <div>
-                                <h3 className="text-3xl font-black text-slate-900 tracking-tight">Expert Curations</h3>
-                                <p className="text-slate-500 mt-2 text-lg font-medium">Industry-vetted channels for detailed visual mastery.</p>
+                                <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Expert Curations</h3>
+                                <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg font-medium">Industry-vetted channels for detailed visual mastery.</p>
                             </div>
                             <div className="px-8 py-4 bg-rose-50 text-rose-600 rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 border border-rose-100">
                                 <FiPlay size={16} /> Premium Sources
@@ -191,14 +191,14 @@ const TopicContent = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {course.topChannels?.map((channel, i) => (
                                 <a key={i} href={channel.url} target="_blank" rel="noopener noreferrer"
-                                    className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 hover:border-rose-200 hover:bg-white hover:shadow-2xl hover:shadow-rose-500/5 transition-all flex items-center gap-6 group btn-hover-scale"
+                                    className="p-8 bg-slate-50 dark:bg-slate-800 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 hover:border-rose-200 dark:hover:border-rose-500/50 hover:bg-white dark:hover:bg-slate-700 hover:shadow-2xl hover:shadow-rose-500/5 transition-all flex items-center gap-6 group btn-hover-scale"
                                 >
                                     <div className="w-16 h-16 rounded-[1.5rem] bg-rose-600 flex items-center justify-center text-white text-2xl shadow-xl shadow-rose-200 group-hover:rotate-12 transition-all">
                                         <FiPlay />
                                     </div>
                                     <div className="min-w-0">
-                                        <p className="text-base font-black text-slate-900 truncate leading-tight">{channel.name}</p>
-                                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-2 group-hover:text-rose-600 transition-colors">Start Workshop</p>
+                                        <p className="text-base font-black text-slate-900 dark:text-white truncate leading-tight">{channel.name}</p>
+                                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest mt-2 group-hover:text-rose-600 transition-colors">Start Workshop</p>
                                     </div>
                                 </a>
                             ))}
@@ -225,7 +225,7 @@ const TopicContent = () => {
             </div>
 
             {/* AI Mentor Slide-In Panel */}
-            <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col transition-transform duration-500 ease-in-out ${mentorOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl z-50 flex flex-col transition-transform duration-500 ease-in-out ${mentorOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-6 flex items-center justify-between shrink-0">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
@@ -241,10 +241,10 @@ const TopicContent = () => {
                     </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-50">
+                <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-50 dark:bg-slate-950">
                     {messages.map((msg, i) => (
                         <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                            <div className={`max-w-[85%] px-5 py-4 rounded-3xl text-sm font-medium leading-relaxed whitespace-pre-wrap ${msg.role === 'user' ? 'bg-indigo-600 text-white rounded-br-lg' : 'bg-white text-slate-800 rounded-bl-lg shadow-sm border border-slate-100'}`}>
+                            <div className={`max-w-[85%] px-5 py-4 rounded-3xl text-sm font-medium leading-relaxed whitespace-pre-wrap ${msg.role === 'user' ? 'bg-indigo-600 text-white rounded-br-lg' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-bl-lg shadow-sm border border-slate-100 dark:border-slate-700'}`}>
                                 {msg.content}
                             </div>
                         </div>
@@ -272,11 +272,11 @@ const TopicContent = () => {
                     </div>
                 )}
 
-                <div className="p-4 bg-white border-t border-slate-100 shrink-0">
-                    <div className="flex items-center gap-3 bg-slate-50 rounded-2xl p-3 border border-slate-200 focus-within:border-indigo-300 focus-within:ring-2 focus-within:ring-indigo-50 transition-all">
+                <div className="p-4 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 shrink-0">
+                    <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 rounded-2xl p-3 border border-slate-200 dark:border-slate-700 focus-within:border-indigo-300 focus-within:ring-2 focus-within:ring-indigo-50 transition-all">
                         <input type="text" value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && sendMessage()}
                             placeholder={`Ask about ${topic.title}...`}
-                            className="flex-1 bg-transparent border-none text-sm font-medium outline-none placeholder-slate-400"
+                            className="flex-1 bg-transparent border-none text-sm font-medium outline-none placeholder-slate-400 dark:text-white"
                         />
                         <button onClick={sendMessage} disabled={aiLoading || !input.trim()}
                             className="w-10 h-10 bg-indigo-600 text-white rounded-xl flex items-center justify-center disabled:opacity-40 hover:bg-indigo-700 transition-all shrink-0">
