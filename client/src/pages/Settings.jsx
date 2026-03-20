@@ -23,10 +23,10 @@ const Settings = () => {
 
     return (
         <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000 pb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-4 border-b border-slate-100">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div className="max-w-2xl">
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight leading-tight">Preferences</h1>
-                    <p className="text-slate-500 mt-4 text-xl font-medium leading-relaxed">Customize your learning environment and notification behavior.</p>
+                    <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Preferences</h1>
+                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Customize your learning environment and notification behavior.</p>
                 </div>
                 <div className="flex gap-4">
                     <button 
@@ -48,7 +48,7 @@ const Settings = () => {
                             <div className="w-28 h-28 rounded-[2.5rem] bg-indigo-600 flex items-center justify-center text-white text-4xl font-black shadow-3xl mb-8 group-hover:rotate-3 transition-transform">
                                 {user?.name?.[0] || 'G'}
                             </div>
-                            <h3 className="text-2xl font-black text-slate-900 tracking-tight">{user?.name || 'Guest User'}</h3>
+                            <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{user?.name || 'Guest User'}</h3>
                             <p className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em] mt-2 leading-none">Senior Architect</p>
                             <div className="h-px w-16 bg-slate-100 my-8"></div>
                             <p className="text-sm font-medium text-slate-400 leading-relaxed italic px-4">"Engineering the future, one module at a time."</p>
@@ -68,8 +68,8 @@ const Settings = () => {
                 <div className="lg:col-span-2 space-y-10">
                     {/* Identity Section */}
                     <div className="glass-card premium-shadow rounded-[4rem] p-12 border border-white/50">
-                        <h3 className="text-2xl font-black text-slate-900 mb-10 flex items-center gap-5">
-                            <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shadow-sm"><FiUser size={20} /></div>
+                        <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-10 flex items-center gap-5">
+                            <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center shadow-sm"><FiUser size={20} /></div>
                             Identity & Bio
                         </h3>
                         
@@ -86,7 +86,7 @@ const Settings = () => {
                                 <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Primary Email</label>
                                 <div className="relative">
                                     <FiMail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" />
-                                    <input type="email" defaultValue="guest@devtrack.io" className="w-full bg-slate-50/50 border border-slate-100/50 rounded-[1.5rem] p-5 pl-16 text-sm font-black focus:ring-4 focus:ring-indigo-50 transition-all" />
+                                    <input type="email" defaultValue={user?.email || "guest@devtrack.io"} className="w-full bg-slate-50/50 dark:bg-slate-800 border border-slate-100/50 dark:border-slate-700 rounded-[1.5rem] p-5 pl-16 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-indigo-50 transition-all" />
                                 </div>
                             </div>
                         </div>

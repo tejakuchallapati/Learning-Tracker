@@ -32,14 +32,14 @@ const Insights = () => {
 
     return (
         <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-6 border-b border-slate-100">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-6 border-b border-slate-100 dark:border-slate-800">
                 <div className="max-w-2xl">
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight leading-tight">Mastery Analytics</h1>
-                    <p className="text-slate-500 mt-4 text-xl font-medium leading-relaxed">Advanced behavioral tracking and engineering growth statistics.</p>
+                    <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Mastery Analytics</h1>
+                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Advanced behavioral tracking and engineering growth statistics.</p>
                 </div>
                 <button 
                     onClick={() => window.print()}
-                    className="flex items-center gap-3 px-8 py-4 bg-white text-slate-900 rounded-[2rem] font-black text-sm hover:bg-slate-50 transition-all shadow-xl shadow-slate-200/50 border border-slate-200 btn-hover-scale shrink-0 print:hidden"
+                    className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-[2rem] font-black text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200 dark:border-slate-700 btn-hover-scale shrink-0 print:hidden"
                 >
                     <FiDownload size={18} /> Export PDF Report
                 </button>
@@ -48,8 +48,8 @@ const Insights = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Focus Pie */}
                 <div className="lg:col-span-1 glass-card premium-shadow p-12 rounded-[4rem] border border-white/50 space-y-10 flex flex-col items-center">
-                    <h3 className="text-xs font-black text-slate-900 flex items-center gap-4 self-start uppercase tracking-[0.2em]">
-                        <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shadow-sm"><FiActivity size={18} /></div>
+                    <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-4 self-start uppercase tracking-[0.2em]">
+                        <div className="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center shadow-sm"><FiActivity size={18} /></div>
                         Focus Allocation
                     </h3>
                     <div className="w-full h-80 relative">
@@ -127,10 +127,10 @@ const Insights = () => {
 
             {/* 🏆 Trophy Room */}
             <div className="space-y-8">
-                <div className="flex items-end justify-between border-b border-slate-100 pb-6">
+                <div className="flex items-end justify-between border-b border-slate-100 dark:border-slate-800 pb-6">
                     <div>
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-4">
-                            <div className="w-12 h-12 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center shadow-sm text-2xl">🏆</div>
+                        <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-4">
+                            <div className="w-12 h-12 bg-amber-50 dark:bg-amber-900/30 text-amber-500 dark:text-amber-400 rounded-2xl flex items-center justify-center shadow-sm text-2xl">🏆</div>
                             Trophy Room
                         </h2>
                         <p className="text-slate-500 mt-2 font-medium">{earnedCount} of {badges.length} achievements unlocked. Keep learning!</p>

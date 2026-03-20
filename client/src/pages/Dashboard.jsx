@@ -85,10 +85,10 @@ const Dashboard = () => {
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-2 border-b border-gray-100/50">
                 <div>
-                    <h1 className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-                        Dashboard <span className="text-base font-medium px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full border border-indigo-100/50 uppercase tracking-widest">Active Focus</span>
+                    <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+                        Dashboard <span className="text-base font-medium px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full border border-indigo-100/50 dark:border-indigo-800 uppercase tracking-widest">Active Focus</span>
                     </h1>
-                    <p className="text-slate-500 mt-2 font-medium">Precision learning dashboard for professional mastery.</p>
+                    <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">Precision learning dashboard for professional mastery.</p>
                 </div>
                 <div className="flex items-center gap-4">
                     <div className="flex -space-x-3">
@@ -110,7 +110,7 @@ const Dashboard = () => {
 
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="glass-card premium-shadow p-8 rounded-[2.5rem] group hover:bg-white transition-all cursor-default">
+                <div className="glass-card premium-shadow p-8 rounded-[2.5rem] group hover:bg-white dark:hover:bg-slate-800/50 transition-all cursor-default">
                     <div className="flex items-center justify-between mb-6">
                         <div className="p-4 bg-indigo-50 text-indigo-600 rounded-[1.5rem] group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500">
                             <FiClock size={24} />
@@ -120,7 +120,7 @@ const Dashboard = () => {
                             <p className="text-xs font-bold text-emerald-500">+12% Peak</p>
                         </div>
                     </div>
-                    <h3 className="text-3xl font-black text-slate-900">{data?.totalStudyHours ?? 0}h</h3>
+                    <h3 className="text-3xl font-black text-slate-900 dark:text-white">{data?.totalStudyHours ?? 0}h</h3>
                     <p className="text-sm font-semibold text-slate-500 mt-1">Total Study Time</p>
                 </div>
 
@@ -167,10 +167,10 @@ const Dashboard = () => {
                 {/* Left Column: Activity & Goals */}
                 <div className="lg:col-span-8 space-y-8">
                     {/* Activity Chart */}
-                    <div className="bg-white p-10 rounded-[3.5rem] border border-gray-100 shadow-sm relative overflow-hidden">
+                    <div className="bg-white dark:bg-slate-900 p-10 rounded-[3.5rem] border border-gray-100 dark:border-slate-800 shadow-sm relative overflow-hidden">
                          <div className="flex items-center justify-between mb-10">
                             <div>
-                                <h3 className="text-2xl font-black text-slate-900">Focus Distribution</h3>
+                                <h3 className="text-2xl font-black text-slate-900 dark:text-white">Focus Distribution</h3>
                                 <p className="text-sm font-medium text-slate-500 mt-1">Detailed activity analysis by days</p>
                             </div>
                             <div className="flex bg-slate-50 p-1 rounded-2xl border border-slate-100">

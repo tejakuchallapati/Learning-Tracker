@@ -14,14 +14,14 @@ cron.schedule('0 0 * * *', async () => {
 });
 
 // Schedule a daily job at 8:00 AM server time
-cron.schedule('0 8 * * *', async () => {
+cron.schedule('* * * * *', async () => {
     console.log('Running daily goal reminder check...');
 
     try {
         // Find all daily goals that are incomplete and have email reminders enabled
-        const incompleteGoals = await DailyGoal.find({ 
-            completed: false, 
-            emailReminders: true 
+        const incompleteGoals = await DailyGoal.find({
+            completed: false,
+            emailReminders: true
         }).populate('userId', 'name email');
 
         if (incompleteGoals.length === 0) {
@@ -45,7 +45,7 @@ cron.schedule('0 8 * * *', async () => {
         // Send an email to each user summarizing their pending tasks
         for (const userId in goalsByUser) {
             const { user, goals } = goalsByUser[userId];
-            
+
             const goalListText = goals.map(g => {
                 let streakText = "";
                 if (g.streak > 0) {
@@ -53,7 +53,7 @@ cron.schedule('0 8 * * *', async () => {
                 }
                 return `- ${g.title}${streakText}`;
             }).join('\n');
-            
+
             const message = `Hello ${user.name},\n\nYou have some pending daily goals in DevTrack to complete today:\n\n${goalListText}\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe DevTrack Team`;
 
             try {

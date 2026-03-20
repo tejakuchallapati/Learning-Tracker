@@ -80,16 +80,16 @@ const DailyGoalsSection = () => {
     }
 
     return (
-        <div className="glass-card premium-shadow p-12 rounded-[4rem] border border-white/50 space-y-8 mt-12 bg-white">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-6">
+        <div className="glass-card premium-shadow p-12 rounded-[4rem] border border-white/50 space-y-8 mt-12 bg-white dark:bg-slate-900 transition-colors">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-6">
                 <div>
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-4">
-                        <div className="w-12 h-12 bg-indigo-50 text-indigo-500 rounded-2xl flex items-center justify-center shadow-sm text-2xl">📝</div>
+                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-4">
+                        <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-500 dark:text-indigo-400 rounded-2xl flex items-center justify-center shadow-sm text-2xl">📝</div>
                         Daily Goals & Reminders
                     </h2>
-                    <p className="text-slate-500 mt-2 font-medium">Keep track of your day-to-day tasks like LeetCode or subject studies.</p>
+                    <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">Keep track of your day-to-day tasks like LeetCode or subject studies.</p>
                 </div>
-                <div className="px-6 py-3 bg-indigo-50 text-indigo-600 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-indigo-100">
+                <div className="px-6 py-3 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-indigo-100 dark:border-indigo-800">
                     {goals.filter(g => g.completed).length} / {goals.length} Completed
                 </div>
             </div>
@@ -142,7 +142,7 @@ const DailyGoalsSection = () => {
                                 >
                                     {goal.completed ? <FiCheckCircle size={24} /> : <FiCircle size={24} />}
                                 </button>
-                                <span className={`text-base font-medium transition-all ${goal.completed ? 'text-slate-400 line-through' : 'text-slate-800'}`}>
+                                <span className={`text-base font-medium transition-all ${goal.completed ? 'text-slate-400 dark:text-slate-600 line-through' : 'text-slate-800 dark:text-slate-200'}`}>
                                     {goal.title}
                                 </span>
                                 {goal.streak > 0 && (

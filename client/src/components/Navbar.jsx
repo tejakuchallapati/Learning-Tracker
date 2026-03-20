@@ -18,9 +18,11 @@ const Navbar = () => {
         if (darkMode) {
             document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
+            console.log('Theme: Dark mode applied');
         } else {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
+            console.log('Theme: Light mode applied');
         }
     }, [darkMode]);
 
@@ -55,7 +57,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className="h-20 bg-white/80 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-8 sticky top-0 z-30">
+        <header className="h-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-100 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-30 transition-colors">
             {/* Advanced Search */}
             <div className="relative flex-1 max-w-md">
                 <div className="flex items-center gap-6 bg-slate-50/50 px-5 py-3 rounded-[1.5rem] group focus-within:ring-2 focus-within:ring-indigo-100 transition-all border border-slate-100/50">

@@ -14,7 +14,7 @@ const markComplete = asyncHandler(async (req, res) => {
         throw new Error('Please provide goalId');
     }
 
-    // Ensure goal exist and belongs to user
+    // Ensure goal exists and belongs to user
     const goal = await LearningGoal.findById(goalId);
     if (!goal || goal.userId.toString() !== req.user.id) {
         res.status(404);
