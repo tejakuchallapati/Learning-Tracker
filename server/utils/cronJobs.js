@@ -14,7 +14,7 @@ cron.schedule('0 0 * * *', async () => {
 });
 
 // Schedule a daily job at 8:00 AM server time
-cron.schedule('* * * * *', async () => {
+cron.schedule('0 8 * * *', async () => {
     console.log('Running daily goal reminder check...');
 
     try {
