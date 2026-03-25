@@ -10,10 +10,7 @@ import GoalCard from '../components/GoalCard';
 import { FiClock, FiTarget, FiActivity, FiCalendar, FiPlus, FiArrowRight } from 'react-icons/fi';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const dummyChartData = [
-    { name: 'Mon', hours: 2 }, { name: 'Tue', hours: 3 }, { name: 'Wed', hours: 1 },
-    { name: 'Thu', hours: 4 }, { name: 'Fri', hours: 2 }, { name: 'Sat', hours: 5 }, { name: 'Sun', hours: 3 }
-];
+const dummyChartData = [];
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext);
@@ -65,7 +62,7 @@ const Dashboard = () => {
                 }
             } catch (err) {
                 console.warn('Failed to load real dashboard data, using initial state', err);
-                setData({ totalStudyHours: 42, weeklyStudyHours: 12, completionRate: 75 });
+                setData({ totalStudyHours: 0, weeklyStudyHours: 0, completionRate: 0 });
                 setGoals([]);
             } finally {
                 setLoading(false);
@@ -92,11 +89,7 @@ const Dashboard = () => {
                 </div>
                 <div className="flex items-center gap-4">
                     <div className="flex -space-x-3">
-                        {(user?.name ? [1, 2, 3] : []).map(i => (
-                            <div key={i} className="w-10 h-10 rounded-full border-4 border-white bg-indigo-100 flex items-center justify-center text-[10px] font-bold text-indigo-600 shadow-sm overflow-hidden">
-                                <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="user" />
-                            </div>
-                        ))}
+                        {/* Users avatars removed */}
                     </div>
                     <div className="h-8 w-px bg-slate-200 mx-2"></div>
                     <button 
@@ -155,7 +148,7 @@ const Dashboard = () => {
                         <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden mt-2">
                             <div 
                                 className="bg-indigo-600 h-full rounded-full shadow-[0_0_15px_rgba(99,102,241,0.5)] transition-all duration-1000"
-                                style={{ width: `${data?.completionRate || 65}%` }}
+                                style={{ width: `${data?.completionRate || 0}%` }}
                             ></div>
                         </div>
                     </div>

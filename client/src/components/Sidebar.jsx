@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { FiLayout, FiBookOpen, FiActivity, FiSettings, FiEdit, FiCpu, FiBookmark } from 'react-icons/fi';
+import logo from '../assets/logo.png';
 
 const Sidebar = () => {
     const navItems = [
@@ -14,8 +15,9 @@ const Sidebar = () => {
 
     return (
         <aside className="w-72 bg-slate-900 text-white flex-shrink-0 hidden md:flex flex-col border-r border-slate-800">
-            <div className="h-24 flex items-center px-8">
-                <h1 className="text-3xl font-black tracking-tighter text-indigo-500">DevTrack<span className="text-white">.</span></h1>
+            <div className="h-24 flex items-center px-6 gap-3">
+                <img src={logo} alt="Learning Tracker Logo" className="w-10 h-10 object-contain" />
+                <h1 className="text-2xl font-black tracking-tighter text-white">Learning<br/><span className="text-indigo-400">Tracker</span></h1>
             </div>
 
             <nav className="flex-1 py-6 px-3 space-y-2">
@@ -37,7 +39,7 @@ const Sidebar = () => {
             </nav>
 
             <div className="p-4 bg-indigo-950 text-xs text-indigo-300 text-center border-t border-indigo-800">
-                &copy; {new Date().getFullYear()} DevTrack
+                &copy; {new Date().getFullYear()} Learning Tracker
             </div>
         </aside>
     );

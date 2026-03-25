@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { FiArrowRight, FiCode, FiCpu, FiLayout, FiSmartphone } from 'react-icons/fi';
+import logo from '../assets/logo.png';
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -22,8 +23,8 @@ const Landing = () => {
             {/* Navbar */}
             <nav className="relative z-10 px-8 py-8 flex items-center justify-between max-w-7xl mx-auto">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-500/50">D</div>
-                    <span className="text-2xl font-black tracking-tighter">Dev Learning</span>
+                    <img src={logo} alt="Learning Tracker Logo" className="w-10 h-10 object-contain" />
+                    <span className="text-2xl font-black tracking-tighter">Learning Tracker</span>
                 </div>
                 <div className="hidden md:flex items-center gap-10 text-sm font-bold text-slate-400 capitalize">
                     <a href="#" className="hover:text-white transition-colors">Courses</a>

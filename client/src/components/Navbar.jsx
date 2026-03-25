@@ -135,8 +135,7 @@ const Navbar = () => {
                     {showProfileMenu && (
                         <div className="absolute top-full right-0 mt-3 w-64 bg-white rounded-3xl shadow-2xl border border-gray-100 p-3 z-50 animate-in fade-in slide-in-from-bottom-2">
                             <div className="p-4 border-b border-gray-50 mb-2">
-                                <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Signed in as</p>
-                                <p className="text-sm font-black text-gray-900 truncate">guest@devtrack.io</p>
+                                <p className="text-sm font-black text-gray-900 truncate">{user?.email || ''}</p>
                             </div>
                             <button onClick={() => { setShowProfileMenu(false); navigate('/settings'); }} className="w-full text-left p-3 hover:bg-indigo-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-gray-700">
                                 <FiUser className="text-indigo-600" /> My Profile

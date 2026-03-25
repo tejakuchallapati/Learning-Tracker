@@ -48,10 +48,10 @@ const Settings = () => {
                             <div className="w-28 h-28 rounded-[2.5rem] bg-indigo-600 flex items-center justify-center text-white text-4xl font-black shadow-3xl mb-8 group-hover:rotate-3 transition-transform">
                                 {user?.name?.[0] || 'G'}
                             </div>
-                            <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{user?.name || 'Guest User'}</h3>
-                            <p className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em] mt-2 leading-none">Senior Architect</p>
+                            <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{user?.name}</h3>
+                            <p className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em] mt-2 leading-none">{user?.role}</p>
                             <div className="h-px w-16 bg-slate-100 my-8"></div>
-                            <p className="text-sm font-medium text-slate-400 leading-relaxed italic px-4">"Engineering the future, one module at a time."</p>
+                            <p className="text-sm font-medium text-slate-400 leading-relaxed italic px-4">{user?.bio}</p>
                         </div>
                         
                         <div className="mt-10 pt-10 border-t border-slate-50 space-y-3">
@@ -76,17 +76,17 @@ const Settings = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div className="space-y-3">
                                 <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Handle</label>
-                                <input type="text" defaultValue={user?.name || 'Guest User'} className="w-full bg-slate-50/50 border border-slate-100/50 rounded-[1.5rem] p-5 text-sm font-black focus:ring-4 focus:ring-indigo-50 transition-all font-mono" />
+                                <input type="text" defaultValue={user?.name || ''} className="w-full bg-slate-50/50 border border-slate-100/50 rounded-[1.5rem] p-5 text-sm font-black focus:ring-4 focus:ring-indigo-50 transition-all font-mono" />
                             </div>
                             <div className="space-y-3">
                                 <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Specialization</label>
-                                <input type="text" defaultValue="Full Stack Developer" className="w-full bg-slate-50/50 border border-slate-100/50 rounded-[1.5rem] p-5 text-sm font-black focus:ring-4 focus:ring-indigo-50 transition-all font-mono" />
+                                <input type="text" defaultValue={user?.specialization || ''} className="w-full bg-slate-50/50 border border-slate-100/50 rounded-[1.5rem] p-5 text-sm font-black focus:ring-4 focus:ring-indigo-50 transition-all font-mono" />
                             </div>
                             <div className="md:col-span-2 space-y-3">
                                 <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Primary Email</label>
                                 <div className="relative">
                                     <FiMail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" />
-                                    <input type="email" defaultValue={user?.email || "guest@devtrack.io"} className="w-full bg-slate-50/50 dark:bg-slate-800 border border-slate-100/50 dark:border-slate-700 rounded-[1.5rem] p-5 pl-16 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-indigo-50 transition-all" />
+                                    <input type="email" defaultValue={user?.email || ""} className="w-full bg-slate-50/50 dark:bg-slate-800 border border-slate-100/50 dark:border-slate-700 rounded-[1.5rem] p-5 pl-16 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-indigo-50 transition-all" />
                                 </div>
                             </div>
                         </div>

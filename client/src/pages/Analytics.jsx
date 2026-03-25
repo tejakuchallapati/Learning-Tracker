@@ -4,10 +4,7 @@ import ChartCard from '../components/ChartCard';
 import ProgressBar from '../components/ProgressBar';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const dummyConsistencyData = [
-    { day: 'W1', score: 80 }, { day: 'W2', score: 90 }, { day: 'W3', score: 70 },
-    { day: 'W4', score: 100 }
-];
+const dummyConsistencyData = [];
 
 const Analytics = () => {
     const [analytics, setAnalytics] = useState(null);

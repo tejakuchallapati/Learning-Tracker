@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom';
 import { FiTarget, FiActivity, FiPieChart } from 'react-icons/fi';
+import logo from '../assets/logo.png';
 
 const LandingPage = () => {
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
             {/* Navbar */}
             <nav className="flex items-center justify-between p-6 max-w-7xl w-full mx-auto">
-                <h1 className="text-2xl font-bold tracking-tight text-indigo-900">DevTrack</h1>
+                <div className="flex items-center gap-3">
+                    <img src={logo} alt="Learning Tracker Logo" className="h-10 w-auto" />
+                    <h1 className="text-2xl font-bold tracking-tight text-indigo-900">Learning Tracker</h1>
+                </div>
                 <div className="flex gap-4">
                     <Link to="/login" className="text-gray-600 hover:text-indigo-600 font-medium px-4 py-2">
                         Login
@@ -20,7 +24,7 @@ const LandingPage = () => {
             {/* Hero Section */}
             <main className="flex-1 flex flex-col items-center justify-center text-center px-4 py-20">
                 <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight max-w-4xl mb-6 leading-tight">
-                    Master Your Tech Career with <span className="text-indigo-600">DevTrack</span>
+                    Master Your Tech Career with <span className="text-indigo-600">Learning Tracker</span>
                 </h1>
                 <p className="text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
                     The ultimate productivity platform for developers to track learning progress, monitor daily study hours, and crush technology goals.
@@ -72,7 +76,7 @@ const LandingPage = () => {
 
             {/* Footer */}
             <footer className="bg-gray-900 text-gray-400 py-12 text-center">
-                <p>&copy; {new Date().getFullYear()} DevTrack. All rights reserved.</p>
+                <p>&copy; {new Date().getFullYear()} Learning Tracker. All rights reserved.</p>
             </footer>
         </div>
     );

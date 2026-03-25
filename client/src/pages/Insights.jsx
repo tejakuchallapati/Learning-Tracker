@@ -3,30 +3,20 @@ import { FiActivity, FiAward, FiClock, FiList, FiCheckCircle, FiLock, FiDownload
 import DailyGoalsSection from '../components/DailyGoalsSection';
 
 const badges = [
-    { icon: '🚀', name: 'First Launch',    desc: 'Logged first study session',    earned: true },
-    { icon: '🔥', name: '7-Day Streak',    desc: 'Studied 7 days in a row',        earned: true },
-    { icon: '⚡', name: 'Speed Learner',   desc: 'Completed a topic in under 1 day', earned: true },
+    { icon: '🚀', name: 'First Launch',    desc: 'Logged first study session',    earned: false },
+    { icon: '🔥', name: '7-Day Streak',    desc: 'Studied 7 days in a row',        earned: false },
+    { icon: '⚡', name: 'Speed Learner',   desc: 'Completed a topic in under 1 day', earned: false },
     { icon: '🏆', name: 'Track Master',    desc: 'Completed an entire roadmap',   earned: false },
     { icon: '💯', name: '100 Hours',       desc: 'Logged 100+ study hours',        earned: false },
-    { icon: '🧠', name: 'Deep Thinker',    desc: 'Used AI Mentor 10+ times',       earned: true },
+    { icon: '🧠', name: 'Deep Thinker',    desc: 'Used AI Mentor 10+ times',       earned: false },
     { icon: '📚', name: 'Bookworm',        desc: 'Saved 5+ resources to library',  earned: false },
     { icon: '🌟', name: 'Consistent Pro',  desc: 'Maintained 30-day streak',       earned: false },
 ];
 
 const Insights = () => {
-    const timeData = [
-        { name: 'Core Foundations', value: 35, color: '#6366F1' },
-        { name: 'Frontend Tech',    value: 45, color: '#4F46E5' },
-        { name: 'System Design',    value: 15, color: '#4338CA' },
-        { name: 'Soft Skills',      value: 5,  color: '#A5B4FC' }
-    ];
+    const timeData = [];
 
-    const completedTopics = [
-        { id: 1, title: 'CSS Grid Mastery',      date: '2024-03-12', timeSpent: '4h 20m', status: 'Mastered' },
-        { id: 2, title: 'React Hooks Deep Dive', date: '2024-03-11', timeSpent: '6h 45m', status: 'Excellent' },
-        { id: 3, title: 'HTTP/HTTPS Protocol',   date: '2024-03-10', timeSpent: '2h 15m', status: 'Passed' },
-        { id: 4, title: 'Modern JS Internals',   date: '2024-03-09', timeSpent: '5h 10m', status: 'Mastered' }
-    ];
+    const completedTopics = [];
 
     const earnedCount = badges.filter(b => b.earned).length;
 
@@ -65,7 +55,7 @@ const Insights = () => {
                             </PieChart>
                         </ResponsiveContainer>
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-                            <p className="text-2xl font-black text-slate-900 leading-none">88%</p>
+                            <p className="text-2xl font-black text-slate-900 leading-none">0%</p>
                             <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-1">Consistency</p>
                         </div>
                     </div>
@@ -110,10 +100,10 @@ const Insights = () => {
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 {[
-                    { icon: <FiClock />,    label: 'Productive Hours',  val: '142.5' },
-                    { icon: <FiActivity />, label: 'Avg Consistency',   val: '94%' },
+                    { icon: <FiClock />,    label: 'Productive Hours',  val: '0' },
+                    { icon: <FiActivity />, label: 'Avg Consistency',   val: '0%' },
                     { icon: <FiAward />,    label: 'badges Earned',     val: `${earnedCount}/${badges.length}` },
-                    { icon: <FiActivity />, label: 'Target Accuracy',   val: '88%' }
+                    { icon: <FiActivity />, label: 'Target Accuracy',   val: '0%' }
                 ].map((stat, i) => (
                     <div key={i} className="glass-card premium-shadow p-10 rounded-[3rem] border border-white/50 dark:border-slate-800 flex flex-col items-center text-center group hover:-translate-y-2 transition-all">
                         <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl mb-8 shadow-sm group-hover:bg-indigo-600 group-hover:text-white group-hover:rotate-6 transition-all duration-500">
