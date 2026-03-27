@@ -98,8 +98,8 @@ const stack = ['HTML', 'CSS', 'JS', 'React', 'Node'];
 stack.forEach(tech => master(tech));`}
                                 </pre>
                             </div>
-                            <div className="relative z-10 w-full h-full bg-slate-950/50 rounded-2xl border border-white/5 flex items-center justify-center text-7xl p-20 text-center animate-rocket">
-                                🚀
+                            <div className="relative z-10 w-full h-full bg-slate-950/50 rounded-2xl border border-white/5 flex items-center justify-center text-7xl p-20 text-center">
+                                <span className="animate-rocket">🚀</span>
                             </div>
                         </div>
                     </div>

@@ -1,23 +1,24 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
+@import "tailwindcss";
 
-@keyframes rocket-float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-15px) rotate(2deg); }
-    50% { transform: translateY(0) rotate(-2deg); }
-    75% { transform: translateY(-10px) rotate(1deg); }
+@keyframes rocket-diagonal {
+    0% { transform: translate(-150%, 150%) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translate(150%, -150%) rotate(0deg); opacity: 0; }
 }
 
 @keyframes rocket-vibrate {
-    0% { transform: translate(0,0); }
-    25% { transform: translate(1px, -1px); }
-    50% { transform: translate(-1px, 1px); }
-    75% { transform: translate(1px, 1px); }
-    100% { transform: translate(-1px, -1px); }
+    0% { margin: 0; }
+    25% { margin: 2px -2px 0 0; }
+    50% { margin: -2px 2px 0 0; }
+    75% { margin: 2px 2px 0 0; }
+    100% { margin: -2px -2px 0 0; }
 }
 
 .animate-rocket {
-    animation: rocket-float 4s ease-in-out infinite, rocket-vibrate 0.1s linear infinite;
+    display: inline-block;
+    animation: rocket-diagonal 3s linear infinite, rocket-vibrate 0.1s linear infinite;
 }
 
 :root {
