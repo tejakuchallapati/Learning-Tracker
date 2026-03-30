@@ -164,7 +164,7 @@ const Progress = () => {
                     <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Focus Station</h1>
                     <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Precision learning via high-performance intervals and telemetry.</p>
                 </div>
-                <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-[1.5rem] border border-slate-200 dark:border-slate-700">
+                <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
                     <button 
                         onClick={() => switchMode('stopwatch')}
                         className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${timerMode === 'stopwatch' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'}`}
@@ -180,7 +180,7 @@ const Progress = () => {
                 </div>
             </div>
 
-            <div className={`p-12 rounded-[4rem] shadow-3xl relative overflow-hidden group transition-colors duration-700 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-900' : 'bg-slate-900'}`}>
+            <div className={`p-12 rounded-3xl shadow-3xl relative overflow-hidden group transition-colors duration-700 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-900' : 'bg-slate-900'}`}>
                 <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-[100px] -mr-48 -mt-48 group-hover:scale-150 transition-transform duration-1000 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-500/10' : 'bg-indigo-600/10'}`}></div>
                 
                 <div className="flex flex-col lg:flex-row gap-12 items-center justify-between relative z-10">
@@ -221,14 +221,14 @@ const Progress = () => {
                                 <button 
                                     onClick={() => setTimerActive(true)} 
                                     disabled={!activeGoalId} 
-                                    className={`px-10 py-5 text-white rounded-[2rem] font-black text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-20 flex items-center gap-3 btn-hover-scale ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-600 shadow-emerald-600/20' : 'bg-indigo-600 shadow-indigo-600/20'}`}
+                                    className={`px-10 py-5 text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-20 flex items-center gap-3 btn-hover-scale ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-600 shadow-emerald-600/20' : 'bg-indigo-600 shadow-indigo-600/20'}`}
                                 >
                                     <FiPlay size={16} /> Start Protocol
                                 </button>
                             ) : (
                                 <button 
                                     onClick={timerMode === 'stopwatch' ? handleStopTimer : () => setTimerActive(false)} 
-                                    className="px-10 py-5 bg-rose-600 text-white rounded-[2rem] font-black text-[10px] uppercase tracking-widest hover:bg-rose-700 transition-all shadow-2xl shadow-rose-600/20 flex items-center gap-3 btn-hover-scale"
+                                    className="px-10 py-5 bg-rose-600 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-rose-700 transition-all shadow-2xl shadow-rose-600/20 flex items-center gap-3 btn-hover-scale"
                                 >
                                     <FiPause size={16} /> {timerMode === 'stopwatch' ? 'Log & Reset' : 'Pause Protocol'}
                                 </button>
@@ -239,7 +239,7 @@ const Progress = () => {
                                         if (timerMode === 'stopwatch') setTime(0);
                                         else setPomoTimeLeft(pomoState === 'focus' ? 25*60 : 5*60);
                                     }} 
-                                    className="px-8 py-5 bg-slate-800 text-slate-400 rounded-[2rem] font-black text-[10px] uppercase tracking-widest hover:text-white transition-all border border-slate-700 flex items-center gap-2"
+                                    className="px-8 py-5 bg-slate-800 text-slate-400 rounded-xl font-black text-[10px] uppercase tracking-widest hover:text-white transition-all border border-slate-700 flex items-center gap-2"
                                 >
                                     <FiRotateCcw /> Reset
                                 </button>
@@ -254,7 +254,7 @@ const Progress = () => {
                     const pData = progressData[goal._id] || { completedDays: 0, completionPercent: 0, daysRemaining: goal.durationDays };
 
                     return (
-                        <div key={goal._id} className="glass-card premium-shadow p-10 rounded-[4rem] border border-white/50 relative overflow-hidden group">
+                        <div key={goal._id} className="glass-card premium-shadow p-10 rounded-3xl border border-white/50 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50/50 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
                             
                             <div className="flex justify-between items-start mb-10 relative z-10">
@@ -302,7 +302,7 @@ const Progress = () => {
                     );
                 })}
                 {goals.length === 0 && (
-                    <div className="col-span-2 p-24 text-center glass-card rounded-[4rem] border-2 border-dashed border-slate-200">
+                    <div className="col-span-2 p-24 text-center glass-card rounded-3xl border-2 border-dashed border-slate-200">
                         <p className="text-slate-400 font-black uppercase tracking-[0.2em]">No Active Mastery Protocols</p>
                         <button onClick={() => navigate('/courses')} className="mt-6 text-sm font-black text-indigo-600 hover:underline px-4">Initialize Roadmap</button>
                     </div>

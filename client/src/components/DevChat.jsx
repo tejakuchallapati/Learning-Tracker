@@ -50,7 +50,7 @@ const DevChat = () => {
     }
 
     return (
-        <div className="fixed bottom-10 right-10 w-96 h-[600px] bg-white rounded-[3rem] shadow-2xl border border-gray-100 flex flex-col z-50 animate-in slide-in-from-bottom-10 duration-500 overflow-hidden">
+        <div className="fixed bottom-10 right-10 w-96 h-[600px] bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col z-50 animate-in slide-in-from-bottom-10 duration-500 overflow-hidden">
             {/* Header */}
             <div className="bg-indigo-600 p-6 text-white flex items-center justify-between">
                 <div className="flex items-center gap-4">

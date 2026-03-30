@@ -25,12 +25,12 @@ const CourseCatalog = () => {
                     <p className="text-slate-500 mt-4 text-xl font-medium leading-relaxed">Systematic learning paths engineered for rapid technical progression.</p>
                 </div>
                 
-                <div className="flex flex-wrap gap-3 bg-slate-50 p-2 rounded-[2rem] border border-slate-100">
+                <div className="flex flex-wrap gap-3 bg-slate-50 p-2 rounded-xl border border-slate-100">
                     {categories.map(cat => (
                         <button
                             key={cat}
                             onClick={() => setCategory(cat)}
-                            className={`px-6 py-3 rounded-[1.5rem] text-xs font-black transition-all transform active:scale-95 ${
+                            className={`px-6 py-3 rounded-xl text-xs font-black transition-all transform active:scale-95 ${
                                 category === cat 
                                 ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-200' 
                                 : 'bg-transparent text-slate-400 hover:text-slate-600'
@@ -46,13 +46,13 @@ const CourseCatalog = () => {
                 {filteredCourses.map(course => (
                     <div 
                         key={course.id}
-                        className="glass-card premium-shadow group rounded-[3.5rem] p-10 hover:bg-white hover:-translate-y-2 transition-all duration-500 cursor-pointer flex flex-col relative overflow-hidden"
+                        className="glass-card premium-shadow group rounded-3xl p-10 hover:bg-white hover:-translate-y-2 transition-all duration-500 cursor-pointer flex flex-col relative overflow-hidden"
                         onClick={() => navigate(`/roadmap/${course.id}`)}
                     >
                         <div className="absolute -top-12 -right-12 w-48 h-48 bg-indigo-50/30 rounded-full group-hover:scale-125 transition-transform duration-1000 blur-2xl"></div>
                         
                         <div className="mb-8 relative z-10">
-                            <div className="w-20 h-20 bg-white rounded-[2rem] shadow-xl flex items-center justify-center text-5xl group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 border border-slate-50">
+                            <div className="w-20 h-20 bg-white rounded-xl shadow-xl flex items-center justify-center text-5xl group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 border border-slate-50">
                                 {course.icon}
                             </div>
                         </div>
@@ -79,7 +79,7 @@ const CourseCatalog = () => {
                                 <span className="text-lg font-black text-slate-900">{course.roadmap.length}</span>
                                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Chapters</span>
                             </div>
-                            <button className="px-8 py-4 bg-slate-900 text-white rounded-[1.5rem] font-black text-xs hover:bg-indigo-600 transition-all shadow-xl shadow-slate-200 flex items-center gap-2 group-hover:translate-x-1">
+                            <button className="px-8 py-4 bg-slate-900 text-white rounded-xl font-black text-xs hover:bg-indigo-600 transition-all shadow-xl shadow-slate-200 flex items-center gap-2 group-hover:translate-x-1">
                                 BEGIN PATH <FiChevronRight size={16} />
                             </button>
                         </div>

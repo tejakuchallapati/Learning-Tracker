@@ -111,9 +111,9 @@ const Dashboard = () => {
 
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="glass-card premium-shadow p-8 rounded-[2.5rem] group hover:bg-white dark:hover:bg-slate-800 transition-all cursor-default">
+                <div className="glass-card premium-shadow p-8 rounded-2xl group hover:bg-white dark:hover:bg-slate-800 transition-all cursor-default">
                     <div className="flex items-center justify-between mb-6">
-                        <div className="p-4 bg-indigo-50 text-indigo-600 rounded-[1.5rem] group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500">
+                        <div className="p-4 bg-indigo-50 text-indigo-600 rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500">
                             <FiClock size={24} />
                         </div>
                         <div className="text-right">
@@ -125,9 +125,9 @@ const Dashboard = () => {
                     <p className="text-sm font-semibold text-slate-500 mt-1">Total Study Time</p>
                 </div>
 
-                <div className="glass-card premium-shadow p-8 rounded-[2.5rem] group hover:bg-white dark:hover:bg-slate-800 transition-all cursor-default">
+                <div className="glass-card premium-shadow p-8 rounded-2xl group hover:bg-white dark:hover:bg-slate-800 transition-all cursor-default">
                     <div className="flex items-center justify-between mb-6">
-                        <div className="p-4 bg-rose-50 text-rose-600 rounded-[1.5rem] group-hover:bg-rose-600 group-hover:text-white transition-all duration-500">
+                        <div className="p-4 bg-rose-50 text-rose-600 rounded-xl group-hover:bg-rose-600 group-hover:text-white transition-all duration-500">
                             <FiActivity size={24} />
                         </div>
                         <div className="text-right">
@@ -139,13 +139,13 @@ const Dashboard = () => {
                     <p className="text-sm font-semibold text-slate-500 mt-1">Weekly Intensity</p>
                 </div>
 
-                <div className="glass-card premium-shadow p-8 rounded-[2.5rem] group hover:bg-white dark:hover:bg-slate-800 transition-all cursor-default lg:col-span-2 relative overflow-hidden">
+                <div className="glass-card premium-shadow p-8 rounded-2xl group hover:bg-white dark:hover:bg-slate-800 transition-all cursor-default lg:col-span-2 relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-8 opacity-5">
                         <FiPlus size={120} />
                     </div>
                     <div className="flex flex-col h-full justify-between">
                         <div className="flex items-center gap-4 mb-4">
-                            <div className="p-4 bg-emerald-50 text-emerald-600 rounded-[1.5rem]">
+                            <div className="p-4 bg-emerald-50 text-emerald-600 rounded-xl">
                                 <FiTarget size={24} />
                             </div>
                             <div>
@@ -168,7 +168,7 @@ const Dashboard = () => {
                 {/* Left Column: Activity & Goals */}
                 <div className="lg:col-span-8 space-y-8">
                     {/* Activity Chart */}
-                    <div className="bg-white dark:bg-slate-900 p-10 rounded-[3.5rem] border border-gray-100 dark:border-slate-800 shadow-sm relative overflow-hidden">
+                    <div className="bg-white dark:bg-slate-900 p-10 rounded-3xl border border-gray-100 dark:border-slate-800 shadow-sm relative overflow-hidden">
                          <div className="flex items-center justify-between mb-10">
                             <div>
                                 <h3 className="text-2xl font-black text-slate-900 dark:text-white">Focus Distribution</h3>
@@ -250,7 +250,7 @@ const Dashboard = () => {
 
                 {/* Right Column: Goal Setting & Tips */}
                 <div className="lg:col-span-4 space-y-8">
-                     <div className="bg-slate-900 rounded-[3.5rem] p-10 text-white relative overflow-hidden shadow-2xl group border border-slate-800">
+                     <div className="bg-slate-900 rounded-3xl p-10 text-white relative overflow-hidden shadow-2xl group border border-slate-800">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-[80px] -mr-32 -mt-32"></div>
                         <h3 className="text-xl font-black mb-8 flex items-center gap-3">
                             <FiTarget className="text-indigo-400" /> Fast-Track Goal
@@ -284,13 +284,13 @@ const Dashboard = () => {
                         </div>
                         <button 
                             onClick={handleAddGoal}
-                            className="w-full mt-10 py-5 bg-white text-slate-900 rounded-[2rem] font-black text-sm hover:bg-slate-50 transition-all shadow-xl shadow-indigo-900/50 flex items-center justify-center gap-3 btn-hover-scale"
+                            className="w-full mt-10 py-5 bg-white text-slate-900 rounded-xl font-black text-sm hover:bg-slate-50 transition-all shadow-xl shadow-indigo-900/50 flex items-center justify-center gap-3 btn-hover-scale"
                         >
                             <FiPlus /> Add Learning Goal
                         </button>
                     </div>
 
-                    <div className="bg-white dark:bg-slate-900 rounded-[3.5rem] p-10 border border-gray-100 dark:border-slate-800 shadow-sm">
+                    <div className="bg-white dark:bg-slate-900 rounded-3xl p-10 border border-gray-100 dark:border-slate-800 shadow-sm">
                          <h3 className="text-xl font-black text-slate-900 dark:text-white mb-8 flex items-center gap-3">
                             <FiCalendar className="text-indigo-600" /> Focus Streak
                         </h3>

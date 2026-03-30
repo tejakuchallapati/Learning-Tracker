@@ -81,8 +81,8 @@ const Landing = () => {
                     </div>
 
                     <div className="relative group lg:block hidden">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-[3rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                        <div className="relative bg-slate-900 border border-slate-800 rounded-[3rem] p-8 aspect-square flex items-center justify-center overflow-hidden">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                        <div className="relative bg-slate-900 border border-slate-800 rounded-2xl p-8 aspect-square flex items-center justify-center overflow-hidden">
                             <div className="absolute inset-0 opacity-20 pointer-events-none">
                                 <pre className="text-[10px] leading-3 text-indigo-400 font-mono">
                                     {`function learnTech(skill) {

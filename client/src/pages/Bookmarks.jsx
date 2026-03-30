@@ -48,7 +48,7 @@ const Bookmarks = () => {
                 </div>
                 <button
                     onClick={() => setShowForm(v => !v)}
-                    className="flex items-center gap-3 px-8 py-4 bg-indigo-600 text-white rounded-[2rem] font-black text-sm hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-200 btn-hover-scale shrink-0"
+                    className="flex items-center gap-3 px-8 py-4 bg-indigo-600 text-white rounded-xl font-black text-sm hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-200 btn-hover-scale shrink-0"
                 >
                     <FiPlus size={18} /> Add Resource
                 </button>
@@ -56,7 +56,7 @@ const Bookmarks = () => {
 
             {/* Add Form */}
             {showForm && (
-                <div className="glass-card premium-shadow p-10 rounded-[3rem] border border-white/50 space-y-6 animate-in fade-in slide-in-from-top-4">
+                <div className="glass-card premium-shadow p-10 rounded-2xl border border-white/50 space-y-6 animate-in fade-in slide-in-from-top-4">
                     <h3 className="text-lg font-black text-slate-900 flex items-center gap-3"><FiLink className="text-indigo-600" /> New Resource</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="space-y-2">
@@ -79,8 +79,8 @@ const Bookmarks = () => {
                         </div>
                     </div>
                     <div className="flex gap-4 pt-2">
-                        <button onClick={addBookmark} className="px-8 py-4 bg-indigo-600 text-white rounded-[1.5rem] font-black text-sm hover:bg-indigo-700 transition-all">Save Resource</button>
-                        <button onClick={() => setShowForm(false)} className="px-8 py-4 bg-slate-100 text-slate-600 rounded-[1.5rem] font-black text-sm hover:bg-slate-200 transition-all">Cancel</button>
+                        <button onClick={addBookmark} className="px-8 py-4 bg-indigo-600 text-white rounded-xl font-black text-sm hover:bg-indigo-700 transition-all">Save Resource</button>
+                        <button onClick={() => setShowForm(false)} className="px-8 py-4 bg-slate-100 text-slate-600 rounded-xl font-black text-sm hover:bg-slate-200 transition-all">Cancel</button>
                     </div>
                 </div>
             )}
@@ -88,7 +88,7 @@ const Bookmarks = () => {
             {/* Category Filter Pills */}
             <div className="flex flex-wrap gap-3">
                 {categories.map(c => (
-                    <button key={c} onClick={() => setFilter(c)} className={`px-6 py-2.5 rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest transition-all border ${filter === c ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' : 'bg-white text-slate-400 border-slate-200 hover:border-indigo-200 hover:text-indigo-600'}`}>
+                    <button key={c} onClick={() => setFilter(c)} className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${filter === c ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' : 'bg-white text-slate-400 border-slate-200 hover:border-indigo-200 hover:text-indigo-600'}`}>
                         {c} {c !== 'All' && `(${bookmarks.filter(b => b.category === c).length})`}
                     </button>
                 ))}
@@ -96,7 +96,7 @@ const Bookmarks = () => {
 
             {/* Bookmarks Grid */}
             {filtered.length === 0 ? (
-                <div className="p-20 text-center glass-card rounded-[4rem] border-2 border-dashed border-slate-200">
+                <div className="p-20 text-center glass-card rounded-3xl border-2 border-dashed border-slate-200">
                     <div className="text-6xl mb-4">📌</div>
                     <p className="text-slate-400 font-black uppercase tracking-[0.2em]">No resources yet</p>
                     <button onClick={() => setShowForm(true)} className="mt-6 text-indigo-600 font-black hover:underline text-sm">Add your first resource</button>
@@ -106,7 +106,7 @@ const Bookmarks = () => {
                     {filtered.map(b => {
                         const color = categoryColors[b.category] || categoryColors['Other'];
                         return (
-                            <div key={b.id} className="glass-card premium-shadow p-8 rounded-[3rem] border border-white/50 group hover:-translate-y-1 transition-all relative">
+                            <div key={b.id} className="glass-card premium-shadow p-8 rounded-2xl border border-white/50 group hover:-translate-y-1 transition-all relative">
                                 <div className="flex items-start gap-5">
                                     <div className="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0 shadow-sm group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
                                         <FiBookmark size={20} />
@@ -138,7 +138,7 @@ const Bookmarks = () => {
                 </div>
             )}
 
-            <div className="glass-card premium-shadow p-8 rounded-[3rem] border border-white/50 flex items-center justify-between">
+            <div className="glass-card premium-shadow p-8 rounded-2xl border border-white/50 flex items-center justify-between">
                 <div>
                     <p className="font-black text-slate-900">{bookmarks.length} resources saved</p>
                     <p className="text-sm text-slate-400 font-medium mt-1">Your personal knowledge vault grows with every bookmark.</p>

@@ -80,7 +80,7 @@ const DailyGoalsSection = () => {
     }
 
     return (
-        <div className="glass-card premium-shadow p-12 rounded-[4rem] border border-white/50 space-y-8 mt-12 bg-white dark:bg-slate-900 transition-colors">
+        <div className="glass-card premium-shadow p-12 rounded-3xl border border-white/50 space-y-8 mt-12 bg-white dark:bg-slate-900 transition-colors">
             <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-6">
                 <div>
                     <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-4">
@@ -95,7 +95,7 @@ const DailyGoalsSection = () => {
             </div>
 
             {/* Add Goal Form */}
-            <form onSubmit={handleAddGoal} className="flex flex-col md:flex-row gap-4 items-start md:items-center bg-slate-50 p-6 rounded-[2rem] border border-slate-100">
+            <form onSubmit={handleAddGoal} className="flex flex-col md:flex-row gap-4 items-start md:items-center bg-slate-50 p-6 rounded-xl border border-slate-100">
                 <div className="flex-1 w-full">
                     <input 
                         type="text" 

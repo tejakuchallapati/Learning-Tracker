@@ -23,7 +23,7 @@ const CourseDetail = () => {
             </button>
 
             {/* Step Hero - Premium Glass */}
-            <div className="glass-card premium-shadow p-16 rounded-[4rem] border border-white/50 relative overflow-hidden group">
+            <div className="glass-card premium-shadow p-16 rounded-3xl border border-white/50 relative overflow-hidden group">
                 <div className="absolute -top-20 -right-20 w-80 h-80 bg-indigo-500/5 rounded-full blur-[80px] group-hover:scale-150 transition-transform duration-1000"></div>
                 <div className="relative z-10">
                     <div className="flex items-center gap-6 mb-8">
@@ -47,7 +47,7 @@ const CourseDetail = () => {
                 
                 <div className="grid grid-cols-1 gap-6">
                     {step.topics?.map((topic, i) => (
-                        <div key={i} className="group glass-card premium-shadow p-10 rounded-[3rem] border border-white/50 hover:border-indigo-100 transition-all duration-500 hover:-translate-y-1">
+                        <div key={i} className="group glass-card premium-shadow p-10 rounded-2xl border border-white/50 hover:border-indigo-100 transition-all duration-500 hover:-translate-y-1">
                             <div className="flex flex-col md:flex-row gap-8">
                                 <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100/50 flex items-center justify-center text-indigo-600 font-black shrink-0 text-lg shadow-sm group-hover:bg-indigo-600 group-hover:text-white group-hover:rotate-6 transition-all duration-500">
                                     {i + 1}
@@ -77,7 +77,7 @@ const CourseDetail = () => {
                         </div>
                     ))}
                     {!step.topics && (
-                        <div className="p-24 text-center glass-card rounded-[4rem] border-2 border-dashed border-slate-200">
+                        <div className="p-24 text-center glass-card rounded-3xl border-2 border-dashed border-slate-200">
                             <p className="text-slate-400 font-black uppercase tracking-[0.2em]">Curriculum Finalization in Progress</p>
                         </div>
                     )}
@@ -87,7 +87,7 @@ const CourseDetail = () => {
             {/* Next Module Preview */}
             {course.roadmap[parseInt(stepIdx) + 1] && (
                 <div className="pt-12">
-                    <div className="bg-slate-900 rounded-[4rem] p-12 text-white flex flex-col md:flex-row items-center justify-between gap-10 shadow-3xl relative overflow-hidden group">
+                    <div className="bg-slate-900 rounded-3xl p-12 text-white flex flex-col md:flex-row items-center justify-between gap-10 shadow-3xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
                         <div className="relative z-10">
                             <p className="text-indigo-400 font-black uppercase tracking-[0.3em] text-[10px] mb-4">Core Track Progression</p>
@@ -95,7 +95,7 @@ const CourseDetail = () => {
                         </div>
                         <button 
                             onClick={() => navigate(`/roadmap/${courseId}/${parseInt(stepIdx) + 1}`)}
-                            className="px-10 py-5 bg-indigo-600 rounded-[1.5rem] font-black text-[10px] uppercase tracking-widest hover:bg-indigo-700 transition-all flex items-center gap-4 whitespace-nowrap shadow-2xl shadow-indigo-600/20 btn-hover-scale relative z-10"
+                            className="px-10 py-5 bg-indigo-600 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-700 transition-all flex items-center gap-4 whitespace-nowrap shadow-2xl shadow-indigo-600/20 btn-hover-scale relative z-10"
                         >
                             Next Milestone <FiPlayCircle size={18} />
                         </button>

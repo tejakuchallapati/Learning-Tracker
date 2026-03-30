@@ -31,7 +31,7 @@ const Settings = () => {
                 <div className="flex gap-4">
                     <button 
                         onClick={handleSave}
-                        className="px-10 py-5 bg-slate-900 text-white rounded-[2rem] font-black text-xs hover:bg-indigo-600 transition-all shadow-2xl shadow-slate-200 flex items-center gap-3 btn-hover-scale"
+                        className="px-10 py-5 bg-slate-900 text-white rounded-xl font-black text-xs hover:bg-indigo-600 transition-all shadow-2xl shadow-slate-200 flex items-center gap-3 btn-hover-scale"
                     >
                         SYNC PREFERENCES {saved && <FiCheckCircle className="animate-in zoom-in duration-300" />}
                     </button>
@@ -41,11 +41,11 @@ const Settings = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 {/* Left Panel - Bio & Stats */}
                 <div className="lg:col-span-1 space-y-10">
-                    <div className="glass-card premium-shadow rounded-[4rem] p-10 text-center relative overflow-hidden group">
+                    <div className="glass-card premium-shadow rounded-3xl p-10 text-center relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50/50 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000"></div>
                         
                         <div className="relative z-10 flex flex-col items-center">
-                            <div className="w-28 h-28 rounded-[2.5rem] bg-indigo-600 flex items-center justify-center text-white text-4xl font-black shadow-3xl mb-8 group-hover:rotate-3 transition-transform">
+                            <div className="w-28 h-28 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-4xl font-black shadow-3xl mb-8 group-hover:rotate-3 transition-transform">
                                 {user?.name?.[0] || 'G'}
                             </div>
                             <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{user?.name}</h3>
@@ -56,7 +56,7 @@ const Settings = () => {
                         
                         <div className="mt-10 pt-10 border-t border-slate-50 space-y-3">
                             {['General', 'Security', 'Connectivity', 'Export Data'].map((item, idx) => (
-                                <button key={idx} className={`w-full text-left px-6 py-4 rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest transition-all ${idx === 0 ? 'bg-indigo-50 text-indigo-600' : 'text-slate-400 hover:bg-slate-50 hover:text-slate-900 group'}`}>
+                                <button key={idx} className={`w-full text-left px-6 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${idx === 0 ? 'bg-indigo-50 text-indigo-600' : 'text-slate-400 hover:bg-slate-50 hover:text-slate-900 group'}`}>
                                     {item}
                                 </button>
                             ))}
@@ -67,7 +67,7 @@ const Settings = () => {
                 {/* Right Panel - Configuration */}
                 <div className="lg:col-span-2 space-y-10">
                     {/* Identity Section */}
-                    <div className="glass-card premium-shadow rounded-[4rem] p-12 border border-white/50">
+                    <div className="glass-card premium-shadow rounded-3xl p-12 border border-white/50">
                         <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-10 flex items-center gap-5">
                             <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center shadow-sm"><FiUser size={20} /></div>
                             Identity & Bio
@@ -76,30 +76,30 @@ const Settings = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div className="space-y-3">
                                 <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Handle</label>
-                                <input type="text" defaultValue={user?.name || ''} className="w-full bg-slate-50/50 border border-slate-100/50 rounded-[1.5rem] p-5 text-sm font-black focus:ring-4 focus:ring-indigo-50 transition-all font-mono" />
+                                <input type="text" defaultValue={user?.name || ''} className="w-full bg-slate-50/50 border border-slate-100/50 rounded-xl p-5 text-sm font-black focus:ring-4 focus:ring-indigo-50 transition-all font-mono" />
                             </div>
                             <div className="space-y-3">
                                 <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Specialization</label>
-                                <input type="text" defaultValue={user?.specialization || ''} className="w-full bg-slate-50/50 border border-slate-100/50 rounded-[1.5rem] p-5 text-sm font-black focus:ring-4 focus:ring-indigo-50 transition-all font-mono" />
+                                <input type="text" defaultValue={user?.specialization || ''} className="w-full bg-slate-50/50 border border-slate-100/50 rounded-xl p-5 text-sm font-black focus:ring-4 focus:ring-indigo-50 transition-all font-mono" />
                             </div>
                             <div className="md:col-span-2 space-y-3">
                                 <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Primary Email</label>
                                 <div className="relative">
                                     <FiMail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" />
-                                    <input type="email" defaultValue={user?.email || ""} className="w-full bg-slate-50/50 dark:bg-slate-800 border border-slate-100/50 dark:border-slate-700 rounded-[1.5rem] p-5 pl-16 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-indigo-50 transition-all" />
+                                    <input type="email" defaultValue={user?.email || ""} className="w-full bg-slate-50/50 dark:bg-slate-800 border border-slate-100/50 dark:border-slate-700 rounded-xl p-5 pl-16 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-indigo-50 transition-all" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* Alerts Section */}
-                    <div id="reminders" className="glass-card premium-shadow rounded-[4rem] p-12 border border-white/50">
+                    <div id="reminders" className="glass-card premium-shadow rounded-3xl p-12 border border-white/50">
                         <h3 className="text-2xl font-black text-slate-900 mb-10 flex items-center gap-5">
                             <div className="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center shadow-sm"><FiBell size={20} /></div>
                             Intelligent Reminders
                         </h3>
 
-                        <div className="p-8 bg-slate-900 rounded-[2.5rem] border border-slate-800 mb-12 relative overflow-hidden group">
+                        <div className="p-8 bg-slate-900 rounded-2xl border border-slate-800 mb-12 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
                             <h4 className="text-sm font-black text-white flex items-center gap-3 relative z-10"><FiActivity className="text-indigo-400" /> SYNC PROTOCOL</h4>
                             <p className="text-xs text-slate-400 mt-3 font-medium leading-relaxed max-w-lg relative z-10">Reminders are dispatched using local browser latency algorithms to maximize daily streak retention.</p>
@@ -133,7 +133,7 @@ const Settings = () => {
                                 <h4 className="text-xs font-black text-slate-900 tracking-widest uppercase">Adaptive Time Window</h4>
                                 <p className="text-[10px] text-slate-400 font-bold mt-2 uppercase tracking-tight">Set your high-performance focus period.</p>
                             </div>
-                            <div className="flex items-center bg-slate-50/80 rounded-[1.5rem] p-2.5 gap-2 border border-slate-100">
+                            <div className="flex items-center bg-slate-50/80 rounded-xl p-2.5 gap-2 border border-slate-100">
                                 <input type="time" defaultValue="20:00" className="bg-transparent border-none text-sm font-black focus:ring-0 p-2 cursor-pointer" title="Reminder Time" />
                                 <div className="h-6 w-px bg-slate-200 mx-1"></div>
                                 <div className="flex gap-1.5 p-1 pr-2">

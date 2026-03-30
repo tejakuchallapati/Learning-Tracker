@@ -39,14 +39,14 @@ const CourseRoadmap = () => {
                         <div 
                             key={track.id}
                             onClick={() => setActiveSubTrack(track.id)}
-                            className="glass-card premium-shadow rounded-[4rem] p-12 hover:bg-white dark:hover:bg-slate-800 hover:-translate-y-2 transition-all duration-500 cursor-pointer group relative overflow-hidden text-center border border-white/50 dark:border-slate-800"
+                            className="glass-card premium-shadow rounded-3xl p-12 hover:bg-white dark:hover:bg-slate-800 hover:-translate-y-2 transition-all duration-500 cursor-pointer group relative overflow-hidden text-center border border-white/50 dark:border-slate-800"
                         >
                             <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
                                 <span className="text-[140px] leading-none">{track.icon}</span>
                             </div>
                             
                             <div className="relative z-10 flex flex-col items-center">
-                                <div className="w-24 h-24 bg-white dark:bg-slate-700 shadow-xl rounded-[2.5rem] flex items-center justify-center text-5xl mb-10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 border border-slate-50 dark:border-slate-600">
+                                <div className="w-24 h-24 bg-white dark:bg-slate-700 shadow-xl rounded-2xl flex items-center justify-center text-5xl mb-10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 border border-slate-50 dark:border-slate-600">
                                     {track.icon}
                                 </div>
                                 <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-6 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors uppercase tracking-tight">{track.title}</h2>
@@ -61,7 +61,7 @@ const CourseRoadmap = () => {
                                     </div>
                                 </div>
 
-                                <button className="mt-14 px-10 py-5 bg-slate-900 text-white rounded-[2rem] font-black text-xs flex items-center gap-3 group-hover:bg-indigo-600 transition-all shadow-xl shadow-slate-200">
+                                <button className="mt-14 px-10 py-5 bg-slate-900 text-white rounded-xl font-black text-xs flex items-center gap-3 group-hover:bg-indigo-600 transition-all shadow-xl shadow-slate-200">
                                     BUILD CURRICULUM <FiArrowRight />
                                 </button>
                             </div>
@@ -88,7 +88,7 @@ const CourseRoadmap = () => {
             </button>
 
             {/* Hero Section */}
-            <div className="glass-card premium-shadow rounded-[4rem] p-12 md:p-16 border border-white/50 mb-16 relative overflow-hidden">
+            <div className="glass-card premium-shadow rounded-3xl p-12 md:p-16 border border-white/50 mb-16 relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-12 opacity-5 blur-sm">
                     <span className="text-[180px] leading-none">{course.icon}</span>
                 </div>
@@ -132,9 +132,9 @@ const CourseRoadmap = () => {
                     <div key={idx} className="relative md:pl-24 group">
                         <div className="absolute left-[30px] w-4 h-4 bg-white border-4 border-indigo-600 rounded-full z-10 mt-2 hidden md:block group-hover:scale-150 transition-all duration-500 shadow-xl shadow-indigo-200"></div>
                         
-                        <div className="glass-card premium-shadow rounded-[3.5rem] p-10 hover:bg-white hover:-translate-y-1 transition-all duration-700">
+                        <div className="glass-card premium-shadow rounded-3xl p-10 hover:bg-white hover:-translate-y-1 transition-all duration-700">
                             <div className="flex flex-col lg:flex-row gap-10 items-start">
-                                <div className="p-8 bg-slate-900 dark:bg-slate-800 text-white rounded-[2.5rem] font-black text-4xl shrink-0 shadow-2xl flex items-center justify-center w-24 h-24 group-hover:bg-indigo-600 transition-colors">
+                                <div className="p-8 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl font-black text-4xl shrink-0 shadow-2xl flex items-center justify-center w-24 h-24 group-hover:bg-indigo-600 transition-colors">
                                     {(idx + 1).toString().padStart(2, '0')}
                                 </div>
                                 <div className="flex-1 min-w-0">
@@ -161,7 +161,7 @@ const CourseRoadmap = () => {
                                         const originalIdx = course.roadmap.findIndex(r => r.step === milestone.step);
                                         navigate(`/roadmap/${course.id}/${originalIdx}`);
                                     }}
-                                    className="self-center lg:self-center px-10 py-5 bg-slate-900 hover:bg-indigo-600 text-white rounded-[2rem] font-black text-xs flex items-center gap-4 shadow-xl shadow-slate-200 transition-all active:scale-95 shrink-0 uppercase tracking-widest btn-hover-scale"
+                                    className="self-center lg:self-center px-10 py-5 bg-slate-900 hover:bg-indigo-600 text-white rounded-xl font-black text-xs flex items-center gap-4 shadow-xl shadow-slate-200 transition-all active:scale-95 shrink-0 uppercase tracking-widest btn-hover-scale"
                                 >
                                     Start Workshop <FiArrowRight size={18} />
                                 </button>

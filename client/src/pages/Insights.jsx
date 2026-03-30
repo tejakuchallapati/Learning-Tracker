@@ -39,7 +39,7 @@ const Insights = () => {
                 </div>
                 <button 
                     onClick={() => window.print()}
-                    className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-[2rem] font-black text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200 dark:border-slate-700 btn-hover-scale shrink-0 print:hidden"
+                    className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl font-black text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200 dark:border-slate-700 btn-hover-scale shrink-0 print:hidden"
                 >
                     <FiDownload size={18} /> Export PDF Report
                 </button>
@@ -47,7 +47,7 @@ const Insights = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Focus Pie */}
-                <div className="lg:col-span-1 glass-card premium-shadow p-12 rounded-[4rem] border border-white/50 space-y-10 flex flex-col items-center">
+                <div className="lg:col-span-1 glass-card premium-shadow p-12 rounded-3xl border border-white/50 space-y-10 flex flex-col items-center">
                     <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-4 self-start uppercase tracking-[0.2em]">
                         <div className="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center shadow-sm"><FiActivity size={18} /></div>
                         Focus Allocation
@@ -72,7 +72,7 @@ const Insights = () => {
                 </div>
 
                 {/* Milestone Log */}
-                <div className="lg:col-span-2 glass-card premium-shadow p-12 rounded-[4rem] border border-white/50 flex flex-col overflow-hidden">
+                <div className="lg:col-span-2 glass-card premium-shadow p-12 rounded-3xl border border-white/50 flex flex-col overflow-hidden">
                     <h3 className="text-xs font-black text-slate-900 dark:text-white mb-12 flex items-center gap-4 uppercase tracking-[0.2em]">
                         <div className="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center shadow-sm"><FiList size={18} /></div>
                         Milestone Log
@@ -115,7 +115,7 @@ const Insights = () => {
                     { icon: <FiAward />,    label: 'badges Earned',     val: `${earnedCount}/${badges.length}` },
                     { icon: <FiActivity />, label: 'Target Accuracy',   val: '0%' }
                 ].map((stat, i) => (
-                    <div key={i} className="glass-card premium-shadow p-10 rounded-[3rem] border border-white/50 dark:border-slate-800 flex flex-col items-center text-center group hover:-translate-y-2 transition-all">
+                    <div key={i} className="glass-card premium-shadow p-10 rounded-2xl border border-white/50 dark:border-slate-800 flex flex-col items-center text-center group hover:-translate-y-2 transition-all">
                         <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl mb-8 shadow-sm group-hover:bg-indigo-600 group-hover:text-white group-hover:rotate-6 transition-all duration-500">
                             {stat.icon}
                         </div>
@@ -139,7 +139,7 @@ const Insights = () => {
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {badges.map((badge, i) => (
-                        <div key={i} className={`relative p-8 rounded-[3rem] border flex flex-col items-center text-center transition-all duration-500 group ${badge.earned ? 'glass-card premium-shadow border-white/50 hover:-translate-y-2' : 'bg-slate-50 border-slate-100 opacity-50'}`}>
+                        <div key={i} className={`relative p-8 rounded-2xl border flex flex-col items-center text-center transition-all duration-500 group ${badge.earned ? 'glass-card premium-shadow border-white/50 hover:-translate-y-2' : 'bg-slate-50 border-slate-100 opacity-50'}`}>
                             {badge.earned
                                 ? <div className="absolute top-4 right-4 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center"><FiCheckCircle className="text-white" size={12} /></div>
                                 : <div className="absolute top-4 right-4 w-6 h-6 bg-slate-300 rounded-full flex items-center justify-center"><FiLock className="text-white" size={12} /></div>

@@ -99,13 +99,13 @@ const TopicContent = () => {
                     <div className="flex flex-col gap-4 shrink-0">
                         <button 
                             onClick={handleComplete}
-                            className={`px-10 py-5 rounded-[2rem] font-black text-sm transition-all flex items-center gap-3 shadow-2xl btn-hover-scale ${isCompleted ? 'bg-emerald-50 text-emerald-600 shadow-emerald-100 border border-emerald-100' : 'bg-slate-900 text-white shadow-slate-200 hover:bg-indigo-600'}`}
+                            className={`px-10 py-5 rounded-xl font-black text-sm transition-all flex items-center gap-3 shadow-2xl btn-hover-scale ${isCompleted ? 'bg-emerald-50 text-emerald-600 shadow-emerald-100 border border-emerald-100' : 'bg-slate-900 text-white shadow-slate-200 hover:bg-indigo-600'}`}
                         >
                             {isCompleted ? <><FiCheckCircle size={20} /> Accomplished</> : 'Mark as Completed'}
                         </button>
                         <button 
                             onClick={openMentor}
-                            className="px-10 py-5 rounded-[2rem] font-black text-sm transition-all flex items-center gap-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-2xl shadow-indigo-300 btn-hover-scale hover:from-violet-700 hover:to-indigo-700"
+                            className="px-10 py-5 rounded-xl font-black text-sm transition-all flex items-center gap-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-2xl shadow-indigo-300 btn-hover-scale hover:from-violet-700 hover:to-indigo-700"
                         >
                             <FiZap size={20} /> Ask AI Mentor
                         </button>
@@ -114,7 +114,7 @@ const TopicContent = () => {
             </div>
 
             {/* Content Rendering Zone */}
-            <div className="bg-white dark:bg-slate-900 rounded-[4rem] border border-gray-100 dark:border-slate-800 shadow-sm overflow-hidden premium-shadow">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-gray-100 dark:border-slate-800 shadow-sm overflow-hidden premium-shadow">
                 <div className="p-12 md:p-20 space-y-16 lg:space-y-24">
                     <div className="space-y-8">
                         <div className="inline-flex items-center gap-2 px-4 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-[10px] font-black uppercase tracking-widest">
@@ -132,7 +132,7 @@ const TopicContent = () => {
                                 <div className="p-3 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-2xl"><FiLayout size={20} /></div>
                                 Performance &amp; Structure
                             </h3>
-                            <div className="overflow-x-auto rounded-[2.5rem] border border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-800/30 p-2">
+                            <div className="overflow-x-auto rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-800/30 p-2">
                                 <table className="w-full text-left border-collapse dark:text-slate-300">
                                     <thead>
                                         <tr>
@@ -161,7 +161,7 @@ const TopicContent = () => {
                                 <div className="p-3 bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-2xl"><FiSearch size={20} /></div>
                                 Implementation Snippet
                             </h3>
-                            <div className="bg-slate-900 rounded-[3rem] p-10 shadow-3xl relative overflow-hidden">
+                            <div className="bg-slate-900 rounded-2xl p-10 shadow-3xl relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
                                 <div className="flex items-center justify-between mb-6 relative z-10">
                                     <div className="flex gap-2">
@@ -184,16 +184,16 @@ const TopicContent = () => {
                                 <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Expert Curations</h3>
                                 <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg font-medium">Industry-vetted channels for detailed visual mastery.</p>
                             </div>
-                            <div className="px-8 py-4 bg-rose-50 text-rose-600 rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 border border-rose-100">
+                            <div className="px-8 py-4 bg-rose-50 text-rose-600 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 border border-rose-100">
                                 <FiPlay size={16} /> Premium Sources
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {course.topChannels?.map((channel, i) => (
                                 <a key={i} href={channel.url} target="_blank" rel="noopener noreferrer"
-                                    className="p-8 bg-slate-50 dark:bg-slate-800 rounded-[2.5rem] border border-slate-100 dark:border-slate-700 hover:border-rose-200 dark:hover:border-rose-500/50 hover:bg-white dark:hover:bg-slate-700 hover:shadow-2xl hover:shadow-rose-500/5 transition-all flex items-center gap-6 group btn-hover-scale"
+                                    className="p-8 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 hover:border-rose-200 dark:hover:border-rose-500/50 hover:bg-white dark:hover:bg-slate-700 hover:shadow-2xl hover:shadow-rose-500/5 transition-all flex items-center gap-6 group btn-hover-scale"
                                 >
-                                    <div className="w-16 h-16 rounded-[1.5rem] bg-rose-600 flex items-center justify-center text-white text-2xl shadow-xl shadow-rose-200 group-hover:rotate-12 transition-all">
+                                    <div className="w-16 h-16 rounded-xl bg-rose-600 flex items-center justify-center text-white text-2xl shadow-xl shadow-rose-200 group-hover:rotate-12 transition-all">
                                         <FiPlay />
                                     </div>
                                     <div className="min-w-0">
@@ -208,7 +208,7 @@ const TopicContent = () => {
             </div>
 
             {/* AI Mentor CTA Banner */}
-            <div className="bg-gradient-to-br from-violet-900 via-indigo-900 to-slate-900 rounded-[4rem] p-12 text-white overflow-hidden relative group border border-indigo-800/50 shadow-3xl">
+            <div className="bg-gradient-to-br from-violet-900 via-indigo-900 to-slate-900 rounded-3xl p-12 text-white overflow-hidden relative group border border-indigo-800/50 shadow-3xl">
                 <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-violet-600/20 rounded-full blur-[150px] -mr-48 -mt-48"></div>
                 <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
                     <div className="space-y-4">
@@ -217,7 +217,7 @@ const TopicContent = () => {
                         <p className="text-slate-400 text-lg max-w-xl font-medium leading-relaxed">Get instant explanations, code examples, and answers to questions about this exact topic.</p>
                     </div>
                     <button onClick={openMentor}
-                        className="px-14 py-6 bg-white text-slate-900 rounded-[2.5rem] font-black text-base flex items-center gap-3 shadow-3xl hover:bg-violet-50 transition-all transform hover:scale-105 active:scale-95 shrink-0"
+                        className="px-14 py-6 bg-white text-slate-900 rounded-2xl font-black text-base flex items-center gap-3 shadow-3xl hover:bg-violet-50 transition-all transform hover:scale-105 active:scale-95 shrink-0"
                     >
                         <FiZap size={22} /> Launch AI Mentor
                     </button>
