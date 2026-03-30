@@ -1,48 +1,108 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
 @import "tailwindcss";
 
-@keyframes rocket-diagonal {
+@theme {
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-skeleton: var(--skeleton);
+  --color-border: var(--btn-border);
+  --color-input: var(--input);
+
+  --radius-default: 0.5rem;
+
+  --shadow-input: 0px 2px 3px -1px rgba(0, 0, 0, 0.1), 0px 1px 0px 0px rgba(25, 28, 33, 0.02), 0px 0px 0px 1px rgba(25, 28, 33, 0.08);
+
+  @keyframes ripple {
+    0%, 100% { transform: translate(-50%, -50%) scale(1) }
+    50% { transform: translate(-50%, -50%) scale(0.9) }
+  }
+  @keyframes orbit {
+    0% {
+      transform: rotate(0deg) translateY(calc(var(--orbit-radius) * 1px)) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translateY(calc(var(--orbit-radius) * 1px)) rotate(-360deg);
+    }
+  }
+
+  @keyframes rocket-diagonal {
     0% { transform: translate(-150%, 150%) rotate(0deg); opacity: 0; }
     10% { opacity: 1; }
     90% { opacity: 1; }
     100% { transform: translate(150%, -150%) rotate(0deg); opacity: 0; }
-}
+  }
 
-@keyframes rocket-vibrate {
+  @keyframes rocket-vibrate {
     0% { margin: 0; }
     25% { margin: 2px -2px 0 0; }
     50% { margin: -2px 2px 0 0; }
     75% { margin: 2px 2px 0 0; }
     100% { margin: -2px -2px 0 0; }
+  }
 }
 
-.animate-rocket {
-    display: inline-block;
-    animation: rocket-diagonal 3s linear infinite, rocket-vibrate 0.1s linear infinite;
+.animate-ripple {
+  animation: ripple 2s ease calc(var(--i, 0) * 0.2s) infinite;
+}
+
+.animate-orbit {
+  animation: orbit calc(var(--orbit-duration) * 1s) linear infinite;
 }
 
 :root {
   --primary: #6366f1;
   --secondary: #ec4899;
-  --bg-main: #ffffff; /* Restored to full white */
+  --bg-main: #ffffff;
   --text-main: #0f172a;
   --card-bg: #ffffff;
   --border-color: #f1f5f9;
+
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 0%);
+  --skeleton: hsl(0, 0%, 90%);
+  --border: hsl(220, 20%, 90%);
+  --btn-border: hsl(214deg, 31.8%, 91.4%);
+  --input: hsl(220, 20%, 90%);
+  
+  --radius: 0.5rem;
 }
 
 html.dark, .dark {
-  --bg-main: #030712; /* Deeper dark for better contrast */
+  --bg-main: #030712;
   --text-main: #f8fafc;
-  --card-bg: #111827; /* Solid dark grey for cards */
+  --card-bg: #111827;
   --border-color: #1f2937;
+
+  --background: hsl(222, 94%, 5%);
+  --foreground: hsl(0, 0%, 100%);
+  --skeleton: hsl(218, 36%, 16%);
+  --border: hsl(220, 20%, 90%);
+  --btn-border: hsl(217deg, 32.6%, 17.5%);
+  --input: hsl(219, 63%, 16%);
+  
+  --radius: 0.5rem;
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--bg-main) !important;
   color: var(--text-main) !important;
   -webkit-font-smoothing: antialiased;
   transition: all 0.3s ease;
+}
+
+.animate-rocket {
+  display: inline-block;
+  animation: rocket-diagonal 3s linear infinite, rocket-vibrate 0.1s linear infinite;
+}
+
+@layer components {
+  .g-button {
+    @apply rounded-[var(--radius)] border;
+    border-color: var(--btn-border)
+  }
 }
 
 /* Premium Utilities */
