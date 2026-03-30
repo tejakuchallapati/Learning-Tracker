@@ -10,7 +10,15 @@ import GoalCard from '../components/GoalCard';
 import { FiClock, FiTarget, FiActivity, FiCalendar, FiPlus, FiArrowRight } from 'react-icons/fi';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const dummyChartData = [];
+const dummyChartData = [
+    { name: 'Mon', hours: 1.5 },
+    { name: 'Tue', hours: 2.2 },
+    { name: 'Wed', hours: 1.0 },
+    { name: 'Thu', hours: 3.5 },
+    { name: 'Fri', hours: 2.8 },
+    { name: 'Sat', hours: 4.1 },
+    { name: 'Sun', hours: 3.2 },
+];
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext);
@@ -287,14 +295,18 @@ const Dashboard = () => {
                             <FiCalendar className="text-indigo-600" /> Focus Streak
                         </h3>
                         <div className="grid grid-cols-7 gap-2">
-                            {['M','T','W','T','F','S','S'].map((day, i) => (
+                            {['M','T','W','T','F','S','S'].map((day, i) => {
+                                const todayIndex = (new Date().getDay() + 6) % 7; // Convert Sun(0) to 6, Mon(1) to 0
+                                const isPastOrToday = i <= todayIndex;
+                                const isStreak = isPastOrToday && i >= Math.max(0, todayIndex - 4); // Simulated active streak for the past 5 days
+                                return (
                                 <div key={i} className="flex flex-col items-center gap-3">
-                                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase">{day}</span>
-                                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-[10px] font-black ${i < 4 ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'}`}>
+                                    <span className={`text-[10px] font-black uppercase ${i === todayIndex ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 dark:text-slate-500'}`}>{day}</span>
+                                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-[10px] font-black ${isStreak ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${i === todayIndex ? 'ring-2 ring-indigo-400 ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
                                         {i + 1}
                                     </div>
                                 </div>
-                            ))}
+                            )})}
                         </div>
                     </div>
 

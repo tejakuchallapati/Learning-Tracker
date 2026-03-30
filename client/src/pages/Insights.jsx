@@ -14,9 +14,19 @@ const badges = [
 ];
 
 const Insights = () => {
-    const timeData = [];
+    const timeData = [
+        { name: 'React Focus', value: 45, color: '#6366f1' },
+        { name: 'Architecture', value: 25, color: '#8b5cf6' },
+        { name: 'System Design', value: 20, color: '#10b981' },
+        { name: 'Database', value: 10, color: '#f59e0b' },
+    ];
 
-    const completedTopics = [];
+    const completedTopics = [
+        { id: 1, title: 'React Hooks Deep Dive', date: 'Today', timeSpent: '4.5 hrs', status: 'Verified' },
+        { id: 2, title: 'RESTful API Design', date: 'Yesterday', timeSpent: '3.2 hrs', status: 'Verified' },
+        { id: 3, title: 'JWT Authentication', date: '3 days ago', timeSpent: '5.1 hrs', status: 'Verified' },
+        { id: 4, title: 'Advanced State Management', date: 'Last week', timeSpent: '6.0 hrs', status: 'Verified' },
+    ];
 
     const earnedCount = badges.filter(b => b.earned).length;
 
