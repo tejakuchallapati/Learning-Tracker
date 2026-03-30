@@ -40,20 +40,34 @@ const Dashboard = () => {
         calculateDays();
     }, [targetDate]);
 
-    const handleAddGoal = () => {
+    const handleAddGoal = async () => {
         const track = courses.find(c => c.id === selectedTrack);
-        const newGoal = {
-            _id: Date.now().toString(),
+        
+        // Map frontend category to backend enum: ['Frontend', 'Backend', 'Full Stack', 'Other']
+        let backendCategory = 'Other';
+        const cat = track?.category?.toLowerCase();
+        if (cat?.includes('front')) backendCategory = 'Frontend';
+        else if (cat?.includes('back')) backendCategory = 'Backend';
+        else if (cat?.includes('stack') || cat?.includes('dev')) backendCategory = 'Full Stack';
+
+        const goalData = {
             technology: track?.title || 'Unknown',
-            category: track?.category || 'General',
+            category: backendCategory,
             startDate: new Date().toISOString(),
             endDate: targetDate,
             durationDays: daysLeft,
             dailyTargetHours: 2,
-            currentProgress: 0
+            subTasks: track?.roadmap?.map(r => ({ title: r.step, completed: false })) || []
         };
-        setGoals(prev => [newGoal, ...(prev || [])]);
-        alert(`Successfully added ${track?.title} to your active goals!`);
+
+        try {
+            const { data } = await API.post('/goals/create', goalData);
+            setGoals(prev => [data, ...(prev || [])]);
+            alert(`Successfully added ${track?.title} to your active goals!`);
+        } catch (err) {
+            console.error('Failed to add goal', err);
+            alert(err.response?.data?.message || 'Failed to add goal. Please try again.');
+        }
     };
 
     useEffect(() => {
