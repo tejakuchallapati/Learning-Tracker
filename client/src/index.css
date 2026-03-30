@@ -70,17 +70,17 @@
 }
 
 html.dark, .dark {
-  --bg-main: #030712;
+  --bg-main: #000000;
   --text-main: #f8fafc;
-  --card-bg: #111827;
-  --border-color: #1f2937;
+  --card-bg: #0a0a0a;
+  --border-color: #1a1a1a;
 
-  --background: hsl(222, 94%, 5%);
+  --background: hsl(0, 0%, 0%);
   --foreground: hsl(0, 0%, 100%);
-  --skeleton: hsl(218, 36%, 16%);
-  --border: hsl(220, 20%, 90%);
-  --btn-border: hsl(217deg, 32.6%, 17.5%);
-  --input: hsl(219, 63%, 16%);
+  --skeleton: hsl(0, 0%, 10%);
+  --border: hsl(0, 0%, 20%);
+  --btn-border: hsl(0, 0%, 15%);
+  --input: hsl(0, 0%, 12%);
   
   --radius: 0.5rem;
 }

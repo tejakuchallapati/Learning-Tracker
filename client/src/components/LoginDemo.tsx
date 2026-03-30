@@ -1,5 +1,5 @@
-'use client';
-import { useState, ChangeEvent, FormEvent, ReactNode } from 'react';
+import { useState, useRef, useEffect, useContext, ChangeEvent, FormEvent, ReactNode } from 'react';
+import { FiSun, FiMoon } from 'react-icons/fi';
 
 import {
   Ripple,
@@ -23,6 +23,7 @@ interface OrbitIcon {
 }
 
 const iconsArray: OrbitIcon[] = [
+  // Inner Ring (Radius 100 - 5 icons)
   {
     component: () => (
       <img
@@ -32,11 +33,11 @@ const iconsArray: OrbitIcon[] = [
         alt='HTML5'
       />
     ),
-    className: 'size-[30px] border-none bg-transparent',
+    className: 'size-[35px] border-none bg-transparent',
     duration: 20,
-    delay: 20,
+    delay: 0,
     radius: 100,
-    path: false,
+    path: true,
     reverse: false,
   },
   {
@@ -48,42 +49,11 @@ const iconsArray: OrbitIcon[] = [
         alt='CSS3'
       />
     ),
-    className: 'size-[30px] border-none bg-transparent',
+    className: 'size-[35px] border-none bg-transparent',
     duration: 20,
-    delay: 10,
+    delay: 4,
     radius: 100,
-    path: false,
-    reverse: false,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg'
-        alt='TypeScript'
-      />
-    ),
-    className: 'size-[50px] border-none bg-transparent',
-    radius: 210,
-    duration: 20,
-    path: false,
-    reverse: false,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg'
-        alt='JavaScript'
-      />
-    ),
-    className: 'size-[50px] border-none bg-transparent',
-    radius: 210,
-    duration: 20,
-    delay: 20,
-    path: false,
+    path: true,
     reverse: false,
   },
   {
@@ -95,27 +65,61 @@ const iconsArray: OrbitIcon[] = [
         alt='TailwindCSS'
       />
     ),
-    className: 'size-[30px] border-none bg-transparent',
+    className: 'size-[35px] border-none bg-transparent',
     duration: 20,
-    delay: 20,
-    radius: 150,
-    path: false,
-    reverse: true,
+    delay: 8,
+    radius: 100,
+    path: true,
+    reverse: false,
   },
   {
     component: () => (
       <img
         width={100}
         height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg'
-        alt='Nextjs'
+        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg'
+        alt='TypeScript'
       />
     ),
-    className: 'size-[30px] border-none bg-transparent',
+    className: 'size-[35px] border-none bg-transparent',
     duration: 20,
-    delay: 10,
-    radius: 150,
-    path: false,
+    delay: 12,
+    radius: 100,
+    path: true,
+    reverse: false,
+  },
+  {
+    component: () => (
+      <img
+        width={100}
+        height={100}
+        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg'
+        alt='JavaScript'
+      />
+    ),
+    className: 'size-[35px] border-none bg-transparent',
+    duration: 20,
+    delay: 16,
+    radius: 100,
+    path: true,
+    reverse: false,
+  },
+
+  // Outer Ring (Radius 210 - 5 icons)
+  {
+    component: () => (
+      <img
+        width={100}
+        height={100}
+        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg'
+        alt='Figma'
+      />
+    ),
+    className: 'size-[45px] border-none bg-transparent',
+    duration: 30,
+    delay: 0,
+    radius: 210,
+    path: true,
     reverse: true,
   },
   {
@@ -127,26 +131,11 @@ const iconsArray: OrbitIcon[] = [
         alt='React'
       />
     ),
-    className: 'size-[50px] border-none bg-transparent',
-    radius: 270,
-    duration: 20,
-    path: false,
-    reverse: true,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg'
-        alt='Figma'
-      />
-    ),
-    className: 'size-[50px] border-none bg-transparent',
-    radius: 270,
-    duration: 20,
-    delay: 60,
-    path: false,
+    className: 'size-[45px] border-none bg-transparent',
+    duration: 30,
+    delay: 6,
+    radius: 210,
+    path: true,
     reverse: true,
   },
   {
@@ -158,12 +147,44 @@ const iconsArray: OrbitIcon[] = [
         alt='Git'
       />
     ),
-    className: 'size-[50px] border-none bg-transparent',
-    radius: 320,
-    duration: 20,
-    delay: 20,
-    path: false,
-    reverse: false,
+    className: 'size-[45px] border-none bg-transparent',
+    duration: 30,
+    delay: 12,
+    radius: 210,
+    path: true,
+    reverse: true,
+  },
+  {
+    component: () => (
+      <img
+        width={100}
+        height={100}
+        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg'
+        alt='Node.js'
+      />
+    ),
+    className: 'size-[45px] border-none bg-transparent',
+    duration: 30,
+    delay: 18,
+    radius: 210,
+    path: true,
+    reverse: true,
+  },
+  {
+    component: () => (
+      <img
+        width={100}
+        height={100}
+        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg'
+        alt='Nextjs'
+      />
+    ),
+    className: 'size-[45px] border-none bg-transparent',
+    duration: 30,
+    delay: 24,
+    radius: 210,
+    path: true,
+    reverse: true,
   },
 ];
 
@@ -180,6 +201,14 @@ export function LoginDemo({ onSubmit, googleComponent, error }: LoginDemoProps) 
     email: '',
     password: '',
   });
+
+  const [darkMode, setDarkMode] = useState(true); // Default to dark
+
+  useEffect(() => {
+    // Force dark mode for login screen
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+  }, []);
 
   const goToForgotPassword = (
     event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
@@ -232,10 +261,9 @@ export function LoginDemo({ onSubmit, googleComponent, error }: LoginDemoProps) 
   };
 
   return (
-    <section className='flex max-lg:justify-center overflow-hidden'>
+    <section className='flex max-lg:justify-center overflow-hidden relative bg-black'>
       {/* Left Side */}
       <span className='flex flex-col justify-center w-1/2 max-lg:hidden relative'>
-        <Ripple mainCircleSize={100} />
         <TechOrbitDisplay iconsArray={iconsArray} text="Learning Tracker" />
       </span>
 
