@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api',
+    baseURL: import.meta.env.VITE_API_BASE_URL || 'https://devtrack-backend.onrender.com/api',
 });
 
 // Add a request interceptor to attach the JWT token

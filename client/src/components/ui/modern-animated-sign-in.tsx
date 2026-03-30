@@ -456,6 +456,7 @@ const AnimatedForm = memo(function AnimatedForm({
                         : field.type
                     }
                     id={field.label}
+                    name={field.label}
                     placeholder={field.placeholder}
                     onChange={field.onChange}
                   />
