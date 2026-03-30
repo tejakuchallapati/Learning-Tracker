@@ -6,8 +6,14 @@ import { GoogleLogin } from '@react-oauth/google';
 const Signup = () => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
     const [error, setError] = useState('');
-    const { register, googleLogin } = useContext(AuthContext);
+    const { user, register, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/dashboard');
+        }
+    }, [user, navigate]);
 
     const handleGoogleSuccess = async (credentialResponse) => {
         try {

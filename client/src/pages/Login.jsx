@@ -6,8 +6,14 @@ import { LoginDemo } from '../components/LoginDemo';
 
 const Login = () => {
     const [error, setError] = useState('');
-    const { login, googleLogin } = useContext(AuthContext);
+    const { user, login, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/dashboard');
+        }
+    }, [user, navigate]);
 
     const handleGoogleSuccess = async (credentialResponse) => {
         try {
