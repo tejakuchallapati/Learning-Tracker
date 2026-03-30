@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler');
 const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || '937868886257-sgoqf4onr843odrv2518eghvog3ppm97.apps.googleusercontent.com');
 
 // @desc    Register new user
 // @route   POST /api/auth/register
