@@ -81,6 +81,17 @@
   animation: synapse-pulse 4s linear infinite;
 }
 
+@keyframes synapse-flow {
+  0% { stroke-dashoffset: 200; opacity: 0; }
+  20% { opacity: 0.6; }
+  80% { opacity: 0.6; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.animate-synapse-flow {
+  animation: synapse-flow 6s linear infinite;
+}
+
 .perspective-2000 {
   perspective: 2000px;
 }

@@ -83,96 +83,100 @@ const Landing = () => {
                         </div>
                     </div>
 
-                    <div className="relative group lg:block hidden h-[650px] w-full perspective-2000 preserve-3d">
-                        {/* Background Atmospheric Glow */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-violet-100/30 dark:bg-violet-900/10 rounded-full blur-[140px] animate-glow-pulse pointer-events-none"></div>
+                    <div className="relative group lg:block hidden h-[700px] w-full perspective-2000 preserve-3d">
+                        {/* Background Symmetrical Glow */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-100/20 dark:bg-violet-900/10 rounded-full blur-[160px] animate-glow-pulse pointer-events-none"></div>
                         
-                        {/* 1. The Central Data Core - The Knowledge Engine */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-full z-10 pointer-events-none">
-                            {/* Inner Pillar */}
-                            <div className="absolute inset-x-10 inset-y-0 bg-gradient-to-b from-transparent via-violet-600/40 to-transparent w-20 h-full border-x border-violet-500/20 shadow-[0_0_60px_rgba(124,58,237,0.3)] overflow-hidden">
-                                {/* Scanline Effect */}
-                                <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-transparent via-white/50 to-transparent animate-scanline"></div>
-                                {/* Technical Grid Overlay */}
-                                <div className="absolute top-0 left-0 w-full h-full opacity-[0.15] bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:12px_12px]"></div>
+                        {/* 1. Central Data Core Pillar - Perfectly Centered */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-full z-10 pointer-events-none">
+                            <div className="absolute inset-x-12 inset-y-0 bg-gradient-to-b from-transparent via-violet-600/30 to-transparent w-24 h-full border-x border-violet-500/20 shadow-[0_0_80px_rgba(124,58,237,0.25)] overflow-hidden">
+                                <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-transparent via-white/40 to-transparent animate-scanline"></div>
+                                <div className="absolute top-0 left-0 w-full h-full opacity-[0.1] bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:14px_14px]"></div>
                             </div>
                             
-                            {/* Central HUD Information */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-20">
-                                <div className="p-1 bg-gradient-to-br from-violet-500 to-rose-500 rounded-full shadow-[0_0_40px_rgba(124,58,237,0.5)]">
-                                    <div className="w-24 h-24 rounded-full bg-white dark:bg-slate-900 border-4 border-white dark:border-slate-800 flex flex-col items-center justify-center shadow-inner">
-                                        <div className="text-violet-600 text-3xl mb-1"><FiCpu className="animate-spin-slow" /></div>
-                                        <p className="text-[14px] font-black text-slate-900 dark:text-white leading-none">98.4<span className="text-[8px]">%</span></p>
+                                <div className="p-1 bg-gradient-to-br from-violet-500 to-rose-500 rounded-full shadow-[0_0_50px_rgba(124,58,237,0.4)]">
+                                    <div className="w-28 h-28 rounded-full bg-white dark:bg-slate-900 border-4 border-white dark:border-slate-800 flex flex-col items-center justify-center shadow-inner">
+                                        <div className="text-violet-600 text-4xl mb-1"><FiCpu className="animate-spin-slow" /></div>
+                                        <p className="text-[16px] font-black text-slate-900 dark:text-white leading-none">98.4<span className="text-[10px]">%</span></p>
                                     </div>
                                 </div>
-                                <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                                    <p className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">Knowledge Flux</p>
-                                    <div className="flex items-center justify-center gap-1.5 mt-2">
-                                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
-                                        <span className="text-[8px] font-black text-emerald-600 uppercase tracking-widest">Live Sync Alpha</span>
+                                <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                                    <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.5em]">Central Mastery</p>
+                                    <div className="flex items-center justify-center gap-2 mt-2">
+                                        <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                                        <span className="text-[9px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Knowledge Stream Active</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* 2. Neural Pathways & Floating Skill Clusters */}
-                        {[
-                            { id: 1, name: 'Web Mastery', color: 'bg-indigo-600', icon: <FiLayout />, pos: 'top-[5%] right-[10%]', rot: 'rotate-[-8deg] skew-y-[6deg]', mastery: '82%', delay: 0 },
-                            { id: 2, name: 'AI Neural', color: 'bg-violet-600', icon: <FiCpu />, pos: 'top-[35%] right-[5%]', rot: 'rotate-[6deg] skew-y-[-4deg]', mastery: '76%', delay: 7 },
-                            { id: 3, name: 'Data Engine', color: 'bg-emerald-600', icon: <FiCode />, pos: 'bottom-[12%] right-[12%]', rot: 'rotate-[-4deg] skew-y-[4deg]', mastery: '89%', delay: 14 },
-                            { id: 4, name: 'Cloud Ops', color: 'bg-rose-600', icon: <FiLayout />, pos: 'top-[20%] left-[8%]', rot: 'rotate-[10deg] skew-y-[-8deg]', mastery: '64%', delay: 21 },
-                            { id: 5, name: 'Security Protocol', color: 'bg-slate-900', icon: <FiSmartphone />, pos: 'bottom-[25%] left-[12%]', rot: 'rotate-[-10deg] skew-y-[8deg]', mastery: '92%', delay: 28 }
-                        ].map((tile, i) => (
-                            <div key={tile.id} className={`absolute ${tile.pos} z-20 group/tile hover:z-30 transition-all`}>
-                                {/* Animated Neural Path (SVG) */}
-                                <svg className="absolute top-1/2 left-1/2 w-[450px] h-[250px] pointer-events-none opacity-10 group-hover/tile:opacity-40 transition-opacity duration-1000 -z-10" 
-                                     style={{ transform: i < 3 ? 'translate(-100%, -50%)' : 'translate(0%, -50%)' }}>
-                                    <path 
-                                        d={i < 3 ? "M 450 125 Q 225 125 0 125" : "M 0 125 Q 225 125 450 125"} 
-                                        stroke="url(#path-grad)" 
-                                        strokeWidth="2.5" 
-                                        fill="none" 
-                                        strokeDasharray="20 20"
-                                        className="animate-synapse"
-                                    />
-                                    <defs>
-                                        <linearGradient id="path-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                            <stop offset="0%" stopColor="#7c3aed" stopOpacity="0" />
-                                            <stop offset="50%" stopColor="#7c3aed" />
-                                            <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
-                                        </linearGradient>
-                                    </defs>
-                                </svg>
-
-                                {/* 3D Skill Tile */}
-                                <div className={`p-8 bg-white/90 dark:bg-slate-900 border border-white dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-110 group-hover/tile:-translate-y-4 transition-all duration-700 cursor-pointer`}>
-                                    <div className="flex items-start gap-6">
-                                        <div className={`w-14 h-14 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-12deg] group-hover/tile:rotate-0 transition-transform duration-500`}>
-                                            <span className="text-2xl">{tile.icon}</span>
-                                        </div>
-                                        <div className="min-w-[140px]">
-                                            <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tighter leading-none mb-3">{tile.name}</h4>
-                                            <div className="space-y-1.5">
-                                                <div className="flex justify-between items-center text-[8px] font-black text-slate-400 uppercase tracking-widest">
-                                                    <span>Mastery Level</span>
-                                                    <span className="text-violet-600">{tile.mastery}</span>
+                        {/* 2. Structured Matrix - Symmetrical Columns */}
+                        <div className="absolute inset-0 flex justify-between px-10">
+                            {/* Left Column (3 Tiles) */}
+                            <div className="flex flex-col justify-around h-full py-10 w-fit">
+                                {[
+                                    { id: 1, name: 'Web Mastery', color: 'bg-indigo-600', icon: <FiLayout />, mastery: '82%' },
+                                    { id: 2, name: 'AI Neural', color: 'bg-violet-600', icon: <FiCpu />, mastery: '76%' },
+                                    { id: 3, name: 'Data Engine', color: 'bg-emerald-600', icon: <FiCode />, mastery: '89%' }
+                                ].map((tile) => (
+                                    <div key={tile.id} className="relative group/tile hover:z-30 transition-all">
+                                        <svg className="absolute top-1/2 left-full w-48 h-10 pointer-events-none opacity-20 group-hover/tile:opacity-60 transition-all duration-700 -z-10 -translate-y-1/2">
+                                            <path d="M 0 20 L 192 20" stroke="#7c3aed" strokeWidth="2.5" fill="none" strokeDasharray="10 10" className="animate-synapse-flow" />
+                                        </svg>
+                                        <div className="p-8 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu rotate-y-[25deg] skew-y-[-5deg] group-hover/tile:rotate-0 group-hover/tile:scale-110 group-hover/tile:-translate-x-4 transition-all duration-700 cursor-pointer w-72">
+                                            <div className="flex items-center gap-6">
+                                                <div className={`w-14 h-14 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
+                                                    <span className="text-2xl">{tile.icon}</span>
                                                 </div>
-                                                <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                                                    <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
+                                                <div className="flex-1 min-w-0">
+                                                    <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
+                                                    <div className="flex justify-between items-center text-[9px] font-black text-slate-400 mt-2">
+                                                        <span>Progress</span>
+                                                        <span className="text-violet-600">{tile.mastery}</span>
+                                                    </div>
+                                                    <div className="h-1.5 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-1.5">
+                                                        <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    {/* System HUD Overlays - Appears on Hover */}
-                                    <div className="absolute -bottom-6 -right-6 opacity-0 group-hover/tile:opacity-100 transition-all duration-500 transform translate-y-4 group-hover/tile:translate-y-0 space-y-1 font-mono text-[8px] font-black text-slate-400 dark:text-slate-500 text-right uppercase tracking-[0.2em] pointer-events-none">
-                                        <div>LATENCY: 4.8ms</div>
-                                        <div>PROTOCOL: {tile.id * 128}X_SYNC</div>
-                                        <div className="text-emerald-500">STATUS: OPTIMIZED</div>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
-                        ))}
+
+                            {/* Right Column (3 Tiles) */}
+                            <div className="flex flex-col justify-around h-full py-10 w-fit">
+                                {[
+                                    { id: 4, name: 'Cloud Ops', color: 'bg-rose-600', icon: <FiLayout />, mastery: '64%' },
+                                    { id: 5, name: 'Security Protocol', color: 'bg-slate-900', icon: <FiSmartphone />, mastery: '92%' },
+                                    { id: 6, name: 'DevOps Track', color: 'bg-blue-600', icon: <FiArrowRight />, mastery: '45%' }
+                                ].map((tile) => (
+                                    <div key={tile.id} className="relative group/tile hover:z-30 transition-all">
+                                        <svg className="absolute top-1/2 right-full w-48 h-10 pointer-events-none opacity-20 group-hover/tile:opacity-60 transition-all duration-700 -z-10 -translate-y-1/2">
+                                            <path d="M 192 20 L 0 20" stroke="#7c3aed" strokeWidth="2.5" fill="none" strokeDasharray="10 10" className="animate-synapse-flow" />
+                                        </svg>
+                                        <div className="p-8 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu rotate-y-[-25deg] skew-y-[5deg] group-hover/tile:rotate-0 group-hover/tile:scale-110 group-hover/tile:translate-x-4 transition-all duration-700 cursor-pointer w-72">
+                                            <div className="flex items-center gap-6">
+                                                <div className={`w-14 h-14 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
+                                                    <span className="text-2xl">{tile.icon}</span>
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
+                                                    <div className="flex justify-between items-center text-[9px] font-black text-slate-400 mt-2">
+                                                        <span>Progress</span>
+                                                        <span className="text-violet-600">{tile.mastery}</span>
+                                                    </div>
+                                                    <div className="h-1.5 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-1.5">
+                                                        <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
