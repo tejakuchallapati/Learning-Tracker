@@ -84,32 +84,60 @@ const Landing = () => {
                     </div>
 
                     <div className="relative group lg:block hidden">
-                        <div className="absolute -inset-4 bg-gradient-to-tr from-rose-500/20 via-orange-500/10 to-rose-600/20 rounded-[3rem] blur-2xl opacity-60 group-hover:opacity-100 transition duration-1000"></div>
-                        <div className="relative bg-white dark:bg-slate-900 border border-rose-100/50 rounded-[2.5rem] p-12 aspect-square flex items-center justify-center overflow-hidden shadow-[0_50px_100px_-20px_rgba(225,29,72,0.15)]">
-                            {/* Abstract Code Grid */}
-                            <div className="absolute inset-0 p-12 opacity-[0.05] pointer-events-none select-none">
-                                <pre className="text-[12px] leading-relaxed text-rose-900 font-mono">
-                                    {`class Architect {
-  constructor(vision) {
-    this.vision = vision;
-    this.stack = ['React', 'Next.js', 'Node'];
-  }
-
-  build() {
-    return this.stack.map(tech => ({
-      name: tech,
-      status: 'Mastered'
-    }));
-  }
-}
-
-// Initialize learning path
-const path = new Architect('FullStack');
-path.build();`}
-                                </pre>
+                        <div className="absolute -inset-4 bg-gradient-to-tr from-violet-500/20 via-orange-500/10 to-rose-600/20 rounded-[3rem] blur-2xl opacity-60 group-hover:opacity-100 transition duration-1000"></div>
+                        
+                        <div className="relative bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] p-12 aspect-square flex flex-col items-center justify-center overflow-hidden premium-shadow">
+                            {/* Central Mastery Card */}
+                            <div className="relative z-20 w-72 h-72 bg-white dark:bg-slate-800 rounded-[3.5rem] border border-slate-100 dark:border-slate-700 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] p-10 flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-700">
+                                <div className="relative w-44 h-44 flex items-center justify-center mb-8">
+                                    <svg className="w-full h-full transform -rotate-90">
+                                        <circle cx="88" cy="88" r="78" stroke="currentColor" strokeWidth="14" fill="transparent" className="text-slate-50 dark:text-slate-900" />
+                                        <circle cx="88" cy="88" r="78" stroke="currentColor" strokeWidth="14" fill="transparent" strokeDasharray="490" strokeDashoffset="120" className="text-violet-600 drop-shadow-[0_0_12px_rgba(124,58,237,0.4)]" strokeLinecap="round" />
+                                    </svg>
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                        <span className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">78%</span>
+                                        <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-2">Mastery</span>
+                                    </div>
+                                </div>
+                                <div className="text-center">
+                                    <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">Full-Stack Architect</h4>
+                                    <div className="flex items-center justify-center gap-2 mt-2">
+                                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                                        <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Active Stream</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="relative z-10 w-full h-full bg-gradient-to-br from-rose-600 via-rose-500 to-rose-600 rounded-3xl border border-white/20 flex items-center justify-center text-9xl transform group-hover:scale-105 transition-transform duration-700 shadow-inner">
-                                <span className="animate-rocket drop-shadow-[0_20px_50px_rgba(255,255,255,0.3)]">🚀</span>
+
+                            {/* Orbiting Skill Nodes */}
+                            <div className="absolute inset-0 pointer-events-none">
+                                {[
+                                    { icon: <FiCode />, color: 'text-blue-500', radius: 190, duration: 30, delay: 0 },
+                                    { icon: <FiCpu />, color: 'text-emerald-500', radius: 190, duration: 30, delay: 7.5 },
+                                    { icon: <FiLayout />, color: 'text-orange-500', radius: 190, duration: 30, delay: 15 },
+                                    { icon: <FiSmartphone />, color: 'text-rose-500', radius: 190, duration: 30, delay: 22.5 }
+                                ].map((node, i) => (
+                                    <div 
+                                        key={i}
+                                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-orbit"
+                                        style={{ '--orbit-radius': node.radius, '--orbit-duration': node.duration, animationDelay: `${-node.delay}s` }}
+                                    >
+                                        <div className="p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 group-hover:scale-110 transition-transform duration-500 flex items-center justify-center">
+                                            <span className={`${node.color} text-2xl`}>{node.icon}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Floating Telemetry Badges */}
+                            <div className="absolute top-12 right-12 animate-float" style={{ animationDelay: '0s' }}>
+                                <div className="px-6 py-3 bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] border border-orange-100 dark:border-orange-900/30 shadow-xl shadow-orange-100/20">
+                                    🔥 12 Day Streak
+                                </div>
+                            </div>
+                            <div className="absolute bottom-12 left-12 animate-float" style={{ animationDelay: '2s' }}>
+                                <div className="px-6 py-3 bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] border border-violet-100 dark:border-violet-900/30 shadow-xl shadow-violet-100/20">
+                                    ✅ Verified Module
+                                </div>
                             </div>
                         </div>
                     </div>
