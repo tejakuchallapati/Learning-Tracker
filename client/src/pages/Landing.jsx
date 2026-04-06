@@ -1,11 +1,13 @@
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiCode, FiCpu, FiLayout, FiSmartphone } from 'react-icons/fi';
 import logo from '../assets/logo.png';
-import roboCore from '../assets/ai_robo_core.png';
+import roboCore from '../assets/ai_robo_v2.png';
 
 const Landing = () => {
     const navigate = useNavigate();
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const features = [
         { icon: <FiCode />, title: "Code Mastery", desc: "Interactive environments and real-world projects designed for speed." },
@@ -92,28 +94,35 @@ const Landing = () => {
                         {/* 2. Central AI Robo-Mentor (Commander Host) */}
                         <div className="relative z-20 flex flex-col items-center">
                             {/* Holographic Orbital Halo */}
-                            <div className="absolute -bottom-4 w-40 h-12 border-[3px] border-violet-500/20 rounded-full animate-spin-slow blur-[1px] -z-10"></div>
-                            <div className="absolute -bottom-6 w-32 h-10 border-2 border-rose-500/10 rounded-full animate-spin-reverse-slow blur-[2px] -z-10"></div>
+                            <div className="absolute -bottom-10 w-64 h-20 border-[3px] border-violet-500/20 rounded-full animate-spin-slow blur-[1px] -z-10"></div>
+                            <div className="absolute -bottom-12 w-48 h-12 border-2 border-rose-500/10 rounded-full animate-spin-reverse-slow blur-[2px] -z-10"></div>
                             
-                            {/* Robot with Breathing Float */}
+                            {/* Robot with Breathing Float - MASSIVE SCALE */}
                             <motion.div
-                                animate={{ y: [0, -20, 0], rotate: [0, 1, 0, -1, 0] }}
-                                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                                className="relative"
+                                animate={{ y: [0, -30, 0], rotate: [0, 1.5, 0, -1.5, 0] }}
+                                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                                className="relative cursor-pointer group/robo-core"
+                                onClick={() => setIsExpanded(!isExpanded)}
                             >
-                                <img src={roboCore} alt="AI Mentor" className="w-60 h-60 object-contain drop-shadow-[0_0_50px_rgba(124,58,237,0.35)] filter brightness-110" />
+                                <img src={roboCore} alt="AI Mentor" className="w-[450px] h-[450px] object-contain drop-shadow-[0_20px_80px_rgba(124,58,237,0.4)] filter brightness-110" />
                                 
-                                {/* Floated Mastery HUD above Robo */}
+                                {/* Floated Mastery HUD above Robo (The Interactive Toggle) */}
                                 <motion.div 
-                                    className="absolute -top-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-xl flex items-center gap-3 shadow-2xl"
-                                    animate={{ opacity: [0.7, 1, 0.7] }}
+                                    className="absolute -top-4 left-1/2 -translate-x-1/2 px-10 py-5 bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/60 dark:border-slate-700 rounded-3xl flex flex-col items-center gap-2 shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:scale-105 hover:bg-white/60 transition-all duration-500 border-2"
+                                    animate={{ 
+                                        y: isExpanded ? [-5, 5, -5] : [0, -10, 0],
+                                        borderColor: isExpanded ? ['rgba(124,58,237,0.6)', 'rgba(236,72,153,0.6)'] : 'white'
+                                    }}
                                     transition={{ duration: 4, repeat: Infinity }}
                                 >
-                                    <div className="text-left leading-none uppercase">
-                                        <p className="text-[6px] font-black text-slate-500 tracking-[0.3em] mb-1">Intelligence</p>
-                                        <p className="text-[10px] font-black text-slate-900 dark:text-white">98.4<span className="text-violet-600">%</span></p>
-                                    </div>
-                                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></div>
+                                    <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.5em] mb-1">Global Mastery</p>
+                                    <h3 className="text-4xl font-black text-slate-950 dark:text-white tracking-tighter leading-none flex items-baseline gap-1">
+                                        98.4<span className="text-xl text-violet-600">%</span>
+                                    </h3>
+                                    <p className="mt-3 text-[8px] font-black text-violet-600 uppercase tracking-widest flex items-center gap-2">
+                                        <span className="w-1.5 h-1.5 bg-violet-600 rounded-full animate-pulse"></span>
+                                        {isExpanded ? 'System: Viewing Roadmap' : 'Click to Explore Intelligence'}
+                                    </p>
                                 </motion.div>
                             </motion.div>
                         </div>
@@ -129,19 +138,22 @@ const Landing = () => {
                         ].map((tile) => (
                             <motion.div
                                 key={tile.id}
-                                className={`absolute ${tile.pos} ${tile.scale} ${tile.blur} ${tile.z} group/tile transition-all duration-700`}
+                                className={`absolute ${tile.pos} ${tile.z} group/tile transition-all duration-700`}
+                                initial={false}
                                 animate={{ 
-                                    y: [0, -15, 0, 15, 0],
-                                    x: [0, 8, 0, -8, 0]
+                                    y: isExpanded ? [0, -15, 0, 15, 0] : 0,
+                                    x: isExpanded ? [0, 8, 0, -8, 0] : 0,
+                                    scale: isExpanded ? 1 : 0,
+                                    opacity: isExpanded ? 1 : 0
                                 }}
                                 transition={{
-                                    duration: 8 + tile.id,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                    delay: tile.delay
+                                    scale: { duration: 0.8, ease: "backOut", delay: tile.delay * 0.2 },
+                                    opacity: { duration: 0.5, delay: tile.delay * 0.2 },
+                                    y: { duration: 8 + tile.id, repeat: Infinity, ease: "easeInOut" },
+                                    x: { duration: 8 + tile.id, repeat: Infinity, ease: "easeInOut" }
                                 }}
                             >
-                                <div className="p-4 bg-white/5 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/20 dark:border-slate-800 rounded-[1.5rem] shadow-[0_0_40px_rgba(0,0,0,0.1)] hover:border-violet-500/50 hover:shadow-violet-500/20 transition-all duration-500 w-[180px]">
+                                <div className={`p-4 bg-white/5 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/20 dark:border-slate-800 rounded-[1.5rem] shadow-[0_0_40px_rgba(0,0,0,0.1)] hover:border-violet-500/50 hover:shadow-violet-500/20 transition-all duration-500 w-[180px] ${tile.scale} ${tile.blur}`}>
                                     <div className="flex items-center gap-3">
                                         <div className="w-8 h-8 bg-gradient-to-br from-violet-600 to-rose-600 text-white rounded-lg flex items-center justify-center shadow-lg relative overflow-hidden">
                                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,white_0.5px,transparent_0.5px)] bg-[size:4px_4px] opacity-20"></div>
@@ -168,8 +180,8 @@ const Landing = () => {
                             </motion.div>
                         ))}
 
-                        {/* 4. Neural-Bus Circuits (Animated SVG Paths) */}
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20 -z-10 group-hover:opacity-40 transition-opacity duration-1000">
+                        {/* 4. Neural-Bus Circuits (Animated ONLY on Expanded) */}
+                        <svg className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-1000 ${isExpanded ? 'opacity-20' : 'opacity-0'}`}>
                             <defs>
                                 <linearGradient id="bus-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                                     <stop offset="0%" stopColor="#7c3aed" />
@@ -178,10 +190,10 @@ const Landing = () => {
                             </defs>
                             {/* Circuit Board Paths from Robot to Modules */}
                             <path d="M 600 400 L 450 150 M 600 400 L 750 150 M 600 400 L 350 400 M 600 400 L 850 400 M 600 400 L 450 650 M 600 400 L 750 650" 
-                                stroke="url(#bus-gradient)" strokeWidth="1.5" fill="none" strokeDasharray="4 4" className="animate-synapse-flow" />
+                                stroke="url(#bus-gradient)" strokeWidth="1.5" fill="none" strokeDasharray="4 4" className={isExpanded ? 'animate-synapse-flow' : ''} />
                             
                             {/* Data Bits (Moving dots on circuits) */}
-                            {[0,1,2,3,4,5].map(i => (
+                            {isExpanded && [0,1,2,3,4,5].map(i => (
                                 <circle key={i} r="2" fill="#7c3aed" className="animate-data-bit" style={{ offsetPath: `path('M 600 400 L ${[450, 750, 350, 850, 450, 750][i]} ${[150, 150, 400, 400, 650, 650][i]}')`, animationDelay: `${i * 1.2}s` }} />
                             ))}
                         </svg>
