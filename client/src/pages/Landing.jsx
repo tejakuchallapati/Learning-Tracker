@@ -90,17 +90,17 @@ const Landing = () => {
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-violet-100/15 dark:bg-violet-900/10 rounded-full blur-[180px] animate-glow-pulse pointer-events-none"></div>
                         
                         {/* ROW 1: Top Modules (2) */}
-                        <div className="flex gap-16 z-20">
+                        <div className="flex gap-12 z-20">
                             {[
-                                { id: 1, name: 'Web Mastery', color: 'bg-indigo-600', icon: <FiLayout />, mastery: '82%', rot: 'rotate-x-[15deg] rotate-y-[10deg]', delay: 0 },
-                                { id: 4, name: 'Cloud Ops', color: 'bg-rose-600', icon: <FiLayout />, mastery: '64%', rot: 'rotate-x-[15deg] rotate-y-[-10deg]', delay: 1.5 }
+                                { id: 1, name: 'Web Mastery', color: 'bg-indigo-600', icon: <FiLayout />, mastery: '82%', delay: 0 },
+                                { id: 4, name: 'Cloud Ops', color: 'bg-rose-600', icon: <FiLayout />, mastery: '64%', delay: 1.5 }
                             ].map((tile) => (
                                 <motion.div 
                                     key={tile.id} 
                                     className="relative group/tile hover:z-30 transition-all"
                                     animate={{ 
-                                        y: [0, -12, 0, 12, 0],
-                                        x: [0, 8, 0, -8, 0]
+                                        y: [0, -10, 0, 10, 0],
+                                        x: [0, 6, 0, -6, 0]
                                     }}
                                     transition={{
                                         duration: 8,
@@ -109,15 +109,16 @@ const Landing = () => {
                                         delay: tile.delay
                                     }}
                                 >
-                                    <div className={`p-7 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[260px]`}>
-                                        <div className="flex items-center gap-5">
-                                            <div className={`w-12 h-12 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
-                                                <span className="text-xl">{tile.icon}</span>
+                                    <div className="p-5 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-3xl premium-shadow cursor-pointer w-[200px] hover:scale-105 transition-all duration-500">
+                                        <div className="flex items-center gap-4">
+                                            <div className={`w-10 h-10 ${tile.color} text-white rounded-xl flex items-center justify-center shadow-lg shrink-0`}>
+                                                <span className="text-lg">{tile.icon}</span>
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
-                                                <div className="h-1 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2">
-                                                    <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
+                                                <h4 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight mb-1">{tile.name}</h4>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 bg-violet-600 rounded-full animate-pulse"></span>
+                                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{tile.mastery}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,18 +127,18 @@ const Landing = () => {
                             ))}
                         </div>
 
-                        {/* ROW 2: Middle Modules (Significant Gap for Circle) */}
-                        <div className="flex items-center justify-between w-full max-w-6xl z-20 relative px-10">
+                        {/* ROW 2: Middle Modules (Balanced for Large Robo) */}
+                        <div className="flex items-center justify-between w-full max-w-5xl z-20 relative px-6">
                             {/* Left Middle */}
                             {[
-                                { id: 2, name: 'AI Neural', color: 'bg-violet-600', icon: <FiCpu />, mastery: '76%', rot: 'rotate-y-[20deg]', delay: 3 }
+                                { id: 2, name: 'AI Neural', color: 'bg-violet-600', icon: <FiCpu />, mastery: '76%', delay: 3 }
                             ].map((tile) => (
                                 <motion.div 
                                     key={tile.id} 
                                     className="relative group/tile hover:z-30 transition-all"
                                     animate={{ 
-                                        y: [0, 10, 0, -10, 0],
-                                        x: [0, -15, 0, 15, 0]
+                                        y: [0, 8, 0, -8, 0],
+                                        x: [0, -10, 0, 10, 0]
                                     }}
                                     transition={{
                                         duration: 10,
@@ -146,15 +147,16 @@ const Landing = () => {
                                         delay: tile.delay
                                     }}
                                 >
-                                    <div className={`p-7 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[260px]`}>
-                                        <div className="flex items-center gap-5">
-                                            <div className={`w-12 h-12 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
-                                                <span className="text-xl">{tile.icon}</span>
+                                    <div className="p-5 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-3xl premium-shadow cursor-pointer w-[200px] hover:scale-105 transition-all duration-500">
+                                        <div className="flex items-center gap-4">
+                                            <div className={`w-10 h-10 ${tile.color} text-white rounded-xl flex items-center justify-center shadow-xl shrink-0`}>
+                                                <span className="text-lg">{tile.icon}</span>
                                             </div>
                                             <div className="flex-1 min-w-0 text-left">
-                                                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
-                                                <div className="h-1 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2">
-                                                    <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
+                                                <h4 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight mb-1">{tile.name}</h4>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 bg-violet-600 rounded-full animate-pulse"></span>
+                                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{tile.mastery}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -162,39 +164,35 @@ const Landing = () => {
                                 </motion.div>
                             ))}
 
-                            {/* THE AI ROBO-MENTOR: Perfectly Centered Holographic Core */}
-                            <div className="relative group/robo flex flex-col items-center">
+                            {/* THE AI ROBO-MENTOR: Enlarged Multi-Host Core */}
+                            <div className="relative group/robo flex flex-col items-center scale-110">
                                 {/* Projection Aura behind the Robo */}
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-violet-600/10 rounded-full blur-[60px] animate-pulse pointer-events-none -z-10"></div>
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-violet-600/15 rounded-full blur-[80px] animate-pulse pointer-events-none -z-10"></div>
                                 
                                 <div className="relative z-20 flex flex-col items-center">
-                                    {/* Holographic Mastery HUD projecting above Robo */}
+                                    {/* Holographic Mastery HUD */}
                                     <motion.div 
-                                        className="mb-6 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl flex flex-col items-center shadow-[0_0_30px_rgba(124,58,237,0.2)]"
-                                        animate={{ y: [0, -5, 0] }}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                        className="mb-8 px-6 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl flex flex-col items-center shadow-[0_0_40px_rgba(124,58,237,0.3)]"
+                                        animate={{ y: [0, -8, 0] }}
+                                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                                     >
-                                        <p className="text-[7px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.4em] mb-1 leading-none">Global Mastery</p>
-                                        <h3 className="text-xl font-black text-slate-950 dark:text-white tracking-tighter leading-none flex items-baseline gap-0.5">
-                                            98.4<span className="text-[10px] text-violet-600">%</span>
+                                        <p className="text-[8px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.4em] mb-1 leading-none">Intelligence Hub</p>
+                                        <h3 className="text-2xl font-black text-slate-950 dark:text-white tracking-tighter leading-none flex items-baseline gap-0.5">
+                                            98.4<span className="text-xs text-violet-600">%</span>
                                         </h3>
-                                        <div className="flex items-center gap-1 mt-1.5 px-2 py-0.5 bg-emerald-500/10 rounded-full">
-                                            <span className="w-1 h-1 bg-emerald-500 rounded-full animate-ping"></span>
-                                            <span className="text-[6px] font-black text-emerald-600 uppercase tracking-widest">Protocol: Active</span>
-                                        </div>
                                     </motion.div>
 
-                                    {/* The Robo Asset with Floating Motion */}
+                                    {/* Enlarge the Robo-Mentor (Now w-72) */}
                                     <motion.img 
                                         src={roboCore} 
                                         alt="AI Mentor" 
-                                        className="w-48 h-48 object-contain drop-shadow-[0_0_25px_rgba(124,58,237,0.2)] filter brightness-110 contrast-110"
+                                        className="w-72 h-72 object-contain drop-shadow-[0_0_40px_rgba(124,58,237,0.3)] filter brightness-110 contrast-110"
                                         animate={{ 
-                                            y: [0, -15, 0],
-                                            rotate: [0, 1, 0, -1, 0]
+                                            y: [0, -20, 0],
+                                            rotate: [0, 1.5, 0, -1.5, 0]
                                         }}
                                         transition={{
-                                            duration: 6,
+                                            duration: 7,
                                             repeat: Infinity,
                                             ease: "easeInOut"
                                         }}
@@ -212,14 +210,14 @@ const Landing = () => {
 
                             {/* Right Middle */}
                             {[
-                                { id: 5, name: 'Security Protocol', color: 'bg-slate-900', icon: <FiSmartphone />, mastery: '92%', rot: 'rotate-y-[-20deg]', delay: 4.5 }
+                                { id: 5, name: 'Security Protocol', color: 'bg-slate-900', icon: <FiSmartphone />, mastery: '92%', delay: 4.5 }
                             ].map((tile) => (
                                 <motion.div 
                                     key={tile.id} 
                                     className="relative group/tile hover:z-30 transition-all"
                                     animate={{ 
-                                        y: [0, -10, 0, 10, 0],
-                                        x: [0, 15, 0, -15, 0]
+                                        y: [0, -8, 0, 8, 0],
+                                        x: [0, 10, 0, -10, 0]
                                     }}
                                     transition={{
                                         duration: 10,
@@ -228,15 +226,16 @@ const Landing = () => {
                                         delay: tile.delay
                                     }}
                                 >
-                                    <div className={`p-7 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[260px]`}>
-                                        <div className="flex items-center gap-5">
-                                            <div className={`w-12 h-12 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
-                                                <span className="text-xl">{tile.icon}</span>
+                                    <div className="p-5 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-3xl premium-shadow cursor-pointer w-[200px] hover:scale-105 transition-all duration-500">
+                                        <div className="flex items-center gap-4">
+                                            <div className={`w-10 h-10 ${tile.color} text-white rounded-xl flex items-center justify-center shadow-xl shrink-0`}>
+                                                <span className="text-lg">{tile.icon}</span>
                                             </div>
                                             <div className="flex-1 min-w-0 text-left">
-                                                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
-                                                <div className="h-1 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2">
-                                                    <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
+                                                <h4 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight mb-1">{tile.name}</h4>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 bg-violet-600 rounded-full animate-pulse"></span>
+                                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{tile.mastery}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -246,17 +245,17 @@ const Landing = () => {
                         </div>
 
                         {/* ROW 3: Bottom Modules (2) */}
-                        <div className="flex gap-16 z-20">
+                        <div className="flex gap-12 z-20">
                             {[
-                                { id: 3, name: 'Data Engine', color: 'bg-emerald-600', icon: <FiCode />, mastery: '89%', rot: 'rotate-x-[-15deg] rotate-y-[10deg]', delay: 6 },
-                                { id: 6, name: 'DevOps Track', color: 'bg-blue-600', icon: <FiArrowRight />, mastery: '45%', rot: 'rotate-x-[-15deg] rotate-y-[-10deg]', delay: 7.5 }
+                                { id: 3, name: 'Data Engine', color: 'bg-emerald-600', icon: <FiCode />, mastery: '89%', delay: 6 },
+                                { id: 6, name: 'DevOps Track', color: 'bg-blue-600', icon: <FiArrowRight />, mastery: '45%', delay: 7.5 }
                             ].map((tile) => (
                                 <motion.div 
                                     key={tile.id} 
                                     className="relative group/tile hover:z-30 transition-all"
                                     animate={{ 
-                                        y: [0, 12, 0, -12, 0],
-                                        x: [0, -8, 0, 8, 0]
+                                        y: [0, 10, 0, -10, 0],
+                                        x: [0, -6, 0, 6, 0]
                                     }}
                                     transition={{
                                         duration: 8,
@@ -265,15 +264,16 @@ const Landing = () => {
                                         delay: tile.delay
                                     }}
                                 >
-                                    <div className={`p-7 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[260px]`}>
-                                        <div className="flex items-center gap-5">
-                                            <div className={`w-12 h-12 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
-                                                <span className="text-xl">{tile.icon}</span>
+                                    <div className="p-5 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] shadow-3xl premium-shadow cursor-pointer w-[200px] hover:scale-105 transition-all duration-500">
+                                        <div className="flex items-center gap-4">
+                                            <div className={`w-10 h-10 ${tile.color} text-white rounded-xl flex items-center justify-center shadow-lg shrink-0`}>
+                                                <span className="text-lg">{tile.icon}</span>
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
-                                                <div className="h-1 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2">
-                                                    <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
+                                                <h4 className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight mb-1">{tile.name}</h4>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 bg-violet-600 rounded-full animate-pulse"></span>
+                                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{tile.mastery}</span>
                                                 </div>
                                             </div>
                                         </div>
