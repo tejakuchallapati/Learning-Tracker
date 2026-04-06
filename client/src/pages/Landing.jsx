@@ -89,23 +89,31 @@ const Landing = () => {
                         
                         {/* 1. Central Data Core Pillar - Perfectly Centered */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-full z-10 pointer-events-none">
+                            {/* Mastery HUD - Relocated to TOP for better structure */}
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[80%] text-center z-20">
+                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em] mb-3">Global Mastery Index</p>
+                                <div className="flex items-center justify-center gap-4">
+                                    <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">98.4<span className="text-sm text-violet-600">%</span></h3>
+                                    <div className="h-10 w-px bg-slate-200 dark:bg-slate-800"></div>
+                                    <div className="text-left">
+                                        <div className="flex items-center gap-2">
+                                            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                                            <span className="text-[9px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest leading-none">Node Sync Alpha</span>
+                                        </div>
+                                        <p className="text-[7px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-1.5 leading-none">Protocol: Optimized-X24</p>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="absolute inset-x-12 inset-y-0 bg-gradient-to-b from-transparent via-violet-600/30 to-transparent w-24 h-full border-x border-violet-500/20 shadow-[0_0_80px_rgba(124,58,237,0.25)] overflow-hidden">
                                 <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-transparent via-white/40 to-transparent animate-scanline"></div>
                                 <div className="absolute top-0 left-0 w-full h-full opacity-[0.1] bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:14px_14px]"></div>
                             </div>
                             
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-20">
-                                <div className="p-1 bg-gradient-to-br from-violet-500 to-rose-500 rounded-full shadow-[0_0_50px_rgba(124,58,237,0.4)]">
-                                    <div className="w-28 h-28 rounded-full bg-white dark:bg-slate-900 border-4 border-white dark:border-slate-800 flex flex-col items-center justify-center shadow-inner">
-                                        <div className="text-violet-600 text-4xl mb-1"><FiCpu className="animate-spin-slow" /></div>
-                                        <p className="text-[16px] font-black text-slate-900 dark:text-white leading-none">98.4<span className="text-[10px]">%</span></p>
-                                    </div>
-                                </div>
-                                <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                                    <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.5em]">Central Mastery</p>
-                                    <div className="flex items-center justify-center gap-2 mt-2">
-                                        <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                                        <span className="text-[9px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Knowledge Stream Active</span>
+                                <div className="p-1.5 bg-gradient-to-br from-violet-500/20 to-rose-500/20 rounded-full shadow-[0_0_60px_rgba(124,58,237,0.3)] backdrop-blur-sm">
+                                    <div className="w-28 h-28 rounded-full bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-white dark:border-slate-800 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-700">
+                                        <div className="text-violet-600 text-5xl animate-pulse"><FiCpu className="animate-spin-slow" /></div>
                                     </div>
                                 </div>
                             </div>
