@@ -83,63 +83,96 @@ const Landing = () => {
                         </div>
                     </div>
 
-                    <div className="relative group lg:block hidden">
-                        <div className="absolute -inset-4 bg-gradient-to-tr from-violet-500/20 via-orange-500/10 to-rose-600/20 rounded-[3rem] blur-2xl opacity-60 group-hover:opacity-100 transition duration-1000"></div>
+                    <div className="relative group lg:block hidden h-[650px] w-full perspective-2000 preserve-3d">
+                        {/* Background Atmospheric Glow */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-violet-100/30 dark:bg-violet-900/10 rounded-full blur-[140px] animate-glow-pulse pointer-events-none"></div>
                         
-                        <div className="relative bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] p-12 aspect-square flex flex-col items-center justify-center overflow-hidden premium-shadow">
-                            {/* Central Mastery Card */}
-                            <div className="relative z-20 w-72 h-72 bg-white dark:bg-slate-800 rounded-[3.5rem] border border-slate-100 dark:border-slate-700 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] p-10 flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                                <div className="relative w-44 h-44 flex items-center justify-center mb-8">
-                                    <svg className="w-full h-full transform -rotate-90">
-                                        <circle cx="88" cy="88" r="78" stroke="currentColor" strokeWidth="14" fill="transparent" className="text-slate-50 dark:text-slate-900" />
-                                        <circle cx="88" cy="88" r="78" stroke="currentColor" strokeWidth="14" fill="transparent" strokeDasharray="490" strokeDashoffset="120" className="text-violet-600 drop-shadow-[0_0_12px_rgba(124,58,237,0.4)]" strokeLinecap="round" />
-                                    </svg>
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <span className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">78%</span>
-                                        <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-2">Mastery</span>
+                        {/* 1. The Central Data Core - The Knowledge Engine */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-full z-10 pointer-events-none">
+                            {/* Inner Pillar */}
+                            <div className="absolute inset-x-10 inset-y-0 bg-gradient-to-b from-transparent via-violet-600/40 to-transparent w-20 h-full border-x border-violet-500/20 shadow-[0_0_60px_rgba(124,58,237,0.3)] overflow-hidden">
+                                {/* Scanline Effect */}
+                                <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-transparent via-white/50 to-transparent animate-scanline"></div>
+                                {/* Technical Grid Overlay */}
+                                <div className="absolute top-0 left-0 w-full h-full opacity-[0.15] bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:12px_12px]"></div>
+                            </div>
+                            
+                            {/* Central HUD Information */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-20">
+                                <div className="p-1 bg-gradient-to-br from-violet-500 to-rose-500 rounded-full shadow-[0_0_40px_rgba(124,58,237,0.5)]">
+                                    <div className="w-24 h-24 rounded-full bg-white dark:bg-slate-900 border-4 border-white dark:border-slate-800 flex flex-col items-center justify-center shadow-inner">
+                                        <div className="text-violet-600 text-3xl mb-1"><FiCpu className="animate-spin-slow" /></div>
+                                        <p className="text-[14px] font-black text-slate-900 dark:text-white leading-none">98.4<span className="text-[8px]">%</span></p>
                                     </div>
                                 </div>
-                                <div className="text-center">
-                                    <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">Full-Stack Architect</h4>
-                                    <div className="flex items-center justify-center gap-2 mt-2">
+                                <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                                    <p className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">Knowledge Flux</p>
+                                    <div className="flex items-center justify-center gap-1.5 mt-2">
                                         <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
-                                        <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Active Stream</p>
+                                        <span className="text-[8px] font-black text-emerald-600 uppercase tracking-widest">Live Sync Alpha</span>
                                     </div>
-                                </div>
-                            </div>
-
-                            {/* Orbiting Skill Nodes */}
-                            <div className="absolute inset-0 pointer-events-none">
-                                {[
-                                    { icon: <FiCode />, color: 'text-blue-500', radius: 190, duration: 30, delay: 0 },
-                                    { icon: <FiCpu />, color: 'text-emerald-500', radius: 190, duration: 30, delay: 7.5 },
-                                    { icon: <FiLayout />, color: 'text-orange-500', radius: 190, duration: 30, delay: 15 },
-                                    { icon: <FiSmartphone />, color: 'text-rose-500', radius: 190, duration: 30, delay: 22.5 }
-                                ].map((node, i) => (
-                                    <div 
-                                        key={i}
-                                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-orbit"
-                                        style={{ '--orbit-radius': node.radius, '--orbit-duration': node.duration, animationDelay: `${-node.delay}s` }}
-                                    >
-                                        <div className="p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 group-hover:scale-110 transition-transform duration-500 flex items-center justify-center">
-                                            <span className={`${node.color} text-2xl`}>{node.icon}</span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* Floating Telemetry Badges */}
-                            <div className="absolute top-12 right-12 animate-float" style={{ animationDelay: '0s' }}>
-                                <div className="px-6 py-3 bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] border border-orange-100 dark:border-orange-900/30 shadow-xl shadow-orange-100/20">
-                                    🔥 12 Day Streak
-                                </div>
-                            </div>
-                            <div className="absolute bottom-12 left-12 animate-float" style={{ animationDelay: '2s' }}>
-                                <div className="px-6 py-3 bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] border border-violet-100 dark:border-violet-900/30 shadow-xl shadow-violet-100/20">
-                                    ✅ Verified Module
                                 </div>
                             </div>
                         </div>
+
+                        {/* 2. Neural Pathways & Floating Skill Clusters */}
+                        {[
+                            { id: 1, name: 'Web Mastery', color: 'bg-indigo-600', icon: <FiLayout />, pos: 'top-[5%] right-[10%]', rot: 'rotate-[-8deg] skew-y-[6deg]', mastery: '82%', delay: 0 },
+                            { id: 2, name: 'AI Neural', color: 'bg-violet-600', icon: <FiCpu />, pos: 'top-[35%] right-[5%]', rot: 'rotate-[6deg] skew-y-[-4deg]', mastery: '76%', delay: 7 },
+                            { id: 3, name: 'Data Engine', color: 'bg-emerald-600', icon: <FiCode />, pos: 'bottom-[12%] right-[12%]', rot: 'rotate-[-4deg] skew-y-[4deg]', mastery: '89%', delay: 14 },
+                            { id: 4, name: 'Cloud Ops', color: 'bg-rose-600', icon: <FiLayout />, pos: 'top-[20%] left-[8%]', rot: 'rotate-[10deg] skew-y-[-8deg]', mastery: '64%', delay: 21 },
+                            { id: 5, name: 'Security Protocol', color: 'bg-slate-900', icon: <FiSmartphone />, pos: 'bottom-[25%] left-[12%]', rot: 'rotate-[-10deg] skew-y-[8deg]', mastery: '92%', delay: 28 }
+                        ].map((tile, i) => (
+                            <div key={tile.id} className={`absolute ${tile.pos} z-20 group/tile hover:z-30 transition-all`}>
+                                {/* Animated Neural Path (SVG) */}
+                                <svg className="absolute top-1/2 left-1/2 w-[450px] h-[250px] pointer-events-none opacity-10 group-hover/tile:opacity-40 transition-opacity duration-1000 -z-10" 
+                                     style={{ transform: i < 3 ? 'translate(-100%, -50%)' : 'translate(0%, -50%)' }}>
+                                    <path 
+                                        d={i < 3 ? "M 450 125 Q 225 125 0 125" : "M 0 125 Q 225 125 450 125"} 
+                                        stroke="url(#path-grad)" 
+                                        strokeWidth="2.5" 
+                                        fill="none" 
+                                        strokeDasharray="20 20"
+                                        className="animate-synapse"
+                                    />
+                                    <defs>
+                                        <linearGradient id="path-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stopColor="#7c3aed" stopOpacity="0" />
+                                            <stop offset="50%" stopColor="#7c3aed" />
+                                            <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+
+                                {/* 3D Skill Tile */}
+                                <div className={`p-8 bg-white/90 dark:bg-slate-900 border border-white dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-110 group-hover/tile:-translate-y-4 transition-all duration-700 cursor-pointer`}>
+                                    <div className="flex items-start gap-6">
+                                        <div className={`w-14 h-14 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-12deg] group-hover/tile:rotate-0 transition-transform duration-500`}>
+                                            <span className="text-2xl">{tile.icon}</span>
+                                        </div>
+                                        <div className="min-w-[140px]">
+                                            <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tighter leading-none mb-3">{tile.name}</h4>
+                                            <div className="space-y-1.5">
+                                                <div className="flex justify-between items-center text-[8px] font-black text-slate-400 uppercase tracking-widest">
+                                                    <span>Mastery Level</span>
+                                                    <span className="text-violet-600">{tile.mastery}</span>
+                                                </div>
+                                                <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                                    <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* System HUD Overlays - Appears on Hover */}
+                                    <div className="absolute -bottom-6 -right-6 opacity-0 group-hover/tile:opacity-100 transition-all duration-500 transform translate-y-4 group-hover/tile:translate-y-0 space-y-1 font-mono text-[8px] font-black text-slate-400 dark:text-slate-500 text-right uppercase tracking-[0.2em] pointer-events-none">
+                                        <div>LATENCY: 4.8ms</div>
+                                        <div>PROTOCOL: {tile.id * 128}X_SYNC</div>
+                                        <div className="text-emerald-500">STATUS: OPTIMIZED</div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </main>
