@@ -54,10 +54,10 @@
 :root {
   --primary: #7c3aed; /* Modern Violet */
   --secondary: #db2777; /* Rose for accents */
-  --bg-main: #f8fafc; /* Ghost White */
+  --bg-main: #ffffff; /* Pure White for maximum visibility */
   --text-main: #0f172a; /* Deep Slate */
   --card-bg: #ffffff;
-  --border-color: #e2e8f0;
+  --border-color: #f1f5f9;
 
   --background: hsl(210, 40%, 98%); /* Ghost White HSL */
   --foreground: hsl(222.2, 84%, 4.9%);
@@ -114,7 +114,7 @@ body {
 }
 
 .premium-shadow {
-  box-shadow: 0 20px 50px -12px rgba(99, 102, 241, 0.08);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
 }
 
 .text-gradient {

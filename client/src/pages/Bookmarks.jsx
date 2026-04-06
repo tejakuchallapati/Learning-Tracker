@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { FiBookmark, FiPlus, FiTrash2, FiExternalLink, FiLink, FiTag } from 'react-icons/fi';
 
 const categoryColors = {
-    'Documentation': { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-blue-100' },
-    'Tutorial':      { bg: 'bg-violet-50', text: 'text-violet-600', border: 'border-violet-100' },
-    'YouTube':       { bg: 'bg-rose-50', text: 'text-rose-600', border: 'border-rose-100' },
-    'Tool':          { bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-emerald-100' },
-    'Article':       { bg: 'bg-amber-50', text: 'text-amber-600', border: 'border-amber-100' },
-    'Other':         { bg: 'bg-slate-100', text: 'text-slate-600', border: 'border-slate-200' },
+    'Documentation': { bg: 'bg-violet-50 dark:bg-violet-900/20', text: 'text-violet-600 dark:text-violet-400', border: 'border-violet-100 dark:border-violet-800' },
+    'Tutorial':      { bg: 'bg-fuchsia-50 dark:bg-fuchsia-900/20', text: 'text-fuchsia-600 dark:text-fuchsia-400', border: 'border-fuchsia-100 dark:border-fuchsia-800' },
+    'YouTube':       { bg: 'bg-rose-50 dark:bg-rose-900/20', text: 'text-rose-600 dark:text-rose-400', border: 'border-rose-100 dark:border-rose-800' },
+    'Tool':          { bg: 'bg-emerald-50 dark:bg-emerald-900/20', text: 'text-emerald-600 dark:text-emerald-400', border: 'border-emerald-100 dark:border-emerald-800' },
+    'Article':       { bg: 'bg-amber-50 dark:bg-amber-900/20', text: 'text-amber-600 dark:text-amber-400', border: 'border-amber-100 dark:border-amber-800' },
+    'Other':         { bg: 'bg-slate-100 dark:bg-slate-800', text: 'text-slate-600 dark:text-slate-400', border: 'border-slate-200 dark:border-slate-700' },
 };
 
 const defaultBookmarks = [
@@ -41,14 +41,14 @@ const Bookmarks = () => {
 
     return (
         <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-6 border-b border-slate-100">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-6 border-b border-slate-200 dark:border-slate-800">
                 <div>
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight leading-tight">Resource Library</h1>
-                    <p className="text-slate-500 mt-4 text-xl font-medium leading-relaxed">Your personal knowledge base. Save links, tools, and references.</p>
+                    <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Resource Library</h1>
+                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Your personal knowledge base. Save links, tools, and references.</p>
                 </div>
                 <button
                     onClick={() => setShowForm(v => !v)}
-                    className="flex items-center gap-3 px-8 py-4 bg-indigo-600 text-white rounded-xl font-black text-sm hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-200 btn-hover-scale shrink-0"
+                    className="flex items-center gap-3 px-8 py-4 bg-violet-600 text-white rounded-xl font-black text-sm hover:bg-violet-700 transition-all shadow-2xl shadow-violet-200 dark:shadow-none btn-hover-scale shrink-0"
                 >
                     <FiPlus size={18} /> Add Resource
                 </button>
@@ -56,31 +56,31 @@ const Bookmarks = () => {
 
             {/* Add Form */}
             {showForm && (
-                <div className="glass-card premium-shadow p-10 rounded-2xl border border-white/50 space-y-6 animate-in fade-in slide-in-from-top-4">
-                    <h3 className="text-lg font-black text-slate-900 flex items-center gap-3"><FiLink className="text-indigo-600" /> New Resource</h3>
+                <div className="bg-white dark:bg-slate-900 premium-shadow p-10 rounded-[2rem] border border-slate-100 dark:border-slate-800 space-y-6 animate-in fade-in slide-in-from-top-4">
+                    <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-3"><FiLink className="text-violet-600 dark:text-violet-400" /> New Resource</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Title</label>
-                            <input value={form.title} onChange={e => setForm(p => ({...p, title: e.target.value}))} placeholder="e.g. React Docs" className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-indigo-200 transition-all" />
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Title</label>
+                            <input value={form.title} onChange={e => setForm(p => ({...p, title: e.target.value}))} placeholder="e.g. React Docs" className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold text-slate-900 dark:text-white outline-none focus:ring-4 focus:ring-violet-500/10 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">URL</label>
-                            <input value={form.url} onChange={e => setForm(p => ({...p, url: e.target.value}))} placeholder="https://..." className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-indigo-200 transition-all" />
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">URL</label>
+                            <input value={form.url} onChange={e => setForm(p => ({...p, url: e.target.value}))} placeholder="https://..." className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold text-slate-900 dark:text-white outline-none focus:ring-4 focus:ring-violet-500/10 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Category</label>
-                            <select value={form.category} onChange={e => setForm(p => ({...p, category: e.target.value}))} className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm font-bold outline-none cursor-pointer">
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Category</label>
+                            <select value={form.category} onChange={e => setForm(p => ({...p, category: e.target.value}))} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold text-slate-900 dark:text-white outline-none cursor-pointer">
                                 {categories.filter(c => c !== 'All').map(c => <option key={c}>{c}</option>)}
                             </select>
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Topic / Tag</label>
-                            <input value={form.topic} onChange={e => setForm(p => ({...p, topic: e.target.value}))} placeholder="e.g. React, JavaScript" className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-indigo-200 transition-all" />
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Topic / Tag</label>
+                            <input value={form.topic} onChange={e => setForm(p => ({...p, topic: e.target.value}))} placeholder="e.g. React, JavaScript" className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold text-slate-900 dark:text-white outline-none focus:ring-4 focus:ring-violet-500/10 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" />
                         </div>
                     </div>
-                    <div className="flex gap-4 pt-2">
-                        <button onClick={addBookmark} className="px-8 py-4 bg-indigo-600 text-white rounded-xl font-black text-sm hover:bg-indigo-700 transition-all">Save Resource</button>
-                        <button onClick={() => setShowForm(false)} className="px-8 py-4 bg-slate-100 text-slate-600 rounded-xl font-black text-sm hover:bg-slate-200 transition-all">Cancel</button>
+                    <div className="flex gap-4 pt-4">
+                        <button onClick={addBookmark} className="px-10 py-5 bg-violet-600 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-violet-700 transition-all shadow-xl shadow-violet-100/50">Save Resource</button>
+                        <button onClick={() => setShowForm(false)} className="px-10 py-5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">Cancel</button>
                     </div>
                 </div>
             )}
@@ -88,7 +88,7 @@ const Bookmarks = () => {
             {/* Category Filter Pills */}
             <div className="flex flex-wrap gap-3">
                 {categories.map(c => (
-                    <button key={c} onClick={() => setFilter(c)} className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${filter === c ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' : 'bg-white text-slate-400 border-slate-200 hover:border-indigo-200 hover:text-indigo-600'}`}>
+                    <button key={c} onClick={() => setFilter(c)} className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${filter === c ? 'bg-violet-600 text-white border-violet-600 shadow-xl shadow-violet-100/50' : 'bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-800 hover:border-violet-200 hover:text-violet-600 dark:hover:text-violet-400'}`}>
                         {c} {c !== 'All' && `(${bookmarks.filter(b => b.category === c).length})`}
                     </button>
                 ))}
@@ -96,40 +96,40 @@ const Bookmarks = () => {
 
             {/* Bookmarks Grid */}
             {filtered.length === 0 ? (
-                <div className="p-20 text-center glass-card rounded-3xl border-2 border-dashed border-slate-200">
-                    <div className="text-6xl mb-4">📌</div>
-                    <p className="text-slate-400 font-black uppercase tracking-[0.2em]">No resources yet</p>
-                    <button onClick={() => setShowForm(true)} className="mt-6 text-indigo-600 font-black hover:underline text-sm">Add your first resource</button>
+                <div className="p-20 text-center bg-white dark:bg-slate-900 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-800">
+                    <div className="text-6xl mb-6">📌</div>
+                    <p className="text-slate-400 dark:text-slate-500 font-black uppercase tracking-[0.2em]">No resources yet</p>
+                    <button onClick={() => setShowForm(true)} className="mt-8 text-violet-600 dark:text-violet-400 font-black hover:underline text-sm uppercase tracking-widest">Add your first resource &rarr;</button>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {filtered.map(b => {
                         const color = categoryColors[b.category] || categoryColors['Other'];
                         return (
-                            <div key={b.id} className="glass-card premium-shadow p-8 rounded-2xl border border-white/50 group hover:-translate-y-1 transition-all relative">
-                                <div className="flex items-start gap-5">
-                                    <div className="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0 shadow-sm group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
-                                        <FiBookmark size={20} />
+                            <div key={b.id} className="bg-white dark:bg-slate-900 premium-shadow p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 group hover:-translate-y-2 transition-all relative">
+                                <div className="flex items-start gap-6">
+                                    <div className="w-16 h-16 rounded-2xl bg-violet-50 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 shrink-0 shadow-sm group-hover:bg-violet-600 group-hover:text-white transition-all duration-500">
+                                        <FiBookmark size={24} />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-3 mb-2 flex-wrap">
+                                        <div className="flex items-center gap-3 mb-3 flex-wrap">
                                             <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border ${color.bg} ${color.text} ${color.border}`}>{b.category}</span>
                                             {b.topic && (
-                                                <span className="flex items-center gap-1 px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest bg-slate-50 text-slate-400 border border-slate-100">
+                                                <span className="flex items-center gap-1 px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest bg-slate-50 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700">
                                                     <FiTag size={9} /> {b.topic}
                                                 </span>
                                             )}
                                         </div>
-                                        <h3 className="text-base font-black text-slate-900 truncate group-hover:text-indigo-600 transition-colors">{b.title}</h3>
-                                        <p className="text-[11px] text-slate-400 font-bold mt-1 truncate">{b.url}</p>
+                                        <h3 className="text-lg font-black text-slate-900 dark:text-white truncate group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase tracking-tight leading-tight">{b.title}</h3>
+                                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-bold mt-1 truncate">{b.url}</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-3 mt-6 pt-5 border-t border-slate-50">
-                                    <a href={b.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 bg-indigo-50 text-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-indigo-100 hover:bg-indigo-600 hover:text-white transition-all">
-                                        <FiExternalLink size={12} /> Open
+                                <div className="flex items-center gap-4 mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+                                    <a href={b.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-xl text-[10px] font-black uppercase tracking-widest border border-violet-100 dark:border-violet-900/30 hover:bg-violet-600 hover:text-white transition-all">
+                                        <FiExternalLink size={14} /> Open Resource
                                     </a>
-                                    <button onClick={() => removeBookmark(b.id)} className="flex items-center gap-2 px-5 py-2.5 bg-rose-50 text-rose-500 rounded-xl text-[10px] font-black uppercase tracking-widest border border-rose-100 hover:bg-rose-500 hover:text-white transition-all ml-auto">
-                                        <FiTrash2 size={12} /> Remove
+                                    <button onClick={() => removeBookmark(b.id)} className="flex items-center gap-2 px-6 py-3 bg-rose-50 dark:bg-rose-900/20 text-rose-500 dark:text-rose-400 rounded-xl text-[10px] font-black uppercase tracking-widest border border-rose-100 dark:border-rose-900/30 hover:bg-rose-500 hover:text-white transition-all ml-auto">
+                                        <FiTrash2 size={14} /> Remove
                                     </button>
                                 </div>
                             </div>
@@ -138,12 +138,12 @@ const Bookmarks = () => {
                 </div>
             )}
 
-            <div className="glass-card premium-shadow p-8 rounded-2xl border border-white/50 flex items-center justify-between">
+            <div className="bg-white dark:bg-slate-900 premium-shadow p-10 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <div>
-                    <p className="font-black text-slate-900">{bookmarks.length} resources saved</p>
-                    <p className="text-sm text-slate-400 font-medium mt-1">Your personal knowledge vault grows with every bookmark.</p>
+                    <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">{bookmarks.length} Resources Indexed</h4>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mt-2">Your knowledge vault is synchronized. Add more resources to accelerate your growth.</p>
                 </div>
-                <div className="text-5xl">🗂️</div>
+                <div className="text-6xl group-hover:scale-110 transition-transform hidden md:block">🗂️</div>
             </div>
         </div>
     );

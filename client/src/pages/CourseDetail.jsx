@@ -16,69 +16,70 @@ const CourseDetail = () => {
             {/* Context Navigation */}
             <button 
                 onClick={() => navigate(`/roadmap/${courseId}`)}
-                className="flex items-center gap-3 text-[10px] font-black text-slate-400 hover:text-indigo-600 transition-all uppercase tracking-[0.2em] group"
+                className="flex items-center gap-3 text-[10px] font-black text-slate-400 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all uppercase tracking-[0.2em] group"
             >
-                <div className="p-2 bg-slate-50 rounded-lg group-hover:bg-indigo-50 transition-colors"><FiChevronLeft /></div> 
+                <div className="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg group-hover:bg-violet-50 dark:group-hover:bg-violet-900/30 transition-colors"><FiChevronLeft /></div> 
                 Back to {course.title} Roadmap
             </button>
 
             {/* Step Hero - Premium Glass */}
-            <div className="glass-card premium-shadow p-16 rounded-3xl border border-white/50 relative overflow-hidden group">
-                <div className="absolute -top-20 -right-20 w-80 h-80 bg-indigo-500/5 rounded-full blur-[80px] group-hover:scale-150 transition-transform duration-1000"></div>
+            <div className="bg-white dark:bg-slate-900 premium-shadow p-16 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 relative overflow-hidden group transition-all duration-500">
+                <div className="absolute -top-20 -right-20 w-80 h-80 bg-violet-600/5 rounded-full blur-[80px] group-hover:scale-150 transition-transform duration-1000"></div>
                 <div className="relative z-10">
                     <div className="flex items-center gap-6 mb-8">
-                        <span className="px-6 py-2 bg-slate-900 text-indigo-400 rounded-[1.2rem] text-[9px] font-black uppercase tracking-[0.2em]">Milestone 0{parseInt(stepIdx) + 1}</span>
-                        <div className="w-1.5 h-1.5 bg-slate-200 rounded-full"></div>
-                        <span className="text-slate-400 font-black text-[10px] uppercase tracking-[0.2em]">{course.title}</span>
+                        <span className="px-6 py-2 bg-slate-900 dark:bg-slate-800 text-violet-400 rounded-[1.2rem] text-[9px] font-black uppercase tracking-[0.2em] shadow-lg shadow-slate-200/20">Milestone 0{parseInt(stepIdx) + 1}</span>
+                        <div className="w-1.5 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+                        <span className="text-slate-400 dark:text-slate-500 font-black text-[10px] uppercase tracking-[0.2em]">{course.title}</span>
                     </div>
-                    <h1 className="text-5xl font-black text-slate-900 leading-tight mb-6 tracking-tight">{step.step}</h1>
-                    <p className="text-slate-500 text-xl font-medium max-w-2xl leading-relaxed">
-                        In this technical module, we'll deep dive into the architecture and practical tooling required to master <span className="text-indigo-600 font-bold">{step.step.toLowerCase()}</span>.
+                    <h1 className="text-6xl font-black text-slate-900 dark:text-white leading-[1.1] mb-6 tracking-tighter uppercase">{step.step}</h1>
+                    <p className="text-slate-500 dark:text-slate-400 text-xl font-medium max-w-2xl leading-relaxed">
+                        In this technical module, we'll deep dive into the architecture and practical tooling required to master <span className="text-violet-600 dark:text-violet-400 font-bold">{step.step.toLowerCase()}</span>.
                     </p>
                 </div>
             </div>
 
             {/* Detailed Topics */}
-            <div className="space-y-8">
-                <h2 className="text-xs font-black text-slate-900 px-4 flex items-center gap-4 uppercase tracking-[0.3em]">
-                    <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shadow-sm"><FiBookOpen size={18} /></div>
-                    Module Syllabus
+            <div className="space-y-10">
+                <h2 className="text-xs font-black text-slate-900 dark:text-white px-4 flex items-center gap-4 uppercase tracking-[0.3em]">
+                    <div className="w-10 h-10 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiBookOpen size={18} /></div>
+                    Technical Syllabus
                 </h2>
                 
                 <div className="grid grid-cols-1 gap-6">
                     {step.topics?.map((topic, i) => (
-                        <div key={i} className="group glass-card premium-shadow p-10 rounded-2xl border border-white/50 hover:border-indigo-100 transition-all duration-500 hover:-translate-y-1">
+                        <div key={i} className="group bg-white dark:bg-slate-900 premium-shadow p-10 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-500 hover:-translate-y-2">
                             <div className="flex flex-col md:flex-row gap-8">
-                                <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100/50 flex items-center justify-center text-indigo-600 font-black shrink-0 text-lg shadow-sm group-hover:bg-indigo-600 group-hover:text-white group-hover:rotate-6 transition-all duration-500">
-                                    {i + 1}
+                                <div className="w-16 h-16 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center text-violet-600 dark:text-violet-400 font-black shrink-0 text-xl shadow-sm group-hover:bg-violet-600 group-hover:text-white group-hover:rotate-6 transition-all duration-500">
+                                    {(i + 1).toString().padStart(2, '0')}
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="text-2xl font-black text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors tracking-tight">{topic.title}</h3>
-                                    <p className="text-slate-500 leading-relaxed text-base font-medium">{topic.detail}</p>
+                                    <h3 className="text-3xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors tracking-tight uppercase">{topic.title}</h3>
+                                    <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-base font-medium">{topic.detail}</p>
                                     
                                     <div className="mt-8 flex items-center gap-8">
                                         <button 
                                             onClick={() => navigate(`/roadmap/${courseId}/${stepIdx}/${i}`)}
-                                            className="flex items-center gap-3 text-[10px] font-black text-indigo-600 hover:gap-5 transition-all uppercase tracking-[0.2em]"
+                                            className="flex items-center gap-3 text-[10px] font-black text-violet-600 dark:text-violet-400 hover:gap-5 transition-all uppercase tracking-[0.2em]"
                                         >
-                                            Technical Guide <FiArrowRight />
+                                            Technical Protocol <FiArrowRight />
                                         </button>
-                                        <button className="flex items-center gap-3 text-[10px] font-black text-slate-400 hover:text-indigo-600 transition-all uppercase tracking-[0.2em]">
-                                            <FiPlayCircle size={14} /> Video Lecture
+                                        <button className="flex items-center gap-3 text-[10px] font-black text-slate-400 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all uppercase tracking-[0.2em]">
+                                            <FiPlayCircle size={16} /> Workshop Session
                                         </button>
                                     </div>
                                 </div>
                                 <div className="self-center">
-                                    <div className="w-14 h-14 rounded-full border border-slate-100 flex items-center justify-center text-slate-100 group-hover:border-emerald-200 group-hover:text-emerald-400 transition-all duration-500 bg-white shadow-sm">
-                                        <FiCheckCircle size={24} />
+                                    <div className="w-16 h-16 rounded-full border border-slate-100 dark:border-slate-800 flex items-center justify-center text-slate-100 dark:text-slate-700 group-hover:border-emerald-200 dark:group-hover:border-emerald-900/50 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-all duration-500 bg-white dark:bg-slate-950 shadow-sm relative overflow-hidden">
+                                        <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                        <FiCheckCircle size={28} className="relative z-10" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     ))}
                     {!step.topics && (
-                        <div className="p-24 text-center glass-card rounded-3xl border-2 border-dashed border-slate-200">
-                            <p className="text-slate-400 font-black uppercase tracking-[0.2em]">Curriculum Finalization in Progress</p>
+                        <div className="p-24 text-center bg-white dark:bg-slate-900 rounded-[2.5rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
+                            <p className="text-slate-400 dark:text-slate-500 font-black uppercase tracking-[0.3em]">Curriculum Finalization in Progress</p>
                         </div>
                     )}
                 </div>
@@ -87,17 +88,17 @@ const CourseDetail = () => {
             {/* Next Module Preview */}
             {course.roadmap[parseInt(stepIdx) + 1] && (
                 <div className="pt-12">
-                    <div className="bg-slate-900 rounded-3xl p-12 text-white flex flex-col md:flex-row items-center justify-between gap-10 shadow-3xl relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+                    <div className="bg-slate-900 dark:bg-slate-950 rounded-[2.5rem] p-12 text-white flex flex-col md:flex-row items-center justify-between gap-10 shadow-3xl relative overflow-hidden group border border-slate-800 dark:border-slate-900">
+                        <div className="absolute top-0 right-0 w-80 h-80 bg-violet-600/10 rounded-full blur-[100px] group-hover:scale-150 transition-transform duration-1000"></div>
                         <div className="relative z-10">
-                            <p className="text-indigo-400 font-black uppercase tracking-[0.3em] text-[10px] mb-4">Core Track Progression</p>
-                            <h3 className="text-3xl font-black tracking-tight">{course.roadmap[parseInt(stepIdx) + 1].step}</h3>
+                            <p className="text-violet-400 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Core Track Progression</p>
+                            <h3 className="text-4xl font-black tracking-tight uppercase leading-tight">{course.roadmap[parseInt(stepIdx) + 1].step}</h3>
                         </div>
                         <button 
                             onClick={() => navigate(`/roadmap/${courseId}/${parseInt(stepIdx) + 1}`)}
-                            className="px-10 py-5 bg-indigo-600 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-700 transition-all flex items-center gap-4 whitespace-nowrap shadow-2xl shadow-indigo-600/20 btn-hover-scale relative z-10"
+                            className="px-12 py-5 bg-violet-600 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-violet-700 transition-all flex items-center gap-4 whitespace-nowrap shadow-2xl shadow-violet-600/30 btn-hover-scale relative z-10 active:scale-95"
                         >
-                            Next Milestone <FiPlayCircle size={18} />
+                            Next Milestone <FiPlayCircle size={20} />
                         </button>
                     </div>
                 </div>
