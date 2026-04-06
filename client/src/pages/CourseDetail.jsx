@@ -16,7 +16,7 @@ const CourseDetail = () => {
             {/* Context Navigation */}
             <button 
                 onClick={() => navigate(`/roadmap/${courseId}`)}
-                className="flex items-center gap-3 text-[10px] font-black text-slate-400 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all uppercase tracking-[0.2em] group"
+                className="flex items-center gap-3 text-[10px] font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all uppercase tracking-[0.2em] group"
             >
                 <div className="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg group-hover:bg-violet-50 dark:group-hover:bg-violet-900/30 transition-colors"><FiChevronLeft /></div> 
                 Back to {course.title} Roadmap
@@ -29,10 +29,10 @@ const CourseDetail = () => {
                     <div className="flex items-center gap-6 mb-8">
                         <span className="px-6 py-2 bg-slate-900 dark:bg-slate-800 text-violet-400 rounded-[1.2rem] text-[9px] font-black uppercase tracking-[0.2em] shadow-lg shadow-slate-200/20">Milestone 0{parseInt(stepIdx) + 1}</span>
                         <div className="w-1.5 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
-                        <span className="text-slate-400 dark:text-slate-500 font-black text-[10px] uppercase tracking-[0.2em]">{course.title}</span>
+                        <span className="text-slate-600 dark:text-slate-500 font-black text-[10px] uppercase tracking-[0.2em]">{course.title}</span>
                     </div>
                     <h1 className="text-6xl font-black text-slate-900 dark:text-white leading-[1.1] mb-6 tracking-tighter uppercase">{step.step}</h1>
-                    <p className="text-slate-500 dark:text-slate-400 text-xl font-medium max-w-2xl leading-relaxed">
+                    <p className="text-slate-700 dark:text-slate-400 text-xl font-bold max-w-2xl leading-relaxed">
                         In this technical module, we'll deep dive into the architecture and practical tooling required to master <span className="text-violet-600 dark:text-violet-400 font-bold">{step.step.toLowerCase()}</span>.
                     </p>
                 </div>
@@ -54,7 +54,7 @@ const CourseDetail = () => {
                                 </div>
                                 <div className="flex-1">
                                     <h3 className="text-3xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors tracking-tight uppercase">{topic.title}</h3>
-                                    <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-base font-medium">{topic.detail}</p>
+                                    <p className="text-slate-700 dark:text-slate-400 leading-relaxed text-base font-bold">{topic.detail}</p>
                                     
                                     <div className="mt-8 flex items-center gap-8">
                                         <button 
@@ -63,7 +63,7 @@ const CourseDetail = () => {
                                         >
                                             Technical Protocol <FiArrowRight />
                                         </button>
-                                        <button className="flex items-center gap-3 text-[10px] font-black text-slate-400 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all uppercase tracking-[0.2em]">
+                                        <button className="flex items-center gap-3 text-[10px] font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all uppercase tracking-[0.2em]">
                                             <FiPlayCircle size={16} /> Workshop Session
                                         </button>
                                     </div>

@@ -23,7 +23,7 @@ const CourseRoadmap = () => {
             <div className="max-w-6xl mx-auto pb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <button 
                     onClick={() => navigate('/courses')}
-                    className="flex items-center gap-3 text-xs font-black text-slate-400 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 uppercase tracking-widest transition-all mb-10 group"
+                    className="flex items-center gap-3 text-xs font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 uppercase tracking-widest transition-all mb-10 group"
                 >
                     <FiChevronLeft className="group-hover:-translate-x-1 transition-transform" />
                     Back to Catalog
@@ -31,7 +31,7 @@ const CourseRoadmap = () => {
 
                 <div className="text-center mb-20">
                     <h1 className="text-6xl font-black text-slate-900 dark:text-white tracking-tight mb-6 leading-tight uppercase">{course.title}</h1>
-                    <p className="text-slate-500 dark:text-slate-400 text-xl font-medium max-w-2xl mx-auto leading-relaxed">Systematic mastery requires focus. Choose your specialized trajectory to begin the curriculum.</p>
+                    <p className="text-slate-700 dark:text-slate-400 text-xl font-bold max-w-2xl mx-auto leading-relaxed">Systematic mastery requires focus. Choose your specialized trajectory to begin the curriculum.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -50,13 +50,13 @@ const CourseRoadmap = () => {
                                     {track.icon}
                                 </div>
                                 <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-6 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase tracking-tight leading-tight">{track.title}</h2>
-                                <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-10 text-lg font-medium">{track.description}</p>
+                                <p className="text-slate-700 dark:text-slate-400 leading-relaxed mb-10 text-lg font-bold">{track.description}</p>
                                 
                                 <div className="w-full space-y-4 pt-4">
                                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-violet-400 dark:text-violet-500">Core Architecture</p>
                                     <div className="flex flex-wrap justify-center gap-2">
                                         {track.tools.map(tool => (
-                                            <span key={tool} className="px-5 py-2.5 bg-slate-50 dark:bg-slate-950 rounded-[1rem] text-xs font-black text-slate-600 dark:text-slate-400 border border-slate-100 dark:border-slate-800 uppercase tracking-tight">{tool}</span>
+                                            <span key={tool} className="px-5 py-2.5 bg-slate-100 dark:bg-slate-950 rounded-[1rem] text-xs font-black text-slate-700 dark:text-slate-400 border border-slate-100 dark:border-slate-800 uppercase tracking-tight">{tool}</span>
                                         ))}
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@ const CourseRoadmap = () => {
         <div className="max-w-5xl mx-auto pb-20 animate-in fade-in slide-in-from-right-4 duration-1000">
             <button 
                 onClick={() => activeSubTrack ? setActiveSubTrack(null) : navigate('/courses')}
-                className="flex items-center gap-3 text-xs font-black text-slate-400 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 uppercase tracking-widest transition-all mb-10 group"
+                className="flex items-center gap-3 text-xs font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 uppercase tracking-widest transition-all mb-10 group"
             >
                 <FiChevronLeft className="group-hover:-translate-x-1 transition-transform" />
                 {activeSubTrack ? `Switch ${course.title} Path` : 'Back to Catalog'}
@@ -100,13 +100,13 @@ const CourseRoadmap = () => {
                     <h1 className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter leading-[1] uppercase">
                         {activeSubTrack ? course.subTracks.find(t => t.id === activeSubTrack).title : `Mastering ${course.title}`}
                     </h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-8 text-xl leading-relaxed font-medium">
+                    <p className="text-slate-700 dark:text-slate-400 mt-8 text-xl leading-relaxed font-bold">
                         Systematic technical roadmap engineered to bridge the gap between theoretical knowledge and professional production mastery.
                     </p>
 
                     <div className="mt-14 flex flex-wrap items-center gap-10">
                         <div className="space-y-4">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 pl-1">Primary Stack</p>
+                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-500 pl-1">Primary Stack</p>
                             <div className="flex -space-x-3 mt-3">
                                 {course.tools.slice(0, 5).map((tool, i) => (
                                     <div key={i} className="w-14 h-14 rounded-[1.2rem] bg-slate-50 dark:bg-slate-800 border-2 border-white dark:border-slate-700 flex items-center justify-center shadow-xl text-[10px] font-black text-violet-600 dark:text-violet-400 transform hover:-translate-y-2 transition-all cursor-default">
@@ -117,7 +117,7 @@ const CourseRoadmap = () => {
                         </div>
                         <div className="h-16 w-px bg-slate-100 dark:bg-slate-800 hidden md:block"></div>
                         <div className="space-y-4">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 pl-1">Progression</p>
+                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-500 pl-1">Progression</p>
                             <p className="text-4xl font-black text-violet-600 dark:text-violet-400 tracking-tight leading-none uppercase">{filteredRoadmap.length} Milestones</p>
                         </div>
                     </div>
@@ -148,7 +148,7 @@ const CourseRoadmap = () => {
                                         </p>
                                         <div className="flex flex-wrap gap-3">
                                             {milestone.tools.map(tool => (
-                                                <div key={tool} className="flex items-center gap-3 px-6 py-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-[1.2rem] text-sm font-black text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-900 hover:border-violet-200 dark:hover:border-violet-800 hover:shadow-2xl hover:shadow-violet-500/5 transition-all cursor-default">
+                                                <div key={tool} className="flex items-center gap-3 px-6 py-3.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-[1.2rem] text-sm font-black text-slate-800 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-violet-200 dark:hover:border-violet-800 hover:shadow-2xl hover:shadow-violet-500/5 transition-all cursor-default">
                                                     <span className="w-2 h-2 rounded-full bg-violet-600 shadow-lg shadow-violet-300 dark:shadow-none"></span>
                                                     {tool.toUpperCase()}
                                                 </div>

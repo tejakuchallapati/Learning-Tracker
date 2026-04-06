@@ -29,7 +29,7 @@ const Landing = () => {
                     </div>
                     <span className="text-2xl font-black tracking-tighter text-slate-900">Learning<span className="text-violet-600">Tracker</span></span>
                 </div>
-                <div className="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-widest text-slate-400">
+                <div className="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-widest text-slate-600">
                     <a href="#" className="hover:text-violet-600 transition-colors">Courses</a>
                     <a href="#" className="hover:text-violet-600 transition-colors">Resources</a>
                     <a href="#" className="hover:text-violet-600 transition-colors">Enterprise</a>
@@ -53,11 +53,11 @@ const Landing = () => {
                             </span>
                             v2.0 Next-Gen Platform
                         </div>
-                        <h1 className="text-7xl md:text-8xl font-black leading-[1] tracking-tighter text-slate-900">
+                        <h1 className="text-7xl md:text-8xl font-black leading-[1] tracking-tighter text-slate-950">
                             Master the <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-600">Tech Market.</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-rose-600">Tech Market.</span>
                         </h1>
-                        <p className="text-xl text-slate-600 max-w-xl leading-relaxed font-medium">
+                        <p className="text-xl text-slate-800 max-w-xl leading-relaxed font-medium">
                             Stop guessing. Start building. Follow premium visual roadmaps designed by elite engineers to take you from zero to expert.
                         </p>
                         <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
@@ -67,7 +67,7 @@ const Landing = () => {
                             >
                                 Start Learning Now <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                             </button>
-                            <button className="w-full sm:w-auto px-12 py-5 bg-white border border-slate-200 rounded-2xl font-black text-slate-600 hover:bg-slate-50 transition-all text-sm shadow-xl shadow-slate-100">
+                            <button className="w-full sm:w-auto px-12 py-5 bg-white border border-slate-200 rounded-2xl font-black text-slate-800 hover:bg-slate-50 transition-all text-sm shadow-xl shadow-slate-100">
                                 View Curriculum
                             </button>
                         </div>
@@ -79,16 +79,16 @@ const Landing = () => {
                                     </div>
                                 ))}
                             </div>
-                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Trusted by <span className="text-slate-900 font-black">20,000+</span> elite developers</p>
+                            <p className="text-xs font-bold text-slate-600 uppercase tracking-widest">Trusted by <span className="text-slate-950 font-black">20,000+</span> elite developers</p>
                         </div>
                     </div>
 
                     <div className="relative group lg:block hidden">
-                        <div className="absolute -inset-4 bg-gradient-to-tr from-violet-100 to-fuchsia-100 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-80 transition duration-1000"></div>
-                        <div className="relative bg-white border border-slate-200 rounded-[2.5rem] p-12 aspect-square flex items-center justify-center overflow-hidden shadow-2xl shadow-slate-200/50">
+                        <div className="absolute -inset-4 bg-gradient-to-tr from-rose-500/20 via-orange-500/10 to-rose-600/20 rounded-[3rem] blur-2xl opacity-60 group-hover:opacity-100 transition duration-1000"></div>
+                        <div className="relative bg-white dark:bg-slate-900 border border-rose-100/50 rounded-[2.5rem] p-12 aspect-square flex items-center justify-center overflow-hidden shadow-[0_50px_100px_-20px_rgba(225,29,72,0.15)]">
                             {/* Abstract Code Grid */}
-                            <div className="absolute inset-0 p-12 opacity-[0.03] pointer-events-none select-none">
-                                <pre className="text-[12px] leading-relaxed text-violet-900 font-mono">
+                            <div className="absolute inset-0 p-12 opacity-[0.05] pointer-events-none select-none">
+                                <pre className="text-[12px] leading-relaxed text-rose-900 font-mono">
                                     {`class Architect {
   constructor(vision) {
     this.vision = vision;
@@ -108,8 +108,8 @@ const path = new Architect('FullStack');
 path.build();`}
                                 </pre>
                             </div>
-                            <div className="relative z-10 w-full h-full bg-slate-50/50 rounded-3xl border border-slate-100 flex items-center justify-center text-9xl transform group-hover:scale-105 transition-transform duration-700">
-                                <span className="animate-rocket drop-shadow-2xl">🚀</span>
+                            <div className="relative z-10 w-full h-full bg-gradient-to-br from-rose-600/5 via-orange-500/5 to-rose-600/5 rounded-3xl border border-rose-100/30 flex items-center justify-center text-9xl transform group-hover:scale-105 transition-transform duration-700">
+                                <span className="animate-rocket drop-shadow-[0_20px_50px_rgba(225,29,72,0.4)]">🚀</span>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ path.build();`}
                                     {f.icon}
                                 </div>
                                 <h3 className="text-lg font-black text-slate-900 mb-4 tracking-tight">{f.title}</h3>
-                                <p className="text-slate-500 text-sm leading-relaxed font-medium">{f.desc}</p>
+                                <p className="text-slate-700 text-sm leading-relaxed font-medium">{f.desc}</p>
                             </div>
                         ))}
                     </div>

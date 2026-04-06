@@ -22,7 +22,7 @@ const CourseCatalog = () => {
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-4 border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-2xl">
                     <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Mastery Tracks</h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Systematic learning paths engineered for rapid technical progression.</p>
+                    <p className="text-slate-700 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Systematic learning paths engineered for rapid technical progression.</p>
                 </div>
                 
                 <div className="flex flex-wrap gap-3 bg-slate-100 dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-700">
@@ -33,7 +33,7 @@ const CourseCatalog = () => {
                             className={`px-6 py-3 rounded-xl text-xs font-black transition-all transform active:scale-95 ${
                                 category === cat 
                                 ? 'bg-violet-600 text-white shadow-xl shadow-violet-200 dark:shadow-none' 
-                                : 'bg-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'
+                                : 'bg-transparent text-slate-600 hover:text-slate-800 dark:hover:text-slate-300'
                             }`}
                         >
                             {cat.toUpperCase()}
@@ -62,11 +62,11 @@ const CourseCatalog = () => {
                                 {course.category}
                             </span>
                             <h3 className="text-3xl font-black text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-tight">{course.title}</h3>
-                            <p className="text-slate-500 dark:text-slate-400 mt-4 text-base font-medium leading-relaxed line-clamp-2">{course.description}</p>
+                            <p className="text-slate-700 dark:text-slate-400 mt-4 text-base font-bold leading-relaxed line-clamp-2">{course.description}</p>
                             
                             <div className="mt-8 flex flex-wrap gap-2">
                                 {course.tools.slice(0, 3).map(tool => (
-                                    <span key={tool} className="px-4 py-2 bg-slate-50/80 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl text-xs font-black border border-slate-100/50 dark:border-slate-700 capitalize">{tool}</span>
+                                    <span key={tool} className="px-4 py-2 bg-slate-50/80 dark:bg-slate-800 text-slate-700 dark:text-slate-400 rounded-xl text-xs font-black border border-slate-100/50 dark:border-slate-700 capitalize">{tool}</span>
                                 ))}
                                 {course.tools.length > 3 && (
                                     <span className="px-4 py-2 bg-slate-50/80 dark:bg-slate-800 text-slate-300 dark:text-slate-600 rounded-xl text-xs font-black border border-slate-100/50 dark:border-slate-700">+{course.tools.length - 3}</span>
@@ -77,7 +77,7 @@ const CourseCatalog = () => {
                         <div className="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between relative z-10">
                             <div className="flex flex-col">
                                 <span className="text-lg font-black text-slate-900 dark:text-white">{course.roadmap.length}</span>
-                                <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Chapters</span>
+                                <span className="text-[10px] font-black text-slate-600 dark:text-slate-500 uppercase tracking-widest">Chapters</span>
                             </div>
                             <button className="px-8 py-4 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-black text-xs hover:bg-violet-600 transition-all shadow-xl shadow-slate-200 dark:shadow-none flex items-center gap-2 group-hover:translate-x-1">
                                 BEGIN PATH <FiChevronRight size={16} />

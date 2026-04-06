@@ -44,7 +44,7 @@ const Bookmarks = () => {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-6 border-b border-slate-200 dark:border-slate-800">
                 <div>
                     <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Resource Library</h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Your personal knowledge base. Save links, tools, and references.</p>
+                    <p className="text-slate-700 dark:text-slate-400 mt-4 text-xl font-bold leading-relaxed">Your personal knowledge base. Save links, tools, and references.</p>
                 </div>
                 <button
                     onClick={() => setShowForm(v => !v)}

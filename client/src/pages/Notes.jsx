@@ -18,7 +18,7 @@ const Notes = () => {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-6 border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-2xl">
                     <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Engineering Logs</h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Persistent documentation of your daily technical growth.</p>
+                    <p className="text-slate-700 dark:text-slate-400 mt-4 text-xl font-bold leading-relaxed">Persistent documentation of your daily technical growth.</p>
                 </div>
                 <button 
                     onClick={handleSave}
@@ -36,13 +36,13 @@ const Notes = () => {
                             <div className="w-12 h-12 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-2xl flex items-center justify-center shadow-sm"><FiEdit size={20} /></div>
                             Daily Manifest
                         </h3>
-                        <span className="px-6 py-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 dark:text-slate-500 rounded-[1.2rem] text-[9px] font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">{new Date().toLocaleDateString()}</span>
+                        <span className="px-6 py-2.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-500 rounded-[1.2rem] text-[9px] font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">{new Date().toLocaleDateString()}</span>
                     </div>
                     <textarea 
                         value={learned}
                         onChange={(e) => setLearned(e.target.value)}
                         placeholder="Mastered Flexbox centering, implemented async/await logic in the API service..."
-                        className="w-full h-[500px] bg-slate-50/50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-2xl p-10 text-sm font-bold text-slate-700 dark:text-slate-300 focus:ring-4 focus:ring-violet-500/10 transition-all resize-none placeholder-slate-300 dark:placeholder-slate-600 leading-relaxed font-mono outline-none"
+                        className="w-full h-[500px] bg-slate-50/50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-2xl p-10 text-sm font-bold text-slate-800 dark:text-slate-300 focus:ring-4 focus:ring-violet-500/10 transition-all resize-none placeholder-slate-500 dark:placeholder-slate-600 leading-relaxed font-mono outline-none"
                     />
                 </div>
 
@@ -73,7 +73,7 @@ const Notes = () => {
                 <div className="w-16 h-16 rounded-xl bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 flex items-center justify-center text-2xl shrink-0 shadow-sm group-hover:rotate-12 transition-transform duration-500"><FiTrash2 /></div>
                 <div>
                     <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Client-Side Persistence Active</p>
-                    <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-2 uppercase tracking-tight leading-relaxed">Log data is stored in the local storage instance of this browser. No external telemetry is active.</p>
+                    <p className="text-[10px] text-slate-600 dark:text-slate-500 font-bold mt-2 uppercase tracking-tight leading-relaxed">Log data is stored in the local storage instance of this browser. No external telemetry is active.</p>
                 </div>
             </div>
         </div>

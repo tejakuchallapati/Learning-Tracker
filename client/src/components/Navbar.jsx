@@ -61,14 +61,14 @@ const Navbar = () => {
         <header className="h-20 bg-slate-50/70 dark:bg-slate-950/70 backdrop-blur-xl border-b border-slate-200 dark:border-slate-900 flex items-center justify-between px-8 sticky top-0 z-30 transition-all duration-300">
             {/* Advanced Search */}
             <div className="relative flex-1 max-w-md">
-                <div className="flex items-center gap-4 bg-white dark:bg-slate-900/50 px-5 py-2.5 rounded-2xl group focus-within:ring-4 focus-within:ring-violet-500/10 transition-all border border-slate-200 dark:border-slate-800">
-                    <FiSearch className="text-slate-400 w-4 h-4" />
+                <div className="flex items-center gap-4 bg-white dark:bg-slate-900/50 px-5 py-2.5 rounded-2xl group focus-within:ring-4 focus-within:ring-violet-500/10 transition-all border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <FiSearch className="text-slate-600 dark:text-slate-400 w-4 h-4" />
                     <input
                         type="text"
                         value={search}
                         onChange={handleSearch}
                         placeholder="Search modules..."
-                        className="bg-transparent border-none text-sm focus:ring-0 w-full placeholder-slate-400 font-bold tracking-tight text-slate-900 dark:text-white"
+                        className="bg-transparent border-none text-sm focus:ring-0 w-full placeholder-slate-500 dark:placeholder-slate-400 font-bold tracking-tight text-slate-950 dark:text-white"
                     />
                 </div>
 
@@ -83,8 +83,8 @@ const Navbar = () => {
                                 <div className="flex items-center gap-4">
                                     <span className="text-2xl">{course.icon}</span>
                                     <div>
-                                        <p className="text-sm font-black text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400">{course.title}</p>
-                                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{course.category}</p>
+                                        <p className="text-sm font-black text-slate-950 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400">{course.title}</p>
+                                        <p className="text-[10px] text-slate-600 dark:text-slate-400 font-bold uppercase tracking-widest">{course.category}</p>
                                     </div>
                                 </div>
                                 <span className="text-[10px] font-black text-violet-400 opacity-0 group-hover:opacity-100 transition-opacity">GO TO ROADMAP</span>
@@ -110,7 +110,7 @@ const Navbar = () => {
                 {/* Notifications Bell */}
                 <button
                     onClick={() => navigate('/settings')}
-                    className="relative p-2.5 text-slate-400 hover:text-violet-600 dark:hover:text-violet-400 bg-transparent hover:bg-violet-50 dark:hover:bg-violet-500/10 rounded-xl transition-all"
+                    className="relative p-2.5 text-slate-600 dark:text-slate-400 hover:text-violet-600 dark:hover:text-violet-400 bg-transparent hover:bg-violet-50 dark:hover:bg-violet-500/10 rounded-xl transition-all"
                 >
                     <FiBell size={20} />
                     <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-rose-500 rounded-full border-2 border-slate-50 dark:border-slate-950"></span>
@@ -136,8 +136,8 @@ const Navbar = () => {
                     {showProfileMenu && (
                         <div className="absolute top-full right-0 mt-3 w-64 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 p-3 z-50 animate-in fade-in slide-in-from-bottom-2">
                             <div className="p-4 border-b border-slate-50 dark:border-slate-800 mb-2">
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
-                                <p className="text-sm font-black text-slate-900 dark:text-white truncate">{user?.email || 'guest@example.com'}</p>
+                                <p className="text-[10px] font-black text-slate-600 dark:text-slate-500 uppercase tracking-widest mb-1">Signed in as</p>
+                                <p className="text-sm font-black text-slate-950 dark:text-white truncate">{user?.email || 'guest@example.com'}</p>
                             </div>
                             <button onClick={() => { setShowProfileMenu(false); navigate('/settings'); }} className="w-full text-left p-3 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 dark:text-slate-300">
                                 <FiUser className="text-violet-600 dark:text-violet-400" /> My Profile

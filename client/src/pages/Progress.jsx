@@ -162,18 +162,18 @@ const Progress = () => {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-6 border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-2xl">
                     <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Focus Station</h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Precision learning via high-performance intervals and telemetry.</p>
+                    <p className="text-slate-700 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Precision learning via high-performance intervals and telemetry.</p>
                 </div>
                 <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
                     <button 
                         onClick={() => switchMode('stopwatch')}
-                        className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${timerMode === 'stopwatch' ? 'bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 shadow-sm' : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'}`}
+                        className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${timerMode === 'stopwatch' ? 'bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 shadow-sm' : 'text-slate-600 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'}`}
                     >
                         Total Focus
                     </button>
                     <button 
                         onClick={() => switchMode('pomodoro')}
-                        className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${timerMode === 'pomodoro' ? 'bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 shadow-sm' : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'}`}
+                        className={`px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${timerMode === 'pomodoro' ? 'bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 shadow-sm' : 'text-slate-600 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'}`}
                     >
                         Pomodoro Protocol
                     </button>
@@ -189,7 +189,7 @@ const Progress = () => {
                              <h3 className={`text-xs font-black uppercase tracking-[0.3em] mb-4 flex items-center gap-3 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'text-emerald-400' : 'text-violet-400'}`}>
                                 {timerMode === 'stopwatch' ? <><FiZap /> Stopwatch Mode</> : <><FiClock /> Pomodoro: {pomoState.toUpperCase()}</>}
                              </h3>
-                             <p className="text-slate-400 text-sm font-medium leading-relaxed max-w-sm">
+                             <p className="text-slate-700 dark:text-slate-400 text-sm font-bold leading-relaxed max-w-sm">
                                 {timerMode === 'stopwatch' 
                                     ? "Track total focus time with second-by-second precision. Ideal for long intensive sessions."
                                     : "25 minutes of core focus followed by 5 minutes of cognitive reset. Science-backed mastery."}
@@ -197,7 +197,7 @@ const Progress = () => {
                         </div>
 
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Target Mastery Track</label>
+                            <label className="text-[10px] font-black text-slate-700 dark:text-slate-500 uppercase tracking-widest pl-1">Target Mastery Track</label>
                             <select
                                 value={activeGoalId}
                                 onChange={(e) => setActiveGoalId(e.target.value)}
@@ -260,7 +260,7 @@ const Progress = () => {
                             <div className="flex justify-between items-start mb-10 relative z-10">
                                 <div>
                                     <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none">{goal.technology}</h3>
-                                    <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-3 flex items-center gap-2">
+                                    <p className="text-[10px] font-black text-slate-600 dark:text-slate-500 uppercase tracking-widest mt-3 flex items-center gap-2">
                                         <span className="w-1.5 h-1.5 bg-violet-600 rounded-full"></span>
                                         {pData.daysRemaining} Cycles Remaining
                                     </p>
@@ -276,7 +276,7 @@ const Progress = () => {
                             <div className="space-y-8 relative z-10">
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between px-1">
-                                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-3">Module Integrity</p>
+                                         <p className="text-[10px] font-black text-slate-700 uppercase tracking-widest mt-3">Module Integrity</p>
                                          <p className="text-xs font-black text-violet-600 mt-3">{Math.round(pData.completionPercent)}%</p>
                                     </div>
                                     <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden">

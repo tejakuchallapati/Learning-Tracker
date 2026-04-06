@@ -87,7 +87,7 @@ const DailyGoalsSection = () => {
                         <div className="w-14 h-14 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-2xl flex items-center justify-center shadow-sm text-3xl">🎯</div>
                         Daily Objectives & Protocols
                     </h2>
-                    <p className="text-slate-500 dark:text-slate-400 mt-3 font-medium text-lg leading-relaxed max-w-xl">Synchronize your tactical daily operations with AI-powered streak retention.</p>
+                    <p className="text-slate-700 dark:text-slate-400 mt-3 font-bold text-lg leading-relaxed max-w-xl">Synchronize your tactical daily operations with AI-powered streak retention.</p>
                 </div>
                 <div className="px-8 py-4 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-2xl text-xs font-black uppercase tracking-widest border border-violet-100 dark:border-violet-800 mt-6 md:mt-0 shadow-sm">
                     {goals.filter(g => g.completed).length} / {goals.length} SECURED
@@ -97,7 +97,7 @@ const DailyGoalsSection = () => {
             {/* Add Goal Form */}
             <form onSubmit={handleAddGoal} className="flex flex-col lg:flex-row gap-6 p-8 bg-slate-50 dark:bg-slate-950 rounded-[2rem] border border-slate-100 dark:border-slate-800 transition-all">
                 <div className="flex-1 w-full">
-                    <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-3 ml-1">New Objective</label>
+                    <label className="block text-[10px] font-black text-slate-600 dark:text-slate-500 uppercase tracking-[0.2em] mb-3 ml-1">New Objective</label>
                     <input 
                         type="text" 
                         placeholder="E.g., Complete 2 LeetCode problems..." 
@@ -115,7 +115,7 @@ const DailyGoalsSection = () => {
                                 <div className={`w-6 h-6 rounded-full bg-white shadow-md transform transition-transform duration-500 ${emailReminders ? 'translate-x-6' : 'translate-x-0'}`}></div>
                             </div>
                         </div>
-                        <span className="text-xs font-black text-slate-600 dark:text-slate-400 group-hover:text-violet-600 transition-colors uppercase tracking-widest flex items-center gap-2">
+                        <span className="text-xs font-black text-slate-700 dark:text-slate-400 group-hover:text-violet-600 transition-colors uppercase tracking-widest flex items-center gap-2">
                             <FiBell className={emailReminders ? 'text-violet-600 animate-bounce' : ''} /> Email Protocol
                         </span>
                     </label>
