@@ -83,41 +83,25 @@ const Landing = () => {
                         </div>
                     </div>
 
-                    <div className="relative group lg:block hidden h-[850px] w-full flex flex-col items-center justify-center gap-16 perspective-2000 preserve-3d">
+                    <div className="relative group lg:block hidden h-[850px] w-full flex flex-col items-center justify-center gap-12 perspective-2000 preserve-3d">
                         {/* Background Symmetrical Glow */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-violet-100/15 dark:bg-violet-900/10 rounded-full blur-[180px] animate-glow-pulse pointer-events-none"></div>
                         
-                        {/* 1. Global Mastery HUD - Top-aligned Scoreboard */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 text-center z-30">
-                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em] mb-4">Mastery Protocol-X24</p>
-                            <div className="flex items-center justify-center gap-6">
-                                <h3 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">98.4<span className="text-sm text-violet-600">%</span></h3>
-                                <div className="h-12 w-px bg-slate-200 dark:bg-slate-800"></div>
-                                <div className="text-left">
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_12px_rgba(16,185,129,0.5)]"></span>
-                                        <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest leading-none text-shadow-sm">Node Sync Alpha</span>
-                                    </div>
-                                    <p className="text-[8px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mt-2 leading-none">Transmission: Optimized</p>
-                                </div>
-                            </div>
-                        </div>
-
                         {/* ROW 1: Top Modules (2) */}
-                        <div className="flex gap-20 z-20">
+                        <div className="flex gap-16 z-20">
                             {[
                                 { id: 1, name: 'Web Mastery', color: 'bg-indigo-600', icon: <FiLayout />, mastery: '82%', rot: 'rotate-x-[15deg] rotate-y-[10deg]' },
                                 { id: 4, name: 'Cloud Ops', color: 'bg-rose-600', icon: <FiLayout />, mastery: '64%', rot: 'rotate-x-[15deg] rotate-y-[-10deg]' }
                             ].map((tile) => (
                                 <div key={tile.id} className="relative group/tile hover:z-30 transition-all">
-                                    <div className={`p-8 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[3rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[300px]`}>
-                                        <div className="flex items-center gap-6">
-                                            <div className={`w-14 h-14 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
-                                                <span className="text-2xl">{tile.icon}</span>
+                                    <div className={`p-7 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[260px]`}>
+                                        <div className="flex items-center gap-5">
+                                            <div className={`w-12 h-12 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
+                                                <span className="text-xl">{tile.icon}</span>
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
-                                                <div className="h-1.5 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2.5">
+                                                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
+                                                <div className="h-1 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2">
                                                     <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
                                                 </div>
                                             </div>
@@ -127,21 +111,21 @@ const Landing = () => {
                             ))}
                         </div>
 
-                        {/* ROW 2: Middle Modules (Space for Circle) */}
-                        <div className="flex items-center justify-between w-full max-w-5xl z-20 relative">
+                        {/* ROW 2: Middle Modules (Significant Gap for Circle) */}
+                        <div className="flex items-center justify-between w-full max-w-6xl z-20 relative px-10">
                             {/* Left Middle */}
                             {[
                                 { id: 2, name: 'AI Neural', color: 'bg-violet-600', icon: <FiCpu />, mastery: '76%', rot: 'rotate-y-[20deg]' }
                             ].map((tile) => (
                                 <div key={tile.id} className="relative group/tile hover:z-30 transition-all">
-                                    <div className={`p-8 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[3rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[300px]`}>
-                                        <div className="flex items-center gap-6">
-                                            <div className={`w-14 h-14 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
-                                                <span className="text-2xl">{tile.icon}</span>
+                                    <div className={`p-7 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[260px]`}>
+                                        <div className="flex items-center gap-5">
+                                            <div className={`w-12 h-12 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
+                                                <span className="text-xl">{tile.icon}</span>
                                             </div>
                                             <div className="flex-1 min-w-0 text-left">
-                                                <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
-                                                <div className="h-1.5 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2.5">
+                                                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
+                                                <div className="h-1 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2">
                                                     <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
                                                 </div>
                                             </div>
@@ -150,17 +134,24 @@ const Landing = () => {
                                 </div>
                             ))}
 
-                            {/* THE HUB CORE: Perfectly Centered */}
+                            {/* THE HUB CORE: Perfectly Centered with Percentage */}
                             <div className="relative group/core">
-                                <div className="p-2 bg-gradient-to-br from-violet-500/20 to-rose-500/20 rounded-full shadow-[0_0_100px_rgba(124,58,237,0.4)] backdrop-blur-sm animate-glow-pulse transition-transform duration-1000 group-hover/core:scale-110">
-                                    <div className="w-40 h-40 rounded-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl border-2 border-white dark:border-slate-800 flex items-center justify-center shadow-inner relative overflow-hidden group-hover/core:border-violet-400">
-                                        <div className="text-violet-600 text-6xl"><FiCpu className="animate-spin-slow" /></div>
-                                        <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-white/40 to-transparent animate-scanline"></div>
+                                <div className="p-2 bg-gradient-to-br from-violet-500/10 to-rose-500/10 rounded-full shadow-[0_0_120px_rgba(124,58,237,0.3)] backdrop-blur-sm transition-transform duration-1000 group-hover/core:scale-110">
+                                    <div className="w-44 h-44 rounded-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl border-2 border-white dark:border-slate-800 flex flex-col items-center justify-center shadow-inner relative overflow-hidden group-hover:border-violet-400">
+                                        <div className="absolute top-0 left-0 w-full h-10 bg-gradient-to-b from-white/40 to-transparent animate-scanline z-0"></div>
+                                        <div className="relative z-10 text-center">
+                                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em] mb-1 leading-none">Mastery</p>
+                                            <h3 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">98.4<span className="text-sm text-violet-600">%</span></h3>
+                                            <div className="flex items-center justify-center gap-1.5 mt-2">
+                                                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                                                <span className="text-[8px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest leading-none">Sync: Alpha</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 {/* Synapse Paths */}
-                                <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] pointer-events-none opacity-20 -z-10 group-hover/core:opacity-50 transition-opacity duration-1000">
-                                    <path d="M 600 400 L 400 150 M 600 400 L 800 150 M 600 400 L 300 400 M 600 400 L 900 400 M 600 400 L 400 650 M 600 400 L 800 650" stroke="#7c3aed" strokeWidth="2.5" fill="none" strokeDasharray="10 10" className="animate-synapse-flow" />
+                                <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] pointer-events-none opacity-15 -z-10 group-hover/core:opacity-40 transition-opacity duration-1000">
+                                    <path d="M 600 400 L 400 150 M 600 400 L 800 150 M 600 400 L 300 400 M 600 400 L 900 400 M 600 400 L 400 650 M 600 400 L 800 650" stroke="#7c3aed" strokeWidth="2" fill="none" strokeDasharray="8 8" className="animate-synapse-flow" />
                                 </svg>
                             </div>
 
@@ -169,14 +160,14 @@ const Landing = () => {
                                 { id: 5, name: 'Security Protocol', color: 'bg-slate-900', icon: <FiSmartphone />, mastery: '92%', rot: 'rotate-y-[-20deg]' }
                             ].map((tile) => (
                                 <div key={tile.id} className="relative group/tile hover:z-30 transition-all">
-                                    <div className={`p-8 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[3rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[300px]`}>
-                                        <div className="flex items-center gap-6">
-                                            <div className={`w-14 h-14 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
-                                                <span className="text-2xl">{tile.icon}</span>
+                                    <div className={`p-7 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[260px]`}>
+                                        <div className="flex items-center gap-5">
+                                            <div className={`w-12 h-12 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
+                                                <span className="text-xl">{tile.icon}</span>
                                             </div>
                                             <div className="flex-1 min-w-0 text-left">
-                                                <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
-                                                <div className="h-1.5 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2.5">
+                                                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
+                                                <div className="h-1 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2">
                                                     <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
                                                 </div>
                                             </div>
@@ -187,20 +178,20 @@ const Landing = () => {
                         </div>
 
                         {/* ROW 3: Bottom Modules (2) */}
-                        <div className="flex gap-20 z-20">
+                        <div className="flex gap-16 z-20">
                             {[
                                 { id: 3, name: 'Data Engine', color: 'bg-emerald-600', icon: <FiCode />, mastery: '89%', rot: 'rotate-x-[-15deg] rotate-y-[10deg]' },
                                 { id: 6, name: 'DevOps Track', color: 'bg-blue-600', icon: <FiArrowRight />, mastery: '45%', rot: 'rotate-x-[-15deg] rotate-y-[-10deg]' }
                             ].map((tile) => (
                                 <div key={tile.id} className="relative group/tile hover:z-30 transition-all">
-                                    <div className={`p-8 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[3rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[300px]`}>
-                                        <div className="flex items-center gap-6">
-                                            <div className={`w-14 h-14 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
-                                                <span className="text-2xl">{tile.icon}</span>
+                                    <div className={`p-7 bg-white/95 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-3xl premium-shadow transform-gpu ${tile.rot} group-hover/tile:rotate-0 group-hover/tile:scale-105 transition-all duration-700 cursor-pointer w-[260px]`}>
+                                        <div className="flex items-center gap-5">
+                                            <div className={`w-12 h-12 ${tile.color} text-white rounded-2xl flex items-center justify-center shadow-xl transform rotate-[-8deg] group-hover/tile:rotate-0 transition-transform duration-500 shrink-0`}>
+                                                <span className="text-xl">{tile.icon}</span>
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
-                                                <div className="h-1.5 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2.5">
+                                                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight truncate leading-tight">{tile.name}</h4>
+                                                <div className="h-1 w-full bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden mt-2">
                                                     <div className="h-full bg-violet-600 rounded-full" style={{ width: tile.mastery }}></div>
                                                 </div>
                                             </div>
