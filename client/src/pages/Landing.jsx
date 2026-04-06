@@ -87,9 +87,9 @@ const Landing = () => {
                         {/* Background Symmetrical Glow */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-100/20 dark:bg-violet-900/10 rounded-full blur-[160px] animate-glow-pulse pointer-events-none"></div>
                         
-                        {/* 1. Central Data Core Pillar - Perfectly Centered */}
+                        {/* 1. Central Data Core Identity - Structured Floating Hub */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-full z-10 pointer-events-none">
-                            {/* Mastery HUD - Relocated to TOP for better structure */}
+                            {/* Mastery HUD - Top-aligned Scoreboard */}
                             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[80%] text-center z-20">
                                 <p className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em] mb-3">Global Mastery Index</p>
                                 <div className="flex items-center justify-center gap-4">
@@ -104,18 +104,15 @@ const Landing = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="absolute inset-x-12 inset-y-0 bg-gradient-to-b from-transparent via-violet-600/30 to-transparent w-24 h-full border-x border-violet-500/20 shadow-[0_0_80px_rgba(124,58,237,0.25)] overflow-hidden">
-                                <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-transparent via-white/40 to-transparent animate-scanline"></div>
-                                <div className="absolute top-0 left-0 w-full h-full opacity-[0.1] bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:14px_14px]"></div>
-                            </div>
                             
+                            {/* Central Core Anchor - Pulsing Knowledge Engine */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-20">
-                                <div className="p-1.5 bg-gradient-to-br from-violet-500/20 to-rose-500/20 rounded-full shadow-[0_0_60px_rgba(124,58,237,0.3)] backdrop-blur-sm">
-                                    <div className="w-28 h-28 rounded-full bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-white dark:border-slate-800 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-700">
+                                <div className="p-1.5 bg-gradient-to-br from-violet-500/10 to-rose-500/10 rounded-full shadow-[0_0_80px_rgba(124,58,237,0.2)] backdrop-blur-sm">
+                                    <div className="w-32 h-32 rounded-full bg-white/30 dark:bg-slate-900/40 backdrop-blur-2xl border border-white/50 dark:border-slate-800 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-1000">
                                         <div className="text-violet-600 text-5xl animate-pulse"><FiCpu className="animate-spin-slow" /></div>
                                     </div>
                                 </div>
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-violet-600/5 rounded-full blur-3xl -z-10 animate-glow-pulse"></div>
                             </div>
                         </div>
 
