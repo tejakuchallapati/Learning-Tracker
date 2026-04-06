@@ -44,7 +44,7 @@ const Landing = () => {
             </nav>
 
             {/* Hero Section */}
-            <main className="relative z-10 max-w-7xl mx-auto px-8 pt-24 pb-40">
+            <main className="relative z-10 max-w-7xl mx-auto px-8 pt-16 pb-40">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                     <div className="space-y-12">
                         <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-violet-50 border border-violet-100 rounded-full text-violet-600 text-[10px] font-black uppercase tracking-[0.2em]">
@@ -80,7 +80,7 @@ const Landing = () => {
                                     </div>
                                 ))}
                             </div>
-                            <p className="text-xs font-bold text-slate-600 uppercase tracking-widest">Trusted by <span className="text-slate-950 font-black">20,000+</span> elite developers</p>
+                            <p className="text-xs font-bold text-slate-600 uppercase tracking-widest">Trusted by <span className="text-slate-950 font-black">20,000+</span> elite employees</p>
                         </div>
                     </div>
 
