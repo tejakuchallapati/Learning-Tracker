@@ -49,7 +49,7 @@ const Input = memo(
           background: useMotionTemplate`
         radial-gradient(
           ${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
-          #3b82f6,
+          #7c3aed,
           transparent 80%
         )
       `,
@@ -149,7 +149,7 @@ const BoxReveal = memo(function BoxReveal({
           left: 0,
           right: 0,
           zIndex: 20,
-          background: boxColor ?? '#5046e6',
+          background: boxColor ?? '#7c3aed',
           borderRadius: 4,
         }}
       />
@@ -174,7 +174,7 @@ const Ripple = memo(function Ripple({
 }: RippleProps) {
   return (
     <section
-      className={`absolute inset-0 flex items-center justify-center bg-black ${className}`}
+      className={`absolute inset-0 flex items-center justify-center bg-white dark:bg-slate-950 transition-colors duration-500 ${className}`}
     >
       {Array.from({ length: numCircles }, (_, i) => {
         const size = mainCircleSize + i * 70;
@@ -235,7 +235,7 @@ const OrbitingCircles = memo(function OrbitingCircles({
           className='pointer-events-none absolute inset-0 size-full'
         >
           <circle
-            className='stroke-black/10 stroke-1 dark:stroke-white/10'
+            className='stroke-slate-200 dark:stroke-white/10 stroke-1'
             cx='50%'
             cy='50%'
             r={radius}
@@ -287,7 +287,7 @@ const TechOrbitDisplay = memo(function TechOrbitDisplay({
 }: TechnologyOrbitDisplayProps) {
   return (
     <section className='relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg'>
-      <span className='pointer-events-none absolute z-10 whitespace-pre-wrap text-center text-4xl font-extrabold leading-none text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] font-sans'>
+      <span className='pointer-events-none absolute z-10 whitespace-pre-wrap text-center text-4xl font-black leading-none text-slate-900 dark:text-white drop-shadow-[0_0_15px_rgba(124,58,237,0.2)] font-sans uppercase tracking-tighter'>
         {text}
       </span>
 
@@ -516,7 +516,7 @@ const AnimatedForm = memo(function AnimatedForm({
           <BoxReveal boxColor='var(--skeleton)' duration={0.3}>
             <section className='mt-4 text-center hover:cursor-pointer'>
               <button
-                className='text-sm text-blue-500 hover:cursor-pointer outline-none'
+                className='text-sm text-violet-600 hover:text-violet-700 font-bold hover:cursor-pointer outline-none'
                 onClick={goTo}
               >
                 {textVariantButton}
@@ -532,8 +532,8 @@ const AnimatedForm = memo(function AnimatedForm({
 const BottomGradient = () => {
   return (
     <>
-      <span className='group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent' />
-      <span className='group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent' />
+      <span className='group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-violet-400 to-transparent' />
+      <span className='group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-fuchsia-400 to-transparent' />
     </>
   );
 };

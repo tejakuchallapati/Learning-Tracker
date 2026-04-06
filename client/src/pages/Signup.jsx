@@ -48,62 +48,63 @@ const Signup = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors duration-500">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Create an account</h2>
+                <h2 className="mt-6 text-center text-4xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Join the Elite</h2>
+                <p className="mt-2 text-center text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Initialize your mastery protocol</p>
             </div>
 
-            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div className="bg-white py-8 px-4 shadow-sm border border-gray-100 sm:rounded-2xl sm:px-10">
-                    <form className="space-y-5" onSubmit={handleSubmit}>
-                        {error && <div className="p-3 bg-red-50 text-red-600 rounded-md text-sm">{error}</div>}
+            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
+                <div className="bg-white dark:bg-slate-900 py-10 px-8 shadow-3xl border border-slate-200 dark:border-slate-800 sm:rounded-[2rem] sm:px-12 transition-all">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
+                        {error && <div className="p-4 bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 rounded-xl text-xs font-bold border border-rose-100 dark:border-rose-900/50">{error}</div>}
 
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Name</label>
-                            <input type="text" name="name" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onChange={handleChange} />
+                        <div className="space-y-2">
+                            <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Identification</label>
+                            <input type="text" name="name" required placeholder="Full Name" className="block w-full bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" onChange={handleChange} />
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" name="email" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" onChange={handleChange} />
+                        <div className="space-y-2">
+                            <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Communication Terminal</label>
+                            <input type="email" name="email" required placeholder="Email Address" className="block w-full bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" onChange={handleChange} />
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Password</label>
-                            <div className="relative mt-1">
-                                <input type={showPassword ? "text" : "password"} name="password" required className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-gray-900" onChange={handleChange} />
-                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                                    {showPassword ? <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" /> : <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />}
+                        <div className="space-y-2">
+                            <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Access Protocol</label>
+                            <div className="relative">
+                                <input type={showPassword ? "text" : "password"} name="password" required placeholder="Security Key" className="block w-full bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 pr-12 text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" onChange={handleChange} />
+                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-violet-600 transition-colors">
+                                    {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                                 </button>
                             </div>
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
-                            <div className="relative mt-1">
-                                <input type={showConfirmPassword ? "text" : "password"} name="confirmPassword" required className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-gray-900" onChange={handleChange} />
-                                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                                    {showConfirmPassword ? <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" /> : <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />}
+                        <div className="space-y-2">
+                            <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Verify Protocol</label>
+                            <div className="relative">
+                                <input type={showConfirmPassword ? "text" : "password"} name="confirmPassword" required placeholder="Repeat Security Key" className="block w-full bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 pr-12 text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" onChange={handleChange} />
+                                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-violet-600 transition-colors">
+                                    {showConfirmPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                                 </button>
                             </div>
                         </div>
 
-                        <div>
-                            <button type="submit" className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none">Sign up</button>
+                        <div className="pt-2">
+                            <button type="submit" className="w-full flex justify-center py-4 px-4 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em] shadow-xl shadow-violet-200 dark:shadow-none transition-all transform active:scale-[0.98]">Authorize Account &rarr;</button>
                         </div>
                     </form>
 
-                    <div className="mt-6">
+                    <div className="mt-8">
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-gray-300"></div>
+                                <div className="w-full border-t border-slate-100 dark:border-slate-800"></div>
                             </div>
-                            <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                            <div className="relative flex justify-center text-[10px] font-black uppercase tracking-widest">
+                                <span className="px-3 bg-white dark:bg-slate-900 text-slate-400">Collaborative Entry</span>
                             </div>
                         </div>
 
-                        <div className="mt-6 flex justify-center">
+                        <div className="mt-8 flex justify-center">
                             <GoogleLogin
                                 onSuccess={handleGoogleSuccess}
                                 onError={handleGoogleError}
@@ -111,9 +112,8 @@ const Signup = () => {
                         </div>
                     </div>
 
-                    <div className="mt-6 text-center text-sm">
-                        <span className="text-gray-600">Already have an account? </span>
-                        <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">Sign in</Link>
+                    <div className="mt-10 text-center text-[10px] font-black uppercase tracking-widest text-slate-400">
+                        Already have an active protocol? <Link to="/login" className="text-violet-600 hover:text-violet-700 underline underline-offset-4">Sign in &rarr;</Link>
                     </div>
                 </div>
             </div>

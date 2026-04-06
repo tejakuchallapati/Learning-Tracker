@@ -202,12 +202,19 @@ export function LoginDemo({ onSubmit, googleComponent, error }: LoginDemoProps) 
     password: '',
   });
 
-  const [darkMode, setDarkMode] = useState(true); // Default to dark
+  const [darkMode, setDarkMode] = useState(false); // Default to light
 
   useEffect(() => {
-    // Force dark mode for login screen
-    document.documentElement.classList.add('dark');
-    localStorage.setItem('theme', 'dark');
+    // Check local storage for theme preference, default to light
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setDarkMode(true);
+      document.documentElement.classList.add('dark');
+    } else {
+      setDarkMode(false);
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   }, []);
 
   const goToForgotPassword = (
@@ -261,7 +268,7 @@ export function LoginDemo({ onSubmit, googleComponent, error }: LoginDemoProps) 
   };
 
   return (
-    <section className='flex max-lg:justify-center overflow-hidden relative bg-black'>
+    <section className='flex max-lg:justify-center overflow-hidden relative bg-slate-50 dark:bg-slate-950 transition-colors duration-500'>
       {/* Left Side */}
       <span className='flex flex-col justify-center w-1/2 max-lg:hidden relative'>
         <TechOrbitDisplay iconsArray={iconsArray} text="Learning Tracker" />

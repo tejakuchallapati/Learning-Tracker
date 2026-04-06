@@ -52,21 +52,21 @@
 }
 
 :root {
-  --primary: #6366f1;
-  --secondary: #ec4899;
-  --bg-main: #ffffff;
-  --text-main: #0f172a;
+  --primary: #7c3aed; /* Modern Violet */
+  --secondary: #db2777; /* Rose for accents */
+  --bg-main: #f8fafc; /* Ghost White */
+  --text-main: #0f172a; /* Deep Slate */
   --card-bg: #ffffff;
-  --border-color: #f1f5f9;
+  --border-color: #e2e8f0;
 
-  --background: hsl(0, 0%, 100%);
-  --foreground: hsl(0, 0%, 0%);
-  --skeleton: hsl(0, 0%, 90%);
-  --border: hsl(220, 20%, 90%);
-  --btn-border: hsl(214deg, 31.8%, 91.4%);
-  --input: hsl(220, 20%, 90%);
+  --background: hsl(210, 40%, 98%); /* Ghost White HSL */
+  --foreground: hsl(222.2, 84%, 4.9%);
+  --skeleton: hsl(210, 40%, 94%);
+  --border: hsl(214.3, 32%, 91%);
+  --btn-border: hsl(214.3, 32%, 91%);
+  --input: hsl(214.3, 32%, 91%);
   
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 }
 
 html.dark, .dark {
@@ -118,7 +118,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
+  background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -138,12 +138,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #e2e8f0;
   border-radius: 10px;
+  border: 4px solid transparent;
+  background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {

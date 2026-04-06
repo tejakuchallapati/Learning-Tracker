@@ -32,7 +32,7 @@ const Insights = () => {
 
     return (
         <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-6 border-b border-slate-100 dark:border-slate-800">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-6 border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-2xl">
                     <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Mastery Analytics</h1>
                     <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Advanced behavioral tracking and engineering growth statistics.</p>
@@ -47,9 +47,9 @@ const Insights = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Focus Pie */}
-                <div className="lg:col-span-1 glass-card premium-shadow p-12 rounded-3xl border border-white/50 space-y-10 flex flex-col items-center">
+                <div className="lg:col-span-1 bg-white dark:bg-slate-900 premium-shadow p-12 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-10 flex flex-col items-center">
                     <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-4 self-start uppercase tracking-[0.2em]">
-                        <div className="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center shadow-sm"><FiActivity size={18} /></div>
+                        <div className="w-10 h-10 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiActivity size={18} /></div>
                         Focus Allocation
                     </h3>
                     <div className="w-full h-80 relative">
@@ -57,47 +57,47 @@ const Insights = () => {
                             <PieChart>
                                 <Pie data={timeData} innerRadius={70} outerRadius={100} paddingAngle={10} stroke="none" dataKey="value">
                                     {timeData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={entry.color} />
+                                        <Cell key={`cell-${index}`} fill={index === 0 ? '#7c3aed' : index === 1 ? '#a78bfa' : index === 2 ? '#10b981' : '#f59e0b'} />
                                     ))}
                                 </Pie>
                                 <Tooltip contentStyle={{ borderRadius: '2rem', border: '1px solid rgba(255,255,255,0.5)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.1)', padding: '24px', backgroundColor: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(10px)', fontFamily: 'Outfit' }} />
-                                <Legend verticalAlign="bottom" height={36} iconType="circle" formatter={(value) => <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{value}</span>} />
+                                <Legend verticalAlign="bottom" height={36} iconType="circle" formatter={(value) => <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{value}</span>} />
                             </PieChart>
                         </ResponsiveContainer>
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-                            <p className="text-2xl font-black text-slate-900 leading-none">0%</p>
+                            <p className="text-2xl font-black text-slate-900 dark:text-white leading-none">0%</p>
                             <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-1">Consistency</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Milestone Log */}
-                <div className="lg:col-span-2 glass-card premium-shadow p-12 rounded-3xl border border-white/50 flex flex-col overflow-hidden">
+                <div className="lg:col-span-2 bg-white dark:bg-slate-900 premium-shadow p-12 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col overflow-hidden">
                     <h3 className="text-xs font-black text-slate-900 dark:text-white mb-12 flex items-center gap-4 uppercase tracking-[0.2em]">
-                        <div className="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center shadow-sm"><FiList size={18} /></div>
+                        <div className="w-10 h-10 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiList size={18} /></div>
                         Milestone Log
                     </h3>
                     <div className="flex-1 overflow-x-auto">
                         <table className="w-full text-left">
                             <thead>
-                                <tr className="border-b border-slate-50 dark:border-slate-800 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                                <tr className="border-b border-slate-100 dark:border-slate-800 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                                     <th className="pb-8 px-6">Technical Module</th>
                                     <th className="pb-8 px-6">Timestamp</th>
                                     <th className="pb-8 px-6">Intensity</th>
                                     <th className="pb-8 px-6 text-right">Verification</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
+                            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                 {completedTopics.map((topic) => (
-                                    <tr key={topic.id} className="group hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-all">
+                                    <tr key={topic.id} className="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all">
                                         <td className="py-8 px-6">
-                                            <p className="font-black text-slate-900 dark:text-white group-hover:text-indigo-600 transition-colors">{topic.title}</p>
+                                            <p className="font-black text-slate-900 dark:text-white group-hover:text-violet-600 transition-colors uppercase tracking-tight">{topic.title}</p>
                                             <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tighter mt-1">Course ID: DEV-{topic.id * 128}</p>
                                         </td>
                                         <td className="py-8 px-6 text-sm font-bold text-slate-400 dark:text-slate-500">{topic.date}</td>
-                                        <td className="py-8 px-6 text-sm font-black text-indigo-500">{topic.timeSpent}</td>
+                                        <td className="py-8 px-6 text-sm font-black text-violet-600 dark:text-violet-400">{topic.timeSpent}</td>
                                         <td className="py-8 px-6 text-right">
-                                            <span className="px-6 py-2.5 bg-emerald-50 text-emerald-600 rounded-[1rem] text-[9px] font-black uppercase tracking-widest border border-emerald-100/50">{topic.status}</span>
+                                            <span className="px-6 py-2.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-[1rem] text-[9px] font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30">{topic.status}</span>
                                         </td>
                                     </tr>
                                 ))}
@@ -115,8 +115,8 @@ const Insights = () => {
                     { icon: <FiAward />,    label: 'badges Earned',     val: `${earnedCount}/${badges.length}` },
                     { icon: <FiActivity />, label: 'Target Accuracy',   val: '0%' }
                 ].map((stat, i) => (
-                    <div key={i} className="glass-card premium-shadow p-10 rounded-2xl border border-white/50 dark:border-slate-800 flex flex-col items-center text-center group hover:-translate-y-2 transition-all">
-                        <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl mb-8 shadow-sm group-hover:bg-indigo-600 group-hover:text-white group-hover:rotate-6 transition-all duration-500">
+                    <div key={i} className="bg-white dark:bg-slate-900 premium-shadow p-10 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center group hover:-translate-y-2 transition-all">
+                        <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 text-violet-600 dark:text-violet-400 flex items-center justify-center text-2xl mb-8 shadow-sm group-hover:bg-violet-600 group-hover:text-white group-hover:rotate-6 transition-all duration-500">
                             {stat.icon}
                         </div>
                         <p className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">{stat.val}</p>
@@ -127,27 +127,27 @@ const Insights = () => {
 
             {/* 🏆 Trophy Room */}
             <div className="space-y-8">
-                <div className="flex items-end justify-between border-b border-slate-100 dark:border-slate-800 pb-6">
+                <div className="flex items-end justify-between border-b border-slate-200 dark:border-slate-800 pb-6">
                     <div>
                         <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-4">
                             <div className="w-12 h-12 bg-amber-50 dark:bg-amber-900/30 text-amber-500 dark:text-amber-400 rounded-2xl flex items-center justify-center shadow-sm text-2xl">🏆</div>
                             Trophy Room
                         </h2>
-                        <p className="text-slate-500 mt-2 font-medium">{earnedCount} of {badges.length} achievements unlocked. Keep learning!</p>
+                        <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">{earnedCount} of {badges.length} achievements unlocked. Keep learning!</p>
                     </div>
-                    <div className="px-6 py-3 bg-amber-50 text-amber-600 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-amber-100">{earnedCount} Earned</div>
+                    <div className="px-6 py-3 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-amber-100 dark:border-amber-900/40">{earnedCount} Earned</div>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {badges.map((badge, i) => (
-                        <div key={i} className={`relative p-8 rounded-2xl border flex flex-col items-center text-center transition-all duration-500 group ${badge.earned ? 'glass-card premium-shadow border-white/50 hover:-translate-y-2' : 'bg-slate-50 border-slate-100 opacity-50'}`}>
+                        <div key={i} className={`relative p-8 rounded-2xl border flex flex-col items-center text-center transition-all duration-500 group ${badge.earned ? 'bg-white dark:bg-slate-900 premium-shadow border-slate-100 dark:border-slate-800 hover:-translate-y-2' : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-900 opacity-50 grayscale'}`}>
                             {badge.earned
                                 ? <div className="absolute top-4 right-4 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center"><FiCheckCircle className="text-white" size={12} /></div>
-                                : <div className="absolute top-4 right-4 w-6 h-6 bg-slate-300 rounded-full flex items-center justify-center"><FiLock className="text-white" size={12} /></div>
+                                : <div className="absolute top-4 right-4 w-6 h-6 bg-slate-300 dark:bg-slate-700 rounded-full flex items-center justify-center"><FiLock className="text-white dark:text-slate-500" size={12} /></div>
                             }
-                            <div className={`text-5xl mb-5 transition-transform duration-500 ${badge.earned ? 'group-hover:scale-125 group-hover:rotate-12' : 'grayscale'}`}>
+                            <div className={`text-5xl mb-5 transition-transform duration-500 ${badge.earned ? 'group-hover:scale-125 group-hover:rotate-12' : ''}`}>
                                 {badge.icon}
                             </div>
-                            <h4 className="text-sm font-black text-slate-900 dark:text-white leading-tight">{badge.name}</h4>
+                            <h4 className="text-sm font-black text-slate-900 dark:text-white leading-tight uppercase tracking-tight">{badge.name}</h4>
                             <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-2 leading-relaxed uppercase tracking-tight">{badge.desc}</p>
                         </div>
                     ))}

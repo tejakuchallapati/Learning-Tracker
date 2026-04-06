@@ -19,21 +19,21 @@ const CourseCatalog = () => {
 
     return (
         <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-4 border-b border-slate-100/50">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-4 border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-2xl">
-                    <h1 className="text-5xl font-black text-slate-900 tracking-tight leading-tight">Mastery Tracks</h1>
-                    <p className="text-slate-500 mt-4 text-xl font-medium leading-relaxed">Systematic learning paths engineered for rapid technical progression.</p>
+                    <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Mastery Tracks</h1>
+                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Systematic learning paths engineered for rapid technical progression.</p>
                 </div>
                 
-                <div className="flex flex-wrap gap-3 bg-slate-50 p-2 rounded-xl border border-slate-100">
+                <div className="flex flex-wrap gap-3 bg-slate-100 dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-700">
                     {categories.map(cat => (
                         <button
                             key={cat}
                             onClick={() => setCategory(cat)}
                             className={`px-6 py-3 rounded-xl text-xs font-black transition-all transform active:scale-95 ${
                                 category === cat 
-                                ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-200' 
-                                : 'bg-transparent text-slate-400 hover:text-slate-600'
+                                ? 'bg-violet-600 text-white shadow-xl shadow-violet-200 dark:shadow-none' 
+                                : 'bg-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'
                             }`}
                         >
                             {cat.toUpperCase()}
@@ -46,40 +46,40 @@ const CourseCatalog = () => {
                 {filteredCourses.map(course => (
                     <div 
                         key={course.id}
-                        className="glass-card premium-shadow group rounded-3xl p-10 hover:bg-white hover:-translate-y-2 transition-all duration-500 cursor-pointer flex flex-col relative overflow-hidden"
+                        className="bg-white dark:bg-slate-900 premium-shadow group rounded-3xl p-10 hover:bg-slate-50 dark:hover:bg-slate-800 hover:-translate-y-2 transition-all duration-500 cursor-pointer flex flex-col relative overflow-hidden border border-slate-100 dark:border-slate-800"
                         onClick={() => navigate(`/roadmap/${course.id}`)}
                     >
-                        <div className="absolute -top-12 -right-12 w-48 h-48 bg-indigo-50/30 rounded-full group-hover:scale-125 transition-transform duration-1000 blur-2xl"></div>
+                        <div className="absolute -top-12 -right-12 w-48 h-48 bg-violet-50/30 dark:bg-violet-500/10 rounded-full group-hover:scale-125 transition-transform duration-1000 blur-2xl"></div>
                         
                         <div className="mb-8 relative z-10">
-                            <div className="w-20 h-20 bg-white rounded-xl shadow-xl flex items-center justify-center text-5xl group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 border border-slate-50">
+                            <div className="w-20 h-20 bg-white dark:bg-slate-800 rounded-xl shadow-xl flex items-center justify-center text-5xl group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 border border-slate-50 dark:border-slate-700">
                                 {course.icon}
                             </div>
                         </div>
                         
                         <div className="relative z-10 flex-1">
-                            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-indigo-50 text-indigo-600 mb-6 border border-indigo-100/50">
+                            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-violet-50 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400 mb-6 border border-violet-100/50 dark:border-violet-500/20">
                                 {course.category}
                             </span>
-                            <h3 className="text-3xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors leading-tight">{course.title}</h3>
-                            <p className="text-slate-500 mt-4 text-base font-medium leading-relaxed line-clamp-2">{course.description}</p>
+                            <h3 className="text-3xl font-black text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-tight">{course.title}</h3>
+                            <p className="text-slate-500 dark:text-slate-400 mt-4 text-base font-medium leading-relaxed line-clamp-2">{course.description}</p>
                             
                             <div className="mt-8 flex flex-wrap gap-2">
                                 {course.tools.slice(0, 3).map(tool => (
-                                    <span key={tool} className="px-4 py-2 bg-slate-50/80 text-slate-500 rounded-xl text-xs font-black border border-slate-100/50 capitalize">{tool}</span>
+                                    <span key={tool} className="px-4 py-2 bg-slate-50/80 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl text-xs font-black border border-slate-100/50 dark:border-slate-700 capitalize">{tool}</span>
                                 ))}
                                 {course.tools.length > 3 && (
-                                    <span className="px-4 py-2 bg-slate-50/80 text-slate-300 rounded-xl text-xs font-black border border-slate-100/50">+{course.tools.length - 3}</span>
+                                    <span className="px-4 py-2 bg-slate-50/80 dark:bg-slate-800 text-slate-300 dark:text-slate-600 rounded-xl text-xs font-black border border-slate-100/50 dark:border-slate-700">+{course.tools.length - 3}</span>
                                 )}
                             </div>
                         </div>
 
-                        <div className="mt-10 pt-8 border-t border-slate-50 flex items-center justify-between relative z-10">
+                        <div className="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between relative z-10">
                             <div className="flex flex-col">
-                                <span className="text-lg font-black text-slate-900">{course.roadmap.length}</span>
-                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Chapters</span>
+                                <span className="text-lg font-black text-slate-900 dark:text-white">{course.roadmap.length}</span>
+                                <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Chapters</span>
                             </div>
-                            <button className="px-8 py-4 bg-slate-900 text-white rounded-xl font-black text-xs hover:bg-indigo-600 transition-all shadow-xl shadow-slate-200 flex items-center gap-2 group-hover:translate-x-1">
+                            <button className="px-8 py-4 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-black text-xs hover:bg-violet-600 transition-all shadow-xl shadow-slate-200 dark:shadow-none flex items-center gap-2 group-hover:translate-x-1">
                                 BEGIN PATH <FiChevronRight size={16} />
                             </button>
                         </div>
