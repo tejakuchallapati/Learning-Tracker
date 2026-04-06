@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiCode, FiCpu, FiLayout, FiSmartphone } from 'react-icons/fi';
 import logo from '../assets/logo.png';
+import roboCore from '../assets/ai_robo_core.png';
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -161,23 +162,50 @@ const Landing = () => {
                                 </motion.div>
                             ))}
 
-                            {/* THE HUB CORE: Perfectly Centered with Percentage */}
-                            <div className="relative group/core">
-                                <div className="p-2 bg-gradient-to-br from-violet-500/10 to-rose-500/10 rounded-full shadow-[0_0_120px_rgba(124,58,237,0.3)] backdrop-blur-sm transition-transform duration-1000 group-hover/core:scale-110">
-                                    <div className="w-44 h-44 rounded-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl border-2 border-white dark:border-slate-800 flex flex-col items-center justify-center shadow-inner relative overflow-hidden group-hover:border-violet-400">
-                                        <div className="absolute top-0 left-0 w-full h-10 bg-gradient-to-b from-white/40 to-transparent animate-scanline z-0"></div>
-                                        <div className="relative z-10 text-center">
-                                            <p className="text-[8px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em] mb-1 leading-none">Mastery</p>
-                                            <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">98.4<span className="text-xs text-violet-600">%</span></h3>
-                                            <div className="flex items-center justify-center gap-1.5 mt-2">
-                                                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
-                                                <span className="text-[7px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest leading-none">Sync: Alpha</span>
-                                            </div>
+                            {/* THE AI ROBO-MENTOR: Perfectly Centered Holographic Core */}
+                            <div className="relative group/robo flex flex-col items-center">
+                                {/* Projection Aura behind the Robo */}
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-violet-600/10 rounded-full blur-[60px] animate-pulse pointer-events-none -z-10"></div>
+                                
+                                <div className="relative z-20 flex flex-col items-center">
+                                    {/* Holographic Mastery HUD projecting above Robo */}
+                                    <motion.div 
+                                        className="mb-6 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl flex flex-col items-center shadow-[0_0_30px_rgba(124,58,237,0.2)]"
+                                        animate={{ y: [0, -5, 0] }}
+                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                    >
+                                        <p className="text-[7px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.4em] mb-1 leading-none">Global Mastery</p>
+                                        <h3 className="text-xl font-black text-slate-950 dark:text-white tracking-tighter leading-none flex items-baseline gap-0.5">
+                                            98.4<span className="text-[10px] text-violet-600">%</span>
+                                        </h3>
+                                        <div className="flex items-center gap-1 mt-1.5 px-2 py-0.5 bg-emerald-500/10 rounded-full">
+                                            <span className="w-1 h-1 bg-emerald-500 rounded-full animate-ping"></span>
+                                            <span className="text-[6px] font-black text-emerald-600 uppercase tracking-widest">Protocol: Active</span>
                                         </div>
-                                    </div>
+                                    </motion.div>
+
+                                    {/* The Robo Asset with Floating Motion */}
+                                    <motion.img 
+                                        src={roboCore} 
+                                        alt="AI Mentor" 
+                                        className="w-48 h-48 object-contain drop-shadow-[0_0_25px_rgba(124,58,237,0.2)] filter brightness-110 contrast-110"
+                                        animate={{ 
+                                            y: [0, -15, 0],
+                                            rotate: [0, 1, 0, -1, 0]
+                                        }}
+                                        transition={{
+                                            duration: 6,
+                                            repeat: Infinity,
+                                            ease: "easeInOut"
+                                        }}
+                                    />
                                 </div>
-                                {/* Synapse Paths */}
-                                <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] pointer-events-none opacity-15 -z-10 group-hover/core:opacity-40 transition-opacity duration-1000">
+
+                                {/* Radial Base Projection Line */}
+                                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-violet-600/20 rounded-full blur-md animate-pulse -z-10"></div>
+
+                                {/* Synapse Paths branching from the Robo's interface */}
+                                <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] pointer-events-none opacity-15 -z-10 group-hover/robo:opacity-40 transition-opacity duration-1000">
                                     <path d="M 600 400 L 400 150 M 600 400 L 800 150 M 600 400 L 300 400 M 600 400 L 900 400 M 600 400 L 400 650 M 600 400 L 800 650" stroke="#7c3aed" strokeWidth="2" fill="none" strokeDasharray="8 8" className="animate-synapse-flow" />
                                 </svg>
                             </div>
