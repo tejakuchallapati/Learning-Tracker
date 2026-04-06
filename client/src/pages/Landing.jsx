@@ -108,8 +108,8 @@ const path = new Architect('FullStack');
 path.build();`}
                                 </pre>
                             </div>
-                            <div className="relative z-10 w-full h-full bg-gradient-to-br from-rose-600/5 via-orange-500/5 to-rose-600/5 rounded-3xl border border-rose-100/30 flex items-center justify-center text-9xl transform group-hover:scale-105 transition-transform duration-700">
-                                <span className="animate-rocket drop-shadow-[0_20px_50px_rgba(225,29,72,0.4)]">🚀</span>
+                            <div className="relative z-10 w-full h-full bg-gradient-to-br from-rose-600 via-rose-500 to-rose-600 rounded-3xl border border-white/20 flex items-center justify-center text-9xl transform group-hover:scale-105 transition-transform duration-700 shadow-inner">
+                                <span className="animate-rocket drop-shadow-[0_20px_50px_rgba(255,255,255,0.3)]">🚀</span>
                             </div>
                         </div>
                     </div>
