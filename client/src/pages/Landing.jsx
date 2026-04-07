@@ -7,7 +7,14 @@ import roboCore from '../assets/ai_robo_v2.png';
 
 const Landing = () => {
     const navigate = useNavigate();
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [activeModuleId, setActiveModuleId] = useState(null);
+
+    const modules = [
+        { id: 1, name: 'Web Mastery', icon: <FiLayout />, mastery: 82, rotation: -12, y: -20, x: -10, desc: "Architect elite-level web applications with React, Next.js, and modern CSS strategies. Focus on performance, accessibility, and clean code." },
+        { id: 2, name: 'AI Neural', icon: <FiCpu />, mastery: 76, rotation: 12, y: -40, x: 10, desc: "Leverage the power of LLMs and neural networks. Learn to build AI-first applications that scale and provide real-world value." },
+        { id: 3, name: 'Data Engine', icon: <FiCode />, mastery: 89, rotation: -8, y: 30, x: -15, desc: "Scale your backend with robust database architectures and efficient API design. Master both SQL and NoSQL environments." },
+        { id: 4, name: 'Cloud Ops', icon: <FiLayout />, mastery: 64, rotation: 15, y: 50, x: 15, desc: "Deploy with confidence using modern CI/CD pipelines, Docker, and Kubernetes. ensure high availability and security." },
+    ];
 
     const features = [
         { icon: <FiCode />, title: "Code Mastery", desc: "Interactive environments and real-world projects designed for speed." },
@@ -87,116 +94,107 @@ const Landing = () => {
                         </div>
                     </div>
 
-                    <div className="relative group lg:block hidden h-[850px] w-full flex items-center justify-center perspective-2000 preserve-3d overflow-visible">
+                    <div className="relative group lg:block hidden h-[850px] w-full flex items-center justify-end perspective-2000 preserve-3d overflow-visible pr-20">
                         {/* 1. Digital Grid Lattice Background (Subtle Depth) */}
                         <div className="absolute inset-x-[-100px] inset-y-[-100px] bg-[radial-gradient(#7c3aed_0.5px,transparent_0.5px)] [background-size:48px_48px] opacity-[0.03] dark:opacity-[0.05] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] rotate-[15deg]"></div>
                         
-                        {/* 2. Central AI Robo-Mentor (Commander Host) */}
-                        <div className="relative z-20 flex flex-col items-center">
-                            {/* Holographic Orbital Halo */}
-                            <div className="absolute -bottom-10 w-64 h-20 border-[3px] border-violet-500/20 rounded-full animate-spin-slow blur-[1px] -z-10"></div>
-                            <div className="absolute -bottom-12 w-48 h-12 border-2 border-rose-500/10 rounded-full animate-spin-reverse-slow blur-[2px] -z-10"></div>
-                            
-                            {/* Robot with Breathing Float - MASSIVE SCALE */}
-                            <motion.div
-                                animate={{ y: [0, -30, 0], rotate: [0, 1.5, 0, -1.5, 0] }}
-                                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                                className="relative cursor-pointer group/robo-core"
-                                onClick={() => setIsExpanded(!isExpanded)}
-                            >
-                                <img src={roboCore} alt="AI Mentor" className="w-[450px] h-[450px] object-contain drop-shadow-[0_20px_80px_rgba(124,58,237,0.4)] filter brightness-110" />
-                                
-                                {/* Floated Mastery HUD above Robo (The Interactive Toggle) */}
-                                <motion.div 
-                                    className="absolute -top-4 left-1/2 -translate-x-1/2 px-10 py-5 bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/60 dark:border-slate-700 rounded-3xl flex flex-col items-center gap-2 shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:scale-105 hover:bg-white/60 transition-all duration-500 border-2"
-                                    animate={{ 
-                                        y: isExpanded ? [-5, 5, -5] : [0, -10, 0],
-                                        borderColor: isExpanded ? ['rgba(124,58,237,0.6)', 'rgba(236,72,153,0.6)'] : 'white'
-                                    }}
-                                    transition={{ duration: 4, repeat: Infinity }}
+                        {/* 2. Knowledge Boxes (Command Panel) */}
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3">
+                            {modules.map((module) => (
+                                <motion.div
+                                    key={module.id}
+                                    whileHover={{ x: 10 }}
+                                    onClick={() => setActiveModuleId(activeModuleId === module.id ? null : module.id)}
+                                    className={`p-3.5 w-48 rounded-2xl border transition-all duration-300 cursor-pointer shadow-lg ${
+                                        activeModuleId === module.id 
+                                        ? 'bg-violet-600 border-violet-500 text-white translate-x-2' 
+                                        : 'bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200'
+                                    }`}
                                 >
-                                    <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.5em] mb-1">Global Mastery</p>
-                                    <h3 className="text-4xl font-black text-slate-950 dark:text-white tracking-tighter leading-none flex items-baseline gap-1">
-                                        98.4<span className="text-xl text-violet-600">%</span>
-                                    </h3>
-                                    <p className="mt-3 text-[8px] font-black text-violet-600 uppercase tracking-widest flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 bg-violet-600 rounded-full animate-pulse"></span>
-                                        {isExpanded ? 'System: Viewing Roadmap' : 'Click to Explore Intelligence'}
-                                    </p>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-
-                        {/* 3. Neural Lattice Modules (3D Perspective Constellation) */}
-                        {[
-                            { id: 1, name: 'Web Mastery', icon: <FiLayout />, mastery: 82, pos: 'top-[10%] left-[10%]', scale: 'scale-90', blur: 'blur-[0.5px]', z: 'z-10', delay: 0 },
-                            { id: 2, name: 'AI Neural', icon: <FiCpu />, mastery: 76, pos: 'top-[35%] -left-[15%]', scale: 'scale-110', blur: 'blur-0', z: 'z-30', delay: 1 },
-                            { id: 3, name: 'Data Engine', icon: <FiCode />, mastery: 89, pos: 'bottom-[10%] left-[5%]', scale: 'scale-95', blur: 'blur-[0.5px]', z: 'z-10', delay: 2 },
-                            { id: 4, name: 'Cloud Ops', icon: <FiLayout />, mastery: 64, pos: 'top-[15%] right-[10%]', scale: 'scale-95', blur: 'blur-[0.5px]', z: 'z-10', delay: 1.5 },
-                            { id: 5, name: 'Security Logic', icon: <FiSmartphone />, mastery: 92, pos: 'top-[45%] -right-[15%]', scale: 'scale-105', blur: 'blur-0', z: 'z-30', delay: 0.5 },
-                            { id: 6, name: 'DevOps Flow', icon: <FiArrowRight />, mastery: 45, pos: 'bottom-[15%] right-[15%]', scale: 'scale-90', blur: 'blur-[1px]', z: 'z-10', delay: 2.5 }
-                        ].map((tile) => (
-                            <motion.div
-                                key={tile.id}
-                                className={`absolute ${tile.pos} ${tile.z} group/tile transition-all duration-700`}
-                                initial={false}
-                                animate={{ 
-                                    y: isExpanded ? [0, -15, 0, 15, 0] : 0,
-                                    x: isExpanded ? [0, 8, 0, -8, 0] : 0,
-                                    scale: isExpanded ? 1 : 0,
-                                    opacity: isExpanded ? 1 : 0
-                                }}
-                                transition={{
-                                    scale: { duration: 0.8, ease: "backOut", delay: tile.delay * 0.2 },
-                                    opacity: { duration: 0.5, delay: tile.delay * 0.2 },
-                                    y: { duration: 8 + tile.id, repeat: Infinity, ease: "easeInOut" },
-                                    x: { duration: 8 + tile.id, repeat: Infinity, ease: "easeInOut" }
-                                }}
-                            >
-                                <div className={`p-4 bg-white/5 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/20 dark:border-slate-800 rounded-[1.5rem] shadow-[0_0_40px_rgba(0,0,0,0.1)] hover:border-violet-500/50 hover:shadow-violet-500/20 transition-all duration-500 w-[180px] ${tile.scale} ${tile.blur}`}>
                                     <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 bg-gradient-to-br from-violet-600 to-rose-600 text-white rounded-lg flex items-center justify-center shadow-lg relative overflow-hidden">
-                                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,white_0.5px,transparent_0.5px)] bg-[size:4px_4px] opacity-20"></div>
-                                            <span className="text-sm relative z-10">{tile.icon}</span>
+                                        <div className={`p-1.5 rounded-lg ${activeModuleId === module.id ? 'bg-white/20' : 'bg-violet-100 dark:bg-violet-900/30'}`}>
+                                            <span className={`text-base ${activeModuleId === module.id ? 'text-white' : 'text-violet-600'}`}>
+                                                {module.icon}
+                                            </span>
                                         </div>
-                                        <div className="flex-1 min-w-0">
-                                            <h4 className="text-[9px] font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest truncate leading-none mb-1.5">{tile.name}</h4>
-                                            
-                                            {/* Micro-Gauge Circle Indicator */}
-                                            <div className="flex items-center gap-1.5">
-                                                <svg className="w-3 h-3 transform -rotate-90">
-                                                    <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1" fill="transparent" className="text-slate-100 dark:text-slate-800" />
-                                                    <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.5" fill="transparent" 
-                                                        className="text-violet-600"
-                                                        strokeDasharray={2 * Math.PI * 5}
-                                                        strokeDashoffset={2 * Math.PI * 5 * (1 - tile.mastery / 100)}
-                                                    />
-                                                </svg>
-                                                <span className="text-[8px] font-bold text-slate-400 uppercase leading-none tracking-tighter">{tile.mastery}%</span>
+                                        <div>
+                                            <h4 className="text-[7px] font-black uppercase tracking-widest leading-none mb-1">{module.name}</h4>
+                                            <div className="h-0.5 w-12 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                                <div 
+                                                    className="h-full bg-violet-600 dark:bg-violet-400" 
+                                                    style={{ width: `${module.mastery}%` }}
+                                                ></div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                        ))}
-
-                        {/* 4. Neural-Bus Circuits (Animated ONLY on Expanded) */}
-                        <svg className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-1000 ${isExpanded ? 'opacity-20' : 'opacity-0'}`}>
-                            <defs>
-                                <linearGradient id="bus-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stopColor="#7c3aed" />
-                                    <stop offset="100%" stopColor="#ec4899" />
-                                </linearGradient>
-                            </defs>
-                            {/* Circuit Board Paths from Robot to Modules */}
-                            <path d="M 600 400 L 450 150 M 600 400 L 750 150 M 600 400 L 350 400 M 600 400 L 850 400 M 600 400 L 450 650 M 600 400 L 750 650" 
-                                stroke="url(#bus-gradient)" strokeWidth="1.5" fill="none" strokeDasharray="4 4" className={isExpanded ? 'animate-synapse-flow' : ''} />
-                            
-                            {/* Data Bits (Moving dots on circuits) */}
-                            {isExpanded && [0,1,2,3,4,5].map(i => (
-                                <circle key={i} r="2" fill="#7c3aed" className="animate-data-bit" style={{ offsetPath: `path('M 600 400 L ${[450, 750, 350, 850, 450, 750][i]} ${[150, 150, 400, 400, 650, 650][i]}')`, animationDelay: `${i * 1.2}s` }} />
+                                </motion.div>
                             ))}
-                        </svg>
+                        </div>
+
+                        {/* 3. Central AI Robo-Mentor (Enhanced Holographic Presence) */}
+                        <div className="relative z-20 flex flex-col items-end">
+                            {/* NEW: Holographic Aura Effects (Hides JPEG Edges) */}
+                            <div className="absolute top-1/2 right-40 -translate-y-1/2 w-[700px] h-[700px] bg-violet-600/10 rounded-full blur-[150px] -z-10 mix-blend-screen"></div>
+                            <div className="absolute top-1/2 right-60 -translate-y-1/2 w-[400px] h-[400px] bg-fuchsia-600/15 rounded-full blur-[100px] -z-10 animate-pulse-subtle"></div>
+                            <div className="absolute top-1/2 right-20 -translate-y-1/2 w-[200px] h-[200px] bg-sky-400/20 rounded-full blur-[60px] -z-10"></div>
+
+                            {/* Holographic Orbital Halo */}
+                            <div className="absolute -bottom-10 right-20 w-80 h-24 border-[3px] border-violet-500/20 rounded-full animate-spin-slow blur-[2px] -z-10"></div>
+                            
+                            {/* Pointing Robot */}
+                            <motion.div
+                                animate={activeModuleId ? { 
+                                    rotate: modules.find(m => m.id === activeModuleId).rotation * 1.5,
+                                    rotateY: -25, 
+                                    rotateX: 10,
+                                    y: modules.find(m => m.id === activeModuleId).y * 0.4,
+                                    x: modules.find(m => m.id === activeModuleId).x - 10,
+                                    scale: 1.25
+                                } : { rotate: 0, rotateY: 0, rotateX: 0, y: 0, x: 0, scale: 1.2 }}
+                                transition={{ type: 'spring', stiffness: 50, damping: 10 }}
+                                style={{ transformOrigin: '80% 50%' }}
+                                className="relative group/robo-core"
+                            >
+                                <img 
+                                    src={roboCore} 
+                                    alt="AI Mentor" 
+                                    className="w-[700px] h-auto max-h-[750px] object-contain drop-shadow-[0_40px_120px_rgba(124,58,237,0.5)] filter brightness-110 contrast-110 mix-blend-multiply [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)]" 
+                                />
+                            </motion.div>
+
+                            {/* 4. Floating Info Card (Perfectly Centered in Interaction Area) */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                                animate={activeModuleId ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
+                                className="absolute right-[20%] top-0 w-[350px] p-8 bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl border border-white dark:border-slate-800 rounded-[2.5rem] shadow-[0_50px_150px_rgba(0,0,0,0.2)] z-50 pointer-events-none border-2"
+                            >
+                                {activeModuleId && (
+                                    <div className="space-y-4">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-violet-600 rounded-full text-[8px] font-black text-white uppercase tracking-widest">
+                                            Insight Unlocked
+                                        </div>
+                                        <h3 className="text-3xl font-black text-slate-950 dark:text-white tracking-tighter leading-none">
+                                            {modules.find(m => m.id === activeModuleId).name}
+                                        </h3>
+                                        <p className="text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                                            {modules.find(m => m.id === activeModuleId).desc}
+                                        </p>
+                                        <div className="pt-4 border-t border-slate-200/50 dark:border-slate-800/50">
+                                            <div className="flex justify-between items-end mb-2">
+                                                <span className="text-[10px] font-black uppercase text-slate-400">Mastery Progress</span>
+                                                <span className="text-lg font-black text-violet-600">{modules.find(m => m.id === activeModuleId).mastery}%</span>
+                                            </div>
+                                            <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                                <div 
+                                                    className="h-full bg-violet-600" 
+                                                    style={{ width: `${modules.find(m => m.id === activeModuleId).mastery}%` }}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </motion.div>
+                        </div>
                     </div>
                 </div>
             </main>
