@@ -94,7 +94,7 @@ const Landing = () => {
                         </div>
                     </div>
 
-                    <div className="relative group lg:block hidden h-[850px] w-full flex items-center justify-end perspective-2000 preserve-3d overflow-visible pr-20">
+                    <div className="absolute -right-24 top-1/2 -translate-y-1/2 lg:block hidden h-[850px] w-1/2 flex items-center justify-end perspective-2000 preserve-3d overflow-visible z-20">
                         {/* 1. Digital Grid Lattice Background (Subtle Depth) */}
                         <div className="absolute inset-x-[-100px] inset-y-[-100px] bg-[radial-gradient(#7c3aed_0.5px,transparent_0.5px)] [background-size:48px_48px] opacity-[0.03] dark:opacity-[0.05] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] rotate-[15deg]"></div>
                         
@@ -141,42 +141,45 @@ const Landing = () => {
                             {/* Holographic Orbital Halo */}
                             <div className="absolute -bottom-10 right-20 w-80 h-24 border-[3px] border-violet-500/20 rounded-full animate-spin-slow blur-[2px] -z-10"></div>
                             
-                            {/* Pointing Robot */}
+                            {/* Selecting Robot (Static but Glowing) */}
                             <motion.div
                                 animate={activeModuleId ? { 
-                                    rotate: modules.find(m => m.id === activeModuleId).rotation * 1.5,
-                                    rotateY: -25, 
-                                    rotateX: 10,
-                                    y: modules.find(m => m.id === activeModuleId).y * 0.4,
-                                    x: modules.find(m => m.id === activeModuleId).x - 10,
-                                    scale: 1.25
-                                } : { rotate: 0, rotateY: 0, rotateX: 0, y: 0, x: 0, scale: 1.2 }}
-                                transition={{ type: 'spring', stiffness: 50, damping: 10 }}
-                                style={{ transformOrigin: '80% 50%' }}
+                                    scale: 1.15,
+                                    filter: "brightness(1.2) contrast(1.1)",
+                                } : { scale: 1.1, filter: "brightness(1) contrast(1)" }}
+                                transition={{ type: 'spring', stiffness: 100, damping: 15 }}
                                 className="relative group/robo-core"
                             >
                                 <img 
                                     src={roboCore} 
                                     alt="AI Mentor" 
-                                    className="w-[700px] h-auto max-h-[750px] object-contain drop-shadow-[0_40px_120px_rgba(124,58,237,0.5)] filter brightness-110 contrast-110 mix-blend-multiply [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)]" 
+                                    style={{ mixBlendMode: 'multiply' }}
+                                    className="w-[750px] h-auto max-h-[800px] object-contain drop-shadow-[0_40px_120px_rgba(124,58,237,0.5)] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]" 
                                 />
+                                {activeModuleId && (
+                                    <motion.div 
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1.2 }}
+                                        className="absolute inset-0 bg-violet-500/10 rounded-full blur-[100px] -z-10"
+                                    />
+                                )}
                             </motion.div>
 
-                            {/* 4. Floating Info Card (Perfectly Centered in Interaction Area) */}
+                            {/* 4. Compact Info Card (Positioned to avoid all overlaps) */}
                             <motion.div
-                                initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                                animate={activeModuleId ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
-                                className="absolute right-[20%] top-0 w-[350px] p-8 bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl border border-white dark:border-slate-800 rounded-[2.5rem] shadow-[0_50px_150px_rgba(0,0,0,0.2)] z-50 pointer-events-none border-2"
+                                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                                animate={activeModuleId ? { opacity: 1, scale: 1, y: 0, x: -450 } : { opacity: 0, scale: 0.9, y: 30, x: -420 }}
+                                className="absolute right-0 top-[-50px] w-[280px] p-6 bg-white/70 dark:bg-slate-900/70 backdrop-blur-3xl border border-white dark:border-slate-800 rounded-[2rem] shadow-[0_40px_100px_rgba(0,0,0,0.2)] z-50 pointer-events-none border-2"
                             >
                                 {activeModuleId && (
-                                    <div className="space-y-4">
-                                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-violet-600 rounded-full text-[8px] font-black text-white uppercase tracking-widest">
-                                            Insight Unlocked
+                                    <div className="space-y-3">
+                                        <div className="inline-flex items-center gap-2 px-2 py-0.5 bg-violet-600 rounded-full text-[7px] font-black text-white uppercase tracking-widest">
+                                            Insight 
                                         </div>
-                                        <h3 className="text-3xl font-black text-slate-950 dark:text-white tracking-tighter leading-none">
+                                        <h3 className="text-xl font-black text-slate-950 dark:text-white tracking-tighter leading-tight">
                                             {modules.find(m => m.id === activeModuleId).name}
                                         </h3>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                                        <p className="text-[10px] text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
                                             {modules.find(m => m.id === activeModuleId).desc}
                                         </p>
                                         <div className="pt-4 border-t border-slate-200/50 dark:border-slate-800/50">
