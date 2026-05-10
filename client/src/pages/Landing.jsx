@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { FiArrowRight, FiCode, FiCpu, FiLayout, FiSmartphone } from 'react-icons/fi';
+import { FiArrowRight, FiCode, FiCpu, FiLayout, FiSmartphone, FiActivity } from 'react-icons/fi';
 import logo from '../assets/logo.png';
 
 const Landing = () => {
@@ -109,8 +109,25 @@ const path = new Architect('FullStack');
 path.build();`}
                                 </pre>
                             </div>
-                            <div className="relative z-10 w-full h-full bg-[#020617] rounded-3xl border border-slate-800 flex items-center justify-center text-9xl transform group-hover:scale-105 transition-transform duration-700 shadow-2xl shadow-cyan-900/20 group-hover:border-cyan-500/50">
-                                <span className="animate-rocket drop-shadow-[0_0_40px_rgba(34,211,238,0.3)]">🚀</span>
+                            <div className="relative z-10 w-full h-full bg-[#020617] rounded-3xl border border-slate-800 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-700 shadow-2xl shadow-cyan-900/20 group-hover:border-cyan-500/50 overflow-hidden">
+                                {/* Subtle Inner Glow */}
+                                <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent"></div>
+                                
+                                {/* Animated Rings */}
+                                <div className="relative flex items-center justify-center">
+                                    <div className="absolute w-56 h-56 rounded-full border-2 border-slate-800/50"></div>
+                                    <div className="absolute w-56 h-56 rounded-full border-[3px] border-cyan-500/20 border-t-cyan-400 animate-[spin_8s_linear_infinite]"></div>
+                                    <div className="absolute w-44 h-44 rounded-full border border-blue-500/10 border-b-blue-400 animate-[spin_5s_linear_infinite_reverse]"></div>
+                                    
+                                    {/* Core Data Center */}
+                                    <div className="flex flex-col items-center justify-center z-10 mt-2">
+                                        <div className="w-16 h-16 bg-slate-900/80 rounded-2xl border border-slate-700/50 flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(34,211,238,0.15)]">
+                                            <FiActivity className="text-4xl text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]" />
+                                        </div>
+                                        <span className="text-5xl font-black text-white tracking-tighter">98<span className="text-2xl text-cyan-500">%</span></span>
+                                        <span className="text-[10px] text-cyan-500/80 uppercase tracking-[0.3em] font-black mt-2">Mastery Rate</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
