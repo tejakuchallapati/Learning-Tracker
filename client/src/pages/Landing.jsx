@@ -13,12 +13,13 @@ const Landing = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-red-600 text-white font-sans selection:bg-black selection:text-white overflow-hidden relative transition-colors duration-500">
-            {/* Background Glows */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-red-500 rounded-full blur-[120px]"></div>
-                <div className="absolute top-[20%] -right-[10%] w-[30%] h-[50%] bg-red-700 rounded-full blur-[120px]"></div>
-                <div className="absolute -bottom-[10%] left-[20%] w-[30%] h-[30%] bg-red-800 rounded-full blur-[120px]"></div>
+        <div className="min-h-screen bg-[#3a0000] text-white font-sans selection:bg-red-500 selection:text-white overflow-hidden relative transition-colors duration-500">
+            {/* Animated Shaded Red Background */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-900/40 via-transparent to-transparent opacity-100"></div>
+                <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-red-600/40 rounded-full blur-[150px] animate-pulse-subtle mix-blend-screen"></div>
+                <div className="absolute top-[30%] -right-[20%] w-[70%] h-[70%] bg-red-800/60 rounded-full blur-[150px] animate-pulse mix-blend-multiply"></div>
+                <div className="absolute -bottom-[30%] left-[20%] w-[50%] h-[50%] bg-rose-600/30 rounded-full blur-[130px] animate-spin-slow mix-blend-overlay"></div>
             </div>
 
             {/* Navbar */}
