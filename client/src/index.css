@@ -109,12 +109,12 @@
 }
 
 :root {
-  --primary: #dc2626; /* Red 600 */
-  --secondary: #000000; /* Black */
-  --bg-main: #ffffff; /* Pure White for maximum visibility */
-  --text-main: #000000; /* Pure Black */
-  --card-bg: #ffffff;
-  --border-color: #f1f5f9;
+  --primary: #22d3ee; /* Cyan 400 */
+  --secondary: #3b82f6; /* Blue 500 */
+  --bg-main: #020617; /* Slate 950 */
+  --text-main: #f8fafc; /* Slate 50 */
+  --card-bg: #0f172a; /* Slate 900 */
+  --border-color: #1e293b; /* Slate 800 */
 
   --background: hsl(210, 40%, 98%); /* Ghost White HSL */
   --foreground: hsl(222.2, 84%, 4.9%);
@@ -127,17 +127,17 @@
 }
 
 html.dark, .dark {
-  --bg-main: #000000;
+  --bg-main: #020617;
   --text-main: #f8fafc;
-  --card-bg: #0a0a0a;
-  --border-color: #1a1a1a;
+  --card-bg: #0f172a;
+  --border-color: #1e293b;
 
-  --background: hsl(0, 0%, 0%);
-  --foreground: hsl(0, 0%, 100%);
-  --skeleton: hsl(0, 0%, 10%);
-  --border: hsl(0, 0%, 20%);
-  --btn-border: hsl(0, 0%, 15%);
-  --input: hsl(0, 0%, 12%);
+  --background: hsl(222.2 47.4% 11.2%);
+  --foreground: hsl(210 40% 98%);
+  --skeleton: hsl(215 27.9% 16.9%);
+  --border: hsl(217.2 32.6% 17.5%);
+  --btn-border: hsl(217.2 32.6% 17.5%);
+  --input: hsl(217.2 32.6% 17.5%);
   
   --radius: 0.5rem;
 }
@@ -175,7 +175,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #dc2626 0%, #000000 100%);
+  background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
