@@ -1,16 +1,16 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { FiActivity, FiAward, FiClock, FiList, FiCheckCircle, FiLock, FiDownload } from 'react-icons/fi';
+import { FiActivity, FiAward, FiClock, FiList, FiCheckCircle, FiLock, FiDownload, FiRocket, FiTrendingUp, FiZap, FiCpu, FiBook, FiStar } from 'react-icons/fi';
 import DailyGoalsSection from '../components/DailyGoalsSection';
 
 const badges = [
-    { icon: '🚀', name: 'First Launch',    desc: 'Logged first study session',    earned: false },
-    { icon: '🔥', name: '7-Day Streak',    desc: 'Studied 7 days in a row',        earned: false },
-    { icon: '⚡', name: 'Speed Learner',   desc: 'Completed a topic in under 1 day', earned: false },
-    { icon: '🏆', name: 'Track Master',    desc: 'Completed an entire roadmap',   earned: false },
-    { icon: '💯', name: '100 Hours',       desc: 'Logged 100+ study hours',        earned: false },
-    { icon: '🧠', name: 'Deep Thinker',    desc: 'Used AI Mentor 10+ times',       earned: false },
-    { icon: '📚', name: 'Bookworm',        desc: 'Saved 5+ resources to library',  earned: false },
-    { icon: '🌟', name: 'Consistent Pro',  desc: 'Maintained 30-day streak',       earned: false },
+    { icon: <FiRocket />, color: 'text-rose-400 bg-rose-500/10 shadow-rose-500/20 border-rose-500/20', name: 'First Launch',    desc: 'Logged first study session',    earned: true },
+    { icon: <FiTrendingUp />, color: 'text-orange-400 bg-orange-500/10 shadow-orange-500/20 border-orange-500/20', name: '7-Day Streak',    desc: 'Studied 7 days in a row',        earned: true },
+    { icon: <FiZap />, color: 'text-amber-400 bg-amber-500/10 shadow-amber-500/20 border-amber-500/20', name: 'Speed Learner',   desc: 'Completed a topic in under 1 day', earned: true },
+    { icon: <FiAward />, color: 'text-emerald-400 bg-emerald-500/10 shadow-emerald-500/20 border-emerald-500/20', name: 'Track Master',    desc: 'Completed an entire roadmap',   earned: false },
+    { icon: <FiClock />, color: 'text-cyan-400 bg-cyan-500/10 shadow-cyan-500/20 border-cyan-500/20', name: '100 Hours',       desc: 'Logged 100+ study hours',        earned: false },
+    { icon: <FiCpu />, color: 'text-violet-400 bg-violet-500/10 shadow-violet-500/20 border-violet-500/20', name: 'Deep Thinker',    desc: 'Used AI Mentor 10+ times',       earned: false },
+    { icon: <FiBook />, color: 'text-blue-400 bg-blue-500/10 shadow-blue-500/20 border-blue-500/20', name: 'Bookworm',        desc: 'Saved 5+ resources to library',  earned: false },
+    { icon: <FiStar />, color: 'text-fuchsia-400 bg-fuchsia-500/10 shadow-fuchsia-500/20 border-fuchsia-500/20', name: 'Consistent Pro',  desc: 'Maintained 30-day streak',       earned: false },
 ];
 
 const Insights = () => {
@@ -139,16 +139,16 @@ const Insights = () => {
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {badges.map((badge, i) => (
-                        <div key={i} className={`relative p-8 rounded-2xl border flex flex-col items-center text-center transition-all duration-500 group ${badge.earned ? 'bg-white dark:bg-slate-900 premium-shadow border-slate-100 dark:border-slate-800 hover:-translate-y-2' : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-900 opacity-50 grayscale'}`}>
+                        <div key={i} className={`relative p-8 rounded-3xl border flex flex-col items-center text-center transition-all duration-500 group ${badge.earned ? 'bg-slate-900 border-slate-800 hover:-translate-y-2 shadow-xl' : 'bg-slate-950/50 border-slate-900 opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}>
                             {badge.earned
-                                ? <div className="absolute top-4 right-4 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center"><FiCheckCircle className="text-white" size={12} /></div>
-                                : <div className="absolute top-4 right-4 w-6 h-6 bg-slate-300 dark:bg-slate-700 rounded-full flex items-center justify-center"><FiLock className="text-white dark:text-slate-500" size={12} /></div>
+                                ? <div className="absolute top-4 right-4 w-6 h-6 bg-emerald-500/20 border border-emerald-500/50 rounded-full flex items-center justify-center"><FiCheckCircle className="text-emerald-400" size={12} /></div>
+                                : <div className="absolute top-4 right-4 w-6 h-6 bg-slate-800 rounded-full flex items-center justify-center"><FiLock className="text-slate-500" size={12} /></div>
                             }
-                            <div className={`text-5xl mb-5 transition-transform duration-500 ${badge.earned ? 'group-hover:scale-125 group-hover:rotate-12' : ''}`}>
+                            <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-lg border transition-all duration-500 ${badge.color} ${badge.earned ? 'group-hover:scale-110 group-hover:rotate-6' : ''}`}>
                                 {badge.icon}
                             </div>
-                            <h4 className="text-sm font-black text-slate-900 dark:text-white leading-tight uppercase tracking-tight">{badge.name}</h4>
-                            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-2 leading-relaxed uppercase tracking-tight">{badge.desc}</p>
+                            <h4 className="text-sm font-black text-white leading-tight uppercase tracking-tight">{badge.name}</h4>
+                            <p className="text-[10px] text-slate-400 font-bold mt-2 leading-relaxed uppercase tracking-tight">{badge.desc}</p>
                         </div>
                     ))}
                 </div>
