@@ -113,11 +113,38 @@ path.build();`}
                                 {/* Subtle Inner Glow */}
                                 <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent"></div>
                                 
-                                {/* Animated Rings */}
-                                <div className="relative flex items-center justify-center">
-                                    <div className="absolute w-56 h-56 rounded-full border-2 border-slate-800/50"></div>
-                                    <div className="absolute w-56 h-56 rounded-full border-[3px] border-cyan-500/20 border-t-cyan-400 animate-[spin_8s_linear_infinite]"></div>
-                                    <div className="absolute w-44 h-44 rounded-full border border-blue-500/10 border-b-blue-400 animate-[spin_5s_linear_infinite_reverse]"></div>
+                                {/* Animated Rings & Orbital Effects */}
+                                <div className="relative flex items-center justify-center w-72 h-72">
+                                    {/* Outer Dashed Orbit with Glowing Satellites */}
+                                    <div className="absolute w-72 h-72 rounded-full border border-dashed border-slate-700/40 animate-[spin_15s_linear_infinite]"></div>
+                                    <div className="absolute w-72 h-72 animate-[spin_15s_linear_infinite]">
+                                        <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_15px_#22d3ee]"></div>
+                                        <div className="absolute bottom-1/4 -right-1.5 w-2 h-2 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
+                                        <div className="absolute top-1/4 -left-1.5 w-2 h-2 bg-violet-400 rounded-full shadow-[0_0_10px_#a78bfa]"></div>
+                                    </div>
+
+                                    {/* Middle Solid Data Ring */}
+                                    <div className="absolute w-56 h-56 rounded-full border-2 border-slate-800/80"></div>
+                                    <div className="absolute w-56 h-56 rounded-full border-[3px] border-cyan-500/10 border-t-cyan-400 border-r-cyan-400/50 animate-[spin_8s_linear_infinite]"></div>
+                                    
+                                    {/* Inner Reverse Dashed Ring */}
+                                    <div className="absolute w-44 h-44 rounded-full border border-dashed border-blue-500/30 animate-[spin_5s_linear_infinite_reverse]"></div>
+                                    <div className="absolute w-44 h-44 rounded-full border-2 border-transparent border-b-blue-400 border-l-blue-400/50 animate-[spin_5s_linear_infinite_reverse]"></div>
+
+                                    {/* Floating Data Badges */}
+                                    <div className="absolute -right-2 top-8 bg-slate-900/90 border border-cyan-500/30 px-3 py-2 rounded-xl backdrop-blur-md shadow-[0_10px_30px_rgba(34,211,238,0.15)] z-20 animate-[bounce_3s_infinite]">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></div>
+                                            <span className="text-[8px] font-black text-cyan-400 uppercase tracking-widest">Optimizing</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="absolute -left-4 bottom-12 bg-slate-900/90 border border-blue-500/30 px-3 py-2 rounded-xl backdrop-blur-md shadow-[0_10px_30px_rgba(59,130,246,0.15)] z-20 animate-[bounce_4s_infinite_reverse]">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-[pulse_2s_ease-in-out_infinite]"></div>
+                                            <span className="text-[8px] font-black text-blue-400 uppercase tracking-widest">Active Sync</span>
+                                        </div>
+                                    </div>
                                     
                                     {/* Core Data Center */}
                                     <div className="flex flex-col items-center justify-center z-10 mt-2">
