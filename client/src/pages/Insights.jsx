@@ -1,9 +1,10 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { FiActivity, FiAward, FiClock, FiList, FiCheckCircle, FiLock, FiDownload, FiRocket, FiTrendingUp, FiZap, FiCpu, FiBook, FiStar } from 'react-icons/fi';
+import { FiActivity, FiAward, FiClock, FiList, FiCheckCircle, FiLock, FiDownload, FiTrendingUp, FiZap, FiCpu, FiBook, FiStar } from 'react-icons/fi';
+import { FaRocket } from 'react-icons/fa';
 import DailyGoalsSection from '../components/DailyGoalsSection';
 
 const badges = [
-    { icon: <FiRocket />, color: 'text-rose-400 bg-rose-500/10 shadow-rose-500/20 border-rose-500/20', name: 'First Launch',    desc: 'Logged first study session',    earned: true },
+    { icon: <FaRocket />, color: 'text-rose-400 bg-rose-500/10 shadow-rose-500/20 border-rose-500/20', name: 'First Launch',    desc: 'Logged first study session',    earned: true },
     { icon: <FiTrendingUp />, color: 'text-orange-400 bg-orange-500/10 shadow-orange-500/20 border-orange-500/20', name: '7-Day Streak',    desc: 'Studied 7 days in a row',        earned: true },
     { icon: <FiZap />, color: 'text-amber-400 bg-amber-500/10 shadow-amber-500/20 border-amber-500/20', name: 'Speed Learner',   desc: 'Completed a topic in under 1 day', earned: true },
     { icon: <FiAward />, color: 'text-emerald-400 bg-emerald-500/10 shadow-emerald-500/20 border-emerald-500/20', name: 'Track Master',    desc: 'Completed an entire roadmap',   earned: false },
