@@ -16,7 +16,6 @@ import Progress from './pages/Progress';
 import Insights from './pages/Insights';
 import Settings from './pages/Settings';
 import Notes from './pages/Notes';
-import DevChatSection from './pages/DevChatSection';
 import Bookmarks from './pages/Bookmarks';
 
 // Layout
@@ -66,7 +65,6 @@ const dashboardRoutes = [
   { path: "/roadmap/:courseId/:stepIdx/:topicIdx", element: <TopicContent /> },
   { path: "/progress", element: <Progress /> },
   { path: "/analytics", element: <Insights /> },
-  { path: "/chat", element: <DevChatSection /> },
   { path: "/notes", element: <Notes /> },
   { path: "/bookmarks", element: <Bookmarks /> },
   { path: "/settings", element: <Settings /> },
