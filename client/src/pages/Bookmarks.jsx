@@ -102,34 +102,34 @@ const Bookmarks = () => {
                     <button onClick={() => setShowForm(true)} className="mt-8 text-violet-600 dark:text-violet-400 font-black hover:underline text-sm uppercase tracking-widest">Add your first resource &rarr;</button>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filtered.map(b => {
                         const color = categoryColors[b.category] || categoryColors['Other'];
                         return (
-                            <div key={b.id} className="bg-white dark:bg-slate-900 premium-shadow p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 group hover:-translate-y-2 transition-all relative">
-                                <div className="flex items-start gap-6">
-                                    <div className="w-16 h-16 rounded-2xl bg-violet-50 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 shrink-0 shadow-sm group-hover:bg-violet-600 group-hover:text-white transition-all duration-500">
-                                        <FiBookmark size={24} />
+                            <div key={b.id} className="bg-white premium-shadow p-6 rounded-3xl border border-slate-200 group hover:-translate-y-1 transition-all relative">
+                                <div className="flex items-start gap-4">
+                                    <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-slate-900 shrink-0 shadow-sm border border-slate-200 group-hover:bg-violet-50 group-hover:text-violet-600 group-hover:border-violet-200 transition-all duration-500">
+                                        <FiBookmark size={20} />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-3 mb-3 flex-wrap">
                                             <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border ${color.bg} ${color.text} ${color.border}`}>{b.category}</span>
                                             {b.topic && (
-                                                <span className="flex items-center gap-1 px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest bg-slate-50 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700">
+                                                <span className="flex items-center gap-1 px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest bg-slate-50 text-slate-500 border border-slate-200">
                                                     <FiTag size={9} /> {b.topic}
                                                 </span>
                                             )}
                                         </div>
-                                        <h3 className="text-lg font-black text-slate-900 dark:text-white truncate group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase tracking-tight leading-tight">{b.title}</h3>
-                                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-bold mt-1 truncate">{b.url}</p>
+                                        <h3 className="text-lg font-black text-slate-900 truncate group-hover:text-violet-600 transition-colors uppercase tracking-tight leading-tight">{b.title}</h3>
+                                        <p className="text-[11px] text-slate-500 font-bold mt-1 truncate">{b.url}</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-4 mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-                                    <a href={b.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-xl text-[10px] font-black uppercase tracking-widest border border-violet-100 dark:border-violet-900/30 hover:bg-violet-600 hover:text-white transition-all">
-                                        <FiExternalLink size={14} /> Open Resource
+                                <div className="flex items-center gap-4 mt-6 pt-5 border-t border-slate-100">
+                                    <a href={b.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-4 py-2 bg-violet-50 text-violet-600 rounded-lg text-[9px] font-black uppercase tracking-widest border border-violet-100 hover:bg-violet-600 hover:text-white transition-all">
+                                        <FiExternalLink size={12} /> Open Resource
                                     </a>
-                                    <button onClick={() => removeBookmark(b.id)} className="flex items-center gap-2 px-6 py-3 bg-rose-50 dark:bg-rose-900/20 text-rose-500 dark:text-rose-400 rounded-xl text-[10px] font-black uppercase tracking-widest border border-rose-100 dark:border-rose-900/30 hover:bg-rose-500 hover:text-white transition-all ml-auto">
-                                        <FiTrash2 size={14} /> Remove
+                                    <button onClick={() => removeBookmark(b.id)} className="flex items-center gap-1.5 px-4 py-2 bg-red-600 text-white rounded-lg text-[9px] font-black uppercase tracking-widest border border-red-700 hover:bg-red-700 transition-all ml-auto">
+                                        <FiTrash2 size={12} /> Remove
                                     </button>
                                 </div>
                             </div>
