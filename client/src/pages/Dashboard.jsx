@@ -191,7 +191,7 @@ const Dashboard = () => {
                                 <button className="px-6 py-2 text-slate-400 dark:text-slate-500 rounded-xl text-xs font-black hover:text-slate-600 dark:hover:text-slate-300 transition-all">MONTHLY</button>
                             </div>
                         </div>
-                        <div className="h-[400px] -ml-6">
+                        <div className="h-[300px] -ml-6">
                             <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart data={dummyChartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                                     <defs>
@@ -262,12 +262,12 @@ const Dashboard = () => {
 
                 {/* Right Column: Goal Setting & Tips */}
                 <div className="lg:col-span-4 space-y-6">
-                    <div className="bg-indigo-600 dark:bg-indigo-900/40 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl shadow-indigo-100 dark:shadow-none group border border-indigo-500/50">
+                    <div className="bg-indigo-600 dark:bg-indigo-900/40 rounded-2xl p-5 text-white relative overflow-hidden shadow-2xl shadow-indigo-100 dark:shadow-none group border border-indigo-500/50">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
-                        <h3 className="text-xl font-black mb-8 flex items-center gap-3">
+                        <h3 className="text-xl font-black mb-4 flex items-center gap-3">
                             <FiTarget className="text-indigo-200" /> Fast-Track Goal
                         </h3>
-                        <div className="space-y-6 relative z-10">
+                        <div className="space-y-4 relative z-10">
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black text-indigo-200 uppercase tracking-widest pl-1">Course Choice</label>
                                 <select 
@@ -296,7 +296,7 @@ const Dashboard = () => {
                         </div>
                         <button 
                             onClick={handleAddGoal}
-                            className="w-full mt-10 py-5 bg-white text-indigo-600 rounded-xl font-black text-sm hover:bg-slate-50 transition-all shadow-xl shadow-indigo-900/20 flex items-center justify-center gap-3 btn-hover-scale"
+                            className="w-full mt-6 py-4 bg-white text-indigo-600 rounded-xl font-black text-sm hover:bg-slate-50 transition-all shadow-xl shadow-indigo-900/20 flex items-center justify-center gap-3 btn-hover-scale"
                         >
                             <FiPlus /> Add Learning Goal
                         </button>
