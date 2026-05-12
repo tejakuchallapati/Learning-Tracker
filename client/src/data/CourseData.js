@@ -388,41 +388,6 @@ export const App = () => (
         ]
     },
     {
-        id: 'blockchain-dev',
-        title: 'Blockchain Mastery',
-        description: 'Decentralized applications and smart contract engineering.',
-        icon: '⛓️',
-        category: 'Web3',
-        tools: ['Solidity', 'Ethereum', 'Ethers.js', 'Hardhat', 'IPFS'],
-        topChannels: [
-            { name: 'EatTheBlocks (English)', url: 'https://youtube.com/@eattheblocks' },
-            { name: 'Dapp University (English)', url: 'https://youtube.com/@dappuniversity' },
-            { name: 'Smart Contract Programmer (English)', url: 'https://youtube.com/@smartcontractprogrammer' }
-        ],
-        roadmap: [
-            { 
-                step: 'Smart Contracts', 
-                tools: ['Solidity', 'Remix', 'Security'],
-                topics: [
-                    { 
-                        title: 'Solidity Syntax', 
-                        detail: 'Writing robust code for the Ethereum Virtual Machine.',
-                        deepContent: {
-                            description: 'Solidity is a statically-typed curly-braces programming language designed for developing smart contracts that run on Ethereum.',
-                            code: `pragma solidity ^0.8.0;
-contract SimpleStorage {
-    uint256 public data;
-    function set(uint256 x) public {
-        data = x;
-    }
-}`
-                        }
-                    }
-                ]
-            }
-        ]
-    },
-    {
         id: 'devops-pro',
         title: 'DevOps Engineering',
         description: 'Bridge the gap between development and operations.',
