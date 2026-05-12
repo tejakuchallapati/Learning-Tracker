@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { FiLayout, FiBookOpen, FiActivity, FiSettings, FiEdit, FiCpu, FiBookmark } from 'react-icons/fi';
+import { FiLayout, FiBookOpen, FiActivity, FiSettings, FiEdit, FiCpu, FiBookmark, FiTarget } from 'react-icons/fi';
 import logo from '../assets/logo.png';
 
 const Sidebar = () => {
     const navItems = [
         { name: 'Dashboard', path: '/dashboard', icon: <FiLayout size={20} /> },
         { name: 'Roadmaps', path: '/courses', icon: <FiBookOpen size={20} /> },
+        { name: 'Daily Goals', path: '/goals', icon: <FiTarget size={20} /> },
         { name: 'Study Notes', path: '/notes', icon: <FiEdit size={20} /> },
         { name: 'Resources', path: '/bookmarks', icon: <FiBookmark size={20} /> },
         { name: 'Insights', path: '/analytics', icon: <FiActivity size={20} /> },

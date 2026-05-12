@@ -17,6 +17,7 @@ import Insights from './pages/Insights';
 import Settings from './pages/Settings';
 import Notes from './pages/Notes';
 import Bookmarks from './pages/Bookmarks';
+import Goals from './pages/Goals';
 
 // Layout
 import Sidebar from './components/Sidebar';
@@ -48,7 +49,7 @@ const DashboardLayout = ({ children }) => {
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-950 p-4 md:p-6 transition-colors">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-950 p-3 md:p-4 transition-colors">
           {children}
         </main>
       </div>
@@ -67,6 +68,7 @@ const dashboardRoutes = [
   { path: "/analytics", element: <Insights /> },
   { path: "/notes", element: <Notes /> },
   { path: "/bookmarks", element: <Bookmarks /> },
+  { path: "/goals", element: <Goals /> },
   { path: "/settings", element: <Settings /> },
 ];
 

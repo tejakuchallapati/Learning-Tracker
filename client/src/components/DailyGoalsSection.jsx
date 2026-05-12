@@ -80,7 +80,7 @@ const DailyGoalsSection = () => {
     }
 
     return (
-        <div className="bg-white dark:bg-slate-900 premium-shadow p-12 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 space-y-10 mt-12 transition-all duration-500">
+        <div className="bg-white dark:bg-slate-900 premium-shadow p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 space-y-8 mt-6 transition-all duration-500">
             <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 dark:border-slate-800 pb-8">
                 <div>
                     <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-5">
@@ -95,7 +95,7 @@ const DailyGoalsSection = () => {
             </div>
 
             {/* Add Goal Form */}
-            <form onSubmit={handleAddGoal} className="flex flex-col lg:flex-row gap-6 p-8 bg-slate-50 dark:bg-slate-950 rounded-[2rem] border border-slate-100 dark:border-slate-800 transition-all">
+            <form onSubmit={handleAddGoal} className="flex flex-col lg:flex-row gap-4 p-6 bg-slate-50 dark:bg-slate-950 rounded-[1.5rem] border border-slate-100 dark:border-slate-800 transition-all">
                 <div className="flex-1 w-full">
                     <label className="block text-[10px] font-black text-slate-600 dark:text-slate-500 uppercase tracking-[0.2em] mb-3 ml-1">New Objective</label>
                     <input 
@@ -138,7 +138,7 @@ const DailyGoalsSection = () => {
                     </div>
                 ) : (
                     goals.map(goal => (
-                        <div key={goal._id} className={`flex items-center justify-between p-6 rounded-3xl border transition-all duration-500 ${goal.completed ? 'bg-slate-50/50 dark:bg-slate-900/30 border-slate-100 dark:border-slate-800 opacity-60' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-violet-300 dark:hover:border-violet-500/50 shadow-lg shadow-slate-100/50 dark:shadow-none group'}`}>
+                        <div key={goal._id} className={`flex items-center justify-between p-4 rounded-2xl border transition-all duration-500 ${goal.completed ? 'bg-slate-50/50 dark:bg-slate-900/30 border-slate-100 dark:border-slate-800 opacity-60' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-violet-300 dark:hover:border-violet-500/50 shadow-lg shadow-slate-100/50 dark:shadow-none group'}`}>
                             <div className="flex items-center gap-6 flex-1 min-w-0">
                                 <button 
                                     onClick={() => toggleComplete(goal)}

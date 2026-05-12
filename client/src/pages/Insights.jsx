@@ -1,7 +1,6 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { FiActivity, FiAward, FiClock, FiList, FiCheckCircle, FiLock, FiDownload, FiTrendingUp, FiZap, FiCpu, FiBook, FiStar } from 'react-icons/fi';
 import { FaRocket } from 'react-icons/fa';
-import DailyGoalsSection from '../components/DailyGoalsSection';
 
 const badges = [
     { icon: <FaRocket />, color: 'text-rose-400 bg-rose-500/10 shadow-rose-500/20 border-rose-500/20', name: 'First Launch',    desc: 'Logged first study session',    earned: true },
@@ -32,11 +31,11 @@ const Insights = () => {
     const earnedCount = badges.filter(b => b.earned).length;
 
     return (
-        <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-6 border-b border-slate-200 dark:border-slate-800">
-                <div className="max-w-2xl">
-                    <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Mastery Analytics</h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Advanced behavioral tracking and engineering growth statistics.</p>
+        <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-10">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-4 border-b border-slate-200 dark:border-slate-800">
+                <div className="max-w-xl">
+                    <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Mastery Analytics</h1>
+                    <p className="text-slate-500 dark:text-slate-400 mt-3 text-lg font-medium leading-relaxed">Advanced behavioral tracking and engineering growth statistics.</p>
                 </div>
                 <button 
                     onClick={() => window.print()}
@@ -48,7 +47,7 @@ const Insights = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Focus Pie */}
-                <div className="lg:col-span-1 bg-white dark:bg-slate-900 premium-shadow p-12 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-10 flex flex-col items-center">
+                <div className="lg:col-span-1 bg-white dark:bg-slate-900 premium-shadow p-8 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-8 flex flex-col items-center">
                     <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-4 self-start uppercase tracking-[0.2em]">
                         <div className="w-10 h-10 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiActivity size={18} /></div>
                         Focus Allocation
@@ -73,7 +72,7 @@ const Insights = () => {
                 </div>
 
                 {/* Milestone Log */}
-                <div className="lg:col-span-2 bg-white dark:bg-slate-900 premium-shadow p-12 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col overflow-hidden">
+                <div className="lg:col-span-2 bg-white dark:bg-slate-900 premium-shadow p-8 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col overflow-hidden">
                     <h3 className="text-xs font-black text-slate-900 dark:text-white mb-12 flex items-center gap-4 uppercase tracking-[0.2em]">
                         <div className="w-10 h-10 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiList size={18} /></div>
                         Milestone Log
@@ -116,7 +115,7 @@ const Insights = () => {
                     { icon: <FiAward />,    label: 'badges Earned',     val: `${earnedCount}/${badges.length}` },
                     { icon: <FiActivity />, label: 'Target Accuracy',   val: '0%' }
                 ].map((stat, i) => (
-                    <div key={i} className="bg-white dark:bg-slate-900 premium-shadow p-10 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center group hover:-translate-y-2 transition-all">
+                    <div key={i} className="bg-white dark:bg-slate-900 premium-shadow p-6 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center group hover:-translate-y-2 transition-all">
                         <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 text-violet-600 dark:text-violet-400 flex items-center justify-center text-2xl mb-8 shadow-sm group-hover:bg-violet-600 group-hover:text-white group-hover:rotate-6 transition-all duration-500">
                             {stat.icon}
                         </div>
@@ -154,9 +153,6 @@ const Insights = () => {
                     ))}
                 </div>
             </div>
-
-            {/* Daily Goals & Reminders Section */}
-            <DailyGoalsSection />
         </div>
     );
 };
