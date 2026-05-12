@@ -386,5 +386,109 @@ export const App = () => (
                 ]
             }
         ]
+    },
+    {
+        id: 'blockchain-dev',
+        title: 'Blockchain Mastery',
+        description: 'Decentralized applications and smart contract engineering.',
+        icon: '⛓️',
+        category: 'Web3',
+        tools: ['Solidity', 'Ethereum', 'Ethers.js', 'Hardhat', 'IPFS'],
+        topChannels: [
+            { name: 'EatTheBlocks (English)', url: 'https://youtube.com/@eattheblocks' },
+            { name: 'Dapp University (English)', url: 'https://youtube.com/@dappuniversity' },
+            { name: 'Smart Contract Programmer (English)', url: 'https://youtube.com/@smartcontractprogrammer' }
+        ],
+        roadmap: [
+            { 
+                step: 'Smart Contracts', 
+                tools: ['Solidity', 'Remix', 'Security'],
+                topics: [
+                    { 
+                        title: 'Solidity Syntax', 
+                        detail: 'Writing robust code for the Ethereum Virtual Machine.',
+                        deepContent: {
+                            description: 'Solidity is a statically-typed curly-braces programming language designed for developing smart contracts that run on Ethereum.',
+                            code: `pragma solidity ^0.8.0;
+contract SimpleStorage {
+    uint256 public data;
+    function set(uint256 x) public {
+        data = x;
+    }
+}`
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        id: 'devops-pro',
+        title: 'DevOps Engineering',
+        description: 'Bridge the gap between development and operations.',
+        icon: '♾️',
+        category: 'Infrastructure',
+        tools: ['Docker', 'Kubernetes', 'Jenkins', 'Terraform', 'Linux'],
+        topChannels: [
+            { name: 'TechWorld with Nana (English)', url: 'https://youtube.com/@techworldwithnana' },
+            { name: 'DevOps Directive (English)', url: 'https://youtube.com/@devopsdirective' },
+            { name: 'KodeKloud (Academic)', url: 'https://youtube.com/@kodekloud' }
+        ],
+        roadmap: [
+            { 
+                step: 'Containerization', 
+                tools: ['Docker', 'Images', 'Volumes'],
+                topics: [
+                    { 
+                        title: 'Docker Architecture', 
+                        detail: 'Building and shipping applications using containers.',
+                        deepContent: {
+                            description: 'Docker uses OS-level virtualization to deliver software in packages called containers.',
+                            code: `FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD ["npm", "start"]`
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        id: 'uiux-design',
+        title: 'UI/UX Design Strategy',
+        description: 'Create intuitive and visually stunning user experiences.',
+        icon: '🎨',
+        category: 'Design',
+        tools: ['Figma', 'Adobe XD', 'Prototyping', 'Design Systems'],
+        topChannels: [
+            { name: 'Flux Academy (English)', url: 'https://youtube.com/@fluxacademy' },
+            { name: 'DesignCourse (Visuals)', url: 'https://youtube.com/@designcourse' },
+            { name: 'Mizko (Product Design)', url: 'https://youtube.com/@mizko' }
+        ],
+        roadmap: [
+            { 
+                step: 'Design Principles', 
+                tools: ['Typography', 'Color Theory', 'Layout'],
+                topics: [
+                    { 
+                        title: 'Visual Hierarchy', 
+                        detail: 'Guiding the users eye through effective design patterns.',
+                        deepContent: {
+                            description: 'Visual hierarchy is the arrangement of elements in a way that implies importance.',
+                            table: {
+                                headers: ['Principle', 'Technique', 'Goal'],
+                                rows: [
+                                    ['Contrast', 'Size/Color', 'Emphasis'],
+                                    ['Proximity', 'Grouping', 'Relationship'],
+                                    ['Alignment', 'Grid usage', 'Structure']
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
     }
 ];
