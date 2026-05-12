@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const DailyGoal = require('../models/DailyGoal');
+const User = require('../models/User'); // Explicitly require to avoid MissingSchemaError on refs
 const sendEmail = require('../utils/emailService');
 
 // @desc    Create a new daily goal

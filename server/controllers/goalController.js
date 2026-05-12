@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const LearningGoal = require('../models/LearningGoal');
+const User = require('../models/User'); // Explicitly require to avoid MissingSchemaError on refs
 
 // @desc    Create a new goal
 // @route   POST /api/goals/create

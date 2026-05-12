@@ -29,7 +29,7 @@ const Dashboard = () => {
     
     // Goal Setting State
     const [selectedTrack, setSelectedTrack] = useState(courses[0].id);
-    const [targetDate, setTargetDate] = useState('2024-12-31');
+    const [targetDate, setTargetDate] = useState('2026-08-30');
     const [daysLeft, setDaysLeft] = useState(0);
 
     useEffect(() => {
