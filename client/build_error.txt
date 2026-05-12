@@ -1,0 +1,27 @@
+
+> client@0.0.0 build
+> vite build
+
+vite v7.3.1 building client environment for production...
+transforming...
+✓ 2879 modules transformed.
+✗ Build failed in 1.65s
+error during build:
+src/pages/Insights.jsx (2:82): "FiRocket" is not exported by "node_modules/react-icons/fi/index.mjs", imported by "src/pages/Insights.jsx".
+file: /Users/teja/Learning-Tracker/client/src/pages/Insights.jsx:2:82
+
+1: import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+2: import { FiActivity, FiAward, FiClock, FiList, FiCheckCircle, FiLock, FiDownload, FiRocket, FiTrendingUp, FiZap, FiCp...
+                                                                                     ^
+3: import DailyGoalsSection from '../components/DailyGoalsSection';
+
+    at getRollupError (file:///Users/teja/Learning-Tracker/client/node_modules/rollup/dist/es/shared/parseAst.js:402:41)
+    at error (file:///Users/teja/Learning-Tracker/client/node_modules/rollup/dist/es/shared/parseAst.js:398:42)
+    at Module.error (file:///Users/teja/Learning-Tracker/client/node_modules/rollup/dist/es/shared/node-entry.js:17040:16)
+    at Module.traceVariable (file:///Users/teja/Learning-Tracker/client/node_modules/rollup/dist/es/shared/node-entry.js:17452:29)
+    at ModuleScope.findVariable (file:///Users/teja/Learning-Tracker/client/node_modules/rollup/dist/es/shared/node-entry.js:15070:39)
+    at Identifier.bind (file:///Users/teja/Learning-Tracker/client/node_modules/rollup/dist/es/shared/node-entry.js:5447:40)
+    at CallExpression.bind (file:///Users/teja/Learning-Tracker/client/node_modules/rollup/dist/es/shared/node-entry.js:2825:28)
+    at CallExpression.bind (file:///Users/teja/Learning-Tracker/client/node_modules/rollup/dist/es/shared/node-entry.js:12179:15)
+    at Property.bind (file:///Users/teja/Learning-Tracker/client/node_modules/rollup/dist/es/shared/node-entry.js:2829:23)
+    at ObjectExpression.bind (file:///Users/teja/Learning-Tracker/client/node_modules/rollup/dist/es/shared/node-entry.js:2825:28)
