@@ -80,22 +80,22 @@ const DailyGoalsSection = () => {
     }
 
     return (
-        <div className="bg-white dark:bg-slate-900 premium-shadow p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 space-y-8 mt-6 transition-all duration-500">
-            <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 dark:border-slate-800 pb-8">
+        <div className="bg-white dark:bg-slate-900 premium-shadow p-5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-6 mt-4 transition-all duration-500">
+            <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 dark:border-slate-800 pb-5">
                 <div>
-                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-5">
-                        <div className="w-14 h-14 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-2xl flex items-center justify-center shadow-sm text-3xl">🎯</div>
+                    <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-4">
+                        <div className="w-12 h-12 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm text-2xl">🎯</div>
                         Daily Objectives & Protocols
                     </h2>
-                    <p className="text-slate-700 dark:text-slate-400 mt-3 font-bold text-lg leading-relaxed max-w-xl">Synchronize your tactical daily operations with AI-powered streak retention.</p>
+                    <p className="text-slate-700 dark:text-slate-400 mt-2 font-bold text-base leading-relaxed max-w-xl">Synchronize your tactical daily operations with AI-powered streak retention.</p>
                 </div>
-                <div className="px-8 py-4 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-2xl text-xs font-black uppercase tracking-widest border border-violet-100 dark:border-violet-800 mt-6 md:mt-0 shadow-sm">
+                <div className="px-5 py-2.5 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-xl text-[10px] font-black uppercase tracking-widest border border-violet-100 dark:border-violet-800 mt-4 md:mt-0 shadow-sm">
                     {goals.filter(g => g.completed).length} / {goals.length} SECURED
                 </div>
             </div>
 
             {/* Add Goal Form */}
-            <form onSubmit={handleAddGoal} className="flex flex-col lg:flex-row gap-4 p-6 bg-slate-50 dark:bg-slate-950 rounded-[1.5rem] border border-slate-100 dark:border-slate-800 transition-all">
+            <form onSubmit={handleAddGoal} className="flex flex-col lg:flex-row gap-3 p-4 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 transition-all">
                 <div className="flex-1 w-full">
                     <label className="block text-[10px] font-black text-slate-600 dark:text-slate-500 uppercase tracking-[0.2em] mb-3 ml-1">New Objective</label>
                     <input 
@@ -138,7 +138,7 @@ const DailyGoalsSection = () => {
                     </div>
                 ) : (
                     goals.map(goal => (
-                        <div key={goal._id} className={`flex items-center justify-between p-4 rounded-2xl border transition-all duration-500 ${goal.completed ? 'bg-slate-50/50 dark:bg-slate-900/30 border-slate-100 dark:border-slate-800 opacity-60' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-violet-300 dark:hover:border-violet-500/50 shadow-lg shadow-slate-100/50 dark:shadow-none group'}`}>
+                        <div key={goal._id} className={`flex items-center justify-between p-3 rounded-xl border transition-all duration-500 ${goal.completed ? 'bg-slate-50/50 dark:bg-slate-900/30 border-slate-100 dark:border-slate-800 opacity-60' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-violet-300 dark:hover:border-violet-500/50 shadow-lg shadow-slate-100/50 dark:shadow-none group'}`}>
                             <div className="flex items-center gap-6 flex-1 min-w-0">
                                 <button 
                                     onClick={() => toggleComplete(goal)}
