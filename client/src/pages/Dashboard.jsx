@@ -191,7 +191,7 @@ const Dashboard = () => {
                                 <button className="px-6 py-2 text-slate-400 dark:text-slate-500 rounded-xl text-xs font-black hover:text-slate-600 dark:hover:text-slate-300 transition-all">MONTHLY</button>
                             </div>
                         </div>
-                        <div className="h-[300px] -ml-6">
+                        <div className="h-[200px] -ml-6">
                             <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart data={dummyChartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                                     <defs>
