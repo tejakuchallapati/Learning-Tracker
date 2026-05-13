@@ -12,7 +12,7 @@ const sendEmail = async (options) => {
 
     // Define the email options
     const mailOptions = {
-        from: `DevTrack <${process.env.EMAIL_USER}>`,
+        from: `Learning Tracker <${process.env.EMAIL_USER}>`,
         to: options.email,
         subject: options.subject,
         text: options.message,

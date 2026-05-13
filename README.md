@@ -1,6 +1,6 @@
-# DevTrack – Learning Progress & Productivity Tracker
+# Learning Tracker – Learning Progress & Productivity Tracker
 
-DevTrack is a full-stack platform where developers can track their learning goals, monitor daily progress, and stay consistent using smart reminders and analytics.
+Learning Tracker is a full-stack platform where developers can track their learning goals, monitor daily progress, and stay consistent using smart reminders and analytics.
 
 ---
 

@@ -20,8 +20,8 @@ const testEmail = async () => {
     try {
         await sendEmail({
             email: process.env.EMAIL_USER,
-            subject: 'DevTrack - Email Configuration Test',
-            message: 'Congratulations! Your DevTrack email service is working correctly.\n\nYou will now receive daily goal reminders and completion notifications.',
+            subject: 'Learning Tracker - Email Configuration Test',
+            message: 'Congratulations! Your Learning Tracker email service is working correctly.\n\nYou will now receive daily goal reminders and completion notifications.',
         });
         console.log('SUCCESS: Test email sent! Check your inbox.');
     } catch (err) {

@@ -12,182 +12,6 @@ type FormData = {
   password: string;
 };
 
-interface OrbitIcon {
-  component: () => ReactNode;
-  className: string;
-  duration?: number;
-  delay?: number;
-  radius?: number;
-  path?: boolean;
-  reverse?: boolean;
-}
-
-const iconsArray: OrbitIcon[] = [
-  // Inner Ring (Radius 100 - 5 icons)
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg'
-        alt='HTML5'
-      />
-    ),
-    className: 'size-[35px] border-none bg-transparent',
-    duration: 20,
-    delay: 0,
-    radius: 100,
-    path: true,
-    reverse: false,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg'
-        alt='CSS3'
-      />
-    ),
-    className: 'size-[35px] border-none bg-transparent',
-    duration: 20,
-    delay: 4,
-    radius: 100,
-    path: true,
-    reverse: false,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg'
-        alt='TailwindCSS'
-      />
-    ),
-    className: 'size-[35px] border-none bg-transparent',
-    duration: 20,
-    delay: 8,
-    radius: 100,
-    path: true,
-    reverse: false,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg'
-        alt='TypeScript'
-      />
-    ),
-    className: 'size-[35px] border-none bg-transparent',
-    duration: 20,
-    delay: 12,
-    radius: 100,
-    path: true,
-    reverse: false,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg'
-        alt='JavaScript'
-      />
-    ),
-    className: 'size-[35px] border-none bg-transparent',
-    duration: 20,
-    delay: 16,
-    radius: 100,
-    path: true,
-    reverse: false,
-  },
-
-  // Outer Ring (Radius 210 - 5 icons)
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg'
-        alt='Figma'
-      />
-    ),
-    className: 'size-[45px] border-none bg-transparent',
-    duration: 30,
-    delay: 0,
-    radius: 210,
-    path: true,
-    reverse: true,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg'
-        alt='React'
-      />
-    ),
-    className: 'size-[45px] border-none bg-transparent',
-    duration: 30,
-    delay: 6,
-    radius: 210,
-    path: true,
-    reverse: true,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg'
-        alt='Git'
-      />
-    ),
-    className: 'size-[45px] border-none bg-transparent',
-    duration: 30,
-    delay: 12,
-    radius: 210,
-    path: true,
-    reverse: true,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg'
-        alt='Node.js'
-      />
-    ),
-    className: 'size-[45px] border-none bg-transparent',
-    duration: 30,
-    delay: 18,
-    radius: 210,
-    path: true,
-    reverse: true,
-  },
-  {
-    component: () => (
-      <img
-        width={100}
-        height={100}
-        src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg'
-        alt='Nextjs'
-      />
-    ),
-    className: 'size-[45px] border-none bg-transparent',
-    duration: 30,
-    delay: 24,
-    radius: 210,
-    path: true,
-    reverse: true,
-  },
-];
-
 interface LoginDemoProps {
     onSubmit: (email: string, password: string) => void;
     onGoogleSuccess: (credentialResponse: any) => void;
@@ -268,11 +92,40 @@ export function LoginDemo({ onSubmit, googleComponent, error }: LoginDemoProps) 
   };
 
   return (
-    <section className='flex max-lg:justify-center overflow-hidden relative bg-slate-50 dark:bg-slate-950 transition-colors duration-500'>
-      {/* Left Side */}
-      <span className='flex flex-col justify-center w-1/2 max-lg:hidden relative'>
-        <TechOrbitDisplay iconsArray={iconsArray} text="Learning Tracker" />
-      </span>
+    <section className='flex max-lg:justify-center overflow-hidden relative bg-white dark:bg-slate-950 transition-colors duration-500'>
+      {/* Left Side - Vision Panel */}
+      <div className='w-1/2 max-lg:hidden relative flex flex-col justify-center items-center p-20 border-r border-slate-100 dark:border-slate-900'>
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-cyan-500/5 pointer-events-none"></div>
+        
+        <div className="max-w-md space-y-12 relative z-10">
+          <div className="space-y-4">
+             <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter uppercase">
+               Learning<span className="text-violet-600 dark:text-violet-400">Tracker</span>
+             </h1>
+             <div className="h-1.5 w-12 bg-violet-600 rounded-full"></div>
+          </div>
+
+          <blockquote className="text-3xl font-black text-slate-800 dark:text-white leading-tight tracking-tight italic">
+            “Learning Tracker is more than a productivity platform — it’s a <span className="text-violet-600 dark:text-violet-400">growth-driven ecosystem</span> designed to help students build consistency, track meaningful progress, and transform daily learning into long-term success.”
+          </blockquote>
+
+          <div className="grid grid-cols-1 gap-8 pt-8 border-t border-slate-100 dark:border-slate-900">
+            {[
+              { label: 'Consistency', desc: 'Build lasting habits with smart reminders.', icon: '🎯' },
+              { label: 'Progress', desc: 'Visualize your journey with expert roadmaps.', icon: '📈' },
+              { label: 'Success', desc: 'Accelerate your transition to mastery.', icon: '🏆' }
+            ].map((pillar, i) => (
+              <div key={i} className="flex gap-6 items-start">
+                <div className="text-3xl grayscale group-hover:grayscale-0 transition-all">{pillar.icon}</div>
+                <div>
+                  <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest mb-1">{pillar.label}</h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold leading-relaxed">{pillar.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Right Side */}
       <span className='w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:w-full max-lg:px-[10%]'>

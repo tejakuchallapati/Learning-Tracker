@@ -3,7 +3,14 @@ import { AuthContext } from '../context/AuthContext';
 import { FiUser, FiBell, FiMail, FiPhone, FiCheckCircle, FiTrash2, FiActivity } from 'react-icons/fi';
 
 const Settings = () => {
-    const { user } = useContext(AuthContext);
+    const { user, updateProfile } = useContext(AuthContext);
+    const [formData, setFormData] = useState({
+        name: user?.name || '',
+        email: user?.email || '',
+        bio: user?.bio || '',
+        specialization: user?.specialization || '',
+        role: user?.role || 'Learner Pro'
+    });
     const [notifications, setNotifications] = useState({
         email: true,
         reminders: true,
@@ -16,9 +23,14 @@ const Settings = () => {
         setNotifications(prev => ({ ...prev, [key]: !prev[key] }));
     };
 
-    const handleSave = () => {
-        setSaved(true);
-        setTimeout(() => setSaved(false), 3000);
+    const handleSave = async () => {
+        try {
+            await updateProfile(formData);
+            setSaved(true);
+            setTimeout(() => setSaved(false), 3000);
+        } catch (error) {
+            console.error('Failed to update profile:', error);
+        }
     };
 
     return (
@@ -76,17 +88,17 @@ const Settings = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div className="space-y-3">
                                 <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Handle</label>
-                                <input type="text" defaultValue={user?.name || ''} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-5 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 transition-all font-mono outline-none" />
+                                <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-5 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all font-mono outline-none" />
                             </div>
                             <div className="space-y-3">
                                 <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Specialization</label>
-                                <input type="text" defaultValue={user?.specialization || ''} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-5 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 transition-all font-mono outline-none" />
+                                <input type="text" value={formData.specialization} onChange={e => setFormData({...formData, specialization: e.target.value})} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-5 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all font-mono outline-none" />
                             </div>
                             <div className="md:col-span-2 space-y-3">
                                  <label className="block text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-500 pl-1">Primary Email</label>
                                 <div className="relative">
                                     <FiMail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-400" />
-                                    <input type="email" defaultValue={user?.email || ""} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-5 pl-16 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 transition-all outline-none" />
+                                    <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-5 pl-16 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all outline-none" />
                                 </div>
                             </div>
                         </div>

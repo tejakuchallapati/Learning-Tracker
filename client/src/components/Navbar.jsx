@@ -57,9 +57,9 @@ const Navbar = () => {
     };
 
     return (
-        <header className="h-20 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-30 transition-all duration-300">
+        <header className="h-20 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 md:px-8 sticky top-0 z-30 transition-all duration-300">
             {/* Advanced Search */}
-            <div className="relative flex-1 max-w-md">
+            <div className="relative flex-1 max-w-md hidden md:block">
                 <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-900/50 px-5 py-2.5 rounded-2xl group focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:border-cyan-500 transition-all border border-slate-200 dark:border-slate-700/50 shadow-sm">
                     <FiSearch className="text-slate-400 w-4 h-4 group-focus-within:text-cyan-400 transition-colors" />
                     <input
@@ -93,7 +93,7 @@ const Navbar = () => {
                 )}
             </div>
 
-            <div className="flex items-center gap-4 ml-10">
+            <div className="flex items-center gap-2 md:gap-4 md:ml-10 ml-auto">
                 {/* Theme Toggle */}
                 <button
                     onClick={() => setIsDark(!isDark)}
@@ -122,7 +122,7 @@ const Navbar = () => {
                     >
                         <div className="text-right hidden sm:block leading-tight">
                             <p className="text-sm font-black text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors uppercase tracking-tight">{user?.name || 'Guest User'}</p>
-                            <p className="text-[10px] font-black text-cyan-600 dark:text-cyan-500 uppercase tracking-widest leading-none mt-1">Learner Pro</p>
+                            <p className="text-[10px] font-black text-violet-600 dark:text-violet-500 uppercase tracking-widest leading-none mt-1">Learner Pro</p>
                         </div>
                         <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-black shadow-lg shadow-cyan-500/20 transform group-hover:scale-105 transition-transform duration-200 border border-cyan-400/30">
                             {user?.name?.[0] || 'G'}

@@ -22,6 +22,7 @@ import Goals from './pages/Goals';
 // Layout
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
+import MobileNav from './components/MobileNav';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
@@ -49,9 +50,10 @@ const DashboardLayout = ({ children }) => {
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-slate-950 p-3 md:p-4 transition-colors">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-slate-950 p-3 md:p-4 pb-20 transition-colors">
           {children}
         </main>
+        <MobileNav />
       </div>
     </div>
   );

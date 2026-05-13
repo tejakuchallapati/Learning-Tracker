@@ -1,7 +1,7 @@
 {
     "name": "devtrack-root",
     "version": "1.0.0",
-    "description": "DevTrack Learning Tracker",
+    "description": "Learning Tracker Learning Tracker",
     "scripts": {
         "dev:server": "cd server && npm run dev",
         "dev:client": "cd client && npm run dev",

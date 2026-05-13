@@ -1,186 +1,131 @@
 import { useNavigate } from 'react-router-dom';
-import { FiArrowRight, FiCode, FiCpu, FiLayout, FiSmartphone, FiActivity } from 'react-icons/fi';
-import logo from '../assets/logo.png';
+import { useRef } from 'react';
+import { FiArrowRight, FiCode, FiCpu, FiLayout, FiSmartphone, FiActivity, FiSearch, FiCompass, FiShield, FiZap, FiTarget } from 'react-icons/fi';
+import { Header } from '../components/ui/header-2';
 
 const Landing = () => {
     const navigate = useNavigate();
+    const featuresRef = useRef(null);
+
+    const scrollToFeatures = () => {
+        featuresRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
 
     const features = [
-        { icon: <FiCode />, title: "Code Mastery", desc: "Interactive environments and real-world projects designed for speed." },
-        { icon: <FiCpu />, title: "AI Integration", desc: "Learn to build and leverage modern AI models with expert guidance." },
-        { icon: <FiLayout />, title: "Visual Roadmaps", desc: "Step-by-step paths curated by industry experts for every stack." },
-        { icon: <FiSmartphone />, title: "Mobile Friendly", desc: "Learn on the go with our fully responsive and fast platform." }
+        { icon: <FiZap />, title: "Precision Track", desc: "Build industry-grade consistency with daily technical challenges and real-time feedback." },
+        { icon: <FiCpu />, title: "Neural Roadmap", desc: "Leverage AI to personalize your learning path based on your unique growth metrics." },
+        { icon: <FiShield />, title: "Mastery Vault", desc: "A secure, structured curriculum designed for deep technical skill absorption." },
+        { icon: <FiTarget />, title: "Outcome Driven", desc: "Engineered to transform theoretical knowledge into career-ready excellence." }
     ];
 
     return (
-        <div className="min-h-screen bg-white dark:bg-[#020617] text-slate-900 dark:text-white font-sans selection:bg-cyan-500 selection:text-slate-950 overflow-hidden relative transition-colors duration-500">
-            {/* Animated Deep Space Background */}
+        <div className="min-h-screen bg-white dark:bg-[#020617] text-slate-900 dark:text-white font-sans selection:bg-cyan-500 selection:text-slate-950 overflow-x-hidden relative transition-colors duration-500">
+            {/* Morris-Matrix Inspired Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/50 via-slate-950 to-[#020617] opacity-100"></div>
-                <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-blue-600/10 rounded-full blur-[150px] animate-pulse-subtle"></div>
-                <div className="absolute top-[30%] -right-[20%] w-[70%] h-[70%] bg-cyan-600/10 rounded-full blur-[150px] animate-pulse"></div>
-                <div className="absolute -bottom-[30%] left-[20%] w-[50%] h-[50%] bg-violet-600/10 rounded-full blur-[130px] animate-spin-slow"></div>
+                <div className="absolute inset-0 matrix-grid opacity-100"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 dark:via-slate-950/50 to-white dark:to-[#020617]"></div>
+                
+                {/* Floating Orbs */}
+                <div className="absolute top-[10%] left-[15%] w-96 h-96 bg-violet-600/10 rounded-full blur-[120px] animate-pulse"></div>
+                <div className="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[150px] animate-pulse delay-1000"></div>
             </div>
 
-            {/* Navbar */}
-            <nav className="relative z-10 px-8 py-10 flex items-center justify-between max-w-7xl mx-auto">
-                <div className="flex items-center gap-3 group cursor-pointer">
-                    <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300 border border-cyan-400/30">
-                        <img src={logo} alt="L" className="w-6 h-6 object-contain dark:brightness-0 dark:invert" />
-                    </div>
-                    <span className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Learning<span className="text-cyan-600 dark:text-cyan-400">Tracker</span></span>
+            <Header />
+
+            {/* Hero Section - Optimized for Above-the-Fold Visibility */}
+            <main className="relative z-10 max-w-7xl mx-auto px-6 pt-12 md:pt-20 pb-32 text-center">
+                <div className="inline-flex items-center gap-3 px-6 py-3 bg-violet-50 dark:bg-violet-950/40 border border-violet-100 dark:border-violet-800 rounded-full text-violet-600 dark:text-violet-400 text-[10px] font-black uppercase tracking-[0.4em] mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-600"></span>
+                    </span>
+                    System Online: Version 2.0
                 </div>
-                <div className="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-widest text-slate-400">
-                    <a href="#" className="hover:text-cyan-400 transition-colors">Courses</a>
-                    <a href="#" className="hover:text-cyan-400 transition-colors">Resources</a>
-                    <a href="#" className="hover:text-cyan-400 transition-colors">Enterprise</a>
+                
+                <h1 className="text-6xl sm:text-7xl md:text-[8rem] lg:text-[10rem] font-black leading-[0.85] tracking-tighter text-slate-900 dark:text-white mb-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 stagger-1">
+                    Learning <br className="hidden md:block" />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-blue-600 to-cyan-500 animate-gradient-x">Tracker.</span>
+                </h1>
+                
+                <p className="text-base md:text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-bold mb-10 animate-in fade-in slide-in-from-bottom-12 duration-1000 stagger-2 px-4">
+                    Learning Tracker is more than a productivity platform — it’s a growth-driven ecosystem designed to help students build consistency and transform daily learning into long-term success.
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-5 animate-in fade-in slide-in-from-bottom-16 duration-1000 stagger-3">
                     <button 
                         onClick={() => navigate('/login')}
-                        className="px-8 py-3.5 bg-slate-800/50 text-white rounded-2xl hover:bg-cyan-500 hover:text-slate-950 transition-all transform hover:scale-105 active:scale-95 shadow-xl font-black border border-slate-700 hover:border-cyan-400 backdrop-blur-sm"
+                        className="w-full sm:w-auto px-14 py-5 bg-violet-600 text-white rounded-2xl font-black flex items-center justify-center gap-4 hover:bg-violet-700 hover:shadow-[0_20px_60px_rgba(124,58,237,0.4)] transition-all shadow-2xl group text-xs uppercase tracking-[0.2em] active:scale-95 glow-border"
                     >
-                        Sign In
+                        Login to Terminal <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                    <button 
+                        onClick={scrollToFeatures}
+                        className="w-full sm:w-auto px-14 py-5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl font-black text-slate-900 dark:text-white hover:border-violet-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-4 active:scale-95 shadow-xl backdrop-blur-md"
+                    >
+                        <FiCompass className="text-lg" /> Explore Ecosystem
                     </button>
                 </div>
-            </nav>
 
-            {/* Hero Section */}
-            <main className="relative z-10 max-w-7xl mx-auto px-8 pt-24 pb-40">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-                    <div className="space-y-12">
-                        <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-cyan-950/30 border border-cyan-800/50 rounded-full text-cyan-400 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm backdrop-blur-md">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-                            </span>
-                            v2.0 Next-Gen Platform
-                        </div>
-                        <h1 className="text-7xl md:text-8xl font-black leading-[1] tracking-tighter text-slate-900 dark:text-white">
-                            Master the <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-500">Tech Market.</span>
-                        </h1>
-                        <p className="text-xl text-slate-400 max-w-xl leading-relaxed font-medium">
-                            Stop guessing. Start building. Follow premium visual roadmaps designed by elite engineers to take you from zero to expert.
-                        </p>
-                        <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
-                            <button 
-                                onClick={() => navigate('/login')}
-                                className="w-full sm:w-auto px-12 py-5 bg-cyan-500 text-slate-950 rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all shadow-xl group text-sm border-2 border-transparent"
-                            >
-                                Start Learning Now <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-                            </button>
-                            <button className="w-full sm:w-auto px-12 py-5 bg-slate-900/50 border-2 border-slate-700 rounded-2xl font-black text-slate-300 hover:border-cyan-500 hover:text-cyan-400 transition-all text-sm backdrop-blur-sm">
-                                View Curriculum
-                            </button>
-                        </div>
-                        <div className="flex items-center gap-6 pt-10">
-                            <div className="flex -space-x-3">
-                                {[1,2,3,4].map(i => (
-                                    <div key={i} className="w-10 h-10 rounded-full border-4 border-[#020617] bg-slate-800 flex items-center justify-center text-[10px] font-black text-cyan-400 shadow-sm">
-                                        {['TS', 'JS', 'PY', 'GO'][i-1]}
-                                    </div>
-                                ))}
-                            </div>
-                            <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Trusted by <span className="text-slate-300 font-black">20,000+</span> elite developers</p>
-                        </div>
-                    </div>
-
-                    <div className="relative group lg:block hidden">
-                        <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/20 via-cyan-500/10 to-violet-600/20 rounded-[3rem] blur-2xl opacity-60 group-hover:opacity-100 transition duration-1000"></div>
-                        <div className="relative bg-slate-900/40 border border-slate-800 rounded-[2.5rem] p-12 aspect-square flex items-center justify-center overflow-hidden shadow-[0_50px_100px_-20px_rgba(6,182,212,0.1)] group-hover:border-cyan-500/50 transition-colors duration-500 backdrop-blur-xl">
-                            {/* Abstract Code Grid */}
-                            <div className="absolute inset-0 p-12 opacity-[0.3] pointer-events-none select-none">
-                                <pre className="text-[12px] leading-relaxed text-cyan-600/50 font-mono font-bold">
-                                    {`class Architect {
-  constructor(vision) {
-    this.vision = vision;
-    this.stack = ['React', 'Next.js', 'Node'];
-  }
-
-  build() {
-    return this.stack.map(tech => ({
-      name: tech,
-      status: 'Mastered'
-    }));
-  }
-}
-
-// Initialize learning path
-const path = new Architect('FullStack');
-path.build();`}
-                                </pre>
-                            </div>
-                            <div className="relative z-10 w-full h-full bg-[#020617] rounded-3xl border border-slate-800 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-700 shadow-2xl shadow-cyan-900/20 group-hover:border-cyan-500/50 overflow-hidden">
-                                {/* Subtle Inner Glow */}
-                                <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent"></div>
-                                
-                                {/* Animated Rings & Orbital Effects */}
-                                <div className="relative flex items-center justify-center w-72 h-72">
-                                    {/* Outer Dashed Orbit with Glowing Satellites */}
-                                    <div className="absolute w-72 h-72 rounded-full border border-dashed border-slate-700/40 animate-[spin_15s_linear_infinite]"></div>
-                                    <div className="absolute w-72 h-72 animate-[spin_15s_linear_infinite]">
-                                        <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_15px_#22d3ee]"></div>
-                                        <div className="absolute bottom-1/4 -right-1.5 w-2 h-2 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
-                                        <div className="absolute top-1/4 -left-1.5 w-2 h-2 bg-violet-400 rounded-full shadow-[0_0_10px_#a78bfa]"></div>
-                                    </div>
-
-                                    {/* Middle Solid Data Ring */}
-                                    <div className="absolute w-56 h-56 rounded-full border-2 border-slate-800/80"></div>
-                                    <div className="absolute w-56 h-56 rounded-full border-[3px] border-cyan-500/10 border-t-cyan-400 border-r-cyan-400/50 animate-[spin_8s_linear_infinite]"></div>
-                                    
-                                    {/* Inner Reverse Dashed Ring */}
-                                    <div className="absolute w-44 h-44 rounded-full border border-dashed border-blue-500/30 animate-[spin_5s_linear_infinite_reverse]"></div>
-                                    <div className="absolute w-44 h-44 rounded-full border-2 border-transparent border-b-blue-400 border-l-blue-400/50 animate-[spin_5s_linear_infinite_reverse]"></div>
-
-                                    {/* Floating Data Badges */}
-                                    <div className="absolute -right-2 top-8 bg-slate-900/90 border border-cyan-500/30 px-3 py-2 rounded-xl backdrop-blur-md shadow-[0_10px_30px_rgba(34,211,238,0.15)] z-20 animate-[bounce_3s_infinite]">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></div>
-                                            <span className="text-[8px] font-black text-cyan-400 uppercase tracking-widest">Optimizing</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="absolute -left-4 bottom-12 bg-slate-900/90 border border-blue-500/30 px-3 py-2 rounded-xl backdrop-blur-md shadow-[0_10px_30px_rgba(59,130,246,0.15)] z-20 animate-[bounce_4s_infinite_reverse]">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-[pulse_2s_ease-in-out_infinite]"></div>
-                                            <span className="text-[8px] font-black text-blue-400 uppercase tracking-widest">Active Sync</span>
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Core Data Center */}
-                                    <div className="flex flex-col items-center justify-center z-10 mt-2">
-                                        <div className="w-16 h-16 bg-slate-900/80 rounded-2xl border border-slate-700/50 flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(34,211,238,0.15)]">
-                                            <FiActivity className="text-4xl text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]" />
-                                        </div>
-                                        <span className="text-5xl font-black text-white tracking-tighter">98<span className="text-2xl text-cyan-500">%</span></span>
-                                        <span className="text-[10px] text-cyan-500/80 uppercase tracking-[0.3em] font-black mt-2">Mastery Rate</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                {/* Staggered Tech Stack */}
+                <div className="mt-24 md:mt-32 flex flex-col items-center gap-8 animate-in fade-in duration-1000 delay-700">
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.5em]">Integrated Neural Stack</p>
+                    <div className="flex flex-wrap justify-center gap-8 md:gap-14 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
+                        {['React', 'Next.js', 'Node.js', 'Python', 'Golang', 'Tailwind'].map((tech, i) => (
+                            <span key={tech} className={`text-xs md:text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.3em] hover:text-violet-500 transition-colors cursor-default stagger-${i+1}`}>{tech}</span>
+                        ))}
                     </div>
                 </div>
             </main>
 
-            {/* Feature Grid */}
-            <section className="bg-[#020617] border-t border-slate-800 py-32 relative z-10">
-                <div className="max-w-7xl mx-auto px-8">
-                    <div className="text-center max-w-2xl mx-auto mb-20 space-y-4">
-                        <h2 className="text-xs font-black text-cyan-600 dark:text-cyan-500 uppercase tracking-[0.3em]">Built for Professionals</h2>
-                        <h3 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Everything you need to scale your skills.</h3>
+            {/* Feature Section - Enhanced with More Space & Effects */}
+            <section ref={featuresRef} className="bg-slate-50 dark:bg-[#020617] border-t border-slate-100 dark:border-slate-800 py-32 md:py-48 relative z-10 overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full matrix-grid opacity-30"></div>
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="text-center max-w-3xl mx-auto mb-40 space-y-8">
+                        <h2 className="text-[10px] font-black text-violet-600 dark:text-violet-500 uppercase tracking-[0.6em] animate-in fade-in slide-in-from-bottom-4 duration-700">The Ecosystem</h2>
+                        <h3 className="text-5xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tighter leading-[0.9] uppercase animate-in fade-in slide-in-from-bottom-8 duration-700 stagger-1">Structured for <br/> Absolute <span className="text-violet-600">Consistency.</span></h3>
+                        <div className="w-24 h-1.5 bg-violet-600 mx-auto rounded-full stagger-2"></div>
+                        <p className="text-slate-500 dark:text-slate-400 font-bold text-lg md:text-2xl animate-in fade-in slide-in-from-bottom-12 duration-700 stagger-3">Every feature is engineered to remove friction and accelerate your transition from student to industry professional.</p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
                         {features.map((f, i) => (
-                            <div key={i} className="group p-10 rounded-[2.5rem] bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 hover:-translate-y-2 backdrop-blur-sm">
-                                <div className="w-14 h-14 rounded-2xl bg-slate-800/80 flex items-center justify-center text-cyan-400 text-2xl mb-8 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-all duration-300 shadow-sm border border-slate-700 group-hover:border-transparent">
+                            <div key={i} className={`group p-10 rounded-[3.5rem] bg-white dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 hover:border-violet-500/50 hover:shadow-2xl hover:shadow-violet-500/20 transition-all duration-700 hover:-translate-y-4 backdrop-blur-xl animate-in fade-in slide-in-from-bottom-16 duration-1000 stagger-${i+1}`}>
+                                <div className="w-16 h-16 rounded-2xl bg-violet-50 dark:bg-violet-950/50 flex items-center justify-center text-violet-600 dark:text-violet-400 text-3xl mb-12 group-hover:bg-violet-600 group-hover:text-white group-hover:rotate-12 transition-all duration-500 shadow-sm border border-violet-100 dark:border-violet-900/50">
                                     {f.icon}
                                 </div>
-                                <h3 className="text-lg font-black text-white mb-4 tracking-tight group-hover:text-cyan-400 transition-colors">{f.title}</h3>
-                                <p className="text-slate-400 text-sm leading-relaxed font-medium group-hover:text-slate-300 transition-colors">{f.desc}</p>
+                                <h3 className="text-xl font-black text-slate-900 dark:text-white mb-6 tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase leading-tight">{f.title}</h3>
+                                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-bold group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">{f.desc}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
+
+            {/* Matrix-Inspired CTA Section */}
+            <section className="py-48 text-center relative z-10 bg-white dark:bg-slate-950 transition-colors overflow-hidden">
+                 <div className="absolute inset-0 matrix-grid opacity-20 animate-pulse"></div>
+                 <div className="max-w-4xl mx-auto px-6 relative z-10">
+                    <h4 className="text-[10px] font-black text-violet-500 uppercase tracking-[0.5em] mb-12 animate-in fade-in slide-in-from-bottom-4">System Initialized</h4>
+                    <h2 className="text-6xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tighter mb-16 leading-[0.9] uppercase animate-in fade-in slide-in-from-bottom-8">Ready to join the <br className="hidden md:block"/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-cyan-500">Learning Tracker?</span></h2>
+                    <button 
+                        onClick={() => navigate('/login')}
+                        className="px-24 py-7 bg-slate-950 dark:bg-white text-white dark:text-slate-950 rounded-2xl font-black text-xs uppercase tracking-[0.3em] hover:scale-105 active:scale-[0.98] transition-all shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:shadow-violet-500/30 glow-border"
+                    >
+                        Initialize Your Account
+                    </button>
+                 </div>
+            </section>
+
+            {/* Modern Minimal Footer */}
+            <footer className="py-20 border-t border-slate-100 dark:border-slate-800 text-center relative z-10 bg-slate-50 dark:bg-slate-950">
+                <div className="flex flex-col items-center gap-6">
+                    <div className="w-10 h-10 grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 duration-500">
+                        <img src={logo} alt="GG" className="w-full h-full object-contain" />
+                    </div>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">© 2026 Learning Tracker Ecosystem • Engineered for Performance</p>
+                </div>
+            </footer>
         </div>
     );
 };

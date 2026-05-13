@@ -54,12 +54,12 @@ cron.schedule('0 8 * * *', async () => {
                 return `- ${g.title}${streakText}`;
             }).join('\n');
 
-            const message = `Hello ${user.name},\n\nYou have some pending daily goals in DevTrack to complete today:\n\n${goalListText}\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe DevTrack Team`;
+            const message = `Hello ${user.name},\n\nYou have some pending daily goals in Learning Tracker to complete today:\n\n${goalListText}\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe Learning Tracker Team`;
 
             try {
                 await sendEmail({
                     email: user.email,
-                    subject: 'DevTrack - Daily Reminder: Pending Goals',
+                    subject: 'Learning Tracker - Daily Reminder: Pending Goals',
                     message,
                 });
                 console.log(`Reminder email sent to ${user.email}`);
@@ -100,12 +100,12 @@ cron.schedule('0 18 * * *', async () => {
             const { user, goals } = goalsByUser[userId];
             const goalListText = goals.map(g => `- ${g.title}`).join('\n');
 
-            const message = `Hello ${user.name},\n\nJust a friendly evening reminder! You still have some pending goals for today:\n\n${goalListText}\n\nThere's still time to finish strong! Mark them as complete in DevTrack when you're done.\n\nBest,\nThe DevTrack Team`;
+            const message = `Hello ${user.name},\n\nJust a friendly evening reminder! You still have some pending goals for today:\n\n${goalListText}\n\nThere's still time to finish strong! Mark them as complete in Learning Tracker when you're done.\n\nBest,\nThe Learning Tracker Team`;
 
             try {
                 await sendEmail({
                     email: user.email,
-                    subject: 'DevTrack - Evening Catch-up: Pending Goals',
+                    subject: 'Learning Tracker - Evening Catch-up: Pending Goals',
                     message,
                 });
                 console.log(`Evening reminder email sent to ${user.email}`);

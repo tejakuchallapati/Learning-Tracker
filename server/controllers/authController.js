@@ -131,6 +131,40 @@ const logoutUser = asyncHandler(async (req, res) => {
     res.status(200).json({ message: 'User logged out successfully' });
 });
 
+// @desc    Update user profile
+// @route   PUT /api/auth/profile
+// @access  Private
+const updateUserProfile = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+
+    if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        user.bio = req.body.bio || user.bio;
+        user.specialization = req.body.specialization || user.specialization;
+        user.role = req.body.role || user.role;
+
+        if (req.body.password) {
+            user.password = req.body.password;
+        }
+
+        const updatedUser = await user.save();
+
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            bio: updatedUser.bio,
+            specialization: updatedUser.specialization,
+            role: updatedUser.role,
+            token: generateToken(updatedUser._id),
+        });
+    } else {
+        res.status(404);
+        throw new Error('User not found');
+    }
+});
+
 // Generate JWT
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -143,4 +177,5 @@ module.exports = {
     loginUser,
     googleLogin,
     logoutUser,
+    updateUserProfile,
 };

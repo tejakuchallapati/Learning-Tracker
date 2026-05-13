@@ -20,6 +20,18 @@ const userSchema = mongoose.Schema(
             type: String,
             required: false,
         },
+        bio: {
+            type: String,
+            default: 'Full Stack Developer | Continuous Learner',
+        },
+        specialization: {
+            type: String,
+            default: 'Software Engineering',
+        },
+        role: {
+            type: String,
+            default: 'Learner Pro',
+        },
     },
     {
         timestamps: true,

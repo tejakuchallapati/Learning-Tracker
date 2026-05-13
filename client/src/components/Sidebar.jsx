@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { FiLayout, FiBookOpen, FiActivity, FiSettings, FiEdit, FiCpu, FiBookmark, FiTarget } from 'react-icons/fi';
-import logo from '../assets/logo.png';
+import logo from '../assets/gg_logo.png';
 
 const Sidebar = () => {
     const navItems = [
@@ -16,11 +16,11 @@ const Sidebar = () => {
     return (
         <aside className="w-72 bg-white dark:bg-slate-950 text-slate-500 dark:text-slate-400 flex-shrink-0 hidden md:flex flex-col border-r border-slate-200 dark:border-slate-800/50 backdrop-blur-md z-40 transition-colors duration-300">
             <div className="h-24 flex items-center px-8 gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 border border-cyan-400/30">
-                    <img src={logo} alt="L" className="w-6 h-6 object-contain dark:brightness-0 dark:invert" />
+                <div className="w-10 h-10 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center shadow-lg border border-slate-100 dark:border-slate-800 p-1.5">
+                    <img src={logo} alt="GG" className="w-full h-full object-contain" />
                 </div>
-                <h1 className="text-xl font-black tracking-tighter text-slate-900 dark:text-white leading-tight">
-                    Learning<br /><span className="text-cyan-600 dark:text-cyan-400">Tracker</span>
+                <h1 className="text-xl font-black tracking-tighter text-slate-900 dark:text-white leading-tight uppercase">
+                    Growth<br /><span className="text-violet-600 dark:text-violet-400">Grid</span>
                 </h1>
             </div>
 
