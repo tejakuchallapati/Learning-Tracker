@@ -403,29 +403,9 @@ const AnimatedForm = memo(function AnimatedForm({
       )}
 
       {googleLogin && (
-        <>
-          <BoxReveal
-            boxColor='var(--skeleton)'
-            duration={0.3}
-            overflow='visible'
-            width='unset'
-          >
-            <div className='relative group/btn'>
-                {googleLogin}
-                <BottomGradient />
-            </div>
-          </BoxReveal>
-
-          <BoxReveal boxColor='var(--skeleton)' duration={0.3} width='100%'>
-            <section className='flex items-center gap-4'>
-              <hr className='flex-1 border-1 border-dashed border-neutral-300 dark:border-neutral-700' />
-              <p className='text-neutral-700 text-sm dark:text-neutral-300'>
-                or
-              </p>
-              <hr className='flex-1 border-1 border-dashed border-neutral-300 dark:border-neutral-700' />
-            </section>
-          </BoxReveal>
-        </>
+        <div className="w-full flex justify-center py-2">
+            {googleLogin}
+        </div>
       )}
 
       <form onSubmit={handleSubmit}>

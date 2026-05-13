@@ -38,13 +38,10 @@ const Login = () => {
     };
 
     const googleComponent = (
-        <div className="flex justify-center w-full">
-            <GoogleLogin
-                onSuccess={handleGoogleSuccess}
-                onError={handleGoogleError}
-                useOneTap
-            />
-        </div>
+        <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+        />
     );
 
     return (

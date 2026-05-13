@@ -79,17 +79,22 @@ const googleLogin = asyncHandler(async (req, res) => {
     }
 
     try {
+        const googleClientId = process.env.GOOGLE_CLIENT_ID || '937868886257-sgoqf4onr843odrv2518eghvog3ppm97.apps.googleusercontent.com';
+        console.log('Verifying Google Token with Audience:', googleClientId);
+        
         const ticket = await client.verifyIdToken({
             idToken: credential,
-            audience: process.env.GOOGLE_CLIENT_ID,
+            audience: googleClientId,
         });
 
         const payload = ticket.getPayload();
         const { sub: googleId, email, name, picture } = payload;
+        console.log('Google Auth Success for:', email);
 
         let user = await User.findOne({ email });
 
         if (!user) {
+            console.log('Creating new user from Google account');
             user = await User.create({
                 name,
                 email,
@@ -97,6 +102,7 @@ const googleLogin = asyncHandler(async (req, res) => {
                 googleId,
             });
         } else if (!user.googleId) {
+            console.log('Linking Google ID to existing user');
             user.googleId = googleId;
             await user.save();
         }
@@ -109,6 +115,7 @@ const googleLogin = asyncHandler(async (req, res) => {
             token: generateToken(user._id),
         });
     } catch (err) {
+        console.error('Google Auth Error:', err.message);
         res.status(401);
         throw new Error('Google authentication failed: ' + err.message);
     }
