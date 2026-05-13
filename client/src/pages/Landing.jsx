@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { FiArrowRight, FiCode, FiCpu, FiLayout, FiSmartphone, FiActivity, FiSearch, FiCompass, FiShield, FiZap, FiTarget } from 'react-icons/fi';
 import { Header } from '../components/ui/header-2';
 import logo from '../assets/logo.png';
+import { cn } from '@/lib/utils';
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -13,10 +14,27 @@ const Landing = () => {
     };
 
     const features = [
-        { icon: <FiZap />, title: "Precision Track", desc: "Build industry-grade consistency with daily technical challenges and real-time feedback." },
-        { icon: <FiCpu />, title: "Neural Roadmap", desc: "Leverage AI to personalize your learning path based on your unique growth metrics." },
-        { icon: <FiShield />, title: "Mastery Vault", desc: "A secure, structured curriculum designed for deep technical skill absorption." },
-        { icon: <FiTarget />, title: "Outcome Driven", desc: "Engineered to transform theoretical knowledge into career-ready excellence." }
+        { 
+            icon: <FiZap />, 
+            title: "Phase 01: Ignition", 
+            desc: "Build industry-grade consistency with daily technical challenges and real-time feedback.",
+            color: "violet",
+            theme: "text-violet-600 bg-violet-50 dark:bg-violet-950/50 border-violet-100 dark:border-violet-900/50 shadow-violet-500/20"
+        },
+        { 
+            icon: <FiCpu />, 
+            title: "Phase 02: Synthesis", 
+            desc: "Leverage AI to personalize your learning path based on your unique growth metrics.",
+            color: "cyan",
+            theme: "text-cyan-600 bg-cyan-50 dark:bg-cyan-950/50 border-cyan-100 dark:border-cyan-900/50 shadow-cyan-500/20"
+        },
+        { 
+            icon: <FiTarget />, 
+            title: "Phase 03: Mastery", 
+            desc: "Engineered to transform theoretical knowledge into career-ready excellence.",
+            color: "rose",
+            theme: "text-rose-600 bg-rose-50 dark:bg-rose-950/50 border-rose-100 dark:border-rose-900/50 shadow-rose-500/20"
+        }
     ];
 
     return (
@@ -89,13 +107,34 @@ const Landing = () => {
                         <p className="text-slate-500 dark:text-slate-400 font-bold text-lg md:text-2xl animate-in fade-in slide-in-from-bottom-12 duration-700 stagger-3">Every feature is engineered to remove friction and accelerate your transition from student to industry professional.</p>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
                         {features.map((f, i) => (
-                            <div key={i} className={`group p-10 rounded-[3.5rem] bg-white dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 hover:border-violet-500/50 hover:shadow-2xl hover:shadow-violet-500/20 transition-all duration-700 hover:-translate-y-4 backdrop-blur-xl animate-in fade-in slide-in-from-bottom-16 duration-1000 stagger-${i+1}`}>
-                                <div className="w-16 h-16 rounded-2xl bg-violet-50 dark:bg-violet-950/50 flex items-center justify-center text-violet-600 dark:text-violet-400 text-3xl mb-12 group-hover:bg-violet-600 group-hover:text-white group-hover:rotate-12 transition-all duration-500 shadow-sm border border-violet-100 dark:border-violet-900/50">
+                            <div 
+                                key={i} 
+                                className={cn(
+                                    "group p-10 rounded-[3.5rem] bg-white dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 transition-all duration-700 hover:-translate-y-4 backdrop-blur-xl animate-in fade-in slide-in-from-bottom-16 duration-1000",
+                                    `stagger-${i+1}`,
+                                    f.color === 'violet' && "hover:border-violet-500/50 hover:shadow-violet-500/20",
+                                    f.color === 'cyan' && "hover:border-cyan-500/50 hover:shadow-cyan-500/20",
+                                    f.color === 'rose' && "hover:border-rose-500/50 hover:shadow-rose-500/20"
+                                )}
+                            >
+                                <div className={cn(
+                                    "w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-12 transition-all duration-500 shadow-sm border",
+                                    f.theme,
+                                    f.color === 'violet' && "group-hover:bg-violet-600",
+                                    f.color === 'cyan' && "group-hover:bg-cyan-600",
+                                    f.color === 'rose' && "group-hover:bg-rose-600",
+                                    "group-hover:text-white group-hover:rotate-12"
+                                )}>
                                     {f.icon}
                                 </div>
-                                <h3 className="text-xl font-black text-slate-900 dark:text-white mb-6 tracking-tight group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase leading-tight">{f.title}</h3>
+                                <h3 className={cn(
+                                    "text-xl font-black text-slate-900 dark:text-white mb-6 tracking-tight transition-colors uppercase leading-tight",
+                                    f.color === 'violet' && "group-hover:text-violet-600",
+                                    f.color === 'cyan' && "group-hover:text-cyan-600",
+                                    f.color === 'rose' && "group-hover:text-rose-600"
+                                )}>{f.title}</h3>
                                 <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-bold group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">{f.desc}</p>
                             </div>
                         ))}
