@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import { FiArrowRight, FiCode, FiCpu, FiLayout, FiSmartphone, FiActivity, FiSearch, FiCompass, FiShield, FiZap, FiTarget } from 'react-icons/fi';
 import { Header } from '../components/ui/header-2';
+import logo from '../assets/logo.png';
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -62,7 +63,7 @@ const Landing = () => {
                         onClick={scrollToFeatures}
                         className="w-full sm:w-auto px-14 py-5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl font-black text-slate-900 dark:text-white hover:border-violet-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-4 active:scale-95 shadow-xl backdrop-blur-md"
                     >
-                        <FiCompass className="text-lg" /> Explore Ecosystem
+                        <FiCompass className="text-lg" /> Explore Blueprint
                     </button>
                 </div>
 
@@ -82,7 +83,7 @@ const Landing = () => {
                 <div className="absolute top-0 left-0 w-full h-full matrix-grid opacity-30"></div>
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="text-center max-w-3xl mx-auto mb-40 space-y-8">
-                        <h2 className="text-[10px] font-black text-violet-600 dark:text-violet-500 uppercase tracking-[0.6em] animate-in fade-in slide-in-from-bottom-4 duration-700">The Ecosystem</h2>
+                        <h2 className="text-[10px] font-black text-violet-600 dark:text-violet-500 uppercase tracking-[0.6em] animate-in fade-in slide-in-from-bottom-4 duration-700">The Blueprint</h2>
                         <h3 className="text-5xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tighter leading-[0.9] uppercase animate-in fade-in slide-in-from-bottom-8 duration-700 stagger-1">Structured for <br/> Absolute <span className="text-violet-600">Consistency.</span></h3>
                         <div className="w-24 h-1.5 bg-violet-600 mx-auto rounded-full stagger-2"></div>
                         <p className="text-slate-500 dark:text-slate-400 font-bold text-lg md:text-2xl animate-in fade-in slide-in-from-bottom-12 duration-700 stagger-3">Every feature is engineered to remove friction and accelerate your transition from student to industry professional.</p>
@@ -123,7 +124,7 @@ const Landing = () => {
                     <div className="w-10 h-10 grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100 duration-500">
                         <img src={logo} alt="GG" className="w-full h-full object-contain" />
                     </div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">© 2026 Learning Tracker Ecosystem • Engineered for Performance</p>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">© 2026 Learning Tracker Blueprint • Engineered for Performance</p>
                 </div>
             </footer>
         </div>

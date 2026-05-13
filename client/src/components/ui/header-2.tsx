@@ -19,7 +19,7 @@ export function Header() {
             onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' })
 		},
 		{
-			label: 'Ecosystem',
+			label: 'Blueprint',
 			href: '#features',
             onClick: () => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })
 		},

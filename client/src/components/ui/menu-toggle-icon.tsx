@@ -16,8 +16,8 @@ export function MenuToggleIcon({
 	strokeLinecap = 'round',
 	strokeLinejoin = 'round',
 	duration = 500,
-	...props: MenuToggleProps
-}) {
+	...props
+}: MenuToggleProps) {
 	return (
 		<svg
 			strokeWidth={strokeWidth}
