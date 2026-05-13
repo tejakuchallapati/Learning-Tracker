@@ -111,12 +111,12 @@
 :root {
   --primary: #22d3ee; /* Cyan 400 */
   --secondary: #3b82f6; /* Blue 500 */
-  --bg-main: #020617; /* Slate 950 */
-  --text-main: #f8fafc; /* Slate 50 */
-  --card-bg: #0f172a; /* Slate 900 */
-  --border-color: #1e293b; /* Slate 800 */
+  --bg-main: #ffffff; /* White */
+  --text-main: #0f172a; /* Slate 900 */
+  --card-bg: #f8fafc; /* Slate 50 */
+  --border-color: #e2e8f0; /* Slate 200 */
 
-  --background: hsl(210, 40%, 98%); /* Ghost White HSL */
+  --background: hsl(210, 40%, 98%);
   --foreground: hsl(222.2, 84%, 4.9%);
   --skeleton: hsl(210, 40%, 94%);
   --border: hsl(214.3, 32%, 91%);
@@ -127,10 +127,10 @@
 }
 
 html.dark, .dark {
-  --bg-main: #020617;
-  --text-main: #f8fafc;
-  --card-bg: #0f172a;
-  --border-color: #1e293b;
+  --bg-main: #020617; /* Slate 950 */
+  --text-main: #f8fafc; /* Slate 50 */
+  --card-bg: #0f172a; /* Slate 900 */
+  --border-color: #1e293b; /* Slate 800 */
 
   --background: hsl(222.2 47.4% 11.2%);
   --foreground: hsl(210 40% 98%);

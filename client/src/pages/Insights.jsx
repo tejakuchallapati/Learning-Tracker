@@ -47,57 +47,57 @@ const Insights = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Focus Pie */}
-                <div className="lg:col-span-1 bg-white dark:bg-slate-900 premium-shadow p-8 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-8 flex flex-col items-center">
-                    <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-4 self-start uppercase tracking-[0.2em]">
-                        <div className="w-10 h-10 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiActivity size={18} /></div>
+                <div className="lg:col-span-1 bg-white dark:bg-slate-900 premium-shadow p-5 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-6 flex flex-col items-center">
+                    <h3 className="text-[10px] font-black text-slate-900 dark:text-white flex items-center gap-3 self-start uppercase tracking-[0.2em]">
+                        <div className="w-8 h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiActivity size={16} /></div>
                         Focus Allocation
                     </h3>
-                    <div className="w-full h-80 relative">
+                    <div className="w-full h-64 relative">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
-                                <Pie data={timeData} innerRadius={70} outerRadius={100} paddingAngle={10} stroke="none" dataKey="value">
+                                <Pie data={timeData} innerRadius={60} outerRadius={85} paddingAngle={8} stroke="none" dataKey="value">
                                     {timeData.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={index === 0 ? '#7c3aed' : index === 1 ? '#a78bfa' : index === 2 ? '#10b981' : '#f59e0b'} />
                                     ))}
                                 </Pie>
-                                <Tooltip contentStyle={{ borderRadius: '2rem', border: '1px solid rgba(255,255,255,0.5)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.1)', padding: '24px', backgroundColor: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(10px)', fontFamily: 'Outfit' }} />
-                                <Legend verticalAlign="bottom" height={36} iconType="circle" formatter={(value) => <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{value}</span>} />
+                                <Tooltip contentStyle={{ borderRadius: '1.5rem', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)', padding: '16px', backgroundColor: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)', fontFamily: 'Outfit' }} />
+                                <Legend verticalAlign="bottom" height={36} iconType="circle" formatter={(value) => <span className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{value}</span>} />
                             </PieChart>
                         </ResponsiveContainer>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-                            <p className="text-2xl font-black text-slate-900 dark:text-white leading-none">0%</p>
-                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-1">Consistency</p>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] text-center pointer-events-none">
+                            <p className="text-xl font-black text-slate-900 dark:text-white leading-none">0%</p>
+                            <p className="text-[7px] font-black text-slate-400 uppercase tracking-widest mt-1">Consistency</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Milestone Log */}
-                <div className="lg:col-span-2 bg-white dark:bg-slate-900 premium-shadow p-8 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col overflow-hidden">
-                    <h3 className="text-xs font-black text-slate-900 dark:text-white mb-12 flex items-center gap-4 uppercase tracking-[0.2em]">
-                        <div className="w-10 h-10 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiList size={18} /></div>
+                <div className="lg:col-span-2 bg-white dark:bg-slate-900 premium-shadow p-5 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col overflow-hidden">
+                    <h3 className="text-[10px] font-black text-slate-900 dark:text-white mb-6 flex items-center gap-3 uppercase tracking-[0.2em]">
+                        <div className="w-8 h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiList size={16} /></div>
                         Milestone Log
                     </h3>
                     <div className="flex-1 overflow-x-auto">
                         <table className="w-full text-left">
                             <thead>
-                                <tr className="border-b border-slate-100 dark:border-slate-800 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                                    <th className="pb-8 px-6">Technical Module</th>
-                                    <th className="pb-8 px-6">Timestamp</th>
-                                    <th className="pb-8 px-6">Intensity</th>
-                                    <th className="pb-8 px-6 text-right">Verification</th>
+                                <tr className="border-b border-slate-100 dark:border-slate-800 text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                                    <th className="pb-4 px-4">Technical Module</th>
+                                    <th className="pb-4 px-4">Timestamp</th>
+                                    <th className="pb-4 px-4">Intensity</th>
+                                    <th className="pb-4 px-4 text-right">Verification</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                 {completedTopics.map((topic) => (
                                     <tr key={topic.id} className="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all">
-                                        <td className="py-8 px-6">
-                                            <p className="font-black text-slate-900 dark:text-white group-hover:text-violet-600 transition-colors uppercase tracking-tight">{topic.title}</p>
-                                            <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tighter mt-1">Course ID: DEV-{topic.id * 128}</p>
+                                        <td className="py-4 px-4">
+                                            <p className="font-black text-slate-900 dark:text-white group-hover:text-violet-600 transition-colors uppercase tracking-tight text-xs">{topic.title}</p>
+                                            <p className="text-[8px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tighter mt-0.5">Course ID: DEV-{topic.id * 128}</p>
                                         </td>
-                                        <td className="py-8 px-6 text-sm font-bold text-slate-400 dark:text-slate-500">{topic.date}</td>
-                                        <td className="py-8 px-6 text-sm font-black text-violet-600 dark:text-violet-400">{topic.timeSpent}</td>
-                                        <td className="py-8 px-6 text-right">
-                                            <span className="px-6 py-2.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-[1rem] text-[9px] font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30">{topic.status}</span>
+                                        <td className="py-4 px-4 text-xs font-bold text-slate-400 dark:text-slate-500">{topic.date}</td>
+                                        <td className="py-4 px-4 text-xs font-black text-violet-600 dark:text-violet-400">{topic.timeSpent}</td>
+                                        <td className="py-4 px-4 text-right">
+                                            <span className="px-4 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-[1rem] text-[8px] font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30">{topic.status}</span>
                                         </td>
                                     </tr>
                                 ))}

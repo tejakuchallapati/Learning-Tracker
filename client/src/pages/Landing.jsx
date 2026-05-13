@@ -13,7 +13,7 @@ const Landing = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-[#020617] text-white font-sans selection:bg-cyan-500 selection:text-slate-950 overflow-hidden relative transition-colors duration-500">
+        <div className="min-h-screen bg-white dark:bg-[#020617] text-slate-900 dark:text-white font-sans selection:bg-cyan-500 selection:text-slate-950 overflow-hidden relative transition-colors duration-500">
             {/* Animated Deep Space Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/50 via-slate-950 to-[#020617] opacity-100"></div>
@@ -26,9 +26,9 @@ const Landing = () => {
             <nav className="relative z-10 px-8 py-10 flex items-center justify-between max-w-7xl mx-auto">
                 <div className="flex items-center gap-3 group cursor-pointer">
                     <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300 border border-cyan-400/30">
-                        <img src={logo} alt="L" className="w-6 h-6 object-contain brightness-0 invert" />
+                        <img src={logo} alt="L" className="w-6 h-6 object-contain dark:brightness-0 dark:invert" />
                     </div>
-                    <span className="text-2xl font-black tracking-tighter text-white">Learning<span className="text-cyan-400">Tracker</span></span>
+                    <span className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Learning<span className="text-cyan-600 dark:text-cyan-400">Tracker</span></span>
                 </div>
                 <div className="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-widest text-slate-400">
                     <a href="#" className="hover:text-cyan-400 transition-colors">Courses</a>
@@ -54,9 +54,9 @@ const Landing = () => {
                             </span>
                             v2.0 Next-Gen Platform
                         </div>
-                        <h1 className="text-7xl md:text-8xl font-black leading-[1] tracking-tighter text-white">
+                        <h1 className="text-7xl md:text-8xl font-black leading-[1] tracking-tighter text-slate-900 dark:text-white">
                             Master the <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Tech Market.</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-500">Tech Market.</span>
                         </h1>
                         <p className="text-xl text-slate-400 max-w-xl leading-relaxed font-medium">
                             Stop guessing. Start building. Follow premium visual roadmaps designed by elite engineers to take you from zero to expert.
@@ -165,8 +165,8 @@ path.build();`}
             <section className="bg-[#020617] border-t border-slate-800 py-32 relative z-10">
                 <div className="max-w-7xl mx-auto px-8">
                     <div className="text-center max-w-2xl mx-auto mb-20 space-y-4">
-                        <h2 className="text-xs font-black text-cyan-500 uppercase tracking-[0.3em]">Built for Professionals</h2>
-                        <h3 className="text-4xl font-black text-white tracking-tight">Everything you need to scale your skills.</h3>
+                        <h2 className="text-xs font-black text-cyan-600 dark:text-cyan-500 uppercase tracking-[0.3em]">Built for Professionals</h2>
+                        <h3 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Everything you need to scale your skills.</h3>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                         {features.map((f, i) => (

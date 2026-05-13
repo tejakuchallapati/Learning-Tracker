@@ -10,7 +10,21 @@ const Navbar = () => {
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([]);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
+    const [isDark, setIsDark] = useState(() => {
+        const saved = localStorage.getItem('theme');
+        return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    });
     const menuRef = useRef(null);
+
+    useEffect(() => {
+        if (isDark) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }, [isDark]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -43,17 +57,17 @@ const Navbar = () => {
     };
 
     return (
-        <header className="h-20 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800 flex items-center justify-between px-8 sticky top-0 z-30 transition-all duration-300">
+        <header className="h-20 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-30 transition-all duration-300">
             {/* Advanced Search */}
             <div className="relative flex-1 max-w-md">
-                <div className="flex items-center gap-4 bg-slate-900/50 px-5 py-2.5 rounded-2xl group focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:border-cyan-500 transition-all border border-slate-700/50 shadow-sm">
+                <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-900/50 px-5 py-2.5 rounded-2xl group focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:border-cyan-500 transition-all border border-slate-200 dark:border-slate-700/50 shadow-sm">
                     <FiSearch className="text-slate-400 w-4 h-4 group-focus-within:text-cyan-400 transition-colors" />
                     <input
                         type="text"
                         value={search}
                         onChange={handleSearch}
                         placeholder="Search modules..."
-                        className="bg-transparent border-none text-sm focus:ring-0 w-full placeholder-slate-500 font-bold tracking-tight text-white"
+                        className="bg-transparent border-none text-sm focus:ring-0 w-full placeholder-slate-500 font-bold tracking-tight text-slate-900 dark:text-white"
                     />
                 </div>
 
@@ -80,16 +94,25 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-4 ml-10">
+                {/* Theme Toggle */}
+                <button
+                    onClick={() => setIsDark(!isDark)}
+                    className="p-2.5 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all border border-slate-200 dark:border-slate-800/50"
+                    title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                >
+                    {isDark ? <FiSun size={20} /> : <FiMoon size={20} />}
+                </button>
+
                 {/* Notifications Bell */}
                 <button
                     onClick={() => navigate('/settings')}
-                    className="relative p-2.5 text-slate-400 hover:text-cyan-400 bg-slate-900/50 hover:bg-slate-800 rounded-xl transition-all border border-slate-800/50 hover:border-cyan-500/50"
+                    className="relative p-2.5 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all border border-slate-200 dark:border-slate-800/50"
                 >
                     <FiBell size={20} />
-                    <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-blue-500 rounded-full border-2 border-slate-950"></span>
+                    <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-blue-500 rounded-full border-2 border-white dark:border-slate-950"></span>
                 </button>
 
-                <div className="h-8 w-px bg-slate-800 mx-2"></div>
+                <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
 
                 {/* Profile with Dropdown */}
                 <div className="relative" ref={menuRef}>
@@ -98,8 +121,8 @@ const Navbar = () => {
                         className="flex items-center gap-4 group"
                     >
                         <div className="text-right hidden sm:block leading-tight">
-                            <p className="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-tight">{user?.name || 'Guest User'}</p>
-                            <p className="text-[10px] font-black text-cyan-500 uppercase tracking-widest leading-none mt-1">Learner Pro</p>
+                            <p className="text-sm font-black text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors uppercase tracking-tight">{user?.name || 'Guest User'}</p>
+                            <p className="text-[10px] font-black text-cyan-600 dark:text-cyan-500 uppercase tracking-widest leading-none mt-1">Learner Pro</p>
                         </div>
                         <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-black shadow-lg shadow-cyan-500/20 transform group-hover:scale-105 transition-transform duration-200 border border-cyan-400/30">
                             {user?.name?.[0] || 'G'}

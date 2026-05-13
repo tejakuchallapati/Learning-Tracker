@@ -286,10 +286,13 @@ const TechOrbitDisplay = memo(function TechOrbitDisplay({
   text = 'Animated Login',
 }: TechnologyOrbitDisplayProps) {
   return (
-    <section className='relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg'>
-      <span className='pointer-events-none absolute z-10 whitespace-pre-wrap text-center text-4xl font-black leading-none text-slate-900 dark:text-white drop-shadow-[0_0_15px_rgba(124,58,237,0.2)] font-sans uppercase tracking-tighter'>
-        {text}
-      </span>
+    <section className='relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg'>
+      <div className='absolute top-20 z-10 text-center'>
+        <h1 className='text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tighter drop-shadow-[0_0_15px_rgba(124,58,237,0.2)]'>
+            {text}
+        </h1>
+        <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] mt-2">Initialize Mastery Protocol</p>
+      </div>
 
       {iconsArray.map((icon, index) => (
         <OrbitingCircles
