@@ -102,19 +102,19 @@ const Dashboard = () => {
     return (
         <div className="space-y-6 animate-in fade-in duration-1000">
             {/* Header Section */}
-            <div className="bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-[1.5rem] p-6 text-white relative overflow-hidden shadow-2xl shadow-violet-200 dark:shadow-none group">
+            <div className="bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-[1.5rem] p-5 text-white relative overflow-hidden shadow-2xl shadow-violet-200 dark:shadow-none group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl group-hover:bg-white/20 transition-all duration-500"></div>
-                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-10">
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="max-w-md">
-                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 text-[10px] font-black uppercase tracking-[0.2em] mb-6 backdrop-blur-md border border-white/20">
+                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 text-[9px] font-black uppercase tracking-[0.2em] mb-4 backdrop-blur-md border border-white/20">
                             Adaptive Roadmap
                         </span>
-                        <h2 className="text-3xl font-black leading-tight mb-3 tracking-tighter italic">Fast-Track Your <br />Learning Goal</h2>
-                        <p className="text-violet-100 font-medium leading-relaxed opacity-90">Our AI-powered engine crafts personalized paths. Finish courses 3x faster with optimized daily targets.</p>
+                        <h2 className="text-2xl font-black leading-tight mb-2 tracking-tighter italic">Fast-Track Your <br />Learning Goal</h2>
+                        <p className="text-violet-100 text-sm font-medium leading-relaxed opacity-90">Our AI-powered engine crafts personalized paths. Finish courses 3x faster with optimized daily targets.</p>
                     </div>
                     <button
                         onClick={() => {}}
-                        className="px-10 py-5 bg-white text-violet-600 font-black rounded-[2rem] hover:bg-violet-50 transition-all transform hover:scale-105 active:scale-95 shadow-2xl shadow-violet-900/20 whitespace-nowrap flex items-center gap-3 group/btn uppercase tracking-widest text-xs"
+                        className="px-8 py-4 bg-white text-violet-600 font-black rounded-[2rem] hover:bg-violet-50 transition-all transform hover:scale-105 active:scale-95 shadow-2xl shadow-violet-900/20 whitespace-nowrap flex items-center gap-3 group/btn uppercase tracking-widest text-[10px]"
                     >
                         Generate My Path <FiArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
                     </button>
@@ -123,49 +123,49 @@ const Dashboard = () => {
 
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="glass-card premium-shadow p-6 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
-                    <div className="flex items-center justify-between mb-6">
-                        <div className="p-4 bg-violet-50 text-violet-600 rounded-xl group-hover:bg-violet-600 group-hover:text-white transition-all duration-500">
-                            <FiClock size={24} />
+                <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
+                    <div className="flex items-center justify-between mb-4">
+                        <div className="p-3 bg-violet-50 text-violet-600 rounded-xl group-hover:bg-violet-600 group-hover:text-white transition-all duration-500">
+                            <FiClock size={20} />
                         </div>
                         <div className="text-right">
-                            <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Efficiency</p>
-                            <p className="text-xs font-bold text-emerald-500">+12% Peak</p>
+                            <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Efficiency</p>
+                            <p className="text-[10px] font-bold text-emerald-500">+12% Peak</p>
                         </div>
                     </div>
-                    <h3 className="text-3xl font-black text-slate-900 dark:text-white">{data?.totalStudyHours ?? 0}h</h3>
-                    <p className="text-sm font-semibold text-slate-500 mt-1">Total Study Time</p>
+                    <h3 className="text-2xl font-black text-slate-900 dark:text-white">{data?.totalStudyHours ?? 0}h</h3>
+                    <p className="text-[11px] font-semibold text-slate-500 mt-0.5">Total Study Time</p>
                 </div>
 
-                <div className="glass-card premium-shadow p-6 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
-                    <div className="flex items-center justify-between mb-6">
-                        <div className="p-4 bg-rose-50 text-rose-600 rounded-xl group-hover:bg-rose-600 group-hover:text-white transition-all duration-500">
-                            <FiActivity size={24} />
+                <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
+                    <div className="flex items-center justify-between mb-4">
+                        <div className="p-3 bg-rose-50 text-rose-600 rounded-xl group-hover:bg-rose-600 group-hover:text-white transition-all duration-500">
+                            <FiActivity size={20} />
                         </div>
                         <div className="text-right">
-                            <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Intensity</p>
-                            <p className="text-xs font-bold text-rose-500">High Focus</p>
+                            <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Intensity</p>
+                            <p className="text-[10px] font-bold text-rose-500">High Focus</p>
                         </div>
                     </div>
-                    <h3 className="text-3xl font-black text-slate-900 dark:text-white">{data?.weeklyStudyHours ?? 0}h</h3>
-                    <p className="text-sm font-bold text-slate-700 mt-1">Weekly Intensity</p>
+                    <h3 className="text-2xl font-black text-slate-900 dark:text-white">{data?.weeklyStudyHours ?? 0}h</h3>
+                    <p className="text-[11px] font-bold text-slate-700 mt-0.5">Weekly Intensity</p>
                 </div>
 
-                <div className="glass-card premium-shadow p-6 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default lg:col-span-2 relative overflow-hidden">
+                <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default lg:col-span-2 relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-8 opacity-5">
-                        <FiPlus size={120} />
+                        <FiPlus size={100} />
                     </div>
                     <div className="flex flex-col h-full justify-between">
-                        <div className="flex items-center gap-4 mb-4">
-                            <div className="p-4 bg-emerald-50 text-emerald-600 rounded-xl">
-                                <FiTarget size={24} />
+                        <div className="flex items-center gap-4 mb-3">
+                            <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+                                <FiTarget size={20} />
                             </div>
                             <div>
-                                <h3 className="text-xl font-black text-slate-900 dark:text-white">Current Goal Progress</h3>
-                                <p className="text-sm font-bold text-slate-700 dark:text-slate-400">Track and manage your active paths</p>
+                                <h3 className="text-lg font-black text-slate-900 dark:text-white">Current Goal Progress</h3>
+                                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-400">Track and manage your active paths</p>
                             </div>
                         </div>
-                        <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden mt-2">
+                        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mt-1">
                             <div 
                                 className="bg-violet-600 h-full rounded-full shadow-[0_0_15px_rgba(124,58,237,0.5)] transition-all duration-1000"
                                 style={{ width: `${data?.completionRate || 0}%` }}
@@ -262,41 +262,41 @@ const Dashboard = () => {
 
                 {/* Right Column: Goal Setting & Tips */}
                 <div className="lg:col-span-4 space-y-6">
-                    <div className="bg-indigo-600 dark:bg-indigo-900/40 rounded-2xl p-5 text-white relative overflow-hidden shadow-2xl shadow-indigo-100 dark:shadow-none group border border-indigo-500/50">
+                    <div className="bg-indigo-600 dark:bg-indigo-900/40 rounded-2xl p-4 text-white relative overflow-hidden shadow-2xl shadow-indigo-100 dark:shadow-none group border border-indigo-500/50">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
-                        <h3 className="text-xl font-black mb-4 flex items-center gap-3">
+                        <h3 className="text-lg font-black mb-3 flex items-center gap-3">
                             <FiTarget className="text-indigo-200" /> Fast-Track Goal
                         </h3>
-                        <div className="space-y-4 relative z-10">
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black text-indigo-200 uppercase tracking-widest pl-1">Course Choice</label>
+                        <div className="space-y-3 relative z-10">
+                            <div className="space-y-1">
+                                <label className="text-[9px] font-black text-indigo-200 uppercase tracking-widest pl-1">Course Choice</label>
                                 <select 
                                     value={selectedTrack}
                                     onChange={(e) => setSelectedTrack(e.target.value)}
-                                    className="w-full bg-indigo-700/50 dark:bg-slate-900/50 border-indigo-400/30 rounded-2xl p-4 text-sm font-bold focus:ring-4 focus:ring-white/20 transition-all text-white outline-none cursor-pointer"
+                                    className="w-full bg-indigo-700/50 dark:bg-slate-900/50 border-indigo-400/30 rounded-2xl p-3 text-xs font-bold focus:ring-4 focus:ring-white/20 transition-all text-white outline-none cursor-pointer"
                                 >
                                     {courses.map(c => (
                                         <option key={c.id} value={c.id} className="text-slate-900">{c.title}</option>
                                     ))}
                                 </select>
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black text-indigo-200 uppercase tracking-widest pl-1">Target Date</label>
+                            <div className="space-y-1">
+                                <label className="text-[9px] font-black text-indigo-200 uppercase tracking-widest pl-1">Target Date</label>
                                 <input 
                                     type="date" 
                                     value={targetDate}
                                     onChange={(e) => setTargetDate(e.target.value)}
-                                    className="w-full bg-indigo-700/50 dark:bg-slate-900/50 border-indigo-400/30 rounded-2xl p-4 text-sm font-bold focus:ring-4 focus:ring-white/20 transition-all text-white outline-none"
+                                    className="w-full bg-indigo-700/50 dark:bg-slate-900/50 border-indigo-400/30 rounded-2xl p-3 text-xs font-bold focus:ring-4 focus:ring-white/20 transition-all text-white outline-none"
                                 />
                             </div>
-                            <div className="p-6 bg-white text-center rounded-3xl shadow-xl shadow-indigo-900/20">
-                                <p className="text-4xl font-black text-indigo-600">{daysLeft}</p>
-                                <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mt-1">Days to Mastery</p>
+                            <div className="p-4 bg-white text-center rounded-3xl shadow-xl shadow-indigo-900/20">
+                                <p className="text-3xl font-black text-indigo-600">{daysLeft}</p>
+                                <p className="text-[9px] font-black text-indigo-400 uppercase tracking-widest mt-0.5">Days to Mastery</p>
                             </div>
                         </div>
                         <button 
                             onClick={handleAddGoal}
-                            className="w-full mt-6 py-4 bg-white text-indigo-600 rounded-xl font-black text-sm hover:bg-slate-50 transition-all shadow-xl shadow-indigo-900/20 flex items-center justify-center gap-3 btn-hover-scale"
+                            className="w-full mt-4 py-3 bg-white text-indigo-600 rounded-xl font-black text-xs hover:bg-slate-50 transition-all shadow-xl shadow-indigo-900/20 flex items-center justify-center gap-3 btn-hover-scale"
                         >
                             <FiPlus /> Add Learning Goal
                         </button>
