@@ -77,7 +77,7 @@ const Landing = () => {
                         onClick={() => navigate('/login')}
                         className="w-full sm:w-auto px-16 py-6 bg-slate-950 text-white rounded-2xl font-black flex items-center justify-center gap-4 hover:bg-violet-600 hover:shadow-[0_30px_60px_rgba(124,58,237,0.25)] transition-all shadow-xl group text-xs uppercase tracking-[0.3em] active:scale-95 glow-border"
                     >
-                        Login to Terminal <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                        Sign In <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                     </button>
                     <button 
                         onClick={scrollToFeatures}

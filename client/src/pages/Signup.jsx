@@ -65,7 +65,7 @@ const Signup = () => {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Communication Terminal</label>
+                            <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Email Address</label>
                             <input type="email" name="email" required placeholder="Email Address" className="block w-full bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3.5 text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" onChange={handleChange} />
                         </div>
 

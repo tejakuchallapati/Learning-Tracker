@@ -24,7 +24,7 @@ export function Header() {
             onClick: () => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })
 		},
 		{
-			label: 'Terminal',
+			label: 'Sign In',
 			href: '/login',
             onClick: () => navigate('/login')
 		},
@@ -113,7 +113,7 @@ export function Header() {
 					</div>
 					<div className="flex flex-col gap-4 mt-auto">
 						<Button variant="outline" className="w-full py-8 rounded-2xl border-slate-200 dark:border-slate-800 font-black uppercase tracking-widest text-xs" onClick={() => navigate('/login')}>
-							Sign In to Terminal
+							Sign In
 						</Button>
 						<Button className="w-full py-8 rounded-2xl bg-violet-600 hover:bg-violet-700 text-white font-black uppercase tracking-widest text-xs shadow-2xl shadow-violet-500/20" onClick={() => navigate('/login')}>
 							Join Learning Tracker

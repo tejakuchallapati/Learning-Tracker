@@ -184,7 +184,7 @@ body {
 @tailwind components;
 @tailwind utilities;
 
-@@layer base {
+@layer base {
   :root {
     --background: 210 40% 98%;
     --foreground: 222 47% 11%;
@@ -198,12 +198,14 @@ body {
   }
 
   body {
-    @apply font-body bg-white text-slate-900 antialiased selection:bg-violet-100 selection:text-violet-900;
+    @apply bg-white text-slate-900 antialiased selection:bg-violet-100 selection:text-violet-900;
+    font-family: 'Outfit', sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
   h1, h2, h3, h4, .font-heading {
-    @apply font-heading tracking-tighter text-slate-950;
+    @apply tracking-tighter text-slate-950;
+    font-family: 'Syne', sans-serif;
   }
 }
 
