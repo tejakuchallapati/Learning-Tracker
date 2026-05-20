@@ -67,6 +67,7 @@ const Progress = () => {
             clearInterval(interval);
         }
         return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timerActive, timerMode]);
 
     const handlePomodoroComplete = () => {

@@ -43,14 +43,10 @@ export const AuthProvider = ({ children }) => {
     };
 
     const googleLogin = async (credential) => {
-        try {
-            const { data } = await API.post('/auth/google', { credential });
-            localStorage.setItem('user', JSON.stringify(data));
-            localStorage.setItem('token', data.token);
-            setUser(data);
-        } catch (error) {
-            throw error;
-        }
+        const { data } = await API.post('/auth/google', { credential });
+        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('token', data.token);
+        setUser(data);
     };
 
     const logout = async () => {

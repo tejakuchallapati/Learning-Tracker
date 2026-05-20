@@ -2,9 +2,7 @@ import { useState, useRef, useEffect, useContext, ChangeEvent, FormEvent, ReactN
 import { FiSun, FiMoon } from 'react-icons/fi';
 
 import {
-  Ripple,
   AuthTabs,
-  TechOrbitDisplay,
 } from '@/components/ui/modern-animated-sign-in';
 
 type FormData = {

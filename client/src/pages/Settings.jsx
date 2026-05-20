@@ -11,16 +11,38 @@ const Settings = () => {
         specialization: user?.specialization || '',
         role: user?.role || 'Learner Pro'
     });
-    const [notifications, setNotifications] = useState({
-        email: true,
-        reminders: true,
-        push: false
+    const [notifications, setNotifications] = useState(() => {
+        try {
+            const saved = localStorage.getItem('user-notifications');
+            return saved ? JSON.parse(saved) : { email: true, reminders: true, push: false };
+        } catch {
+            return { email: true, reminders: true, push: false };
+        }
     });
     const [saved, setSaved] = useState(false);
-    const [amPm, setAmPm] = useState('PM');
+    const [amPm, setAmPm] = useState(() => {
+        return localStorage.getItem('user-reminder-ampm') || 'PM';
+    });
+    const [reminderTime, setReminderTime] = useState(() => {
+        return localStorage.getItem('user-reminder-time') || '20:00';
+    });
 
     const handleToggle = (key) => {
-        setNotifications(prev => ({ ...prev, [key]: !prev[key] }));
+        setNotifications(prev => {
+            const updated = { ...prev, [key]: !prev[key] };
+            localStorage.setItem('user-notifications', JSON.stringify(updated));
+            return updated;
+        });
+    };
+
+    const handleAmPmChange = (value) => {
+        setAmPm(value);
+        localStorage.setItem('user-reminder-ampm', value);
+    };
+
+    const handleTimeChange = (value) => {
+        setReminderTime(value);
+        localStorage.setItem('user-reminder-time', value);
     };
 
     const handleSave = async () => {
@@ -146,17 +168,23 @@ const Settings = () => {
                                 <p className="text-[10px] text-slate-600 dark:text-slate-500 font-bold mt-2 uppercase tracking-tight">Set your high-performance focus period.</p>
                             </div>
                             <div className="flex items-center bg-slate-50/80 dark:bg-slate-800 rounded-xl p-2.5 gap-2 border border-slate-200 dark:border-slate-700">
-                                <input type="time" defaultValue="20:00" className="bg-transparent border-none text-sm font-black text-slate-900 dark:text-white focus:ring-0 p-2 cursor-pointer" title="Reminder Time" />
+                                <input 
+                                    type="time" 
+                                    value={reminderTime} 
+                                    onChange={(e) => handleTimeChange(e.target.value)}
+                                    className="bg-transparent border-none text-sm font-black text-slate-900 dark:text-white focus:ring-0 p-2 cursor-pointer" 
+                                    title="Reminder Time" 
+                                />
                                 <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
                                 <div className="flex gap-1.5 p-1 pr-2">
                                     <button 
-                                        onClick={() => setAmPm('AM')}
+                                        onClick={() => handleAmPmChange('AM')}
                                         className={`px-4 py-2 rounded-xl text-[10px] font-black transition-all ${amPm === 'AM' ? 'bg-violet-600 text-white shadow-xl shadow-violet-100/50' : 'text-slate-400 hover:text-violet-600'}`}
                                     >
                                         AM
                                     </button>
                                     <button 
-                                        onClick={() => setAmPm('PM')}
+                                        onClick={() => handleAmPmChange('PM')}
                                         className={`px-4 py-2 rounded-xl text-[10px] font-black transition-all ${amPm === 'PM' ? 'bg-violet-600 text-white shadow-xl shadow-violet-100/50' : 'text-slate-400 hover:text-violet-600'}`}
                                     >
                                         PM

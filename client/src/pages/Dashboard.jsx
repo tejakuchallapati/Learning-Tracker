@@ -1,6 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
 import { courses } from '../data/CourseData';
 import API from '../services/api';
 import StatsCard from '../components/StatsCard';
@@ -21,7 +20,6 @@ const dummyChartData = [
 ];
 
 const Dashboard = () => {
-    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -70,6 +68,17 @@ const Dashboard = () => {
         }
     };
 
+    const handleDeleteGoal = async (id) => {
+        if (!window.confirm("Are you sure you want to delete this learning path?")) return;
+        try {
+            await API.delete(`/goals/${id}`);
+            setGoals(prev => prev.filter(g => g._id !== id));
+        } catch (err) {
+            console.error('Failed to delete goal', err);
+            alert('Failed to delete goal. Please try again.');
+        }
+    };
+
     useEffect(() => {
         const fetchDashboard = async () => {
             try {
@@ -113,7 +122,7 @@ const Dashboard = () => {
                         <p className="text-violet-100 text-sm font-medium leading-relaxed opacity-90">Our AI-powered engine crafts personalized paths. Finish courses 3x faster with optimized daily targets.</p>
                     </div>
                     <button
-                        onClick={() => {}}
+                        onClick={() => navigate('/courses')}
                         className="px-8 py-4 bg-white text-violet-600 font-black rounded-[2rem] hover:bg-violet-50 transition-all transform hover:scale-105 active:scale-95 shadow-2xl shadow-violet-900/20 whitespace-nowrap flex items-center gap-3 group/btn uppercase tracking-widest text-[10px]"
                     >
                         Generate My Path <FiArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
@@ -254,7 +263,7 @@ const Dashboard = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-4">
                             {goals.slice(0, 2).map(goal => (
-                                <GoalCard key={goal._id} goal={goal} />
+                                <GoalCard key={goal._id} goal={goal} onDelete={handleDeleteGoal} />
                             ))}
                         </div>
                     </div>
