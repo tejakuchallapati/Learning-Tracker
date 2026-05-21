@@ -92,7 +92,7 @@ const Landing = () => {
                     <p className="text-[10px] font-black text-violet-500/60 uppercase tracking-[0.8em]">Engineered with Industry Core</p>
                     <div className="flex flex-wrap justify-center gap-10 md:gap-20 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
                         {['React', 'Next.js', 'Node.js', 'Python', 'Golang', 'Tailwind'].map((tech, i) => (
-                            <span key={tech} className={`text-sm md:text-lg font-heading text-white uppercase tracking-[0.4em] hover:text-violet-400 transition-colors cursor-default stagger-${i+1}`}>{tech}</span>
+                            <span key={tech} className={`text-sm md:text-lg font-heading text-slate-800 uppercase tracking-[0.4em] hover:text-violet-600 transition-colors cursor-default stagger-${i+1}`}>{tech}</span>
                         ))}
                     </div>
                 </div>

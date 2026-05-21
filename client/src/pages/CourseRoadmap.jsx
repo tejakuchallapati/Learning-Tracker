@@ -61,7 +61,7 @@ const CourseRoadmap = () => {
                                     </div>
                                 </div>
 
-                                <button className="mt-14 px-10 py-5 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-black text-xs flex items-center gap-3 group-hover:bg-violet-600 transition-all shadow-xl shadow-slate-200 dark:shadow-none uppercase tracking-widest">
+                                <button className="mt-14 px-10 py-5 bg-violet-600 text-white rounded-xl font-black text-xs flex items-center gap-3 hover:bg-violet-700 transition-all shadow-xl shadow-violet-200 uppercase tracking-widest">
                                     INITIALIZE CURRICULUM <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </div>
@@ -134,7 +134,7 @@ const CourseRoadmap = () => {
                         
                         <div className="bg-white dark:bg-slate-900 premium-shadow rounded-[2.5rem] p-10 hover:-translate-y-2 transition-all duration-700 border border-slate-100 dark:border-slate-800">
                             <div className="flex flex-col lg:flex-row gap-12 items-start">
-                                <div className="p-8 bg-slate-900 dark:bg-slate-950 text-white rounded-3xl font-black text-4xl shrink-0 shadow-2xl flex items-center justify-center w-28 h-28 group-hover:bg-violet-600 transition-all duration-500 transform group-hover:rotate-6">
+                                <div className="p-8 bg-violet-600 text-white rounded-3xl font-black text-4xl shrink-0 shadow-2xl flex items-center justify-center w-28 h-28 group-hover:bg-violet-700 transition-all duration-500 transform group-hover:rotate-6">
                                     {(idx + 1).toString().padStart(2, '0')}
                                 </div>
                                 <div className="flex-1 min-w-0">
@@ -161,7 +161,7 @@ const CourseRoadmap = () => {
                                         const originalIdx = course.roadmap.findIndex(r => r.step === milestone.step);
                                         navigate(`/roadmap/${course.id}/${originalIdx}`);
                                     }}
-                                    className="self-center lg:self-center px-12 py-5 bg-slate-900 dark:bg-slate-800 hover:bg-violet-600 text-white rounded-2xl font-black text-xs flex items-center gap-4 shadow-xl shadow-slate-200 dark:shadow-none transition-all active:scale-95 shrink-0 uppercase tracking-widest btn-hover-scale"
+                                    className="self-center lg:self-center px-12 py-5 bg-violet-600 hover:bg-violet-700 text-white rounded-2xl font-black text-xs flex items-center gap-4 shadow-xl shadow-violet-200 transition-all active:scale-95 shrink-0 uppercase tracking-widest btn-hover-scale"
                                 >
                                     Start Workshop <FiArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                 </button>

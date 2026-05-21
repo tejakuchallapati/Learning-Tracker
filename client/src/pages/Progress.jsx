@@ -181,16 +181,16 @@ const Progress = () => {
                 </div>
             </div>
 
-            <div className={`p-12 rounded-3xl shadow-3xl relative overflow-hidden group transition-colors duration-700 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-900' : 'bg-slate-900'}`}>
-                <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-[100px] -mr-48 -mt-48 group-hover:scale-150 transition-transform duration-1000 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-500/10' : 'bg-violet-600/10'}`}></div>
+            <div className={`p-12 rounded-3xl premium-shadow relative overflow-hidden group transition-all duration-700 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-50/50 border border-emerald-100' : 'bg-white border border-slate-100'}`}>
+                <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-[100px] -mr-48 -mt-48 group-hover:scale-150 transition-transform duration-1000 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-500/5' : 'bg-violet-600/5'}`}></div>
                 
                 <div className="flex flex-col lg:flex-row gap-12 items-center justify-between relative z-10">
                     <div className="flex-1 space-y-8">
                         <div>
-                             <h3 className={`text-xs font-black uppercase tracking-[0.3em] mb-4 flex items-center gap-3 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'text-emerald-400' : 'text-violet-400'}`}>
+                             <h3 className={`text-xs font-black uppercase tracking-[0.3em] mb-4 flex items-center gap-3 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'text-emerald-600' : 'text-violet-600'}`}>
                                 {timerMode === 'stopwatch' ? <><FiZap /> Stopwatch Mode</> : <><FiClock /> Pomodoro: {pomoState.toUpperCase()}</>}
                              </h3>
-                             <p className="text-slate-700 dark:text-slate-400 text-sm font-bold leading-relaxed max-w-sm">
+                             <p className="text-slate-500 dark:text-slate-400 text-sm font-bold leading-relaxed max-w-sm">
                                 {timerMode === 'stopwatch' 
                                     ? "Track total focus time with second-by-second precision. Ideal for long intensive sessions."
                                     : "25 minutes of core focus followed by 5 minutes of cognitive reset. Science-backed mastery."}
@@ -198,11 +198,11 @@ const Progress = () => {
                         </div>
 
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black text-slate-700 dark:text-slate-500 uppercase tracking-widest pl-1">Target Mastery Track</label>
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Target Mastery Track</label>
                             <select
                                 value={activeGoalId}
                                 onChange={(e) => setActiveGoalId(e.target.value)}
-                                className="w-full md:w-80 bg-slate-800 border-slate-700/50 rounded-2xl p-5 text-sm font-black text-white focus:ring-4 focus:ring-violet-500/20 transition-all outline-none cursor-pointer"
+                                className="w-full md:w-80 bg-slate-50 border border-slate-200 rounded-2xl p-5 text-sm font-black text-slate-800 focus:ring-4 focus:ring-violet-500/10 transition-all outline-none cursor-pointer"
                                 disabled={timerActive}
                             >
                                 <option value="">Select Target Module</option>
@@ -214,7 +214,7 @@ const Progress = () => {
                     </div>
 
                     <div className="text-center lg:text-right space-y-8 min-w-[300px]">
-                        <div className={`text-9xl font-black text-white tracking-tighter tabular-nums drop-shadow-2xl transition-all duration-500 ${timerActive ? 'scale-105' : 'scale-100'}`}>
+                        <div className={`text-9xl font-black text-slate-900 tracking-tighter tabular-nums drop-shadow-sm transition-all duration-500 ${timerActive ? 'scale-105' : 'scale-100'}`}>
                             {formatTime(timerMode === 'stopwatch' ? time : pomoTimeLeft)}
                         </div>
                         <div className="flex gap-4 justify-center lg:justify-end">
@@ -240,7 +240,7 @@ const Progress = () => {
                                         if (timerMode === 'stopwatch') setTime(0);
                                         else setPomoTimeLeft(pomoState === 'focus' ? 25*60 : 5*60);
                                     }} 
-                                    className="px-8 py-5 bg-slate-800 text-slate-400 rounded-xl font-black text-[10px] uppercase tracking-widest hover:text-white transition-all border border-slate-700 flex items-center gap-2"
+                                    className="px-8 py-5 bg-white text-slate-500 rounded-xl font-black text-[10px] uppercase tracking-widest hover:text-slate-800 hover:bg-slate-50 transition-all border border-slate-200 flex items-center gap-2"
                                 >
                                     <FiRotateCcw /> Reset
                                 </button>

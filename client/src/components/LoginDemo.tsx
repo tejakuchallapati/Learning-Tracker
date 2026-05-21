@@ -27,16 +27,9 @@ export function LoginDemo({ onSubmit, googleComponent, error }: LoginDemoProps) 
   const [darkMode, setDarkMode] = useState(false); // Default to light
 
   useEffect(() => {
-    // Check local storage for theme preference, default to light
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setDarkMode(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      setDarkMode(false);
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
+    setDarkMode(false);
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('theme', 'light');
   }, []);
 
   const goToForgotPassword = (

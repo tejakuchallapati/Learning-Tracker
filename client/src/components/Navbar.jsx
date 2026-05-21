@@ -10,21 +10,13 @@ const Navbar = () => {
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([]);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
-    const [isDark, setIsDark] = useState(() => {
-        const saved = localStorage.getItem('theme');
-        return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    });
+    const [isDark, setIsDark] = useState(false);
     const menuRef = useRef(null);
 
     useEffect(() => {
-        if (isDark) {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        }
-    }, [isDark]);
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    }, []);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -72,21 +64,21 @@ const Navbar = () => {
                 </div>
 
                 {results.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-3 bg-slate-900 rounded-3xl shadow-2xl border border-slate-800 p-3 z-50 animate-in fade-in slide-in-from-top-2 text-white">
+                    <div className="absolute top-full left-0 right-0 mt-3 bg-white rounded-3xl shadow-2xl border border-slate-200 p-3 z-50 animate-in fade-in slide-in-from-top-2 text-slate-900">
                         {results.map(course => (
                             <button
                                 key={course.id}
                                 onClick={() => navigateToCourse(course.id)}
-                                className="w-full text-left p-4 hover:bg-slate-800/50 rounded-2xl transition-all flex items-center justify-between group border border-transparent hover:border-cyan-500/30"
+                                className="w-full text-left p-4 hover:bg-slate-50 rounded-2xl transition-all flex items-center justify-between group border border-transparent hover:border-cyan-500/30"
                             >
                                 <div className="flex items-center gap-4">
                                     <span className="text-2xl">{course.icon}</span>
                                     <div>
-                                        <p className="text-sm font-black text-white group-hover:text-cyan-400 transition-colors">{course.title}</p>
-                                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{course.category}</p>
+                                        <p className="text-sm font-black text-slate-900 group-hover:text-cyan-600 transition-colors">{course.title}</p>
+                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{course.category}</p>
                                     </div>
                                 </div>
-                                <span className="text-[10px] font-black text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity">GO TO ROADMAP</span>
+                                <span className="text-[10px] font-black text-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity">GO TO ROADMAP</span>
                             </button>
                         ))}
                     </div>
@@ -94,14 +86,7 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-2 md:gap-4 md:ml-10 ml-auto">
-                {/* Theme Toggle */}
-                <button
-                    onClick={() => setIsDark(!isDark)}
-                    className="p-2.5 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all border border-slate-200 dark:border-slate-800/50"
-                    title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                >
-                    {isDark ? <FiSun size={20} /> : <FiMoon size={20} />}
-                </button>
+                {/* Theme Toggle Removed for White Theme Permanence */}
 
                 {/* Notifications Bell */}
                 <button
@@ -130,21 +115,21 @@ const Navbar = () => {
                     </button>
 
                     {showProfileMenu && (
-                        <div className="absolute top-full right-0 mt-3 w-64 bg-slate-900 rounded-3xl shadow-2xl border border-slate-800 p-3 z-50 animate-in fade-in slide-in-from-bottom-2">
-                            <div className="p-4 border-b border-slate-800 mb-2">
-                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Signed in as</p>
-                                <p className="text-sm font-black text-white truncate">{user?.email || 'guest@example.com'}</p>
+                        <div className="absolute top-full right-0 mt-3 w-64 bg-white rounded-3xl shadow-2xl border border-slate-200 p-3 z-50 animate-in fade-in slide-in-from-bottom-2 text-slate-900">
+                            <div className="p-4 border-b border-slate-100 mb-2">
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
+                                <p className="text-sm font-black text-slate-900 truncate">{user?.email || 'guest@example.com'}</p>
                             </div>
-                            <button onClick={() => { setShowProfileMenu(false); navigate('/settings'); }} className="w-full text-left p-3 hover:bg-slate-800 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-300 hover:text-cyan-400">
-                                <FiUser className="text-cyan-400" /> My Profile
+                            <button onClick={() => { setShowProfileMenu(false); navigate('/settings'); }} className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-cyan-600">
+                                <FiUser className="text-cyan-500" /> My Profile
                             </button>
-                            <button onClick={() => { setShowProfileMenu(false); navigate('/dashboard'); }} className="w-full text-left p-3 hover:bg-slate-800 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-300 hover:text-cyan-400">
-                                <FiLayout className="text-cyan-400" /> Dashboard
+                            <button onClick={() => { setShowProfileMenu(false); navigate('/dashboard'); }} className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-cyan-600">
+                                <FiLayout className="text-cyan-500" /> Dashboard
                             </button>
-                            <div className="pt-2 mt-2 border-t border-slate-800">
+                            <div className="pt-2 mt-2 border-t border-slate-100">
                                 <button 
                                     onClick={() => { setShowProfileMenu(false); logout(); navigate('/login'); }}
-                                    className="w-full text-left p-3 hover:bg-rose-500/10 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-rose-400 hover:text-rose-300"
+                                    className="w-full text-left p-3 hover:bg-rose-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-rose-600 hover:text-rose-700"
                                 >
                                     <FiLogOut /> Sign Out
                                 </button>

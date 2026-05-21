@@ -99,7 +99,7 @@ const TopicContent = () => {
                     <div className="flex flex-col gap-4 shrink-0">
                         <button 
                             onClick={handleComplete}
-                            className={`px-10 py-5 rounded-xl font-black text-sm transition-all flex items-center gap-3 shadow-2xl btn-hover-scale ${isCompleted ? 'bg-emerald-50 text-emerald-600 shadow-emerald-100 border border-emerald-100' : 'bg-slate-900 text-white shadow-slate-200 hover:bg-violet-600'}`}
+                            className={`px-10 py-5 rounded-xl font-black text-sm transition-all flex items-center gap-3 shadow-2xl btn-hover-scale ${isCompleted ? 'bg-emerald-50 text-emerald-600 shadow-emerald-100 border border-emerald-100' : 'bg-violet-600 text-white shadow-violet-200 hover:bg-violet-700'}`}
                         >
                             {isCompleted ? <><FiCheckCircle size={20} /> Accomplished</> : 'Mark as Completed'}
                         </button>
@@ -208,16 +208,16 @@ const TopicContent = () => {
             </div>
 
             {/* AI Mentor CTA Banner */}
-            <div className="bg-gradient-to-br from-violet-900 via-fuchsia-900 to-slate-900 rounded-3xl p-12 text-white overflow-hidden relative group border border-violet-800/50 shadow-3xl">
-                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-violet-600/20 rounded-full blur-[150px] -mr-48 -mt-48"></div>
+            <div className="bg-gradient-to-br from-violet-600 via-fuchsia-600 to-violet-700 rounded-3xl p-12 text-white overflow-hidden relative group border border-violet-500/50 shadow-2xl shadow-violet-200">
+                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/10 rounded-full blur-[150px] -mr-48 -mt-48"></div>
                 <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
                     <div className="space-y-4">
-                        <div className="inline-block px-4 py-1 bg-violet-500/20 border border-violet-500/30 text-violet-300 rounded-full text-[10px] font-black uppercase tracking-widest">AI Intelligence</div>
-                        <h2 className="text-4xl font-black tracking-tight leading-tight">Stuck on <span className="text-violet-400">{topic.title}</span>?<br/>Your Mentor is ready.</h2>
-                        <p className="text-slate-400 text-lg max-w-xl font-medium leading-relaxed">Get instant explanations, code examples, and answers to questions about this exact topic.</p>
+                        <div className="inline-block px-4 py-1 bg-white/20 border border-white/30 text-white rounded-full text-[10px] font-black uppercase tracking-widest">AI Intelligence</div>
+                        <h2 className="text-4xl font-black tracking-tight leading-tight">Stuck on <span className="text-violet-200">{topic.title}</span>?<br/>Your Mentor is ready.</h2>
+                        <p className="text-violet-100 text-lg max-w-xl font-medium leading-relaxed">Get instant explanations, code examples, and answers to questions about this exact topic.</p>
                     </div>
                     <button onClick={openMentor}
-                        className="px-14 py-6 bg-white text-slate-900 rounded-2xl font-black text-base flex items-center gap-3 shadow-3xl hover:bg-violet-50 transition-all transform hover:scale-105 active:scale-95 shrink-0"
+                        className="px-14 py-6 bg-white text-violet-700 rounded-2xl font-black text-base flex items-center gap-3 shadow-2xl hover:bg-violet-50 transition-all transform hover:scale-105 active:scale-95 shrink-0"
                     >
                         <FiZap size={22} /> Launch AI Mentor
                     </button>

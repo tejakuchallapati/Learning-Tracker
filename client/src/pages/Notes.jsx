@@ -141,12 +141,12 @@ const Notes = () => {
                 </div>
 
                 {/* Column 2: Tomorrow's Agenda */}
-                <div className="bg-slate-900 p-6 rounded-3xl border border-slate-800 shadow-xl space-y-6 text-white relative overflow-hidden group transition-all">
+                <div className="bg-white dark:bg-slate-900 premium-shadow p-6 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-6 transition-all relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-48 h-48 bg-violet-500/5 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
                     
                     <div className="flex items-center justify-between relative z-10">
-                        <h3 className="text-[10px] font-black flex items-center gap-3 uppercase tracking-[0.2em]">
-                            <div className="w-8 h-8 bg-white/10 text-white rounded-xl flex items-center justify-center shadow-sm"><FiCalendar size={16} /></div>
+                        <h3 className="text-[10px] font-black text-slate-900 dark:text-white flex items-center gap-3 uppercase tracking-[0.2em]">
+                            <div className="w-8 h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiCalendar size={16} /></div>
                             Future Sprint
                         </h3>
                     </div>
@@ -154,9 +154,9 @@ const Notes = () => {
                         value={future}
                         onChange={(e) => setFuture(e.target.value)}
                         placeholder="Write your future plan here..."
-                        className="w-full h-[250px] bg-white/5 border border-white/10 rounded-xl p-6 text-[13px] font-bold text-violet-100 focus:ring-4 focus:ring-violet-500/10 transition-all resize-none placeholder-violet-300/10 leading-relaxed font-mono relative z-10 outline-none"
+                        className="w-full h-[250px] bg-slate-50/50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-6 text-[13px] font-bold text-slate-800 dark:text-slate-300 focus:ring-4 focus:ring-violet-500/10 transition-all resize-none placeholder-slate-500 dark:placeholder-slate-600 leading-relaxed font-mono relative z-10 outline-none"
                     />
-                    <div className="pt-2 flex items-center gap-3 text-[8px] font-black text-violet-400 uppercase tracking-[0.3em] relative z-10">
+                    <div className="pt-2 flex items-center gap-3 text-[8px] font-black text-violet-600 dark:text-violet-400 uppercase tracking-[0.3em] relative z-10">
                         <FiArrowRight className="animate-pulse" /> BUILD SMALL • SHIP OFTEN • REPEAT
                     </div>
                 </div>

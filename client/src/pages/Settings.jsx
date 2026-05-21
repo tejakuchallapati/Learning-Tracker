@@ -133,10 +133,10 @@ const Settings = () => {
                             Intelligent Reminders
                         </h3>
 
-                        <div className="p-8 bg-slate-900 rounded-2xl border border-slate-800 mb-12 relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
-                             <h4 className="text-sm font-black text-white flex items-center gap-3 relative z-10"><FiActivity className="text-violet-400" /> SYNC PROTOCOL</h4>
-                            <p className="text-xs text-slate-400 mt-3 font-bold leading-relaxed max-w-lg relative z-10">Reminders are dispatched using local browser latency algorithms to maximize daily streak retention.</p>
+                        <div className="p-8 bg-slate-50 rounded-2xl border border-slate-200 mb-12 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                             <h4 className="text-sm font-black text-slate-900 flex items-center gap-3 relative z-10"><FiActivity className="text-violet-600" /> SYNC PROTOCOL</h4>
+                            <p className="text-xs text-slate-500 mt-3 font-bold leading-relaxed max-w-lg relative z-10">Reminders are dispatched using local browser latency algorithms to maximize daily streak retention.</p>
                         </div>
 
                         <div className="space-y-10">

@@ -120,7 +120,7 @@ const DailyGoalsSection = () => {
                         </span>
                     </label>
                     
-                    <button type="submit" className="bg-slate-900 dark:bg-violet-600 text-white p-2.5 rounded-xl hover:bg-violet-600 dark:hover:bg-violet-700 transition-all shadow-lg shadow-slate-200 dark:shadow-none hover:-translate-y-1 active:scale-95 group">
+                    <button type="submit" className="bg-violet-600 text-white p-2.5 rounded-xl hover:bg-violet-700 transition-all shadow-lg shadow-violet-100 hover:-translate-y-1 active:scale-95 group">
                         <FiPlus size={18} className="group-hover:rotate-90 transition-transform duration-500" />
                     </button>
                 </div>
