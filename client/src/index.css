@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   
@@ -138,19 +140,19 @@
 }
 
 html.dark, .dark {
-  --bg-main: #020617; /* Slate 950 */
-  --text-main: #f8fafc; /* Slate 50 */
-  --card-bg: #0f172a; /* Slate 900 */
-  --border-color: #1e293b; /* Slate 800 */
+  --bg-main: #ffffff; /* White */
+  --text-main: #0f172a; /* Slate 900 */
+  --card-bg: #f8fafc; /* Slate 50 */
+  --border-color: #e2e8f0; /* Slate 200 */
 
-  --background: hsl(222.2 47.4% 11.2%);
-  --foreground: hsl(210 40% 98%);
-  --skeleton: hsl(215 27.9% 16.9%);
-  --border: hsl(217.2 32.6% 17.5%);
-  --btn-border: hsl(217.2 32.6% 17.5%);
-  --input: hsl(217.2 32.6% 17.5%);
+  --background: hsl(210, 40%, 98%);
+  --foreground: hsl(222.2, 84%, 4.9%);
+  --skeleton: hsl(210, 40%, 94%);
+  --border: hsl(214.3, 32%, 91%);
+  --btn-border: hsl(214.3, 32%, 91%);
+  --input: hsl(214.3, 32%, 91%);
   
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 }
 
 body {

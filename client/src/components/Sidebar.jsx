@@ -17,10 +17,10 @@ const Sidebar = () => {
         <aside className="w-72 bg-white dark:bg-slate-950 text-slate-500 dark:text-slate-400 flex-shrink-0 hidden md:flex flex-col border-r border-slate-200 dark:border-slate-800/50 backdrop-blur-md z-40 transition-colors duration-300">
             <div className="h-24 flex items-center px-8 gap-3">
                 <div className="w-10 h-10 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center shadow-lg border border-slate-100 dark:border-slate-800 p-1.5">
-                    <img src={logo} alt="GG" className="w-full h-full object-contain" />
+                    <img src={logo} alt="LT" className="w-full h-full object-contain" />
                 </div>
                 <h1 className="text-xl font-black tracking-tighter text-slate-900 dark:text-white leading-tight uppercase">
-                    Growth<br /><span className="text-violet-600 dark:text-violet-400">Grid</span>
+                    Learning<br /><span className="text-violet-600 dark:text-violet-400">Tracker</span>
                 </h1>
             </div>
 

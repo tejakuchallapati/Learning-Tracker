@@ -96,7 +96,7 @@ const CourseDetail = () => {
                         </div>
                         <button 
                             onClick={() => navigate(`/roadmap/${courseId}/${parseInt(stepIdx) + 1}`)}
-                            className="px-12 py-5 bg-violet-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-violet-700 transition-all flex items-center gap-4 whitespace-nowrap shadow-2xl shadow-violet-600/30 btn-hover-scale relative z-10 active:scale-95"
+                            className="px-12 py-5 bg-red-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-red-700 transition-all flex items-center gap-4 whitespace-nowrap shadow-2xl shadow-red-600/30 btn-hover-scale relative z-10 active:scale-95"
                         >
                             Next Milestone <FiPlayCircle size={20} />
                         </button>

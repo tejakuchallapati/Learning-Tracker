@@ -61,7 +61,7 @@ const CourseRoadmap = () => {
                                     </div>
                                 </div>
 
-                                <button className="mt-14 px-10 py-5 bg-violet-600 text-white rounded-xl font-black text-xs flex items-center gap-3 hover:bg-violet-700 transition-all shadow-xl shadow-violet-200 uppercase tracking-widest">
+                                <button className="mt-14 px-10 py-5 bg-red-600 text-white rounded-xl font-black text-xs flex items-center gap-3 hover:bg-red-700 transition-all shadow-xl shadow-red-200 uppercase tracking-widest">
                                     INITIALIZE CURRICULUM <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </div>
@@ -161,7 +161,7 @@ const CourseRoadmap = () => {
                                         const originalIdx = course.roadmap.findIndex(r => r.step === milestone.step);
                                         navigate(`/roadmap/${course.id}/${originalIdx}`);
                                     }}
-                                    className="self-center lg:self-center px-12 py-5 bg-violet-600 hover:bg-violet-700 text-white rounded-2xl font-black text-xs flex items-center gap-4 shadow-xl shadow-violet-200 transition-all active:scale-95 shrink-0 uppercase tracking-widest btn-hover-scale"
+                                    className="self-center lg:self-center px-12 py-5 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-black text-xs flex items-center gap-4 shadow-xl shadow-red-200 transition-all active:scale-95 shrink-0 uppercase tracking-widest btn-hover-scale"
                                 >
                                     Start Workshop <FiArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                 </button>

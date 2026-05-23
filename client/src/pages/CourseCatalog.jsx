@@ -79,7 +79,7 @@ const CourseCatalog = () => {
                                 <span className="text-sm font-black text-slate-900">{course.roadmap.length}</span>
                                 <span className="text-[8px] font-black text-violet-500 uppercase tracking-widest">Chapters</span>
                             </div>
-                            <button className="px-4 py-2 bg-violet-600 text-white rounded-md font-black text-[10px] hover:bg-violet-700 transition-all shadow-md shadow-violet-500/20 flex items-center gap-1.5 group-hover:translate-x-1">
+                            <button className="px-4 py-2 bg-red-600 text-white rounded-md font-black text-[10px] hover:bg-red-700 transition-all shadow-md shadow-red-500/20 flex items-center gap-1.5 group-hover:translate-x-1">
                                 BEGIN <FiChevronRight size={12} />
                             </button>
                         </div>
