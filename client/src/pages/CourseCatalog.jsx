@@ -52,7 +52,7 @@ const CourseCatalog = () => {
                         <div className="absolute -top-8 -right-8 w-24 h-24 bg-violet-500/5 rounded-full group-hover:scale-150 transition-transform duration-700 blur-2xl"></div>
 
                         <div className="mb-4 relative z-10">
-                            <div className="w-12 h-12 bg-gradient-to-br from-violet-500 to-blue-600 rounded-lg shadow-lg shadow-violet-500/20 border border-violet-400/30 flex items-center justify-center text-2xl text-white group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300">
+                            <div className="w-12 h-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-md flex items-center justify-center text-2xl group-hover:scale-110 group-hover:-rotate-6 group-hover:border-violet-300 transition-all duration-300">
                                 {course.icon}
                             </div>
                         </div>

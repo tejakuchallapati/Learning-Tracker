@@ -134,7 +134,7 @@ const CourseRoadmap = () => {
                         
                         <div className="bg-white dark:bg-slate-900 premium-shadow rounded-[2.5rem] p-10 hover:-translate-y-2 transition-all duration-700 border border-slate-100 dark:border-slate-800">
                             <div className="flex flex-col lg:flex-row gap-12 items-start">
-                                <div className="p-8 bg-violet-600 text-white rounded-3xl font-black text-4xl shrink-0 shadow-2xl flex items-center justify-center w-28 h-28 group-hover:bg-violet-700 transition-all duration-500 transform group-hover:rotate-6">
+                                <div className="p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-3xl font-black text-4xl shrink-0 shadow-lg flex items-center justify-center w-28 h-28 transition-all duration-500 transform group-hover:rotate-6 group-hover:border-violet-300 dark:group-hover:border-violet-700 group-hover:text-violet-600 dark:group-hover:text-violet-400">
                                     {(idx + 1).toString().padStart(2, '0')}
                                 </div>
                                 <div className="flex-1 min-w-0">

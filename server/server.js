@@ -31,6 +31,7 @@ app.use('/api/progress', require('./routes/progressRoutes'));
 app.use('/api/time', require('./routes/timeRoutes'));
 app.use('/api/analytics', require('./routes/analyticsRoutes'));
 app.use('/api/daily-goals', require('./routes/dailyGoalRoutes'));
+app.use('/api/notes', require('./routes/noteRoutes'));
 
 // Initialize cron jobs
 require('./utils/cronJobs');

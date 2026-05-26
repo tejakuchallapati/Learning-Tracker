@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FiEdit, FiSave, FiTrash2, FiCalendar, FiArrowRight, FiCheckCircle } from 'react-icons/fi';
+import API from '../services/api';
 
 const Notes = () => {
     // Get local date in YYYY-MM-DD format
@@ -15,82 +16,69 @@ const Notes = () => {
     const [learned, setLearned] = useState('');
     const [future, setFuture] = useState('');
     const [saved, setSaved] = useState(false);
-    const [savedDates, setSavedDates] = useState(() => {
+    const [notesList, setNotesList] = useState([]);
+
+    const fetchNotesList = async () => {
         try {
-            const list = localStorage.getItem('notes-saved-dates');
-            return list ? JSON.parse(list) : [];
-        } catch {
-            return [];
+            const { data } = await API.get('/notes');
+            setNotesList(data);
+        } catch (err) {
+            console.error('Error fetching notes:', err);
         }
-    });
-
-    // Load notes when selectedDate changes
-    useEffect(() => {
-        const todayStr = getTodayString();
-        let storedLearned = localStorage.getItem(`notes-learned-${selectedDate}`);
-        let storedFuture = localStorage.getItem(`notes-future-${selectedDate}`);
-
-        // Fallback/backward compatibility for today's notes
-        if (selectedDate === todayStr) {
-            if (storedLearned === null) {
-                storedLearned = localStorage.getItem('notes-learned') || '';
-            }
-            if (storedFuture === null) {
-                storedFuture = localStorage.getItem('notes-future') || '';
-            }
-        }
-
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setLearned(storedLearned || '');
-        setFuture(storedFuture || '');
-    }, [selectedDate]);
-
-    const handleSave = () => {
-        const todayStr = getTodayString();
-        
-        // Save date-specific notes
-        localStorage.setItem(`notes-learned-${selectedDate}`, learned);
-        localStorage.setItem(`notes-future-${selectedDate}`, future);
-
-        // For backward compatibility, if saving for today, also update default legacy keys
-        if (selectedDate === todayStr) {
-            localStorage.setItem('notes-learned', learned);
-            localStorage.setItem('notes-future', future);
-        }
-
-        // Add to saved dates list if not already present, provided notes aren't completely empty
-        if (learned.trim() !== '' || future.trim() !== '') {
-            if (!savedDates.includes(selectedDate)) {
-                const updatedDates = [...savedDates, selectedDate].sort((a, b) => b.localeCompare(a));
-                setSavedDates(updatedDates);
-                localStorage.setItem('notes-saved-dates', JSON.stringify(updatedDates));
-            }
-        }
-
-        setSaved(true);
-        setTimeout(() => setSaved(false), 3000);
     };
 
-    const handleDeleteLog = (dateToDelete, e) => {
+    // Load notes list on mount
+    useEffect(() => {
+        fetchNotesList();
+    }, []);
+
+    // Load active notes when selectedDate changes
+    useEffect(() => {
+        const fetchActiveNote = async () => {
+            try {
+                const { data } = await API.get(`/notes/date/${selectedDate}`);
+                setLearned(data.learned || '');
+                setFuture(data.future || '');
+            } catch (err) {
+                console.error('Error loading note:', err);
+                setLearned('');
+                setFuture('');
+            }
+        };
+        fetchActiveNote();
+    }, [selectedDate]);
+
+    const handleSave = async () => {
+        try {
+            await API.post('/notes/save', {
+                date: selectedDate,
+                learned: learned.trim(),
+                future: future.trim()
+            });
+            setSaved(true);
+            setTimeout(() => setSaved(false), 3000);
+            fetchNotesList();
+        } catch (err) {
+            console.error('Error saving note:', err);
+            alert('Failed to save notes. Please try again.');
+        }
+    };
+
+    const handleDeleteLog = async (dateToDelete, e) => {
         e.stopPropagation();
         if (!window.confirm(`Are you sure you want to delete the notes for ${dateToDelete}?`)) return;
 
-        localStorage.removeItem(`notes-learned-${dateToDelete}`);
-        localStorage.removeItem(`notes-future-${dateToDelete}`);
-        
-        const todayStr = getTodayString();
-        if (dateToDelete === todayStr) {
-            localStorage.removeItem('notes-learned');
-            localStorage.removeItem('notes-future');
-        }
+        try {
+            await API.delete(`/notes/date/${dateToDelete}`);
+            fetchNotesList();
 
-        const updatedDates = savedDates.filter(d => d !== dateToDelete);
-        setSavedDates(updatedDates);
-        localStorage.setItem('notes-saved-dates', JSON.stringify(updatedDates));
-
-        if (selectedDate === dateToDelete) {
-            setLearned('');
-            setFuture('');
+            if (selectedDate === dateToDelete) {
+                setLearned('');
+                setFuture('');
+            }
+        } catch (err) {
+            console.error('Error deleting note:', err);
+            alert('Failed to delete note. Please try again.');
         }
     };
 
@@ -106,8 +94,8 @@ const Notes = () => {
     };
 
     return (
-        <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-10">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="max-w-5xl mx-auto space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-10">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-xl">
                     <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Engineering Logs</h1>
                     <p className="text-slate-700 dark:text-slate-400 mt-2 text-sm font-bold leading-relaxed">Persistent documentation of your daily technical growth.</p>
@@ -167,12 +155,12 @@ const Notes = () => {
                 <div className="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 flex items-center justify-center text-xl shrink-0 shadow-sm group-hover:rotate-12 transition-transform duration-500"><FiTrash2 /></div>
                 <div>
                     <p className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest">Persistence Active</p>
-                    <p className="text-[9px] text-slate-600 dark:text-slate-500 font-bold mt-1.5 uppercase tracking-tight leading-relaxed">Log data is stored in the local storage instance. No external telemetry.</p>
+                    <p className="text-[9px] text-slate-600 dark:text-slate-500 font-bold mt-1.5 uppercase tracking-tight leading-relaxed">Log data is stored securely in the database. Connected to your user profile.</p>
                 </div>
             </div>
 
             {/* Logs History & Date Selection - Placed at the bottom */}
-            <div className="border-t border-slate-200 dark:border-slate-800 pt-8 mt-12 space-y-6">
+            <div className="border-t border-slate-200 dark:border-slate-800 pt-8 mt-6 space-y-6">
                 <div className="max-w-xl">
                     <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">Logs History & Date Selection</h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-bold">Select other dates to log past learnings or review your journal archive.</p>
@@ -198,22 +186,22 @@ const Notes = () => {
                     {/* History/Saved List */}
                     <div className="lg:col-span-2 bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-4">
                         <label className="block text-[9px] font-black uppercase tracking-widest text-slate-500">Saved Logs Archive</label>
-                        {savedDates.length === 0 ? (
+                        {notesList.length === 0 ? (
                             <p className="text-xs font-bold text-slate-400 py-6 text-center border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl uppercase">No archived logs found.</p>
                         ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-48 overflow-y-auto pr-2">
-                                {savedDates.map((dateStr) => {
-                                    const isSelected = dateStr === selectedDate;
-                                    const displayLearned = localStorage.getItem(`notes-learned-${dateStr}`) || localStorage.getItem('notes-learned') || 'Empty log';
+                                {notesList.map((note) => {
+                                    const isSelected = note.date === selectedDate;
+                                    const displayLearned = note.learned || 'Empty log';
                                     return (
                                         <button
-                                            key={dateStr}
-                                            onClick={() => setSelectedDate(dateStr)}
+                                            key={note.date}
+                                            onClick={() => setSelectedDate(note.date)}
                                             className={`p-3 rounded-xl border text-left transition-all flex justify-between items-center group/item ${isSelected ? 'bg-violet-600 border-violet-500 text-white shadow-lg shadow-violet-500/25' : 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 hover:border-violet-500 text-slate-900 dark:text-slate-300'}`}
                                         >
                                             <div className="min-w-0 flex-1 pr-2">
                                                 <p className={`text-[10px] font-black uppercase tracking-wider ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white'}`}>
-                                                    {new Date(dateStr + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                    {new Date(note.date + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                                                 </p>
                                                 <p className={`text-[9px] font-medium truncate mt-1 ${isSelected ? 'text-violet-200' : 'text-slate-500 dark:text-slate-400'}`}>
                                                     {displayLearned}
@@ -221,7 +209,7 @@ const Notes = () => {
                                             </div>
                                             <div className="flex items-center gap-2 shrink-0">
                                                 <button
-                                                    onClick={(e) => handleDeleteLog(dateStr, e)}
+                                                    onClick={(e) => handleDeleteLog(note.date, e)}
                                                     title="Delete this log"
                                                     className={`p-1.5 rounded-lg transition-colors ${isSelected ? 'text-violet-200 hover:text-white hover:bg-violet-700' : 'text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
                                                 >
