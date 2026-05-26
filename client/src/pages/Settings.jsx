@@ -65,7 +65,7 @@ const Settings = () => {
                 <div className="flex gap-4">
                     <button 
                         onClick={handleSave}
-                        className="px-6 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-black text-[9px] hover:bg-violet-600 transition-all shadow-md shadow-slate-200 dark:shadow-none flex items-center gap-2 btn-hover-scale uppercase tracking-widest"
+                        className="px-6 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-black text-[10px] hover:bg-violet-600 transition-all shadow-md shadow-slate-200 dark:shadow-none flex items-center gap-2 btn-hover-scale uppercase tracking-widest"
                     >
                         SYNC PREFERENCES {saved && <FiCheckCircle className="animate-in zoom-in duration-300" />}
                     </button>
@@ -79,18 +79,18 @@ const Settings = () => {
                         <div className="absolute top-0 right-0 w-32 h-32 bg-violet-50/50 dark:bg-violet-500/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000"></div>
                         
                         <div className="relative z-10 flex flex-col items-center">
-                            <div className="w-16 h-16 rounded-xl bg-violet-600 flex items-center justify-center text-white text-2xl font-black shadow-xl mb-4 group-hover:rotate-3 transition-transform">
+                            <div className="w-20 h-20 rounded-xl bg-violet-600 flex items-center justify-center text-white text-3xl font-black shadow-xl mb-4 group-hover:rotate-3 transition-transform">
                                 {user?.name?.[0] || 'G'}
                             </div>
-                            <h3 className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{user?.name}</h3>
-                             <p className="text-[9px] font-black text-violet-500 uppercase tracking-[0.2em] mt-1.5 leading-none">{user?.role}</p>
-                            <div className="h-px w-12 bg-slate-100 dark:bg-slate-800 my-4"></div>
-                            <p className="text-xs font-bold text-slate-600 leading-relaxed italic px-2">{user?.bio}</p>
+                            <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">{user?.name}</h3>
+                             <p className="text-[10px] font-black text-violet-500 uppercase tracking-[0.2em] mt-1.5 leading-none">{user?.role}</p>
+                            <div className="h-px w-16 bg-slate-100 dark:bg-slate-800 my-4"></div>
+                            <p className="text-sm font-bold text-slate-700 leading-relaxed italic px-2">{user?.bio}</p>
                         </div>
                         
                         <div className="mt-6 pt-6 border-t border-slate-50 dark:border-slate-800 space-y-2">
                              {['General', 'Security', 'Connectivity', 'Export Data'].map((item, idx) => (
-                                <button key={idx} className={`w-full text-left px-4 py-2.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${idx === 0 ? 'bg-violet-50 dark:bg-violet-900/30 text-violet-600' : 'text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200 group'}`}>
+                                <button key={idx} className={`w-full text-left px-5 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${idx === 0 ? 'bg-violet-50 dark:bg-violet-900/30 text-violet-600' : 'text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200 group'}`}>
                                     {item}
                                 </button>
                             ))}
@@ -109,18 +109,18 @@ const Settings = () => {
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-1.5">
-                                <label className="block text-[9px] font-black uppercase tracking-widest text-slate-400 pl-1">Handle</label>
-                                <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-xs font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all font-mono outline-none" />
+                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Handle</label>
+                                <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all font-mono outline-none" />
                             </div>
                             <div className="space-y-1.5">
-                                <label className="block text-[9px] font-black uppercase tracking-widest text-slate-400 pl-1">Specialization</label>
-                                <input type="text" value={formData.specialization} onChange={e => setFormData({...formData, specialization: e.target.value})} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-xs font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all font-mono outline-none" />
+                                <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Specialization</label>
+                                <input type="text" value={formData.specialization} onChange={e => setFormData({...formData, specialization: e.target.value})} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all font-mono outline-none" />
                             </div>
                             <div className="md:col-span-2 space-y-1.5">
-                                 <label className="block text-[9px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-500 pl-1">Primary Email</label>
+                                 <label className="block text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-500 pl-1">Primary Email</label>
                                 <div className="relative">
                                     <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-400" />
-                                    <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 pl-10 text-xs font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all outline-none" />
+                                    <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 pl-10 text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all outline-none" />
                                 </div>
                             </div>
                         </div>
@@ -136,7 +136,7 @@ const Settings = () => {
                         <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 mb-6 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
                              <h4 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-3 relative z-10"><FiActivity className="text-violet-600" /> SYNC PROTOCOL</h4>
-                            <p className="text-[10px] text-slate-500 mt-2 font-bold leading-relaxed max-w-lg relative z-10">Reminders are dispatched using local browser latency algorithms to maximize daily streak retention.</p>
+                            <p className="text-xs text-slate-500 mt-2 font-bold leading-relaxed max-w-lg relative z-10">Reminders are dispatched using local browser latency algorithms to maximize daily streak retention.</p>
                         </div>
 
                         <div className="space-y-4">
@@ -147,8 +147,8 @@ const Settings = () => {
                             ].map((item) => (
                                 <div key={item.key} className="flex items-center justify-between">
                                      <div className="flex-1 pr-6">
-                                        <h4 className="text-[10px] font-black text-slate-900 dark:text-white tracking-widest uppercase">{item.label}</h4>
-                                        <p className="text-[9px] text-slate-600 dark:text-slate-400 font-bold mt-1 uppercase tracking-tight">{item.desc}</p>
+                                        <h4 className="text-[11px] font-black text-slate-900 dark:text-white tracking-widest uppercase">{item.label}</h4>
+                                        <p className="text-[10px] text-slate-600 dark:text-slate-400 font-bold mt-1 uppercase tracking-tight">{item.desc}</p>
                                      </div>
                                      <button 
                                          onClick={() => handleToggle(item.key)}
@@ -164,8 +164,8 @@ const Settings = () => {
 
                         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                               <div className="flex-1 min-w-0">
-                                <h4 className="text-[10px] font-black text-slate-900 dark:text-white tracking-widest uppercase">Adaptive Time Window</h4>
-                                <p className="text-[9px] text-slate-600 dark:text-slate-500 font-bold mt-1 uppercase tracking-tight">Set your high-performance focus period.</p>
+                                <h4 className="text-[11px] font-black text-slate-900 dark:text-white tracking-widest uppercase">Adaptive Time Window</h4>
+                                <p className="text-[10px] text-slate-600 dark:text-slate-500 font-bold mt-1 uppercase tracking-tight">Set your high-performance focus period.</p>
                             </div>
                             <div className="flex items-center bg-slate-50/80 dark:bg-slate-800 rounded-xl p-1.5 gap-1.5 border border-slate-200 dark:border-slate-700">
                                 <input 
@@ -179,13 +179,13 @@ const Settings = () => {
                                 <div className="flex gap-1 p-0.5">
                                     <button 
                                         onClick={() => handleAmPmChange('AM')}
-                                        className={`px-3 py-1.5 rounded-lg text-[9px] font-black transition-all ${amPm === 'AM' ? 'bg-violet-600 text-white shadow-md shadow-violet-100/50' : 'text-slate-400 hover:text-violet-600'}`}
+                                        className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all ${amPm === 'AM' ? 'bg-violet-600 text-white shadow-md shadow-violet-100/50' : 'text-slate-400 hover:text-violet-600'}`}
                                     >
                                         AM
                                     </button>
                                     <button 
                                         onClick={() => handleAmPmChange('PM')}
-                                        className={`px-3 py-1.5 rounded-lg text-[9px] font-black transition-all ${amPm === 'PM' ? 'bg-violet-600 text-white shadow-md shadow-violet-100/50' : 'text-slate-400 hover:text-violet-600'}`}
+                                        className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all ${amPm === 'PM' ? 'bg-violet-600 text-white shadow-md shadow-violet-100/50' : 'text-slate-400 hover:text-violet-600'}`}
                                     >
                                         PM
                                     </button>

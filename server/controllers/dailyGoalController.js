@@ -27,12 +27,58 @@ const createDailyGoal = asyncHandler(async (req, res) => {
 // @route   GET /api/daily-goals
 // @access  Private
 const getDailyGoals = asyncHandler(async (req, res) => {
-    // Get goals created today or incomplete goals from previous days?
-    // Let's just return all of the user's daily goals, maybe sorted by incomplete first and then by date.
-    const goals = await DailyGoal.find({ userId: req.user.id })
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const goals = await DailyGoal.find({ userId: req.user.id });
+
+    // Dynamic reset for goals completed on previous days and streak checks
+    for (let goal of goals) {
+        let updated = false;
+
+        // If completed in the past, reset completed status to false for a new day
+        if (goal.completed && goal.lastCompletedDate) {
+            const compDate = new Date(goal.lastCompletedDate);
+            compDate.setHours(0, 0, 0, 0);
+
+            if (compDate.getTime() < today.getTime()) {
+                goal.completed = false;
+                updated = true;
+            }
+        }
+
+        // If they missed completing it yesterday and haven't completed it today, reset the streak to 0
+        if (goal.lastCompletedDate) {
+            const compDate = new Date(goal.lastCompletedDate);
+            compDate.setHours(0, 0, 0, 0);
+
+            if (compDate.getTime() < yesterday.getTime() && compDate.getTime() < today.getTime()) {
+                if (goal.streak > 0) {
+                    goal.streak = 0;
+                    updated = true;
+                }
+            }
+        } else {
+            // No completion date, reset streak to 0 if it was positive
+            if (goal.streak > 0) {
+                goal.streak = 0;
+                updated = true;
+            }
+        }
+
+        if (updated) {
+            await goal.save();
+        }
+    }
+
+    // Return the sorted list of goals
+    const sortedGoals = await DailyGoal.find({ userId: req.user.id })
         .sort({ completed: 1, createdAt: -1 });
     
-    res.status(200).json(goals);
+    res.status(200).json(sortedGoals);
 });
 
 // @desc    Update a daily goal

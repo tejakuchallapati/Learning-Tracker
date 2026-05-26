@@ -244,7 +244,7 @@ const Dashboard = () => {
                                         type="monotone"
                                         dataKey="hours"
                                         stroke="#7c3aed"
-                                        strokeWidth={5}
+                                        strokeWidth={2}
                                         fillOpacity={1}
                                         fill="url(#colorHours)"
                                         animationDuration={2500}
