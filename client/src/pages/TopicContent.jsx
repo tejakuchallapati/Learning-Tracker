@@ -82,7 +82,7 @@ const TopicContent = () => {
     );
 
     return (
-        <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-32 relative">
+        <div className="max-w-5xl mx-auto space-y-8 sm:space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-24 sm:pb-32 relative overflow-x-hidden contain-decor min-w-0 w-full">
             {/* Header */}
             <div className="space-y-8">
                 <button 
@@ -91,21 +91,21 @@ const TopicContent = () => {
                 >
                     <FiChevronLeft className="group-hover:-translate-x-1 transition-transform" /> Back to Roadmap
                 </button>
-                <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
-                    <div className="max-w-3xl">
-                        <h1 className="text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">{topic.title}</h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-6 text-xl leading-relaxed font-medium">{topic.detail}</p>
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 md:gap-8">
+                    <div className="max-w-3xl min-w-0">
+                        <h1 className="text-fluid-2xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] break-words">{topic.title}</h1>
+                        <p className="text-slate-600 dark:text-slate-400 mt-4 sm:mt-6 text-fluid-base sm:text-xl leading-relaxed font-medium">{topic.detail}</p>
                     </div>
-                    <div className="flex flex-col gap-4 shrink-0">
+                    <div className="flex flex-col sm:flex-row md:flex-col gap-3 sm:gap-4 w-full md:w-auto shrink-0">
                         <button 
                             onClick={handleComplete}
-                            className={`px-10 py-5 rounded-xl font-black text-sm transition-all flex items-center gap-3 shadow-2xl btn-hover-scale ${isCompleted ? 'bg-emerald-50 text-emerald-600 shadow-emerald-100 border border-emerald-100' : 'bg-violet-600 text-white shadow-violet-200 hover:bg-violet-700'}`}
+                            className={`w-full md:w-auto min-h-12 px-6 sm:px-10 py-4 sm:py-5 rounded-xl font-black text-fluid-sm transition-all flex items-center justify-center gap-3 shadow-2xl btn-hover-scale btn-text-safe ${isCompleted ? 'bg-emerald-50 text-emerald-600 shadow-emerald-100 border border-emerald-100' : 'bg-violet-600 text-white shadow-violet-200 hover:bg-violet-700'}`}
                         >
                             {isCompleted ? <><FiCheckCircle size={20} /> Accomplished</> : 'Mark as Completed'}
                         </button>
                         <button 
                             onClick={openMentor}
-                            className="px-10 py-5 rounded-xl font-black text-sm transition-all flex items-center gap-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-2xl shadow-violet-200 btn-hover-scale hover:from-violet-700 hover:to-fuchsia-700"
+                            className="w-full md:w-auto min-h-12 px-6 sm:px-10 py-4 sm:py-5 rounded-xl font-black text-fluid-sm transition-all flex items-center justify-center gap-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-2xl shadow-violet-200 btn-hover-scale hover:from-violet-700 hover:to-fuchsia-700 btn-text-safe"
                         >
                             <FiZap size={20} /> Ask AI Mentor
                         </button>
@@ -114,13 +114,13 @@ const TopicContent = () => {
             </div>
 
             {/* Content Rendering Zone */}
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden premium-shadow">
-                <div className="p-12 md:p-20 space-y-16 lg:space-y-24">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden premium-shadow min-w-0">
+                <div className="p-6 sm:p-12 md:p-20 space-y-10 sm:space-y-16 lg:space-y-24">
                     <div className="space-y-8">
-                        <div className="inline-flex items-center gap-2 px-4 py-1 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-full text-[10px] font-black uppercase tracking-widest">
+                        <div className="inline-flex items-center gap-2 px-4 py-1 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-full text-fluid-xs font-black uppercase tracking-widest">
                             <FiBookOpen /> Architecture &amp; Logic
                         </div>
-                        <h2 className="text-4xl font-black text-slate-900 dark:text-white leading-tight">Mastering the Core</h2>
+                        <h2 className="text-fluid-xl font-black text-slate-900 dark:text-white leading-tight">Mastering the Core</h2>
                         <div className="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 leading-[1.8] text-lg font-medium">
                             {topic.deepContent?.description || 'In-depth technical analysis focusing on architecture, implementation patterns, and industry best practices. This section covers the fundamental internal mechanics and how this technology integrates into modern production environments.'}
                         </div>
@@ -161,8 +161,8 @@ const TopicContent = () => {
                                 <div className="p-3 bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-2xl"><FiSearch size={20} /></div>
                                 Implementation Snippet
                             </h3>
-                            <div className="bg-slate-900 rounded-2xl p-10 shadow-3xl relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
+                            <div className="bg-slate-900 rounded-2xl p-6 sm:p-10 shadow-3xl relative overflow-hidden contain-decor">
+                                <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 bg-violet-500/10 rounded-full blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/4"></div>
                                 <div className="flex items-center justify-between mb-6 relative z-10">
                                     <div className="flex gap-2">
                                         <div className="w-3 h-3 rounded-full bg-rose-500/20 border border-rose-500/40"></div>
@@ -208,16 +208,16 @@ const TopicContent = () => {
             </div>
 
             {/* AI Mentor CTA Banner */}
-            <div className="bg-gradient-to-br from-violet-600 via-fuchsia-600 to-violet-700 rounded-3xl p-12 text-white overflow-hidden relative group border border-violet-500/50 shadow-2xl shadow-violet-200">
-                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/10 rounded-full blur-[150px] -mr-48 -mt-48"></div>
-                <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
+            <div className="bg-gradient-to-br from-violet-600 via-fuchsia-600 to-violet-700 rounded-2xl sm:rounded-3xl p-6 sm:p-12 text-white overflow-hidden relative group border border-violet-500/50 shadow-2xl shadow-violet-200 contain-decor min-w-0">
+                <div className="absolute top-0 right-0 w-64 sm:w-[400px] h-64 sm:h-[400px] bg-white/10 rounded-full blur-[150px] pointer-events-none -translate-y-1/2 translate-x-1/4"></div>
+                <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-10">
                     <div className="space-y-4">
                         <div className="inline-block px-4 py-1 bg-white/20 border border-white/30 text-white rounded-full text-[10px] font-black uppercase tracking-widest">AI Intelligence</div>
-                        <h2 className="text-4xl font-black tracking-tight leading-tight">Stuck on <span className="text-violet-200">{topic.title}</span>?<br/>Your Mentor is ready.</h2>
+                        <h2 className="text-fluid-xl font-black tracking-tight leading-tight">Stuck on <span className="text-violet-200">{topic.title}</span>?<br/>Your Mentor is ready.</h2>
                         <p className="text-violet-100 text-lg max-w-xl font-medium leading-relaxed">Get instant explanations, code examples, and answers to questions about this exact topic.</p>
                     </div>
                     <button onClick={openMentor}
-                        className="px-14 py-6 bg-white text-violet-700 rounded-2xl font-black text-base flex items-center gap-3 shadow-2xl hover:bg-violet-50 transition-all transform hover:scale-105 active:scale-95 shrink-0"
+                        className="w-full lg:w-auto min-h-12 px-8 sm:px-14 py-4 sm:py-6 bg-white text-violet-700 rounded-2xl font-black text-fluid-sm sm:text-base flex items-center justify-center gap-3 shadow-2xl hover:bg-violet-50 transition-all transform hover:scale-105 active:scale-95 shrink-0 btn-text-safe"
                     >
                         <FiZap size={22} /> Launch AI Mentor
                     </button>
@@ -236,7 +236,7 @@ const TopicContent = () => {
                             <p className="text-white/70 text-[10px] font-bold uppercase tracking-widest truncate max-w-[180px]">{topic.title}</p>
                         </div>
                     </div>
-                    <button onClick={() => setMentorOpen(false)} className="text-white/80 hover:text-white rounded-xl p-2 hover:bg-white/10 transition-all">
+                    <button onClick={() => setMentorOpen(false)} className="text-white/80 hover:text-white rounded-xl tap-target-icon hover:bg-white/10 transition-all" aria-label="Close AI mentor">
                         <FiX size={22} />
                     </button>
                 </div>
@@ -279,7 +279,7 @@ const TopicContent = () => {
                             className="flex-1 bg-transparent border-none text-sm font-medium outline-none placeholder-slate-400 dark:text-white"
                         />
                         <button onClick={sendMessage} disabled={aiLoading || !input.trim()}
-                            className="w-10 h-10 bg-violet-600 text-white rounded-xl flex items-center justify-center disabled:opacity-40 hover:bg-violet-700 transition-all shrink-0">
+                            className="tap-target-icon bg-violet-600 text-white rounded-xl flex items-center justify-center disabled:opacity-40 hover:bg-violet-700 transition-all shrink-0" aria-label="Send message">
                             <FiSend size={16} />
                         </button>
                     </div>

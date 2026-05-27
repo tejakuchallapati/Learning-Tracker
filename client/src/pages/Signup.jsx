@@ -48,9 +48,9 @@ const Signup = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
-            <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <h2 className="mt-6 text-center text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Join the Elite</h2>
+        <div className="min-h-[100dvh] bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500 overflow-x-hidden">
+            <div className="sm:mx-auto sm:w-full sm:max-w-md min-w-0">
+                <h2 className="mt-6 text-center text-fluid-xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Join the Elite</h2>
                 <p className="mt-2 text-center text-xs md:text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Initialize your mastery protocol</p>
             </div>
 
@@ -94,7 +94,7 @@ const Signup = () => {
                                     className="block w-full h-12 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 pr-12 text-base font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" 
                                     onChange={handleChange} 
                                 />
-                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-violet-600 transition-colors">
+                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 tap-target-icon pr-2 flex items-center justify-center text-slate-400 hover:text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/30 rounded-lg transition-colors" aria-label={showPassword ? 'Hide password' : 'Show password'}>
                                     {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                                 </button>
                             </div>
@@ -111,14 +111,14 @@ const Signup = () => {
                                     className="block w-full h-12 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 pr-12 text-base font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" 
                                     onChange={handleChange} 
                                 />
-                                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-violet-600 transition-colors">
+                                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute inset-y-0 right-0 tap-target-icon pr-2 flex items-center justify-center text-slate-400 hover:text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/30 rounded-lg transition-colors" aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}>
                                     {showConfirmPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                                 </button>
                             </div>
                         </div>
 
                         <div className="pt-2">
-                            <button type="submit" className="w-full h-12 flex items-center justify-center bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-xs md:text-sm font-bold uppercase tracking-wider shadow-xl shadow-violet-200 dark:shadow-none transition-all transform active:scale-[0.98]">Authorize Account &rarr;</button>
+                            <button type="submit" className="w-full min-h-12 h-12 flex items-center justify-center bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-fluid-sm font-bold uppercase tracking-wider shadow-xl shadow-violet-200 dark:shadow-none transition-all transform active:scale-[0.98] px-4 btn-text-safe">Authorize Account &rarr;</button>
                         </div>
                     </form>
 

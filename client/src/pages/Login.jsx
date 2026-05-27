@@ -59,15 +59,15 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-violet-50/30 flex items-center justify-center px-4 py-12">
-            <div className="w-full max-w-md">
+        <div className="min-h-[100dvh] bg-gradient-to-br from-slate-50 via-white to-violet-50/30 flex items-center justify-center px-4 py-8 sm:py-12 overflow-x-hidden">
+            <div className="w-full max-w-md min-w-0">
 
                 {/* ── Logo / brand ───────────────────────── */}
                 <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-violet-600 shadow-xl shadow-violet-200 mb-4">
                         <span className="text-white text-2xl font-black">L</span>
                     </div>
-                    <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                    <h1 className="text-fluid-xl font-black text-slate-900 tracking-tight">
                         Welcome back
                     </h1>
                     <p className="text-slate-500 text-sm mt-1 font-medium">
@@ -76,7 +76,7 @@ const Login = () => {
                 </div>
 
                 {/* ── Card ───────────────────────────────── */}
-                <div className="bg-white rounded-2xl shadow-xl shadow-slate-100 border border-slate-100 p-6 sm:p-8 space-y-5">
+                <div className="bg-white rounded-2xl shadow-xl shadow-slate-100 border border-slate-100 p-5 sm:p-8 space-y-5 w-full min-w-0">
 
                     {/* Error banner */}
                     {error && (
@@ -91,12 +91,12 @@ const Login = () => {
                         <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                             Sign in with Google
                         </p>
-                        <div className="w-full flex justify-center">
+                        <div className="w-full flex justify-center overflow-hidden [&>div]:!w-full [&>div]:!max-w-full">
                             <GoogleLogin
                                 onSuccess={handleGoogleSuccess}
                                 onError={handleGoogleError}
                                 useOneTap={false}
-                                width="100%"
+                                width="320"
                                 size="large"
                                 shape="rectangular"
                                 theme="outline"
@@ -157,7 +157,7 @@ const Login = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowPw(v => !v)}
-                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-violet-600 transition-colors"
+                                    className="absolute inset-y-0 right-0 flex items-center justify-center tap-target-icon pr-2 text-slate-400 hover:text-violet-600 hover:bg-violet-50 rounded-lg transition-colors"
                                     aria-label={showPw ? 'Hide password' : 'Show password'}
                                 >
                                     {showPw ? <Eye size={18} /> : <EyeOff size={18} />}
@@ -169,7 +169,7 @@ const Login = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full h-12 bg-violet-600 hover:bg-violet-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl shadow-lg shadow-violet-200 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                            className="w-full min-h-12 h-12 bg-violet-600 hover:bg-violet-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-fluid-sm rounded-xl shadow-lg shadow-violet-200 transition-all active:scale-[0.98] flex items-center justify-center gap-2 px-4 btn-text-safe"
                         >
                             {loading ? (
                                 <>

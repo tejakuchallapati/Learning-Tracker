@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -155,12 +156,19 @@ html.dark, .dark {
   --radius: 0.75rem;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-main) !important;
   color: var(--text-main) !important;
   -webkit-font-smoothing: antialiased;
-  transition: all 0.3s ease;
+  overflow-x: clip;
+  min-height: 100dvh;
 }
 
 .animate-rocket {
@@ -197,6 +205,38 @@ body {
     --border: 214.3 32% 91%;
     --input: 214.3 32% 91%;
     --ring: 262 83% 58%;
+    --text-fluid-xs: clamp(0.625rem, 0.55rem + 0.35vw, 0.6875rem);
+    --text-fluid-sm: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);
+    --text-fluid-base: clamp(0.875rem, 0.82rem + 0.3vw, 1rem);
+    --text-fluid-lg: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+    --text-fluid-xl: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
+    --text-fluid-2xl: clamp(1.875rem, 1.5rem + 1.75vw, 3rem);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --mobile-nav-height: 4.5rem;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    touch-action: manipulation;
   }
 
   body {
@@ -209,11 +249,103 @@ body {
     @apply tracking-tighter text-slate-950;
     font-family: 'Syne', sans-serif;
   }
+
+  h1 {
+    font-size: var(--text-fluid-2xl);
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: var(--text-fluid-xl);
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-size: var(--text-fluid-lg);
+    line-height: 1.2;
+  }
 }
 
 @layer utilities {
   .font-heading { font-family: 'Syne', sans-serif; }
   .font-body { font-family: 'Outfit', sans-serif; }
+
+  /* Fluid typography (capped maxima preserve desktop) */
+  .text-fluid-xs {
+    font-size: var(--text-fluid-xs);
+    line-height: 1.35;
+  }
+
+  .text-fluid-sm {
+    font-size: var(--text-fluid-sm);
+    line-height: 1.4;
+  }
+
+  .text-fluid-base {
+    font-size: var(--text-fluid-base);
+    line-height: 1.5;
+  }
+
+  .text-fluid-lg {
+    font-size: var(--text-fluid-lg);
+    line-height: 1.25;
+  }
+
+  .text-fluid-xl {
+    font-size: var(--text-fluid-xl);
+    line-height: 1.15;
+  }
+
+  .text-fluid-2xl {
+    font-size: var(--text-fluid-2xl);
+    line-height: 1.1;
+  }
+
+  /* Mobile shell: clearance for fixed bottom nav + safe area */
+  .pb-mobile-nav {
+    padding-bottom: calc(var(--mobile-nav-height) + var(--safe-bottom) + 0.5rem);
+  }
+
+  @media (min-width: 48rem) {
+    .pb-mobile-nav {
+      padding-bottom: 0;
+    }
+  }
+
+  /* Comfortable tap targets */
+  .tap-target {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+
+  .tap-target-icon {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Prevent button label overflow on narrow screens */
+  .btn-text-safe {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  @media (min-width: 40rem) {
+    .btn-text-safe {
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+
+  /* Contain decorative layers that cause horizontal jitter */
+  .contain-decor {
+    overflow: clip;
+    position: relative;
+  }
 
   /* Premium Light Matrix Grid */
   .matrix-grid {
