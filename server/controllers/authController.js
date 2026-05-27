@@ -37,6 +37,11 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user.id,
             name: user.name,
             email: user.email,
+            emailNotification: user.emailNotification,
+            streakAlertNotification: user.streakAlertNotification,
+            pushNotification: user.pushNotification,
+            reminderTime: user.reminderTime,
+            reminderAmPm: user.reminderAmPm,
             token: generateToken(user._id),
         });
     } else {
@@ -59,6 +64,11 @@ const loginUser = asyncHandler(async (req, res) => {
             _id: user.id,
             name: user.name,
             email: user.email,
+            emailNotification: user.emailNotification,
+            streakAlertNotification: user.streakAlertNotification,
+            pushNotification: user.pushNotification,
+            reminderTime: user.reminderTime,
+            reminderAmPm: user.reminderAmPm,
             token: generateToken(user._id),
         });
     } else {
@@ -112,6 +122,11 @@ const googleLogin = asyncHandler(async (req, res) => {
             name: user.name,
             email: user.email,
             picture: picture,
+            emailNotification: user.emailNotification,
+            streakAlertNotification: user.streakAlertNotification,
+            pushNotification: user.pushNotification,
+            reminderTime: user.reminderTime,
+            reminderAmPm: user.reminderAmPm,
             token: generateToken(user._id),
         });
     } catch (err) {
@@ -144,6 +159,22 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         user.specialization = req.body.specialization || user.specialization;
         user.role = req.body.role || user.role;
 
+        if (req.body.emailNotification !== undefined) {
+            user.emailNotification = req.body.emailNotification;
+        }
+        if (req.body.streakAlertNotification !== undefined) {
+            user.streakAlertNotification = req.body.streakAlertNotification;
+        }
+        if (req.body.pushNotification !== undefined) {
+            user.pushNotification = req.body.pushNotification;
+        }
+        if (req.body.reminderTime !== undefined) {
+            user.reminderTime = req.body.reminderTime;
+        }
+        if (req.body.reminderAmPm !== undefined) {
+            user.reminderAmPm = req.body.reminderAmPm;
+        }
+
         if (req.body.password) {
             user.password = req.body.password;
         }
@@ -157,6 +188,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             bio: updatedUser.bio,
             specialization: updatedUser.specialization,
             role: updatedUser.role,
+            emailNotification: updatedUser.emailNotification,
+            streakAlertNotification: updatedUser.streakAlertNotification,
+            pushNotification: updatedUser.pushNotification,
+            reminderTime: updatedUser.reminderTime,
+            reminderAmPm: updatedUser.reminderAmPm,
             token: generateToken(updatedUser._id),
         });
     } else {

@@ -32,6 +32,29 @@ const userSchema = mongoose.Schema(
             type: String,
             default: 'Learner Pro',
         },
+        emailNotification: {
+            type: Boolean,
+            default: true,
+        },
+        streakAlertNotification: {
+            type: Boolean,
+            default: true,
+        },
+        pushNotification: {
+            type: Boolean,
+            default: false,
+        },
+        reminderTime: {
+            type: String,
+            default: '20:00',
+        },
+        reminderAmPm: {
+            type: String,
+            default: 'PM',
+        },
+        lastReminderSent: {
+            type: Date,
+        },
     },
     {
         timestamps: true,
