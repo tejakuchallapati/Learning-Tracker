@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
+import ResponsiveGoogleLogin from '../components/ResponsiveGoogleLogin';
 import { Eye, EyeOff } from 'lucide-react';
 
 const Signup = () => {
@@ -132,10 +132,15 @@ const Signup = () => {
                             </div>
                         </div>
 
-                        <div className="mt-6 flex justify-center">
-                            <GoogleLogin
+                        <div className="mt-6 w-full min-w-0">
+                            <ResponsiveGoogleLogin
                                 onSuccess={handleGoogleSuccess}
                                 onError={handleGoogleError}
+                                size="large"
+                                shape="rectangular"
+                                theme="outline"
+                                text="signup_with"
+                                logo_alignment="left"
                             />
                         </div>
                     </div>

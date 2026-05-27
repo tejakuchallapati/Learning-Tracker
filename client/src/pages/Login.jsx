@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
+import ResponsiveGoogleLogin from '../components/ResponsiveGoogleLogin';
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
 
 const Login = () => {
@@ -91,19 +91,15 @@ const Login = () => {
                         <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                             Sign in with Google
                         </p>
-                        <div className="w-full flex justify-center overflow-hidden [&>div]:!w-full [&>div]:!max-w-full">
-                            <GoogleLogin
-                                onSuccess={handleGoogleSuccess}
-                                onError={handleGoogleError}
-                                useOneTap={false}
-                                width="320"
-                                size="large"
-                                shape="rectangular"
-                                theme="outline"
-                                text="signin_with"
-                                logo_alignment="left"
-                            />
-                        </div>
+                        <ResponsiveGoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={handleGoogleError}
+                            size="large"
+                            shape="rectangular"
+                            theme="outline"
+                            text="signin_with"
+                            logo_alignment="left"
+                        />
                     </div>
 
                     {/* ── Divider ── */}
