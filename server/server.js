@@ -18,23 +18,28 @@ const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:5173',
     'https://learning-tracker-two-xi.vercel.app',
-    process.env.FRONTEND_URL,       // Optional: set this in your .env for custom domains
+    'https://learning-tracker-ycxw.vercel.app',
+    process.env.FRONTEND_URL,
 ].filter(Boolean);
 
-app.use(cors({
+const corsOptions = {
     origin: (origin, callback) => {
         // Allow requests with no origin (mobile apps, curl, Postman, etc.)
         if (!origin) return callback(null, true);
         if (allowedOrigins.includes(origin)) return callback(null, true);
+        // Allow Vercel preview/production deployments (*.vercel.app)
+        if (/^https:\/\/[\w-]+\.vercel\.app$/.test(origin)) {
+            return callback(null, true);
+        }
         callback(new Error(`CORS: origin ${origin} not allowed`));
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
-}));
+};
 
-// Handle OPTIONS preflight for all routes
-app.options('*', cors());
+// cors() middleware handles OPTIONS preflight — do not use app.options('*') on Express 5
+app.use(cors(corsOptions));
 
 // Body parser
 app.use(express.json());
