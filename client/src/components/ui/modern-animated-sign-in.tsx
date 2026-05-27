@@ -62,7 +62,7 @@ const Input = memo(
         <input
           type={type}
           className={cn(
-            `shadow-input dark:placeholder-text-neutral-600 flex h-10 w-full rounded-md border-none bg-gray-50 px-3 py-2 text-sm text-black transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 dark:placeholder:text-neutral-600 focus-visible:ring-[2px] focus-visible:ring-neutral-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
+            `shadow-input dark:placeholder-text-neutral-600 flex h-12 w-full rounded-xl border-none bg-gray-50 px-4 py-3 text-base text-black transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 dark:placeholder:text-neutral-600 focus-visible:ring-[2px] focus-visible:ring-neutral-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
             className
           )}
           ref={ref}
@@ -236,7 +236,7 @@ const AnimatedForm = memo(function AnimatedForm({
   };
 
   return (
-    <section className='max-md:w-full flex flex-col gap-4 w-96 mx-auto'>
+    <section className='w-full max-w-sm sm:max-w-md flex flex-col gap-4 mx-auto px-4 sm:px-6'>
       <BoxReveal boxColor='var(--skeleton)' duration={0.3}>
         <h2 className='font-bold text-3xl text-neutral-800 dark:text-neutral-200'>
           {header}
@@ -259,7 +259,7 @@ const AnimatedForm = memo(function AnimatedForm({
 
       <form onSubmit={handleSubmit}>
         <section
-          className={`grid grid-cols-1 md:grid-cols-${fieldPerRow} mb-4`}
+          className={`grid grid-cols-1 md:grid-cols-${fieldPerRow} gap-4 mb-4`}
         >
           {fields.map((field) => (
             <section key={field.label} className='flex flex-col gap-2'>
@@ -332,8 +332,8 @@ const AnimatedForm = memo(function AnimatedForm({
           <button
             className='bg-gradient-to-br relative group/btn from-zinc-200 dark:from-zinc-900
             dark:to-zinc-900 to-zinc-200 block dark:bg-zinc-800 w-full text-black
-            dark:text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] 
-              dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] outline-none hover:cursor-pointer'
+            dark:text-white rounded-xl h-12 text-base font-bold shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] 
+              dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] outline-none hover:cursor-pointer transition-all'
             type='submit'
           >
             {submitButton} &rarr;
@@ -396,8 +396,8 @@ const AuthTabs = memo(function AuthTabs({
   errorField,
 }: AuthTabsProps) {
   return (
-    <div className='flex max-lg:justify-center w-full md:w-auto'>
-      <div className='w-full lg:w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:px-[10%]'>
+    <div className='flex justify-center w-full'>
+      <div className='w-full h-full flex flex-col justify-center items-center'>
         <AnimatedForm
           {...formFields}
           fieldPerRow={1}
