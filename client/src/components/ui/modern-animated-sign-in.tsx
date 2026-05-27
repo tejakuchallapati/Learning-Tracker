@@ -396,8 +396,8 @@ const AuthTabs = memo(function AuthTabs({
   errorField,
 }: AuthTabsProps) {
   return (
-    <div className='flex justify-center w-full'>
-      <div className='w-full h-full flex flex-col justify-center items-center'>
+    <div className='flex justify-center w-full min-h-[100dvh]'>
+      <div className='w-full flex flex-col justify-center items-center py-12 px-4'>
         <AnimatedForm
           {...formFields}
           fieldPerRow={1}
