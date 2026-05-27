@@ -249,21 +249,6 @@ body {
     @apply tracking-tighter text-slate-950;
     font-family: 'Syne', sans-serif;
   }
-
-  h1 {
-    font-size: var(--text-fluid-2xl);
-    line-height: 1.1;
-  }
-
-  h2 {
-    font-size: var(--text-fluid-xl);
-    line-height: 1.15;
-  }
-
-  h3 {
-    font-size: var(--text-fluid-lg);
-    line-height: 1.2;
-  }
 }
 
 @layer utilities {

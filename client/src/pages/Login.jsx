@@ -61,7 +61,7 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-[100dvh] bg-gradient-to-br from-slate-50 via-white to-violet-50/30 flex items-center justify-center px-4 py-8 sm:py-12 overflow-x-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-violet-50/30 flex items-center justify-center px-4 py-12 max-md:min-h-[100dvh] max-md:py-8 overflow-x-hidden">
             <div className="w-full max-w-md min-w-0">
 
                 {/* ── Logo / brand ───────────────────────── */}
@@ -69,7 +69,7 @@ const Login = () => {
                     <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-violet-600 shadow-xl shadow-violet-200 mb-4">
                         <span className="text-white text-2xl font-black">L</span>
                     </div>
-                    <h1 className="text-fluid-xl font-black text-slate-900 tracking-tight">
+                    <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                         Welcome back
                     </h1>
                     <p className="text-slate-500 text-sm mt-1 font-medium">
@@ -174,7 +174,7 @@ const Login = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full min-h-12 h-12 bg-violet-600 hover:bg-violet-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-fluid-sm rounded-xl shadow-lg shadow-violet-200 transition-all active:scale-[0.98] flex items-center justify-center gap-2 px-4 btn-text-safe"
+                            className="w-full h-12 bg-violet-600 hover:bg-violet-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl shadow-lg shadow-violet-200 transition-all active:scale-[0.98] flex items-center justify-center gap-2 max-md:min-h-12 max-md:btn-text-safe"
                         >
                             {loading ? (
                                 <>

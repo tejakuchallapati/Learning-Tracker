@@ -57,9 +57,9 @@ const Signup = () => {
     };
 
     return (
-        <div className="min-h-[100dvh] bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500 overflow-x-hidden">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500 max-md:min-h-[100dvh] max-md:py-8 overflow-x-hidden">
             <div className="sm:mx-auto sm:w-full sm:max-w-md min-w-0">
-                <h2 className="mt-6 text-center text-fluid-xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Join the Elite</h2>
+                <h2 className="mt-6 text-center text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Join the Elite</h2>
                 <p className="mt-2 text-center text-xs md:text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Initialize your mastery protocol</p>
             </div>
 
@@ -127,7 +127,7 @@ const Signup = () => {
                         </div>
 
                         <div className="pt-2">
-                            <button type="submit" className="w-full min-h-12 h-12 flex items-center justify-center bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-fluid-sm font-bold uppercase tracking-wider shadow-xl shadow-violet-200 dark:shadow-none transition-all transform active:scale-[0.98] px-4 btn-text-safe">Authorize Account &rarr;</button>
+                            <button type="submit" className="w-full h-12 flex items-center justify-center bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-xs md:text-sm font-bold uppercase tracking-wider shadow-xl shadow-violet-200 dark:shadow-none transition-all transform active:scale-[0.98] max-md:min-h-12 max-md:btn-text-safe">Authorize Account &rarr;</button>
                         </div>
                     </form>
 

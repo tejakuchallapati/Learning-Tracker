@@ -49,7 +49,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className="min-h-16 sm:min-h-20 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2 px-3 sm:px-4 md:px-8 sticky top-0 z-30 shrink-0">
+        <header className="h-20 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 md:px-8 sticky top-0 z-30 transition-all duration-300">
             {/* Advanced Search */}
             <div className="relative flex-1 max-w-md hidden md:block">
                 <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-900/50 px-5 py-2.5 rounded-2xl group focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:border-cyan-500 transition-all border border-slate-200 dark:border-slate-700/50 shadow-sm">
@@ -75,10 +75,10 @@ const Navbar = () => {
                                     <span className="text-2xl">{course.icon}</span>
                                     <div>
                                         <p className="text-sm font-black text-slate-900 group-hover:text-cyan-600 transition-colors">{course.title}</p>
-                                        <p className="text-fluid-xs text-slate-500 font-bold uppercase tracking-widest">{course.category}</p>
+                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{course.category}</p>
                                     </div>
                                 </div>
-                                <span className="text-fluid-xs font-black text-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline">GO TO ROADMAP</span>
+                                <span className="text-[10px] font-black text-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity">GO TO ROADMAP</span>
                             </button>
                         ))}
                     </div>
@@ -91,8 +91,7 @@ const Navbar = () => {
                 {/* Notifications Bell */}
                 <button
                     onClick={() => navigate('/settings')}
-                    className="relative tap-target-icon text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors border border-slate-200 dark:border-slate-800/50"
-                    aria-label="Notifications"
+                    className="relative p-2.5 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all border border-slate-200 dark:border-slate-800/50 max-md:tap-target-icon"
                 >
                     <FiBell size={20} />
                     <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-blue-500 rounded-full border-2 border-white dark:border-slate-950"></span>
@@ -104,16 +103,13 @@ const Navbar = () => {
                 <div className="relative" ref={menuRef}>
                     <button
                         onClick={() => setShowProfileMenu(!showProfileMenu)}
-                        className="flex items-center gap-2 sm:gap-4 group tap-target rounded-xl pr-1"
-                        aria-expanded={showProfileMenu}
-                        aria-haspopup="menu"
-                        aria-label="Account menu"
+                        className="flex items-center gap-4 group"
                     >
-                        <div className="text-right hidden sm:block leading-tight min-w-0">
-                            <p className="text-sm font-black text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors uppercase tracking-tight truncate max-w-[8rem]">{user?.name || 'Guest User'}</p>
-                            <p className="text-fluid-xs font-black text-violet-600 dark:text-violet-500 uppercase tracking-widest leading-none mt-1">Learner Pro</p>
+                        <div className="text-right hidden sm:block leading-tight">
+                            <p className="text-sm font-black text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors uppercase tracking-tight">{user?.name || 'Guest User'}</p>
+                            <p className="text-[10px] font-black text-violet-600 dark:text-violet-500 uppercase tracking-widest leading-none mt-1">Learner Pro</p>
                         </div>
-                        <div className="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-black shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-200 border border-cyan-400/30">
+                        <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-black shadow-lg shadow-cyan-500/20 transform group-hover:scale-105 transition-transform duration-200 border border-cyan-400/30">
                             {user?.name?.[0] || 'G'}
                         </div>
                     </button>
@@ -121,7 +117,7 @@ const Navbar = () => {
                     {showProfileMenu && (
                         <div className="absolute top-full right-0 mt-3 w-64 bg-white rounded-3xl shadow-2xl border border-slate-200 p-3 z-50 animate-in fade-in slide-in-from-bottom-2 text-slate-900">
                             <div className="p-4 border-b border-slate-100 mb-2">
-                                <p className="text-fluid-xs font-black text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
                                 <p className="text-sm font-black text-slate-900 truncate">{user?.email || 'guest@example.com'}</p>
                             </div>
                             <button onClick={() => { setShowProfileMenu(false); navigate('/settings'); }} className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-cyan-600">

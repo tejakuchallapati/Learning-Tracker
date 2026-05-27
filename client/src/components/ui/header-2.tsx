@@ -74,15 +74,15 @@ export function Header() {
 					{links.map((link, i) => (
 						<button 
                             key={i} 
-                            className="text-fluid-xs font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-500 hover:text-violet-600 transition-colors"
+                            className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-violet-600 transition-colors"
                             onClick={link.onClick}
                         >
 							{link.label}
 						</button>
 					))}
                     <div className="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-2" />
-					<Button variant="ghost" className="text-fluid-xs font-black uppercase tracking-[0.15em] sm:tracking-[0.2em]" onClick={() => navigate('/login')}>Sign In</Button>
-					<Button className="bg-violet-600 hover:bg-violet-700 text-white rounded-xl px-4 sm:px-6 text-fluid-xs font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] shadow-lg shadow-violet-500/20" onClick={() => navigate('/login')}>Join Now</Button>
+					<Button variant="ghost" className="text-[10px] font-black uppercase tracking-[0.2em]" onClick={() => navigate('/login')}>Sign In</Button>
+					<Button className="bg-violet-600 hover:bg-violet-700 text-white rounded-xl px-6 text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-violet-500/20" onClick={() => navigate('/login')}>Join Now</Button>
 				</div>
 				<Button size="icon" variant="outline" onClick={() => setOpen(!open)} className="md:hidden rounded-xl border-slate-200 dark:border-slate-800 tap-target-icon h-11 w-11" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open}>
 					<MenuToggleIcon open={open} className="size-5" duration={300} />
@@ -112,10 +112,10 @@ export function Header() {
 						))}
 					</div>
 					<div className="flex flex-col gap-4 mt-auto">
-						<Button variant="outline" className="w-full min-h-12 py-4 rounded-2xl border-slate-200 dark:border-slate-800 font-black uppercase tracking-widest text-fluid-sm btn-text-safe" onClick={() => navigate('/login')}>
+						<Button variant="outline" className="w-full py-8 rounded-2xl border-slate-200 dark:border-slate-800 font-black uppercase tracking-widest text-xs" onClick={() => navigate('/login')}>
 							Sign In
 						</Button>
-						<Button className="w-full min-h-12 py-4 rounded-2xl bg-violet-600 hover:bg-violet-700 text-white font-black uppercase tracking-widest text-fluid-sm shadow-2xl shadow-violet-500/20 btn-text-safe" onClick={() => navigate('/login')}>
+						<Button className="w-full py-8 rounded-2xl bg-violet-600 hover:bg-violet-700 text-white font-black uppercase tracking-widest text-xs shadow-2xl shadow-violet-500/20" onClick={() => navigate('/login')}>
 							Join Learning Tracker
 						</Button>
 					</div>

@@ -46,11 +46,11 @@ const PublicRoute = ({ children }) => {
 
 const DashboardLayout = ({ children }) => {
   return (
-    <div className="flex min-h-[100dvh] max-h-[100dvh] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-300 flex-col md:flex-row transition-colors duration-300">
+    <div className="flex h-screen max-md:min-h-[100dvh] max-md:max-h-[100dvh] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-300 flex-col md:flex-row transition-colors duration-300">
       <Sidebar />
-      <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto overscroll-y-contain bg-white dark:bg-slate-950 p-3 sm:p-4 md:p-4 pb-mobile-nav md:pb-4 transition-colors [-webkit-overflow-scrolling:touch]">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-slate-950 p-3 md:p-4 pb-20 md:pb-4 transition-colors max-md:overscroll-y-contain max-md:[-webkit-overflow-scrolling:touch]">
           {children}
         </main>
         <MobileNav />
