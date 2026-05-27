@@ -59,7 +59,7 @@ const Dashboard = () => {
         };
 
         try {
-            const { data } = await API.post('/goals/create', goalData);
+            const { data } = await API.post('goals/create', goalData);
             setGoals(prev => [data, ...(prev || [])]);
             alert(`Successfully added ${track?.title} to your active goals!`);
         } catch (err) {
@@ -71,7 +71,7 @@ const Dashboard = () => {
     const handleDeleteGoal = async (id) => {
         if (!window.confirm("Are you sure you want to delete this learning path?")) return;
         try {
-            await API.delete(`/goals/${id}`);
+            await API.delete(`goals/${id}`);
             setGoals(prev => prev.filter(g => g._id !== id));
         } catch (err) {
             console.error('Failed to delete goal', err);
@@ -84,8 +84,8 @@ const Dashboard = () => {
             try {
                 setLoading(true);
                 const [dashRes, goalsRes] = await Promise.all([
-                    API.get('/analytics/dashboard'),
-                    API.get('/goals')
+                    API.get('analytics/dashboard'),
+                    API.get('goals')
                 ]);
                 setData(dashRes?.data || { totalStudyHours: 0, weeklyStudyHours: 0 });
                 if (Array.isArray(goalsRes?.data)) {

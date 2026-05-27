@@ -29,21 +29,21 @@ export const AuthProvider = ({ children }) => {
     }, [user]);
 
     const login = async (email, password) => {
-        const { data } = await API.post('/auth/login', { email, password });
+        const { data } = await API.post('auth/login', { email, password });
         localStorage.setItem('user', JSON.stringify(data));
         localStorage.setItem('token', data.token);
         setUser(data);
     };
 
     const register = async (name, email, password) => {
-        const { data } = await API.post('/auth/register', { name, email, password });
+        const { data } = await API.post('auth/register', { name, email, password });
         localStorage.setItem('user', JSON.stringify(data));
         localStorage.setItem('token', data.token);
         setUser(data);
     };
 
     const googleLogin = async (credential) => {
-        const { data } = await API.post('/auth/google', { credential });
+        const { data } = await API.post('auth/google', { credential });
         localStorage.setItem('user', JSON.stringify(data));
         localStorage.setItem('token', data.token);
         setUser(data);
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await API.get('/auth/logout');
+            await API.get('auth/logout');
         } catch (error) {
             console.error('Logout API failed:', error);
         } finally {
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const updateProfile = async (profileData) => {
-        const { data } = await API.put('/auth/profile', profileData);
+        const { data } = await API.put('auth/profile', profileData);
         localStorage.setItem('user', JSON.stringify(data));
         setUser(data);
         return data;

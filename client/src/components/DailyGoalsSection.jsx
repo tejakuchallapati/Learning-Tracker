@@ -11,7 +11,7 @@ const DailyGoalsSection = () => {
     const fetchGoals = async () => {
         try {
             setLoading(true);
-            const { data } = await API.get('/daily-goals');
+            const { data } = await API.get('daily-goals');
             setGoals(data);
         } catch (err) {
             console.error('Error fetching daily goals:', err);
@@ -29,7 +29,7 @@ const DailyGoalsSection = () => {
         if (!newGoalTitle.trim()) return;
 
         try {
-            await API.post('/daily-goals/create', {
+            await API.post('daily-goals/create', {
                 title: newGoalTitle,
                 emailReminders
             });
@@ -43,7 +43,7 @@ const DailyGoalsSection = () => {
 
     const toggleComplete = async (goal) => {
         try {
-            await API.put(`/daily-goals/${goal._id}`, {
+            await API.put(`daily-goals/${goal._id}`, {
                 completed: !goal.completed
             });
             // Optimistically update
@@ -57,7 +57,7 @@ const DailyGoalsSection = () => {
 
     const handleDelete = async (id) => {
         try {
-            await API.delete(`/daily-goals/${id}`);
+            await API.delete(`daily-goals/${id}`);
             // Optimistically update
             setGoals(goals.filter(g => g._id !== id));
         } catch (err) {
@@ -67,7 +67,7 @@ const DailyGoalsSection = () => {
 
     const toggleReminder = async (goal) => {
         try {
-            await API.put(`/daily-goals/${goal._id}`, {
+            await API.put(`daily-goals/${goal._id}`, {
                 emailReminders: !goal.emailReminders
             });
             // Optimistically update

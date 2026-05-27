@@ -22,13 +22,13 @@ const Progress = () => {
 
     const fetchData = async () => {
         try {
-            const { data } = await API.get('/goals');
+            const { data } = await API.get('goals');
             setGoals(data);
 
             const progressMap = {};
             await Promise.all(data.map(async (goal) => {
                 try {
-                    const res = await API.get(`/progress/${goal._id}`);
+                    const res = await API.get(`progress/${goal._id}`);
                     progressMap[goal._id] = res.data;
                 } catch {
                     console.error('No progress yet for', goal._id);
@@ -89,7 +89,7 @@ const Progress = () => {
 
     const logStudyTime = async (hours) => {
         try {
-            await API.post('/time/log', { goalId: activeGoalId, hours: Number(hours.toFixed(2)) });
+            await API.post('time/log', { goalId: activeGoalId, hours: Number(hours.toFixed(2)) });
             fetchData();
         } catch (err) {
             console.error('Failed to log pomodoro time', err);
@@ -98,7 +98,7 @@ const Progress = () => {
 
     const handleMarkComplete = async (goalId) => {
         try {
-            await API.post('/progress/mark-complete', { goalId });
+            await API.post('progress/mark-complete', { goalId });
             alert('Day marked as completed!');
             fetchData();
         } catch (err) {
@@ -116,7 +116,7 @@ const Progress = () => {
             }
             const hours = Number((time / 3600).toFixed(2));
             try {
-                await API.post('/time/log', { goalId: activeGoalId, hours });
+                await API.post('time/log', { goalId: activeGoalId, hours });
                 alert(`Logged ${hours} hours successfully!`);
                 setTime(0);
                 setActiveGoalId('');

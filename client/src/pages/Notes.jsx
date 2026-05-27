@@ -20,7 +20,7 @@ const Notes = () => {
 
     const fetchNotesList = async () => {
         try {
-            const { data } = await API.get('/notes');
+            const { data } = await API.get('notes');
             setNotesList(data);
         } catch (err) {
             console.error('Error fetching notes:', err);
@@ -36,7 +36,7 @@ const Notes = () => {
     useEffect(() => {
         const fetchActiveNote = async () => {
             try {
-                const { data } = await API.get(`/notes/date/${selectedDate}`);
+                const { data } = await API.get(`notes/date/${selectedDate}`);
                 setLearned(data.learned || '');
                 setFuture(data.future || '');
             } catch (err) {
@@ -50,7 +50,7 @@ const Notes = () => {
 
     const handleSave = async () => {
         try {
-            await API.post('/notes/save', {
+            await API.post('notes/save', {
                 date: selectedDate,
                 learned: learned.trim(),
                 future: future.trim()
@@ -69,7 +69,7 @@ const Notes = () => {
         if (!window.confirm(`Are you sure you want to delete the notes for ${dateToDelete}?`)) return;
 
         try {
-            await API.delete(`/notes/date/${dateToDelete}`);
+            await API.delete(`notes/date/${dateToDelete}`);
             fetchNotesList();
 
             if (selectedDate === dateToDelete) {

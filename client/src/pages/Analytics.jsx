@@ -11,7 +11,7 @@ const Analytics = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        API.get('/analytics/dashboard').then(res => {
+        API.get('analytics/dashboard').then(res => {
             setAnalytics(res.data);
             setLoading(false);
         });
