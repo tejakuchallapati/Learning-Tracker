@@ -61,9 +61,12 @@ const userSchema = mongoose.Schema(
     }
 );
 
-// Encrypt password before saving
+// Encrypt password before saving (skip for Google-only accounts with no password)
 userSchema.pre('save', async function () {
-    if (!this.isModified('password')) {
+    if (!this.isModified('password') || !this.password) {
+        if (!this.password) {
+            this.password = undefined;
+        }
         return;
     }
 
@@ -73,7 +76,14 @@ userSchema.pre('save', async function () {
 
 // Match user entered password to hashed password in database
 userSchema.methods.matchPassword = async function (enteredPassword) {
+    if (!this.password || !enteredPassword) {
+        return false;
+    }
     return await bcrypt.compare(enteredPassword, this.password);
+};
+
+userSchema.methods.usesGoogleAuth = function () {
+    return Boolean(this.googleId);
 };
 
 const User = mongoose.model('User', userSchema);

@@ -9,7 +9,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [showPw, setShowPw]     = useState(false);
     const [error, setError]       = useState('');
-    const [loading, setLoading]   = useState(false);
+    const [loading, setLoading]       = useState(false);
+    const [googleLoading, setGoogleLoading] = useState(false);
 
     const { user, login, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -36,18 +37,19 @@ const Login = () => {
     /* ── Google OAuth ──────────────────────────────────────── */
     const handleGoogleSuccess = async (credentialResponse) => {
         setError('');
-        setLoading(true);
+        if (!credentialResponse?.credential) {
+            setError('Google did not return a sign-in token. Please try again.');
+            return;
+        }
+        setGoogleLoading(true);
         try {
-            if (!credentialResponse?.credential) {
-                throw new Error('No Google credential received. Please try again.');
-            }
             await googleLogin(credentialResponse.credential);
             navigate('/dashboard');
         } catch (err) {
             const msg = err.response?.data?.message || err.message || 'Google sign-in failed. Please try again.';
             setError(msg);
         } finally {
-            setLoading(false);
+            setGoogleLoading(false);
         }
     };
 
@@ -91,15 +93,22 @@ const Login = () => {
                         <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                             Sign in with Google
                         </p>
-                        <ResponsiveGoogleLogin
-                            onSuccess={handleGoogleSuccess}
-                            onError={handleGoogleError}
-                            size="large"
-                            shape="rectangular"
-                            theme="outline"
-                            text="signin_with"
-                            logo_alignment="left"
-                        />
+                        {googleLoading ? (
+                            <div className="flex items-center justify-center gap-2 py-3 text-sm font-medium text-slate-500">
+                                <span className="w-4 h-4 border-2 border-violet-300 border-t-violet-600 rounded-full animate-spin" />
+                                Signing in with Google…
+                            </div>
+                        ) : (
+                            <ResponsiveGoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={handleGoogleError}
+                                size="large"
+                                shape="rectangular"
+                                theme="outline"
+                                text="signin_with"
+                                logo_alignment="left"
+                            />
+                        )}
                     </div>
 
                     {/* ── Divider ── */}

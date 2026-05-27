@@ -7,6 +7,7 @@ import { Eye, EyeOff } from 'lucide-react';
 const Signup = () => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
     const [error, setError] = useState('');
+    const [googleLoading, setGoogleLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const { user, register, googleLogin } = useContext(AuthContext);
@@ -19,11 +20,19 @@ const Signup = () => {
     }, [user, navigate]);
 
     const handleGoogleSuccess = async (credentialResponse) => {
+        setError('');
+        if (!credentialResponse?.credential) {
+            setError('Google did not return a sign-in token. Please try again.');
+            return;
+        }
+        setGoogleLoading(true);
         try {
             await googleLogin(credentialResponse.credential);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Google sign up failed');
+            setError(err.response?.data?.message || err.message || 'Google sign up failed. Please try again.');
+        } finally {
+            setGoogleLoading(false);
         }
     };
 
@@ -133,15 +142,22 @@ const Signup = () => {
                         </div>
 
                         <div className="mt-6 w-full min-w-0">
-                            <ResponsiveGoogleLogin
-                                onSuccess={handleGoogleSuccess}
-                                onError={handleGoogleError}
-                                size="large"
-                                shape="rectangular"
-                                theme="outline"
-                                text="signup_with"
-                                logo_alignment="left"
-                            />
+                            {googleLoading ? (
+                                <div className="flex items-center justify-center gap-2 py-3 text-sm font-medium text-slate-500">
+                                    <span className="w-4 h-4 border-2 border-violet-300 border-t-violet-600 rounded-full animate-spin" />
+                                    Signing up with Google…
+                                </div>
+                            ) : (
+                                <ResponsiveGoogleLogin
+                                    onSuccess={handleGoogleSuccess}
+                                    onError={handleGoogleError}
+                                    size="large"
+                                    shape="rectangular"
+                                    theme="outline"
+                                    text="signup_with"
+                                    logo_alignment="left"
+                                />
+                            )}
                         </div>
                     </div>
 

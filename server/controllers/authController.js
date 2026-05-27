@@ -1,10 +1,28 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
-const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
+const { verifyGoogleCredential } = require('../config/googleAuth');
 
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || '937868886257-sgoqf4onr843odrv2518eghvog3ppm97.apps.googleusercontent.com');
+const generateToken = (id) => {
+    if (!process.env.JWT_SECRET) {
+        throw new Error('JWT_SECRET is not configured');
+    }
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d',
+    });
+};
+
+const formatAuthResponse = (user) => ({
+    _id: user.id,
+    name: user.name,
+    email: user.email,
+    emailNotification: user.emailNotification,
+    streakAlertNotification: user.streakAlertNotification,
+    pushNotification: user.pushNotification,
+    reminderTime: user.reminderTime,
+    reminderAmPm: user.reminderAmPm,
+    token: generateToken(user._id),
+});
 
 // @desc    Register new user
 // @route   POST /api/auth/register
@@ -22,7 +40,12 @@ const registerUser = asyncHandler(async (req, res) => {
 
     if (userExists) {
         res.status(400);
-        throw new Error('User already exists');
+        if (userExists.googleId) {
+            throw new Error(
+                'An account with this email already exists. Please sign in with Google instead.'
+            );
+        }
+        throw new Error('User already exists with this email. Please sign in.');
     }
 
     // Create user
@@ -33,17 +56,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
 
     if (user) {
-        res.status(201).json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            emailNotification: user.emailNotification,
-            streakAlertNotification: user.streakAlertNotification,
-            pushNotification: user.pushNotification,
-            reminderTime: user.reminderTime,
-            reminderAmPm: user.reminderAmPm,
-            token: generateToken(user._id),
-        });
+        res.status(201).json(formatAuthResponse(user));
     } else {
         res.status(400);
         throw new Error('Invalid user data');
@@ -60,20 +73,15 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
-        res.json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            emailNotification: user.emailNotification,
-            streakAlertNotification: user.streakAlertNotification,
-            pushNotification: user.pushNotification,
-            reminderTime: user.reminderTime,
-            reminderAmPm: user.reminderAmPm,
-            token: generateToken(user._id),
-        });
+        res.json(formatAuthResponse(user));
+    } else if (user?.usesGoogleAuth?.()) {
+        res.status(400);
+        throw new Error(
+            'This account uses Google Sign-In. Please use the "Sign in with Google" button instead of a password.'
+        );
     } else {
         res.status(400);
-        throw new Error('Invalid credentials');
+        throw new Error('Invalid email or password');
     }
 });
 
@@ -85,54 +93,68 @@ const googleLogin = asyncHandler(async (req, res) => {
 
     if (!credential) {
         res.status(400);
-        throw new Error('No Google credential provided');
+        throw new Error('No Google credential received. Please try again.');
+    }
+
+    if (!process.env.JWT_SECRET) {
+        res.status(500);
+        throw new Error('Server configuration error. JWT_SECRET is not set.');
     }
 
     try {
-        const googleClientId = process.env.GOOGLE_CLIENT_ID || '937868886257-sgoqf4onr843odrv2518eghvog3ppm97.apps.googleusercontent.com';
-        console.log('Verifying Google Token with Audience:', googleClientId);
-        
-        const ticket = await client.verifyIdToken({
-            idToken: credential,
-            audience: googleClientId,
-        });
-
-        const payload = ticket.getPayload();
+        const payload = await verifyGoogleCredential(credential);
         const { sub: googleId, email, name, picture } = payload;
+
+        if (!email) {
+            res.status(400);
+            throw new Error('Google account did not provide an email address.');
+        }
+
         console.log('Google Auth Success for:', email);
 
         let user = await User.findOne({ email });
 
         if (!user) {
             console.log('Creating new user from Google account');
-            user = await User.create({
-                name,
-                email,
-                password: '',
-                googleId,
-            });
-        } else if (!user.googleId) {
+            try {
+                user = await User.create({
+                    name: name || email.split('@')[0],
+                    email,
+                    googleId,
+                });
+            } catch (createErr) {
+                if (createErr.code === 11000) {
+                    user = await User.findOne({ email });
+                } else {
+                    throw createErr;
+                }
+            }
+        }
+
+        if (user && !user.googleId) {
             console.log('Linking Google ID to existing user');
             user.googleId = googleId;
             await user.save();
         }
 
+        if (!user) {
+            res.status(500);
+            throw new Error('Could not create or find your account. Please try again.');
+        }
+
         res.json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            picture: picture,
-            emailNotification: user.emailNotification,
-            streakAlertNotification: user.streakAlertNotification,
-            pushNotification: user.pushNotification,
-            reminderTime: user.reminderTime,
-            reminderAmPm: user.reminderAmPm,
-            token: generateToken(user._id),
+            ...formatAuthResponse(user),
+            picture,
         });
     } catch (err) {
         console.error('Google Auth Error:', err.message);
         res.status(401);
-        throw new Error('Google authentication failed: ' + err.message);
+        const message =
+            err.message?.includes('Token used too late') ||
+            err.message?.includes('audience')
+                ? 'Google sign-in configuration mismatch. Ensure GOOGLE_CLIENT_ID on the server matches VITE_GOOGLE_CLIENT_ID on the frontend.'
+                : `Google sign-in failed: ${err.message}`;
+        throw new Error(message);
     }
 });
 
@@ -200,13 +222,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         throw new Error('User not found');
     }
 });
-
-// Generate JWT
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '30d',
-    });
-};
 
 module.exports = {
     registerUser,
