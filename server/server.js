@@ -34,7 +34,13 @@ app.use('/api/daily-goals', require('./routes/dailyGoalRoutes'));
 app.use('/api/notes', require('./routes/noteRoutes'));
 
 // Initialize cron jobs
-require('./utils/cronJobs');
+const mongoose = require('mongoose');
+const { checkAndSendReminders } = require('./utils/cronJobs');
+
+mongoose.connection.once('open', () => {
+    console.log('MongoDB connection established. Running startup email reminders check...');
+    checkAndSendReminders();
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {

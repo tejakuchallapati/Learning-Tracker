@@ -1,5 +1,6 @@
 const cron = require('node-cron');
 const DailyGoal = require('../models/DailyGoal');
+const User = require('../models/User');
 const sendEmail = require('./emailService');
 
 // Schedule a daily job at 00:00 (midnight) to reset daily goals
@@ -13,40 +14,52 @@ cron.schedule('0 0 * * *', async () => {
     }
 });
 
-// Schedule a daily job at 8:00 AM server time
-cron.schedule('0 8 * * *', async () => {
+// Main function to check and send reminders
+const checkAndSendReminders = async () => {
     console.log('Running daily goal reminder check...');
 
     try {
-        // Find all daily goals that are incomplete and have email reminders enabled
-        const incompleteGoals = await DailyGoal.find({
-            completed: false,
-            emailReminders: true
-        }).populate('userId', 'name email');
+        // Find all users who have emailNotification enabled
+        const users = await User.find({ emailNotification: true });
 
-        if (incompleteGoals.length === 0) {
-            console.log('No reminders to send today.');
-            return;
-        }
+        const now = new Date();
+        const todayStr = now.toDateString(); // e.g. "Wed May 27 2026"
+        const currentHour = now.getHours();
+        const currentMin = now.getMinutes();
 
-        // Group incomplete goals by user
-        const goalsByUser = {};
-        incompleteGoals.forEach((goal) => {
-            const userId = goal.userId._id.toString();
-            if (!goalsByUser[userId]) {
-                goalsByUser[userId] = {
-                    user: goal.userId,
-                    goals: []
-                };
+        for (const user of users) {
+            // 1. Check if reminder was already sent today
+            if (user.lastReminderSent && new Date(user.lastReminderSent).toDateString() === todayStr) {
+                continue;
             }
-            goalsByUser[userId].goals.push(goal);
-        });
 
-        // Send an email to each user summarizing their pending tasks
-        for (const userId in goalsByUser) {
-            const { user, goals } = goalsByUser[userId];
+            // 2. Parse preference time (default to 20:00 if not set)
+            const reminderTimeStr = user.reminderTime || '20:00';
+            const [prefHour, prefMin] = reminderTimeStr.split(':').map(Number);
 
-            const goalListText = goals.map(g => {
+            // Determine if we should send.
+            // We send if the current time is past the preferred time,
+            // OR if this is a startup check/catch-up and the current hour is past 8:00 AM local time.
+            const isPastPreferredTime = (currentHour > prefHour) || (currentHour === prefHour && currentMin >= prefMin);
+            const isCatchUpWindow = (currentHour >= 8); // Send as catch-up if it's daytime (8 AM onwards)
+
+            if (!isPastPreferredTime && !isCatchUpWindow) {
+                // Too early in the day, wait for the preferred time
+                continue;
+            }
+
+            // 3. Find all incomplete goals for this user where emailReminders is true
+            const incompleteGoals = await DailyGoal.find({
+                userId: user._id,
+                completed: false,
+                emailReminders: true
+            });
+
+            if (incompleteGoals.length === 0) {
+                continue;
+            }
+
+            const goalListText = incompleteGoals.map(g => {
                 let streakText = "";
                 if (g.streak > 0) {
                     streakText = ` (Current Streak: ${g.streak} 🔥)`;
@@ -63,59 +76,25 @@ cron.schedule('0 8 * * *', async () => {
                     message,
                 });
                 console.log(`Reminder email sent to ${user.email}`);
+
+                // Update lastReminderSent timestamp
+                user.lastReminderSent = new Date();
+                await user.save();
             } catch (err) {
                 console.error(`Failed to send email to ${user.email}:`, err.message);
             }
         }
     } catch (err) {
-        console.error('Error running daily goal cron job:', err);
+        console.error('Error running checkAndSendReminders:', err);
     }
+};
+
+// Schedule check every 30 minutes
+cron.schedule('*/30 * * * *', async () => {
+    await checkAndSendReminders();
 });
 
-// Schedule an evening job at 6:00 PM (18:00) server time for pending goals
-cron.schedule('0 18 * * *', async () => {
-    console.log('Running evening pending goal reminder check...');
-
-    try {
-        const incompleteGoals = await DailyGoal.find({
-            completed: false,
-            emailReminders: true
-        }).populate('userId', 'name email');
-
-        if (incompleteGoals.length === 0) {
-            console.log('No evening reminders to send.');
-            return;
-        }
-
-        const goalsByUser = {};
-        incompleteGoals.forEach((goal) => {
-            const userId = goal.userId._id.toString();
-            if (!goalsByUser[userId]) {
-                goalsByUser[userId] = { user: goal.userId, goals: [] };
-            }
-            goalsByUser[userId].goals.push(goal);
-        });
-
-        for (const userId in goalsByUser) {
-            const { user, goals } = goalsByUser[userId];
-            const goalListText = goals.map(g => `- ${g.title}`).join('\n');
-
-            const message = `Hello ${user.name},\n\nJust a friendly evening reminder! You still have some pending goals for today:\n\n${goalListText}\n\nThere's still time to finish strong! Mark them as complete in Learning Tracker when you're done.\n\nBest,\nThe Learning Tracker Team`;
-
-            try {
-                await sendEmail({
-                    email: user.email,
-                    subject: 'Learning Tracker - Evening Catch-up: Pending Goals',
-                    message,
-                });
-                console.log(`Evening reminder email sent to ${user.email}`);
-            } catch (err) {
-                console.error(`Failed to send evening email to ${user.email}:`, err.message);
-            }
-        }
-    } catch (err) {
-        console.error('Error running evening cron job:', err);
-    }
-});
-
-module.exports = cron;
+module.exports = {
+    cron,
+    checkAndSendReminders
+};
