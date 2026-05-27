@@ -18,3 +18,7 @@ services:
         sync: false
       - key: EMAIL_PASS
         sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: FRONTEND_URL
+        value: https://learning-tracker-two-xi.vercel.app
