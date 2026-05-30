@@ -99,7 +99,7 @@ const Settings = () => {
                         <div className="absolute top-0 right-0 w-32 h-32 bg-violet-50/50 dark:bg-violet-500/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000"></div>
                         
                         <div className="relative z-10 flex flex-col items-center text-center">
-                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-violet-600 flex items-center justify-center text-white text-2xl md:text-3xl font-black shadow-xl mb-3 group-hover:rotate-3 transition-transform">
+                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-violet-600 flex items-center justify-center text-white text-lg md:text-xl font-black shadow-lg mb-3 group-hover:rotate-3 transition-transform">
                                 {user?.name?.[0] || 'G'}
                             </div>
                             <h3 className="text-base md:text-lg font-black text-slate-900 dark:text-white tracking-tight">{user?.name}</h3>
