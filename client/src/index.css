@@ -6,6 +6,7 @@
 
 @theme {
   --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-nav: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -245,15 +246,45 @@ body {
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
-  h1, h2, h3, h4, .font-heading {
+  h1, h2, h3, h4 {
+    @apply tracking-tight text-slate-950;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  /* Marketing / landing hero typography */
+  .font-heading {
     @apply tracking-tighter text-slate-950;
     font-family: 'Syne', sans-serif;
+  }
+
+  /* Dashboard shell: same Outfit family as sidebar + mobile footer nav */
+  .dashboard-shell {
+    font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  .dashboard-shell h1,
+  .dashboard-shell h2,
+  .dashboard-shell h3,
+  .dashboard-shell h4 {
+    font-family: inherit;
+    letter-spacing: -0.025em;
   }
 }
 
 @layer utilities {
   .font-heading { font-family: 'Syne', sans-serif; }
   .font-body { font-family: 'Outfit', sans-serif; }
+  .font-nav { font-family: var(--font-nav); }
+
+  /* Sidebar + bottom nav label style (Dashboard, Goals, Insights, etc.) */
+  .text-nav-label {
+    font-family: var(--font-nav);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+  }
 
   /* Keep desktop typography unchanged; only apply fluid sizes on phones/tablets */
   .text-fluid-xs,

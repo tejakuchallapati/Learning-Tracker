@@ -3,7 +3,7 @@ import { FiTarget } from 'react-icons/fi';
 
 const Goals = () => {
     return (
-        <div className="max-w-4xl mr-auto ml-0 space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-10">
+        <div className="font-body max-w-4xl mr-auto ml-0 space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-3 border-b border-slate-200 dark:border-slate-800">
                 <div>
                     <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-tight flex items-center gap-2">

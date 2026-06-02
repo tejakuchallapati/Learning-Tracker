@@ -14,12 +14,12 @@ const Sidebar = () => {
     ];
 
     return (
-        <aside className="w-60 bg-white dark:bg-slate-950 text-slate-500 dark:text-slate-400 flex-shrink-0 hidden md:flex flex-col border-r border-slate-200 dark:border-slate-800/50 backdrop-blur-md z-40 transition-colors duration-300">
+        <aside className="font-nav w-60 bg-white dark:bg-slate-950 text-slate-500 dark:text-slate-400 flex-shrink-0 hidden md:flex flex-col border-r border-slate-200 dark:border-slate-800/50 backdrop-blur-md z-40 transition-colors duration-300">
             <div className="h-20 flex items-center px-6 gap-3 border-b border-slate-100 dark:border-slate-800/50">
                 <div className="w-8 h-8 bg-white dark:bg-slate-900 rounded-lg flex items-center justify-center shadow-md border border-slate-100 dark:border-slate-800 p-1">
                     <img src={logo} alt="LT" className="w-full h-full object-contain" />
                 </div>
-                <h1 className="text-base font-black tracking-tighter text-slate-900 dark:text-white leading-tight uppercase">
+                <h1 className="text-base font-black tracking-tight text-slate-900 dark:text-white leading-tight uppercase">
                     Learning <span className="text-violet-600 dark:text-violet-400">Tracker</span>
                 </h1>
             </div>
@@ -37,12 +37,12 @@ const Sidebar = () => {
                         }
                     >
                         <span className={`transition-transform duration-300 group-hover:scale-110`}>{item.icon}</span>
-                        <span className="text-[13px] font-bold tracking-tight">{item.name}</span>
+                        <span className="text-nav-label">{item.name}</span>
                     </NavLink>
                 ))}
             </nav>
 
-            <div className="p-4 bg-slate-50 dark:bg-slate-950/50 text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-600 text-center border-t border-slate-200 dark:border-slate-800/50">
+            <div className="p-4 bg-slate-50 dark:bg-slate-950/50 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-600 text-center border-t border-slate-200 dark:border-slate-800/50">
                 &copy; {new Date().getFullYear()} Learning Tracker
             </div>
         </aside>

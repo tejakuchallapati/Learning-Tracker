@@ -12,7 +12,7 @@ const MobileNav = () => {
 
     return (
         <nav
-            className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+            className="font-nav md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
             aria-label="Main navigation"
         >
             <div className="grid grid-cols-5 gap-1 max-w-lg mx-auto">
@@ -29,7 +29,7 @@ const MobileNav = () => {
                         }
                     >
                         <span className="shrink-0">{item.icon}</span>
-                        <span className="text-fluid-xs font-bold uppercase tracking-tight text-center leading-tight max-w-full truncate w-full px-0.5">
+                        <span className="text-[11px] max-[380px]:text-[10px] font-bold tracking-tight text-center leading-tight max-w-full truncate w-full px-0.5">
                             {item.name}
                         </span>
                     </NavLink>

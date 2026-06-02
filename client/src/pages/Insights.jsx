@@ -31,7 +31,7 @@ const Insights = () => {
     const earnedCount = badges.filter(b => b.earned).length;
 
     return (
-        <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-10">
+        <div className="font-body max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-4 border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-xl">
                     <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Mastery Analytics</h1>

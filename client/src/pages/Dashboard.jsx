@@ -109,7 +109,7 @@ const Dashboard = () => {
     );
 
     return (
-        <div className="space-y-6 animate-in fade-in duration-1000">
+        <div className="font-body space-y-6 animate-in fade-in duration-1000">
             {/* Header Section */}
             <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] p-6 text-slate-800 dark:text-slate-100 relative overflow-hidden shadow-sm group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/5 rounded-full -mr-20 -mt-20 blur-3xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>

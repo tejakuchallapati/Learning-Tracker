@@ -46,7 +46,7 @@ const PublicRoute = ({ children }) => {
 
 const DashboardLayout = ({ children }) => {
   return (
-    <div className="flex h-screen max-md:min-h-[100dvh] max-md:max-h-[100dvh] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-300 flex-col md:flex-row transition-colors duration-300">
+    <div className="dashboard-shell font-body flex h-screen max-md:min-h-[100dvh] max-md:max-h-[100dvh] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-300 flex-col md:flex-row transition-colors duration-300">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar />
