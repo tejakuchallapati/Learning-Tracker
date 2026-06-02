@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -247,12 +246,12 @@ body {
 
   h1, h2, h3, h4, .font-heading {
     @apply tracking-tighter text-slate-950;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Outfit', sans-serif;
   }
 }
 
 @layer utilities {
-  .font-heading { font-family: 'Syne', sans-serif; }
+  .font-heading { font-family: 'Outfit', sans-serif; }
   .font-body { font-family: 'Outfit', sans-serif; }
 
   /* Keep desktop typography unchanged; only apply fluid sizes on phones/tablets */
