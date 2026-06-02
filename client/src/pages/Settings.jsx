@@ -78,13 +78,13 @@ const Settings = () => {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
                 <div className="max-w-xl">
-                    <h1 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Preferences</h1>
-                    <p className="text-slate-700 dark:text-slate-400 mt-1.5 text-[11px] md:text-xs font-semibold leading-relaxed">Customize your learning environment and notification behavior.</p>
+                    <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Preferences</h1>
+                    <p className="text-slate-700 dark:text-slate-400 mt-2 text-xs md:text-sm font-semibold leading-relaxed max-md:mt-1.5 max-md:text-[11px]">Customize your learning environment and notification behavior.</p>
                 </div>
                 <div className="flex gap-4 shrink-0">
                     <button 
                         onClick={handleSave}
-                        className="w-full sm:w-auto px-5 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-bold text-[10px] md:text-xs hover:bg-violet-600 transition-all shadow-md shadow-slate-200 dark:shadow-none flex items-center justify-center gap-2 btn-hover-scale uppercase tracking-wider"
+                        className="w-full sm:w-auto px-5 py-3.5 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-bold text-xs md:text-sm hover:bg-violet-600 transition-all shadow-md shadow-slate-200 dark:shadow-none flex items-center justify-center gap-2 btn-hover-scale uppercase tracking-wider max-md:py-3 max-md:text-[10px]"
                     >
                         SYNC PREFERENCES {saved && <FiCheckCircle className="animate-in zoom-in duration-300" />}
                     </button>
@@ -99,13 +99,13 @@ const Settings = () => {
                         <div className="absolute top-0 right-0 w-32 h-32 bg-violet-50/50 dark:bg-violet-500/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000"></div>
                         
                         <div className="relative z-10 flex flex-col items-center text-center">
-                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-violet-600 flex items-center justify-center text-white text-lg md:text-xl font-black shadow-lg mb-3 group-hover:rotate-3 transition-transform">
+                            <div className="w-20 h-20 max-md:w-14 max-md:h-14 rounded-xl bg-violet-600 flex items-center justify-center text-white text-3xl max-md:text-xl font-black shadow-xl max-md:shadow-lg mb-4 max-md:mb-3 group-hover:rotate-3 transition-transform">
                                 {user?.name?.[0] || 'G'}
                             </div>
-                            <h3 className="text-base md:text-lg font-black text-slate-900 dark:text-white tracking-tight">{user?.name}</h3>
-                            <p className="text-[9px] md:text-[10px] font-black text-violet-500 uppercase tracking-[0.2em] mt-1 leading-none">{user?.role}</p>
-                            <div className="h-px w-16 bg-slate-100 dark:bg-slate-800 my-3"></div>
-                            <p className="text-[11px] md:text-xs font-semibold text-slate-700 dark:text-slate-300 leading-relaxed italic px-2">{user?.bio}</p>
+                            <h3 className="text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight max-md:text-base">{user?.name}</h3>
+                            <p className="text-[10px] md:text-xs font-black text-violet-500 uppercase tracking-[0.2em] mt-1.5 max-md:mt-1 max-md:text-[9px] leading-none">{user?.role}</p>
+                            <div className="h-px w-16 bg-slate-100 dark:bg-slate-800 my-4 max-md:my-3"></div>
+                            <p className="text-xs md:text-sm font-semibold text-slate-700 dark:text-slate-300 leading-relaxed italic px-2 max-md:text-[11px]">{user?.bio}</p>
                         </div>
                         
                         {/* Horizontal scrolling row on phone, vertical buttons list on desktop */}
@@ -113,7 +113,7 @@ const Settings = () => {
                             {['General', 'Security', 'Connectivity', 'Export Data'].map((item, idx) => (
                                 <button 
                                     key={idx} 
-                                    className={`px-3 py-2 md:w-full md:text-left md:px-4 md:py-2.5 rounded-xl text-[10px] md:text-xs font-bold uppercase tracking-wider transition-all ${idx === 0 ? 'bg-violet-50 dark:bg-violet-900/30 text-violet-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200'}`}
+                                    className={`px-4 py-2.5 max-md:px-3 max-md:py-2 md:w-full md:text-left md:px-5 md:py-3.5 rounded-xl text-xs md:text-sm max-md:text-[10px] font-bold uppercase tracking-wider transition-all ${idx === 0 ? 'bg-violet-50 dark:bg-violet-900/30 text-violet-600' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200'}`}
                                 >
                                     {item}
                                 </button>
@@ -126,39 +126,39 @@ const Settings = () => {
                 <div className="lg:col-span-2 space-y-6">
                     {/* Identity Section */}
                     <div className="bg-white dark:bg-slate-900 premium-shadow rounded-2xl p-6 border border-slate-100 dark:border-slate-800">
-                        <h3 className="text-sm md:text-base font-black text-slate-900 dark:text-white mb-5 flex items-center gap-2.5">
-                            <div className="w-7 h-7 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-lg flex items-center justify-center shadow-sm"><FiUser size={12} /></div>
+                        <h3 className="text-base md:text-lg font-black text-slate-900 dark:text-white mb-6 max-md:mb-5 max-md:text-sm flex items-center gap-3 max-md:gap-2.5">
+                            <div className="w-8 h-8 max-md:w-7 max-md:h-7 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-xl max-md:rounded-lg flex items-center justify-center shadow-sm"><FiUser size={14} className="max-md:w-3 max-md:h-3" /></div>
                             Identity & Bio
                         </h3>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="space-y-1">
-                                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 pl-1">Handle</label>
+                            <div className="space-y-1.5 max-md:space-y-1">
+                                <label className="block text-xs max-md:text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 pl-1">Handle</label>
                                 <input 
                                     type="text" 
                                     value={formData.name} 
                                     onChange={e => setFormData({...formData, name: e.target.value})} 
-                                    className="w-full h-11 bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all outline-none" 
+                                    className="w-full h-12 max-md:h-11 bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 max-md:px-3 max-md:py-2.5 text-base max-md:text-sm font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all outline-none" 
                                 />
                             </div>
-                            <div className="space-y-1">
-                                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 pl-1">Specialization</label>
+                            <div className="space-y-1.5 max-md:space-y-1">
+                                <label className="block text-xs max-md:text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 pl-1">Specialization</label>
                                 <input 
                                     type="text" 
                                     value={formData.specialization} 
                                     onChange={e => setFormData({...formData, specialization: e.target.value})} 
-                                    className="w-full h-11 bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all outline-none" 
+                                    className="w-full h-12 max-md:h-11 bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 max-md:px-3 max-md:py-2.5 text-base max-md:text-sm font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all outline-none" 
                                 />
                             </div>
-                            <div className="md:col-span-2 space-y-1">
-                                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 pl-1">Primary Email</label>
+                            <div className="md:col-span-2 space-y-1.5 max-md:space-y-1">
+                                <label className="block text-xs max-md:text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 pl-1">Primary Email</label>
                                 <div className="relative">
-                                    <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-400" size={14} />
+                                    <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-400 max-md:left-3 max-md:w-3.5 max-md:h-3.5" />
                                     <input 
                                         type="email" 
                                         value={formData.email} 
                                         onChange={e => setFormData({...formData, email: e.target.value})} 
-                                        className="w-full h-11 bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2.5 pl-9 text-sm font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all outline-none" 
+                                        className="w-full h-12 max-md:h-11 bg-slate-50/50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 max-md:px-3 max-md:py-2.5 pl-10 max-md:pl-9 text-base max-md:text-sm font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-50 dark:focus:ring-violet-900/10 transition-all outline-none" 
                                     />
                                 </div>
                             </div>
@@ -167,18 +167,18 @@ const Settings = () => {
 
                     {/* Alerts Section */}
                     <div id="reminders" className="bg-white dark:bg-slate-900 premium-shadow rounded-2xl p-6 border border-slate-100 dark:border-slate-800">
-                        <h3 className="text-sm md:text-base font-black text-slate-900 dark:text-white mb-5 flex items-center gap-2.5">
-                            <div className="w-7 h-7 bg-rose-50 dark:bg-rose-900/40 text-rose-600 dark:rose-400 rounded-lg flex items-center justify-center shadow-sm"><FiBell size={12} /></div>
+                        <h3 className="text-base md:text-lg font-black text-slate-900 dark:text-white mb-6 max-md:mb-5 max-md:text-sm flex items-center gap-3 max-md:gap-2.5">
+                            <div className="w-8 h-8 max-md:w-7 max-md:h-7 bg-rose-50 dark:bg-rose-900/40 text-rose-600 dark:rose-400 rounded-xl max-md:rounded-lg flex items-center justify-center shadow-sm"><FiBell size={14} className="max-md:w-3 max-md:h-3" /></div>
                             Intelligent Reminders
                         </h3>
 
-                        <div className="p-3.5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 mb-5 relative overflow-hidden group">
+                        <div className="p-4 max-md:p-3.5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 mb-6 max-md:mb-5 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
-                            <h4 className="text-[11px] md:text-xs font-black text-slate-900 dark:text-white flex items-center gap-2 relative z-10"><FiActivity className="text-violet-600" size={12} /> SYNC PROTOCOL</h4>
-                            <p className="text-[10px] md:text-[11px] text-slate-500 dark:text-slate-400 mt-1.5 font-semibold leading-relaxed max-w-lg relative z-10">Reminders are dispatched using local browser latency algorithms to maximize daily streak retention.</p>
+                            <h4 className="text-xs md:text-sm max-md:text-[11px] font-black text-slate-900 dark:text-white flex items-center gap-3 max-md:gap-2 relative z-10"><FiActivity className="text-violet-600 max-md:w-3 max-md:h-3" /> SYNC PROTOCOL</h4>
+                            <p className="text-xs md:text-sm max-md:text-[10px] text-slate-500 dark:text-slate-400 mt-2 max-md:mt-1.5 font-semibold leading-relaxed max-w-lg relative z-10">Reminders are dispatched using local browser latency algorithms to maximize daily streak retention.</p>
                         </div>
 
-                        <div className="space-y-4">
+                        <div className="space-y-5 max-md:space-y-4">
                             {[
                                 { key: 'email', label: 'E-MAIL DIGEST', desc: 'Summary of daily milestones.' },
                                 { key: 'reminders', label: 'STREAK ALERTS', desc: 'Critical notifications before streak resets.' },
@@ -186,8 +186,8 @@ const Settings = () => {
                             ].map((item) => (
                                 <div key={item.key} className="flex items-center justify-between py-1">
                                     <div className="flex-1 pr-6">
-                                        <h4 className="text-[10px] md:text-[11px] font-bold text-slate-900 dark:text-white tracking-wider uppercase">{item.label}</h4>
-                                        <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold mt-0.5">{item.desc}</p>
+                                        <h4 className="text-xs md:text-sm max-md:text-[10px] font-bold text-slate-900 dark:text-white tracking-wider uppercase">{item.label}</h4>
+                                        <p className="text-xs max-md:text-[10px] text-slate-500 dark:text-slate-400 font-semibold mt-1 max-md:mt-0.5">{item.desc}</p>
                                     </div>
                                     <button 
                                         onClick={() => handleToggle(item.key)}

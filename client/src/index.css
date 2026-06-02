@@ -255,35 +255,47 @@ body {
   .font-heading { font-family: 'Syne', sans-serif; }
   .font-body { font-family: 'Outfit', sans-serif; }
 
-  /* Fluid typography (capped maxima preserve desktop) */
-  .text-fluid-xs {
-    font-size: var(--text-fluid-xs);
-    line-height: 1.35;
-  }
-
-  .text-fluid-sm {
-    font-size: var(--text-fluid-sm);
-    line-height: 1.4;
-  }
-
-  .text-fluid-base {
-    font-size: var(--text-fluid-base);
-    line-height: 1.5;
-  }
-
-  .text-fluid-lg {
-    font-size: var(--text-fluid-lg);
-    line-height: 1.25;
-  }
-
-  .text-fluid-xl {
-    font-size: var(--text-fluid-xl);
-    line-height: 1.15;
-  }
-
+  /* Keep desktop typography unchanged; only apply fluid sizes on phones/tablets */
+  .text-fluid-xs,
+  .text-fluid-sm,
+  .text-fluid-base,
+  .text-fluid-lg,
+  .text-fluid-xl,
   .text-fluid-2xl {
-    font-size: var(--text-fluid-2xl);
-    line-height: 1.1;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  @media (max-width: 48rem) {
+    .text-fluid-xs {
+      font-size: var(--text-fluid-xs);
+      line-height: 1.35;
+    }
+
+    .text-fluid-sm {
+      font-size: var(--text-fluid-sm);
+      line-height: 1.4;
+    }
+
+    .text-fluid-base {
+      font-size: var(--text-fluid-base);
+      line-height: 1.5;
+    }
+
+    .text-fluid-lg {
+      font-size: var(--text-fluid-lg);
+      line-height: 1.25;
+    }
+
+    .text-fluid-xl {
+      font-size: var(--text-fluid-xl);
+      line-height: 1.15;
+    }
+
+    .text-fluid-2xl {
+      font-size: var(--text-fluid-2xl);
+      line-height: 1.1;
+    }
   }
 
   /* Mobile shell: clearance for fixed bottom nav + safe area */
