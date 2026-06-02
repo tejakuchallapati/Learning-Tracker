@@ -203,28 +203,28 @@ const Settings = () => {
 
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
                             <div className="flex-1 min-w-0">
-                                <h4 className="text-[10px] md:text-[11px] font-bold text-slate-900 dark:text-white tracking-wider uppercase">Adaptive Time Window</h4>
-                                <p className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold mt-0.5">Set your high-performance focus period.</p>
+                                <h4 className="text-xs md:text-sm max-md:text-[10px] font-bold text-slate-900 dark:text-white tracking-wider uppercase">Adaptive Time Window</h4>
+                                <p className="text-xs max-md:text-[10px] text-slate-500 dark:text-slate-400 font-semibold mt-1 max-md:mt-0.5">Set your high-performance focus period.</p>
                             </div>
-                            <div className="flex items-center bg-slate-50/80 dark:bg-slate-800 rounded-xl p-1.5 gap-1.5 border border-slate-200 dark:border-slate-700 shrink-0">
+                            <div className="flex items-center bg-slate-50/80 dark:bg-slate-800 rounded-xl p-2 max-md:p-1.5 gap-2 max-md:gap-1.5 border border-slate-200 dark:border-slate-700 shrink-0">
                                 <input 
                                     type="time" 
                                     value={reminderTime} 
                                     onChange={(e) => handleTimeChange(e.target.value)}
-                                    className="bg-transparent border-none text-xs font-bold text-slate-900 dark:text-white focus:ring-0 p-1 cursor-pointer outline-none" 
+                                    className="bg-transparent border-none text-sm max-md:text-xs font-bold text-slate-900 dark:text-white focus:ring-0 p-1 cursor-pointer outline-none" 
                                     title="Reminder Time" 
                                 />
-                                <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 mx-0.5"></div>
-                                <div className="flex gap-0.5">
+                                <div className="h-5 max-md:h-4 w-px bg-slate-200 dark:bg-slate-700 mx-1 max-md:mx-0.5"></div>
+                                <div className="flex gap-1 max-md:gap-0.5">
                                     <button 
                                         onClick={() => handleAmPmChange('AM')}
-                                        className={`px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all ${amPm === 'AM' ? 'bg-violet-600 text-white shadow-md shadow-violet-100/50' : 'text-slate-400 hover:text-violet-600'}`}
+                                        className={`px-3 py-2 max-md:px-2.5 max-md:py-1.5 rounded-lg text-xs max-md:text-[10px] font-bold transition-all ${amPm === 'AM' ? 'bg-violet-600 text-white shadow-md shadow-violet-100/50' : 'text-slate-400 hover:text-violet-600'}`}
                                     >
                                         AM
                                     </button>
                                     <button 
                                         onClick={() => handleAmPmChange('PM')}
-                                        className={`px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all ${amPm === 'PM' ? 'bg-violet-600 text-white shadow-md shadow-violet-100/50' : 'text-slate-400 hover:text-violet-600'}`}
+                                        className={`px-3 py-2 max-md:px-2.5 max-md:py-1.5 rounded-lg text-xs max-md:text-[10px] font-bold transition-all ${amPm === 'PM' ? 'bg-violet-600 text-white shadow-md shadow-violet-100/50' : 'text-slate-400 hover:text-violet-600'}`}
                                     >
                                         PM
                                     </button>
