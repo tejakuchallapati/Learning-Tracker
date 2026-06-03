@@ -1,17 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { FiActivity, FiAward, FiClock, FiList, FiCheckCircle, FiLock, FiDownload, FiTrendingUp, FiZap, FiCpu, FiBook, FiStar } from 'react-icons/fi';
-import { FaRocket } from 'react-icons/fa';
-
-const badges = [
-    { icon: <FaRocket />, color: 'text-rose-400 bg-rose-500/10 shadow-rose-500/20 border-rose-500/20', name: 'First Launch',    desc: 'Logged first study session',    earned: true },
-    { icon: <FiTrendingUp />, color: 'text-orange-400 bg-orange-500/10 shadow-orange-500/20 border-orange-500/20', name: '7-Day Streak',    desc: 'Studied 7 days in a row',        earned: true },
-    { icon: <FiZap />, color: 'text-amber-400 bg-amber-500/10 shadow-amber-500/20 border-amber-500/20', name: 'Speed Learner',   desc: 'Completed a topic in under 1 day', earned: true },
-    { icon: <FiAward />, color: 'text-emerald-400 bg-emerald-500/10 shadow-emerald-500/20 border-emerald-500/20', name: 'Track Master',    desc: 'Completed an entire roadmap',   earned: false },
-    { icon: <FiClock />, color: 'text-cyan-400 bg-cyan-500/10 shadow-cyan-500/20 border-cyan-500/20', name: '100 Hours',       desc: 'Logged 100+ study hours',        earned: false },
-    { icon: <FiCpu />, color: 'text-violet-400 bg-violet-500/10 shadow-violet-500/20 border-violet-500/20', name: 'Deep Thinker',    desc: 'Used AI Mentor 10+ times',       earned: false },
-    { icon: <FiBook />, color: 'text-blue-400 bg-blue-500/10 shadow-blue-500/20 border-blue-500/20', name: 'Bookworm',        desc: 'Saved 5+ resources to library',  earned: false },
-    { icon: <FiStar />, color: 'text-fuchsia-400 bg-fuchsia-500/10 shadow-fuchsia-500/20 border-fuchsia-500/20', name: 'Consistent Pro',  desc: 'Maintained 30-day streak',       earned: false },
-];
+import { FiActivity, FiClock, FiList, FiDownload } from 'react-icons/fi';
 
 const Insights = () => {
     const timeData = [
@@ -27,8 +15,6 @@ const Insights = () => {
         { id: 3, title: 'JWT Authentication', date: '3 days ago', timeSpent: '5.1 hrs', status: 'Verified' },
         { id: 4, title: 'Advanced State Management', date: 'Last week', timeSpent: '6.0 hrs', status: 'Verified' },
     ];
-
-    const earnedCount = badges.filter(b => b.earned).length;
 
     return (
         <div className="font-body max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-10">
@@ -108,11 +94,10 @@ const Insights = () => {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
                     { icon: <FiClock />,    label: 'Productive Hours',  val: '0' },
                     { icon: <FiActivity />, label: 'Avg Consistency',   val: '0%' },
-                    { icon: <FiAward />,    label: 'badges Earned',     val: `${earnedCount}/${badges.length}` },
                     { icon: <FiActivity />, label: 'Target Accuracy',   val: '0%' }
                 ].map((stat, i) => (
                     <div key={i} className="bg-white dark:bg-slate-900 premium-shadow p-6 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center group hover:-translate-y-2 transition-all">
@@ -123,35 +108,6 @@ const Insights = () => {
                         <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mt-3 leading-none">{stat.label}</p>
                     </div>
                 ))}
-            </div>
-
-            {/* 🏆 Trophy Room */}
-            <div className="space-y-8">
-                <div className="flex items-end justify-between border-b border-slate-200 dark:border-slate-800 pb-6">
-                    <div>
-                        <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-4">
-                            <div className="w-12 h-12 bg-amber-50 dark:bg-amber-900/30 text-amber-500 dark:text-amber-400 rounded-2xl flex items-center justify-center shadow-sm text-2xl">🏆</div>
-                            Trophy Room
-                        </h2>
-                        <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">{earnedCount} of {badges.length} achievements unlocked. Keep learning!</p>
-                    </div>
-                    <div className="px-6 py-3 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-amber-100 dark:border-amber-900/40">{earnedCount} Earned</div>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {badges.map((badge, i) => (
-                        <div key={i} className={`relative p-8 rounded-3xl border flex flex-col items-center text-center transition-all duration-500 group ${badge.earned ? 'bg-slate-900 border-slate-800 hover:-translate-y-2 shadow-xl' : 'bg-slate-950/50 border-slate-900 opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`}>
-                            {badge.earned
-                                ? <div className="absolute top-4 right-4 w-6 h-6 bg-emerald-500/20 border border-emerald-500/50 rounded-full flex items-center justify-center"><FiCheckCircle className="text-emerald-400" size={12} /></div>
-                                : <div className="absolute top-4 right-4 w-6 h-6 bg-slate-800 rounded-full flex items-center justify-center"><FiLock className="text-slate-500" size={12} /></div>
-                            }
-                            <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-lg border transition-all duration-500 ${badge.color} ${badge.earned ? 'group-hover:scale-110 group-hover:rotate-6' : ''}`}>
-                                {badge.icon}
-                            </div>
-                            <h4 className="text-sm font-black text-white leading-tight uppercase tracking-tight">{badge.name}</h4>
-                            <p className="text-[10px] text-slate-400 font-bold mt-2 leading-relaxed uppercase tracking-tight">{badge.desc}</p>
-                        </div>
-                    ))}
-                </div>
             </div>
         </div>
     );
