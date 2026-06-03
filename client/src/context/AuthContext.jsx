@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import API from '../services/api';
 import { AuthContext } from './AuthContextType';
+import { AUTH_SESSION_EXPIRED } from '../utils/authEvents';
 export { AuthContext };
 
 export const AuthProvider = ({ children }) => {
@@ -14,6 +15,12 @@ export const AuthProvider = ({ children }) => {
         return null;
     });
     const loading = false;
+
+    useEffect(() => {
+        const onSessionExpired = () => setUser(null);
+        window.addEventListener(AUTH_SESSION_EXPIRED, onSessionExpired);
+        return () => window.removeEventListener(AUTH_SESSION_EXPIRED, onSessionExpired);
+    }, []);
 
     // Persist user changes
     useEffect(() => {

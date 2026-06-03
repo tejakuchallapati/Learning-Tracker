@@ -3,12 +3,17 @@ const DailyGoal = require('../models/DailyGoal');
 const User = require('../models/User');
 const sendEmail = require('./emailService');
 
-// Schedule a daily job at 00:00 (midnight) to reset daily goals
+// Reset only goals completed on a previous calendar day (not all users at once blindly)
 cron.schedule('0 0 * * *', async () => {
     console.log('Running midnight daily goal reset...');
     try {
-        const result = await DailyGoal.updateMany({}, { completed: false });
-        console.log(`Reset ${result.modifiedCount} goals to incomplete.`);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const result = await DailyGoal.updateMany(
+            { completed: true, lastCompletedDate: { $lt: today } },
+            { completed: false }
+        );
+        console.log(`Reset ${result.modifiedCount} goals for a new day.`);
     } catch (err) {
         console.error('Error resetting daily goals at midnight:', err);
     }
@@ -37,14 +42,11 @@ const checkAndSendReminders = async () => {
             const reminderTimeStr = user.reminderTime || '20:00';
             const [prefHour, prefMin] = reminderTimeStr.split(':').map(Number);
 
-            // Determine if we should send.
-            // We send if the current time is past the preferred time,
-            // OR if this is a startup check/catch-up and the current hour is past 8:00 AM local time.
-            const isPastPreferredTime = (currentHour > prefHour) || (currentHour === prefHour && currentMin >= prefMin);
-            const isCatchUpWindow = (currentHour >= 8); // Send as catch-up if it's daytime (8 AM onwards)
+            const isPastPreferredTime =
+                currentHour > prefHour ||
+                (currentHour === prefHour && currentMin >= prefMin);
 
-            if (!isPastPreferredTime && !isCatchUpWindow) {
-                // Too early in the day, wait for the preferred time
+            if (!isPastPreferredTime) {
                 continue;
             }
 
@@ -59,10 +61,11 @@ const checkAndSendReminders = async () => {
                 continue;
             }
 
+            const includeStreak = user.streakAlertNotification !== false;
             const goalListText = incompleteGoals.map(g => {
-                let streakText = "";
-                if (g.streak > 0) {
-                    streakText = ` (Current Streak: ${g.streak} 🔥)`;
+                let streakText = '';
+                if (includeStreak && g.streak > 0) {
+                    streakText = ` (Current Streak: ${g.streak})`;
                 }
                 return `- ${g.title}${streakText}`;
             }).join('\n');

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { dispatchSessionExpired } from '../utils/authEvents';
 
 const API = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL || 'https://learning-tracker-api-hqzm.onrender.com/api',
@@ -23,12 +24,13 @@ API.interceptors.response.use(
         if (error.response?.status === 401) {
             const url = error.config?.url || '';
             const isAuthAttempt =
-                url.includes('/auth/login') ||
-                url.includes('/auth/google') ||
-                url.includes('/auth/register');
+                url.includes('auth/login') ||
+                url.includes('auth/google') ||
+                url.includes('auth/register');
             if (!isAuthAttempt) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
+                dispatchSessionExpired();
             }
         }
         return Promise.reject(error);

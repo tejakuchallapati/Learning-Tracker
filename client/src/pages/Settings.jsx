@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useMemo } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { FiUser, FiBell, FiMail, FiPhone, FiCheckCircle, FiTrash2, FiActivity } from 'react-icons/fi';
 
@@ -18,8 +18,40 @@ const Settings = () => {
         push: user?.pushNotification !== undefined ? user.pushNotification : false
     });
     const [saved, setSaved] = useState(false);
+    const [saveError, setSaveError] = useState('');
     const [amPm, setAmPm] = useState(user?.reminderAmPm || 'PM');
     const [reminderTime, setReminderTime] = useState(user?.reminderTime || '20:00');
+
+    const savedSnapshot = useMemo(() => {
+        if (!user) return null;
+        return JSON.stringify({
+            name: user.name || '',
+            email: user.email || '',
+            bio: user.bio || '',
+            specialization: user.specialization || '',
+            emailNotification: user.emailNotification !== undefined ? user.emailNotification : true,
+            streakAlertNotification: user.streakAlertNotification !== undefined ? user.streakAlertNotification : true,
+            pushNotification: user.pushNotification !== undefined ? user.pushNotification : false,
+            reminderTime: user.reminderTime || '20:00',
+            reminderAmPm: user.reminderAmPm || 'PM',
+        });
+    }, [user]);
+
+    const hasUnsavedChanges = useMemo(() => {
+        if (!savedSnapshot) return false;
+        const current = JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            bio: formData.bio,
+            specialization: formData.specialization,
+            emailNotification: notifications.email,
+            streakAlertNotification: notifications.reminders,
+            pushNotification: notifications.push,
+            reminderTime,
+            reminderAmPm: amPm,
+        });
+        return current !== savedSnapshot;
+    }, [savedSnapshot, formData, notifications, reminderTime, amPm]);
 
     // Sync settings states when user context updates (e.g. on profile reload/sync)
     useEffect(() => {
@@ -57,6 +89,7 @@ const Settings = () => {
     };
 
     const handleSave = async () => {
+        setSaveError('');
         try {
             await updateProfile({
                 ...formData,
@@ -70,6 +103,7 @@ const Settings = () => {
             setTimeout(() => setSaved(false), 3000);
         } catch (error) {
             console.error('Failed to update profile:', error);
+            setSaveError(error.response?.data?.message || 'Failed to save preferences. Please try again.');
         }
     };
 
@@ -81,10 +115,19 @@ const Settings = () => {
                     <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Preferences</h1>
                     <p className="text-slate-700 dark:text-slate-400 mt-2 text-xs md:text-sm font-semibold leading-relaxed max-md:mt-1.5 max-md:text-[11px]">Customize your learning environment and notification behavior.</p>
                 </div>
-                <div className="flex gap-4 shrink-0">
+                <div className="flex flex-col items-stretch sm:items-end gap-2 shrink-0">
+                    {hasUnsavedChanges && (
+                        <p className="text-[11px] md:text-xs font-semibold text-amber-600 dark:text-amber-400 text-center sm:text-right">
+                            Unsaved changes — click Sync Preferences to apply.
+                        </p>
+                    )}
+                    {saveError && (
+                        <p className="text-[11px] md:text-xs font-semibold text-rose-600 text-center sm:text-right">{saveError}</p>
+                    )}
                     <button 
                         onClick={handleSave}
-                        className="w-full sm:w-auto px-5 py-3.5 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-bold text-xs md:text-sm hover:bg-violet-600 transition-all shadow-md shadow-slate-200 dark:shadow-none flex items-center justify-center gap-2 btn-hover-scale uppercase tracking-wider max-md:py-3 max-md:text-[10px]"
+                        disabled={!hasUnsavedChanges}
+                        className="w-full sm:w-auto px-5 py-3.5 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-bold text-xs md:text-sm hover:bg-violet-600 transition-all shadow-md shadow-slate-200 dark:shadow-none flex items-center justify-center gap-2 btn-hover-scale uppercase tracking-wider max-md:py-3 max-md:text-[10px] disabled:opacity-50 disabled:pointer-events-none"
                     >
                         SYNC PREFERENCES {saved && <FiCheckCircle className="animate-in zoom-in duration-300" />}
                     </button>
@@ -174,24 +217,26 @@ const Settings = () => {
 
                         <div className="p-4 max-md:p-3.5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 mb-6 max-md:mb-5 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
-                            <h4 className="text-xs md:text-sm max-md:text-[11px] font-black text-slate-900 dark:text-white flex items-center gap-3 max-md:gap-2 relative z-10"><FiActivity className="text-violet-600 max-md:w-3 max-md:h-3" /> SYNC PROTOCOL</h4>
-                            <p className="text-xs md:text-sm max-md:text-[10px] text-slate-500 dark:text-slate-400 mt-2 max-md:mt-1.5 font-semibold leading-relaxed max-w-lg relative z-10">Reminders are dispatched using local browser latency algorithms to maximize daily streak retention.</p>
+                            <h4 className="text-xs md:text-sm max-md:text-[11px] font-black text-slate-900 dark:text-white flex items-center gap-3 max-md:gap-2 relative z-10"><FiActivity className="text-violet-600 max-md:w-3 max-md:h-3" /> Email reminders</h4>
+                            <p className="text-xs md:text-sm max-md:text-[10px] text-slate-500 dark:text-slate-400 mt-2 max-md:mt-1.5 font-semibold leading-relaxed max-w-lg relative z-10">When Email digest is on and you save, the server sends a daily email after your chosen time for incomplete daily goals that have the bell icon enabled on the Goals page.</p>
                         </div>
 
                         <div className="space-y-5 max-md:space-y-4">
                             {[
-                                { key: 'email', label: 'E-MAIL DIGEST', desc: 'Summary of daily milestones.' },
-                                { key: 'reminders', label: 'STREAK ALERTS', desc: 'Critical notifications before streak resets.' },
-                                { key: 'push', label: 'BROWSER PUSH', desc: 'Real-time achievement synchronization.' }
+                                { key: 'email', label: 'Email digest', desc: 'Daily email for incomplete goals (with bell on).', disabled: false },
+                                { key: 'reminders', label: 'Streak in digest', desc: 'Include streak count in the same daily email.', disabled: false },
+                                { key: 'push', label: 'Browser push', desc: 'Coming soon — not available yet.', disabled: true }
                             ].map((item) => (
-                                <div key={item.key} className="flex items-center justify-between py-1">
+                                <div key={item.key} className={`flex items-center justify-between py-1 ${item.disabled ? 'opacity-60' : ''}`}>
                                     <div className="flex-1 pr-6">
                                         <h4 className="text-xs md:text-sm max-md:text-[10px] font-bold text-slate-900 dark:text-white tracking-wider uppercase">{item.label}</h4>
                                         <p className="text-xs max-md:text-[10px] text-slate-500 dark:text-slate-400 font-semibold mt-1 max-md:mt-0.5">{item.desc}</p>
                                     </div>
                                     <button 
-                                        onClick={() => handleToggle(item.key)}
-                                        className={`w-12 h-7 rounded-full transition-all duration-500 relative shrink-0 ${notifications[item.key] ? 'bg-violet-600 shadow-md shadow-violet-100/50' : 'bg-slate-200 dark:bg-slate-800'}`}
+                                        type="button"
+                                        disabled={item.disabled}
+                                        onClick={() => !item.disabled && handleToggle(item.key)}
+                                        className={`w-12 h-7 rounded-full transition-all duration-500 relative shrink-0 ${notifications[item.key] ? 'bg-violet-600 shadow-md shadow-violet-100/50' : 'bg-slate-200 dark:bg-slate-800'} disabled:cursor-not-allowed`}
                                     >
                                         <div className={`absolute top-1 w-5 h-5 bg-white rounded-full transition-all duration-500 shadow-sm ${notifications[item.key] ? 'left-6' : 'left-1'}`}></div>
                                     </button>
