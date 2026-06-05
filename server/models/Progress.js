@@ -20,5 +20,7 @@ const progressSchema = mongoose.Schema(
     }
 );
 
+progressSchema.index({ goalId: 1 });
+
 const Progress = mongoose.model('Progress', progressSchema);
 module.exports = Progress;

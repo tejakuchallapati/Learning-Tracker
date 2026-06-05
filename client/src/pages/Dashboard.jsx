@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { courses } from '../data/CourseData';
 import API from '../services/api';
+import { readDashboardCache, writeDashboardCache } from '../utils/dashboardCache';
 import StatsCard from '../components/StatsCard';
 import ChartCard from '../components/ChartCard';
 import ReminderCard from '../components/ReminderCard';
@@ -19,11 +20,23 @@ const dummyChartData = [
     { name: 'Sun', hours: 3.2 },
 ];
 
+const StatSkeleton = () => (
+    <div className="glass-card premium-shadow p-4 rounded-xl animate-pulse">
+        <div className="h-10 w-10 bg-slate-200 dark:bg-slate-700 rounded-xl mb-4" />
+        <div className="h-8 w-16 bg-slate-200 dark:bg-slate-700 rounded-lg mb-2" />
+        <div className="h-3 w-24 bg-slate-100 dark:bg-slate-800 rounded" />
+    </div>
+);
+
+const initialCache = readDashboardCache();
+
 const Dashboard = () => {
     const navigate = useNavigate();
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [goals, setGoals] = useState([]);
+    const [data, setData] = useState(initialCache?.data ?? null);
+    const [loadingStats, setLoadingStats] = useState(!initialCache?.data);
+    const [loadingGoals, setLoadingGoals] = useState(!initialCache);
+    const [slowLoad, setSlowLoad] = useState(false);
+    const [goals, setGoals] = useState(initialCache?.goals ?? []);
     
     // Goal Setting State
     const [selectedTrack, setSelectedTrack] = useState(courses[0].id);
@@ -80,36 +93,65 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-        const fetchDashboard = async () => {
-            try {
-                setLoading(true);
-                const [dashRes, goalsRes] = await Promise.all([
-                    API.get('analytics/dashboard'),
-                    API.get('goals')
-                ]);
-                setData(dashRes?.data || { totalStudyHours: 0, weeklyStudyHours: 0 });
-                if (Array.isArray(goalsRes?.data)) {
-                    setGoals(goalsRes.data);
+        let cancelled = false;
+        const slowTimer = setTimeout(() => {
+            if (!cancelled) setSlowLoad(true);
+        }, 3000);
+
+        const fetchGoals = API.get('goals')
+            .then((res) => {
+                if (!cancelled && Array.isArray(res?.data)) setGoals(res.data);
+            })
+            .catch((err) => {
+                console.warn('Failed to load goals', err);
+                if (!cancelled) setGoals([]);
+            })
+            .finally(() => {
+                if (!cancelled) setLoadingGoals(false);
+            });
+
+        const fetchAnalytics = API.get('analytics/dashboard')
+            .then((res) => {
+                if (!cancelled) {
+                    setData(res?.data || { totalStudyHours: 0, weeklyStudyHours: 0, completionRate: 0 });
                 }
-            } catch (err) {
-                console.warn('Failed to load real dashboard data, using initial state', err);
-                setData({ totalStudyHours: 0, weeklyStudyHours: 0, completionRate: 0 });
-                setGoals([]);
-            } finally {
-                setLoading(false);
+            })
+            .catch((err) => {
+                console.warn('Failed to load dashboard analytics', err);
+                if (!cancelled) {
+                    setData((prev) => prev || { totalStudyHours: 0, weeklyStudyHours: 0, completionRate: 0 });
+                }
+            })
+            .finally(() => {
+                if (!cancelled) setLoadingStats(false);
+            });
+
+        Promise.all([fetchGoals, fetchAnalytics]).finally(() => {
+            if (!cancelled) {
+                clearTimeout(slowTimer);
+                setSlowLoad(false);
             }
+        });
+
+        return () => {
+            cancelled = true;
+            clearTimeout(slowTimer);
         };
-        fetchDashboard();
     }, []);
 
-    if (loading) return (
-        <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-600"></div>
-        </div>
-    );
+    useEffect(() => {
+        if (!loadingStats && !loadingGoals) {
+            writeDashboardCache(data, goals);
+        }
+    }, [data, goals, loadingStats, loadingGoals]);
 
     return (
-        <div className="font-body space-y-6 animate-in fade-in duration-1000">
+        <div className="font-body space-y-6 animate-in fade-in duration-500">
+            {slowLoad && (loadingStats || loadingGoals) && (
+                <div className="text-xs font-semibold text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-900/20 border border-violet-100 dark:border-violet-800 rounded-xl px-4 py-2.5">
+                    Loading your data — the server may take a moment to wake up on first visit.
+                </div>
+            )}
             {/* Header Section */}
             <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] p-6 text-slate-800 dark:text-slate-100 relative overflow-hidden shadow-sm group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/5 rounded-full -mr-20 -mt-20 blur-3xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
@@ -132,56 +174,66 @@ const Dashboard = () => {
 
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="p-3 bg-violet-50 text-violet-600 rounded-xl group-hover:bg-violet-600 group-hover:text-white transition-all duration-500">
-                            <FiClock size={20} />
-                        </div>
-                        <div className="text-right">
-                            <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Efficiency</p>
-                            <p className="text-[10px] font-bold text-emerald-500">+12% Peak</p>
-                        </div>
-                    </div>
-                    <h3 className="text-2xl font-black text-slate-900 dark:text-white">{data?.totalStudyHours ?? 0}h</h3>
-                    <p className="text-[11px] font-semibold text-slate-500 mt-0.5">Total Study Time</p>
-                </div>
-
-                <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="p-3 bg-rose-50 text-rose-600 rounded-xl group-hover:bg-rose-600 group-hover:text-white transition-all duration-500">
-                            <FiActivity size={20} />
-                        </div>
-                        <div className="text-right">
-                            <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Intensity</p>
-                            <p className="text-[10px] font-bold text-rose-500">High Focus</p>
-                        </div>
-                    </div>
-                    <h3 className="text-2xl font-black text-slate-900 dark:text-white">{data?.weeklyStudyHours ?? 0}h</h3>
-                    <p className="text-[11px] font-bold text-slate-700 mt-0.5">Weekly Intensity</p>
-                </div>
-
-                <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default lg:col-span-2 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-8 opacity-5">
-                        <FiPlus size={100} />
-                    </div>
-                    <div className="flex flex-col h-full justify-between">
-                        <div className="flex items-center gap-4 mb-3">
-                            <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
-                                <FiTarget size={20} />
+                {loadingStats ? (
+                    <>
+                        <StatSkeleton />
+                        <StatSkeleton />
+                        <div className="lg:col-span-2"><StatSkeleton /></div>
+                    </>
+                ) : (
+                    <>
+                        <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="p-3 bg-violet-50 text-violet-600 rounded-xl group-hover:bg-violet-600 group-hover:text-white transition-all duration-500">
+                                    <FiClock size={20} />
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Efficiency</p>
+                                    <p className="text-[10px] font-bold text-emerald-500">+12% Peak</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 className="text-lg font-black text-slate-900 dark:text-white">Current Goal Progress</h3>
-                                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-400">Track and manage your active paths</p>
+                            <h3 className="text-2xl font-black text-slate-900 dark:text-white">{data?.totalStudyHours ?? 0}h</h3>
+                            <p className="text-[11px] font-semibold text-slate-500 mt-0.5">Total Study Time</p>
+                        </div>
+
+                        <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="p-3 bg-rose-50 text-rose-600 rounded-xl group-hover:bg-rose-600 group-hover:text-white transition-all duration-500">
+                                    <FiActivity size={20} />
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Intensity</p>
+                                    <p className="text-[10px] font-bold text-rose-500">High Focus</p>
+                                </div>
+                            </div>
+                            <h3 className="text-2xl font-black text-slate-900 dark:text-white">{data?.weeklyStudyHours ?? 0}h</h3>
+                            <p className="text-[11px] font-bold text-slate-700 mt-0.5">Weekly Intensity</p>
+                        </div>
+
+                        <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default lg:col-span-2 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-8 opacity-5">
+                                <FiPlus size={100} />
+                            </div>
+                            <div className="flex flex-col h-full justify-between">
+                                <div className="flex items-center gap-4 mb-3">
+                                    <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+                                        <FiTarget size={20} />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-black text-slate-900 dark:text-white">Current Goal Progress</h3>
+                                        <p className="text-[11px] font-bold text-slate-700 dark:text-slate-400">Track and manage your active paths</p>
+                                    </div>
+                                </div>
+                                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mt-1">
+                                    <div
+                                        className="bg-violet-600 h-full rounded-full shadow-[0_0_15px_rgba(124,58,237,0.5)] transition-all duration-1000"
+                                        style={{ width: `${data?.completionRate || 0}%` }}
+                                    />
+                                </div>
                             </div>
                         </div>
-                        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mt-1">
-                            <div 
-                                className="bg-violet-600 h-full rounded-full shadow-[0_0_15px_rgba(124,58,237,0.5)] transition-all duration-1000"
-                                style={{ width: `${data?.completionRate || 0}%` }}
-                            ></div>
-                        </div>
-                    </div>
-                </div>
+                    </>
+                )}
             </div>
 
             {/* Interactive Grid */}
@@ -247,7 +299,7 @@ const Dashboard = () => {
                                         strokeWidth={2}
                                         fillOpacity={1}
                                         fill="url(#colorHours)"
-                                        animationDuration={2500}
+                                        animationDuration={800}
                                         animationEasing="ease-in-out"
                                     />
                                 </AreaChart>
@@ -262,9 +314,18 @@ const Dashboard = () => {
                              <button onClick={() => navigate('/courses')} className="text-sm font-black text-violet-600 hover:text-violet-700 transition-all flex items-center gap-2">View Curriculum <FiArrowRight /></button>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-4">
-                            {goals.slice(0, 2).map(goal => (
-                                <GoalCard key={goal._id} goal={goal} onDelete={handleDeleteGoal} />
-                            ))}
+                            {loadingGoals ? (
+                                <>
+                                    <StatSkeleton />
+                                    <StatSkeleton />
+                                </>
+                            ) : goals.length > 0 ? (
+                                goals.slice(0, 2).map(goal => (
+                                    <GoalCard key={goal._id} goal={goal} onDelete={handleDeleteGoal} />
+                                ))
+                            ) : (
+                                <p className="text-sm font-semibold text-slate-500 col-span-2 px-2">No active paths yet. Add a learning goal to get started.</p>
+                            )}
                         </div>
                     </div>
                 </div>

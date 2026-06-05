@@ -44,5 +44,7 @@ const goalSchema = mongoose.Schema(
     }
 );
 
+goalSchema.index({ userId: 1, createdAt: -1 });
+
 const LearningGoal = mongoose.model('LearningGoal', goalSchema);
 module.exports = LearningGoal;

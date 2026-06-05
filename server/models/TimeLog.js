@@ -26,5 +26,7 @@ const timeLogSchema = mongoose.Schema(
     }
 );
 
+timeLogSchema.index({ userId: 1, date: -1 });
+
 const TimeLog = mongoose.model('TimeLog', timeLogSchema);
 module.exports = TimeLog;
