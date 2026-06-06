@@ -82,30 +82,30 @@ const TopicContent = () => {
     );
 
     return (
-        <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-32 relative max-md:overflow-x-hidden max-md:pb-24">
+        <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-16 relative max-md:overflow-x-hidden max-md:pb-20">
             {/* Header */}
-            <div className="space-y-8">
+            <div className="space-y-4">
                 <button 
                     onClick={() => navigate(-1)}
                     className="flex items-center gap-3 text-xs font-black text-slate-400 hover:text-violet-600 uppercase tracking-widest transition-all group"
                 >
                     <FiChevronLeft className="group-hover:-translate-x-1 transition-transform" /> Back to Roadmap
                 </button>
-                <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                     <div className="max-w-3xl max-md:min-w-0">
-                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] max-md:break-words">{topic.title}</h1>
-                        <p className="text-slate-600 dark:text-slate-400 mt-6 text-lg md:text-xl leading-relaxed font-medium">{topic.detail}</p>
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15] max-md:break-words">{topic.title}</h1>
+                        <p className="text-slate-600 dark:text-slate-400 mt-2 text-base md:text-lg leading-relaxed font-medium">{topic.detail}</p>
                     </div>
-                    <div className="flex flex-col gap-4 shrink-0 max-md:w-full">
+                    <div className="flex flex-col gap-2 shrink-0 max-md:w-full">
                         <button 
                             onClick={handleComplete}
-                            className={`px-10 py-5 rounded-xl font-black text-sm transition-all flex items-center gap-3 shadow-2xl btn-hover-scale max-md:w-full max-md:justify-center ${isCompleted ? 'bg-emerald-50 text-emerald-600 shadow-emerald-100 border border-emerald-100' : 'bg-violet-600 text-white shadow-violet-200 hover:bg-violet-700'}`}
+                            className={`px-6 py-3 rounded-xl font-black text-sm transition-all flex items-center gap-2 shadow-lg btn-hover-scale max-md:w-full max-md:justify-center ${isCompleted ? 'bg-emerald-50 text-emerald-600 shadow-emerald-100 border border-emerald-100' : 'bg-violet-600 text-white shadow-violet-200 hover:bg-violet-700'}`}
                         >
                             {isCompleted ? <><FiCheckCircle size={20} /> Accomplished</> : 'Mark as Completed'}
                         </button>
                         <button 
                             onClick={openMentor}
-                            className="px-10 py-5 rounded-xl font-black text-sm transition-all flex items-center gap-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-2xl shadow-violet-200 btn-hover-scale hover:from-violet-700 hover:to-fuchsia-700 max-md:w-full max-md:justify-center"
+                            className="px-6 py-3 rounded-xl font-black text-sm transition-all flex items-center gap-2 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-200 btn-hover-scale hover:from-violet-700 hover:to-fuchsia-700 max-md:w-full max-md:justify-center"
                         >
                             <FiZap size={20} /> Ask AI Mentor
                         </button>
@@ -115,21 +115,21 @@ const TopicContent = () => {
 
             {/* Content Rendering Zone */}
             <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden premium-shadow">
-                <div className="p-12 md:p-20 space-y-16 lg:space-y-24 max-md:p-6 max-md:space-y-10">
-                    <div className="space-y-8">
+                <div className="p-5 md:p-8 space-y-8 max-md:p-4 max-md:space-y-6">
+                    <div className="space-y-4">
                         <div className="inline-flex items-center gap-2 px-4 py-1 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-full text-[10px] font-black uppercase tracking-widest">
                             <FiBookOpen /> Architecture &amp; Logic
                         </div>
-                        <h2 className="text-2xl md:text-4xl font-black text-slate-900 dark:text-white leading-tight">Mastering the Core</h2>
-                        <div className="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 leading-[1.8] text-lg font-medium">
+                        <h2 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white leading-tight">Mastering the Core</h2>
+                        <div className="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 leading-relaxed text-base font-medium">
                             {topic.deepContent?.description || 'In-depth technical analysis focusing on architecture, implementation patterns, and industry best practices. This section covers the fundamental internal mechanics and how this technology integrates into modern production environments.'}
                         </div>
                     </div>
 
                     {topic.deepContent?.table && (
-                        <div className="space-y-8">
-                            <h3 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-4">
-                                <div className="p-3 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-2xl"><FiLayout size={20} /></div>
+                        <div className="space-y-4">
+                            <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-3">
+                                <div className="p-2 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl"><FiLayout size={18} /></div>
                                 Performance &amp; Structure
                             </h3>
                             <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-800/30 p-2">
@@ -137,7 +137,7 @@ const TopicContent = () => {
                                     <thead>
                                         <tr>
                                             {topic.deepContent.table.headers.map((h, i) => (
-                                                <th key={i} className="px-8 py-6 text-[10px] font-black text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800 uppercase tracking-widest">{h}</th>
+                                                <th key={i} className="px-4 py-3 text-[10px] font-black text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800 uppercase tracking-widest">{h}</th>
                                             ))}
                                         </tr>
                                     </thead>
@@ -145,7 +145,7 @@ const TopicContent = () => {
                                         {topic.deepContent.table.rows.map((row, i) => (
                                             <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800 transition-all group border-b border-slate-100 dark:border-slate-800 last:border-none">
                                                 {row.map((cell, j) => (
-                                                    <td key={j} className="px-8 py-6 text-sm font-bold text-slate-700 dark:text-slate-400">{cell}</td>
+                                                    <td key={j} className="px-4 py-3 text-sm font-bold text-slate-700 dark:text-slate-400">{cell}</td>
                                                 ))}
                                             </tr>
                                         ))}
@@ -156,12 +156,12 @@ const TopicContent = () => {
                     )}
 
                     {topic.deepContent?.code && (
-                        <div className="space-y-8">
-                            <h3 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-4">
-                                <div className="p-3 bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-2xl"><FiSearch size={20} /></div>
+                        <div className="space-y-4">
+                            <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-3">
+                                <div className="p-2 bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-xl"><FiSearch size={18} /></div>
                                 Implementation Snippet
                             </h3>
-                            <div className="bg-slate-900 rounded-2xl p-6 sm:p-10 shadow-3xl relative overflow-hidden contain-decor">
+                            <div className="bg-slate-900 rounded-2xl p-4 sm:p-6 shadow-3xl relative overflow-hidden contain-decor">
                                 <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 bg-violet-500/10 rounded-full blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/4"></div>
                                 <div className="flex items-center justify-between mb-6 relative z-10">
                                     <div className="flex gap-2">
@@ -178,22 +178,22 @@ const TopicContent = () => {
                         </div>
                     )}
 
-                    <div className="pt-16 border-t border-slate-200 dark:border-slate-800 space-y-10">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                    <div className="pt-8 border-t border-slate-200 dark:border-slate-800 space-y-5">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div>
-                                <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Expert Curations</h3>
-                                <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg font-medium">Industry-vetted channels for detailed visual mastery.</p>
+                                <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Expert Curations</h3>
+                                <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm font-medium">Industry-vetted channels for detailed visual mastery.</p>
                             </div>
-                            <div className="px-8 py-4 bg-rose-50 text-rose-600 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 border border-rose-100">
+                            <div className="px-4 py-2 bg-rose-50 text-rose-600 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 border border-rose-100">
                                 <FiPlay size={16} /> Premium Sources
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {course.topChannels?.map((channel, i) => (
                                 <a key={i} href={channel.url} target="_blank" rel="noopener noreferrer"
-                                    className="p-8 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-rose-200 dark:hover:border-rose-500/50 hover:bg-white dark:hover:bg-slate-700 hover:shadow-2xl hover:shadow-rose-500/5 transition-all flex items-center gap-6 group btn-hover-scale"
+                                    className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-rose-200 dark:hover:border-rose-500/50 hover:bg-white dark:hover:bg-slate-700 hover:shadow-lg hover:shadow-rose-500/5 transition-all flex items-center gap-4 group btn-hover-scale"
                                 >
-                                    <div className="w-16 h-16 rounded-xl bg-rose-600 flex items-center justify-center text-white text-2xl shadow-xl shadow-rose-200 group-hover:rotate-12 transition-all">
+                                    <div className="w-12 h-12 rounded-lg bg-rose-600 flex items-center justify-center text-white text-xl shadow-lg shadow-rose-200 group-hover:rotate-12 transition-all">
                                         <FiPlay />
                                     </div>
                                     <div className="min-w-0">
