@@ -1,167 +1,360 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
-import { FiArrowRight, FiCode, FiCpu, FiLayout, FiSmartphone, FiActivity, FiSearch, FiCompass, FiShield, FiZap, FiTarget } from 'react-icons/fi';
+import {
+    FiArrowRight,
+    FiLayout,
+    FiBookOpen,
+    FiTarget,
+    FiBookmark,
+    FiEdit,
+    FiMail,
+    FiX,
+} from 'react-icons/fi';
 import { Header } from '../components/ui/header-2';
+import SignupForm from '../components/SignupForm';
+import ModulePreview from '../components/landing/ModulePreview';
+import ScrollReveal from '../components/landing/ScrollReveal';
 import logo from '../assets/logo.png';
-import { cn } from '@/lib/utils';
+
+const modules = [
+    { id: 'dashboard', icon: <FiLayout size={22} />, title: 'Dashboard', desc: 'See active learning paths and goal progress in one place.' },
+    { id: 'roadmaps', icon: <FiBookOpen size={22} />, title: 'Roadmaps', desc: 'Browse structured course roadmaps across development, AI, frontend, and more.' },
+    { id: 'daily-goals', icon: <FiTarget size={22} />, title: 'Daily Goals', desc: 'Set daily objectives, build streaks, and get email reminders for incomplete tasks.' },
+    { id: 'resources', icon: <FiBookmark size={22} />, title: 'Resources', desc: 'Organize docs, tutorials, videos, and tools in your personal resource library.' },
+    { id: 'email-reminders', icon: <FiMail size={22} />, title: 'Email Reminders', desc: 'Get daily email nudges for incomplete goals so you stay consistent without checking the app.' },
+    { id: 'study-notes', icon: <FiEdit size={22} />, title: 'Study Notes', desc: 'Save daily learnings and future plans — synced securely to your account.' },
+];
+
+const stack = ['React', 'Node.js', 'MongoDB', 'JWT', 'Google OAuth', 'Tailwind'];
+
+const tickerItems = ['Roadmaps', 'Daily goals', 'Email reminders', 'Study notes', 'Resources', 'Dashboard'];
 
 const Landing = () => {
     const navigate = useNavigate();
-    const featuresRef = useRef(null);
+    const [activeModule, setActiveModule] = useState(null);
 
-    const scrollToFeatures = () => {
-        featuresRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const scrollToSignup = () => {
+        document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' });
     };
 
-    const features = [
-        { 
-            icon: <FiZap />, 
-            title: "Phase 01: Ignition", 
-            desc: "Build industry-grade consistency with daily technical challenges and real-time feedback.",
-            color: "violet",
-            theme: "text-violet-600 bg-violet-50 dark:bg-violet-950/50 border-violet-100 dark:border-violet-900/50 shadow-violet-500/20"
-        },
-        { 
-            icon: <FiCpu />, 
-            title: "Phase 02: Synthesis", 
-            desc: "Leverage AI to personalize your learning path based on your unique growth metrics.",
-            color: "cyan",
-            theme: "text-cyan-600 bg-cyan-50 dark:bg-cyan-950/50 border-cyan-100 dark:border-cyan-900/50 shadow-cyan-500/20"
-        },
-        { 
-            icon: <FiTarget />, 
-            title: "Phase 03: Mastery", 
-            desc: "Engineered to transform theoretical knowledge into career-ready excellence.",
-            color: "rose",
-            theme: "text-rose-600 bg-rose-50 dark:bg-rose-950/50 border-rose-100 dark:border-rose-900/50 shadow-rose-500/20"
-        }
+    const focusModule = (moduleId) => {
+        setActiveModule((prev) => (prev === moduleId ? null : moduleId));
+    };
+
+    const workflowSteps = [
+        { step: '01', label: 'Sign up', desc: 'Create your free account', action: scrollToSignup },
+        { step: '02', label: 'Pick a roadmap', desc: 'Choose your learning path', action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
+        { step: '03', label: 'Set daily goals', desc: 'Build streaks & habits', action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
+        { step: '04', label: 'Track progress', desc: 'Dashboard & resources', action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
     ];
 
     return (
-        <div className="min-h-screen bg-white text-slate-900 font-body selection:bg-violet-100 selection:text-violet-900 overflow-x-hidden relative transition-colors duration-500 noise-bg">
-            {/* Premium Light Matrix Background */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute inset-0 matrix-grid opacity-60"></div>
-                <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/40 to-white"></div>
-                
-                {/* Soft Ethereal Lighting */}
-                <div className="absolute top-[-5%] left-[10%] w-[1000px] h-[1000px] bg-violet-500/5 rounded-full blur-[180px] animate-pulse"></div>
-                <div className="absolute bottom-[5%] right-[5%] w-[800px] h-[800px] bg-cyan-500/5 rounded-full blur-[180px] animate-pulse delay-1000"></div>
+        <div className="min-h-screen landing-page-bg font-body selection:bg-sky-500/30 overflow-x-hidden">
+            <div className="landing-bg-shapes" aria-hidden>
+                <svg className="landing-bg-shape top-[14%] left-[6%] w-28 h-28 md:w-36 md:h-36" viewBox="0 0 100 100" fill="none">
+                    <polygon points="50,8 92,50 50,92 8,50" stroke="currentColor" strokeWidth="0.8" />
+                    <line x1="50" y1="8" x2="50" y2="92" stroke="currentColor" strokeWidth="0.4" />
+                    <line x1="8" y1="50" x2="92" y2="50" stroke="currentColor" strokeWidth="0.4" />
+                </svg>
+                <svg className="landing-bg-shape top-[22%] right-[10%] w-20 h-20 md:w-28 md:h-28 opacity-60" viewBox="0 0 100 100" fill="none">
+                    <polygon points="50,12 88,75 12,75" stroke="currentColor" strokeWidth="0.7" />
+                    <line x1="50" y1="12" x2="12" y2="75" stroke="currentColor" strokeWidth="0.4" />
+                    <line x1="50" y1="12" x2="88" y2="75" stroke="currentColor" strokeWidth="0.4" />
+                    <line x1="12" y1="75" x2="88" y2="75" stroke="currentColor" strokeWidth="0.4" />
+                </svg>
+                <svg className="landing-bg-shape bottom-[28%] left-[12%] w-16 h-16 md:w-24 md:h-24 opacity-50" viewBox="0 0 100 100" fill="none">
+                    <rect x="25" y="25" width="50" height="50" stroke="currentColor" strokeWidth="0.6" transform="rotate(45 50 50)" />
+                </svg>
+                <svg className="landing-bg-shape bottom-[18%] right-[14%] w-24 h-24 md:w-32 md:h-32 opacity-70" viewBox="0 0 100 100" fill="none">
+                    <polygon points="50,5 95,50 50,95 5,50" stroke="currentColor" strokeWidth="0.5" />
+                    <polygon points="50,20 80,50 50,80 20,50" stroke="currentColor" strokeWidth="0.4" />
+                </svg>
             </div>
 
-            <div className="pt-10 md:pt-16">
+            <div className="relative z-[1]">
+            <div className="pt-10 md:pt-12 px-4 sm:px-6">
                 <Header />
             </div>
 
-            {/* Hero Section */}
-            <main className="relative z-10 max-w-7xl mx-auto px-6 pt-8 md:pt-12 pb-16 text-center">
+            {/* Hero */}
+            <section className="relative overflow-hidden w-full px-5 sm:px-8 xl:px-10 pt-12 md:pt-20 pb-16 md:pb-24">
+                <div className="pointer-events-none absolute inset-0 -z-10 landing-hero-mesh" aria-hidden />
 
-                
-                <h1 className="text-7xl sm:text-8xl md:text-[10rem] lg:text-[13rem] font-heading leading-[0.8] tracking-tighter text-slate-950 mb-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 stagger-1">
-                    Learning <br className="hidden md:block" />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-blue-600 to-cyan-500 animate-gradient-x text-glow">Tracker.</span>
-                </h1>
-                
-                <p className="text-base md:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-medium mb-6 animate-in fade-in slide-in-from-bottom-12 duration-1000 stagger-2 px-4 italic">
-                    The architect of your technical future. Structured for students who demand absolute mastery and consistent growth.
-                </p>
+                <div className="relative z-10 max-w-6xl mx-auto text-center">
+                        <ScrollReveal delay={100} distance={72} duration={0.7}>
+                        <h1 className="landing-display flex flex-col items-center gap-2 md:gap-3 text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] xl:text-[8.5rem] landing-heading-text mb-2 leading-[0.9] !tracking-[0.02em]">
+                            <span className="landing-accent-text">Learning</span>
+                            <span>Tracker</span>
+                        </h1>
+                        </ScrollReveal>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-in fade-in slide-in-from-bottom-16 duration-1000 stagger-3">
-                    <button 
-                        onClick={() => navigate('/login')}
-                        className="w-full sm:w-auto px-16 py-6 bg-slate-950 text-white rounded-2xl font-black flex items-center justify-center gap-4 hover:bg-violet-600 hover:shadow-[0_30px_60px_rgba(124,58,237,0.25)] transition-all shadow-xl group text-xs uppercase tracking-[0.3em] active:scale-95 glow-border"
-                    >
-                        Sign In <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-                    </button>
-                    <button 
-                        onClick={scrollToFeatures}
-                        className="w-full sm:w-auto px-14 py-5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl font-black text-slate-900 dark:text-white hover:border-violet-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-4 active:scale-95 shadow-xl backdrop-blur-md"
-                    >
-                        <FiCompass className="text-lg" /> Explore Blueprint
-                    </button>
-                </div>
+                        <ScrollReveal delay={200} distance={48}>
+                        <p className="landing-hero-tagline text-lg sm:text-xl md:text-2xl landing-body-text mt-5 mb-8">
+                            <span className="landing-accent-text">Discipline</span>
+                            {' to begin. '}
+                            <span className="landing-accent-text">Consistency</span>
+                            {' to last.'}
+                        </p>
+                        </ScrollReveal>
 
-                {/* Staggered Tech Stack */}
-                <div className="mt-16 md:mt-24 flex flex-col items-center gap-6 animate-in fade-in duration-1000 delay-700">
-                    <p className="text-[10px] font-black text-violet-500/60 uppercase tracking-[0.8em]">Engineered with Industry Core</p>
-                    <div className="flex flex-wrap justify-center gap-10 md:gap-20 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
-                        {['React', 'Next.js', 'Node.js', 'Python', 'Golang', 'Tailwind'].map((tech, i) => (
-                            <span key={tech} className={`text-sm md:text-lg font-heading text-slate-800 uppercase tracking-[0.4em] hover:text-violet-600 transition-colors cursor-default stagger-${i+1}`}>{tech}</span>
-                        ))}
-                    </div>
-                </div>
-            </main>
+                        <ScrollReveal delay={300} distance={40}>
+                        <p className="text-sm md:text-base landing-body-text max-w-2xl mx-auto font-medium leading-relaxed mb-10">
+                            You don&apos;t need perfect motivation — you need a system. Pick a path, hit one goal a day,
+                            and stack small wins until studying feels automatic. We&apos;ll remind you before you fall behind.
+                        </p>
+                        </ScrollReveal>
 
-            {/* Blueprint Section - Refined for Light Mode */}
-            <section ref={featuresRef} id="features" className="bg-slate-50 border-t border-slate-100 py-16 md:py-24 relative z-10 overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full matrix-grid opacity-40"></div>
-                <div className="max-w-7xl mx-auto px-6 relative z-10">
-                    <div className="text-center max-w-4xl mx-auto mb-16 space-y-4">
-                        <h2 className="text-[10px] font-black text-violet-600 uppercase tracking-[0.8em] animate-in fade-in slide-in-from-bottom-4 duration-700">The Blueprint</h2>
-                        <h3 className="text-6xl md:text-[9rem] font-heading text-slate-950 tracking-tighter leading-[0.85] uppercase animate-in fade-in slide-in-from-bottom-8 duration-700 stagger-1">Structured for <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-blue-600 to-cyan-500">Absolute Mastery.</span></h3>
-                        <div className="w-32 h-1.5 bg-gradient-to-r from-violet-600 to-cyan-500 mx-auto rounded-full stagger-2"></div>
-                        <p className="text-slate-500 font-bold text-lg md:text-2xl animate-in fade-in slide-in-from-bottom-12 duration-700 stagger-3 italic">Engineered to remove friction and accelerate your transition from student to industry professional.</p>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
-                        {features.map((f, i) => (
-                            <div 
-                                key={i} 
-                                className={cn(
-                                    "group p-10 rounded-[3.5rem] bg-white border border-slate-100 transition-all duration-700 hover:-translate-y-4 shadow-sm hover:shadow-2xl animate-in fade-in slide-in-from-bottom-16 duration-1000",
-                                    `stagger-${i+1}`,
-                                    f.color === 'violet' && "hover:border-violet-200 hover:shadow-violet-500/10",
-                                    f.color === 'cyan' && "hover:border-cyan-200 hover:shadow-cyan-500/10",
-                                    f.color === 'rose' && "hover:border-rose-200 hover:shadow-rose-500/10"
-                                )}
+                        <ScrollReveal delay={400} distance={40}>
+                        <div className="flex justify-center">
+                            <button
+                                type="button"
+                                onClick={scrollToSignup}
+                                className="landing-cta w-full sm:w-auto px-10 py-4 text-white rounded-full landing-nav-label text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                             >
-                                <div className={cn(
-                                    "w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-12 transition-all duration-500 shadow-sm border",
-                                    f.theme,
-                                    f.color === 'violet' && "group-hover:bg-violet-600",
-                                    f.color === 'cyan' && "group-hover:bg-cyan-600",
-                                    f.color === 'rose' && "group-hover:bg-rose-600",
-                                    "group-hover:text-white group-hover:rotate-12"
-                                )}>
-                                    {f.icon}
-                                </div>
-                                <h3 className={cn(
-                                    "text-2xl font-heading text-slate-900 mb-6 tracking-tight transition-colors uppercase leading-tight",
-                                    f.color === 'violet' && "group-hover:text-violet-600",
-                                    f.color === 'cyan' && "group-hover:text-cyan-600",
-                                    f.color === 'rose' && "group-hover:text-rose-600"
-                                )}>{f.title}</h3>
-                                <p className="text-slate-500 text-sm leading-relaxed font-bold group-hover:text-slate-600 transition-colors">{f.desc}</p>
+                                Get started <FiArrowRight />
+                            </button>
+                        </div>
+                        </ScrollReveal>
+
+                        <ScrollReveal className="mt-12 overflow-hidden py-2" delay={500} distance={24}>
+                            <div className="flex w-max landing-hero-ticker gap-8">
+                                {[...tickerItems, ...tickerItems].map((item, i) => (
+                                    <span key={`${item}-${i}`} className="landing-nav-label text-[10px] landing-muted-text whitespace-nowrap">
+                                        {item}
+                                        <span className="text-white/15 ml-8">/</span>
+                                    </span>
+                                ))}
                             </div>
+                        </ScrollReveal>
+
+                        <ScrollReveal className="xl:hidden mt-10 text-center" delay={550} amount={0.1}>
+                            <p className="landing-nav-label text-[9px] landing-muted-text mb-3">How it works</p>
+                            <div className="flex flex-wrap justify-center items-center gap-2 text-[10px] font-bold landing-body-text">
+                                {workflowSteps.map((item, i) => (
+                                    <span key={item.step} className="inline-flex items-center gap-2">
+                                        {i > 0 && <span className="text-white/20">→</span>}
+                                        <button type="button" onClick={item.action} className="hover:text-sky-300 transition-colors">
+                                            <span className="landing-accent-text mr-1">{item.step}</span>
+                                            {item.label}
+                                        </button>
+                                    </span>
+                                ))}
+                            </div>
+                        </ScrollReveal>
+                </div>
+            </section>
+
+            <section id="about" className="relative py-16 md:py-24">
+                <div className="hidden 2xl:block pointer-events-none absolute left-8 top-1/2 -translate-y-1/2">
+                    <p className="landing-display text-[10rem] text-white/[0.04] leading-none select-none [writing-mode:vertical-rl] rotate-180">LEARN</p>
+                </div>
+                <div className="hidden 2xl:block pointer-events-none absolute right-8 top-1/2 -translate-y-1/2">
+                    <p className="landing-display text-[10rem] text-white/[0.04] leading-none select-none [writing-mode:vertical-rl]">TRACK</p>
+                </div>
+
+                <div className="max-w-6xl mx-auto px-5 sm:px-8 relative z-10">
+                    <ScrollReveal className="text-center mb-12 md:mb-16" distance={64} amount={0.3} duration={0.6}>
+                        <h2 className="landing-display text-3xl md:text-5xl landing-heading-text mb-4">
+                            About us
+                        </h2>
+                        <p className="landing-body-text font-medium max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                            Learning Tracker is a free app for self-learners — plan roadmaps, hit daily goals, save notes,
+                            and get email reminders. Everything below is what you get when you sign up.
+                        </p>
+                        <p className="landing-accent-text landing-nav-label text-[10px] mt-3">Click any module to preview</p>
+                    </ScrollReveal>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+                        {modules.map((mod, index) => {
+                            const isActive = activeModule === mod.id;
+                            const isBlurred = activeModule && !isActive;
+                            const previewOpen = Boolean(activeModule);
+
+                            return (
+                                <ScrollReveal
+                                    key={mod.title}
+                                    delay={index * 120}
+                                    direction={index % 2 === 0 ? 'left' : 'right'}
+                                    distance={60}
+                                    amount={0.25}
+                                    duration={0.6}
+                                >
+                                <article
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => focusModule(mod.id)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            focusModule(mod.id);
+                                        }
+                                    }}
+                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 ${
+                                        previewOpen ? 'min-h-[22rem] md:min-h-[24rem]' : ''
+                                    } ${
+                                        isActive
+                                            ? 'border-sky-400/60 shadow-xl shadow-sky-500/20 ring-2 ring-sky-500/20 z-20'
+                                            : isBlurred
+                                              ? 'border-white/5 blur-[5px] opacity-40'
+                                              : 'hover:border-sky-400/40 hover:shadow-sky-500/10'
+                                    }`}
+                                >
+                                    {isActive ? (
+                                        <div className="absolute inset-0 z-10 flex flex-col p-4 md:p-5 rounded-2xl landing-card-dark">
+                                            <div className="flex items-center justify-between gap-2 mb-3">
+                                                <div className="flex items-center gap-2 min-w-0">
+                                                    <div className="w-9 h-9 rounded-lg flex items-center justify-center landing-icon-chip shrink-0">
+                                                        {mod.icon}
+                                                    </div>
+                                                    <h3 className="landing-display text-sm landing-heading-text !tracking-tight truncate">{mod.title}</h3>
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => { e.stopPropagation(); setActiveModule(null); }}
+                                                    className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/15 text-slate-300 flex items-center justify-center shrink-0"
+                                                    aria-label="Close preview"
+                                                >
+                                                    <FiX size={14} />
+                                                </button>
+                                            </div>
+                                            <div className="flex-1 min-h-0 overflow-hidden">
+                                                <ModulePreview moduleId={mod.id} />
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={(e) => { e.stopPropagation(); scrollToSignup(); }}
+                                                className="text-left landing-nav-label text-[10px] landing-accent-text hover:text-sky-300 flex items-center gap-1.5 mt-3 pt-2 border-t border-white/10"
+                                            >
+                                                Unlock free <FiArrowRight size={14} />
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className="p-6 md:p-7 flex flex-col h-full">
+                                            <div className="w-12 h-12 rounded-xl flex items-center justify-center landing-icon-chip mb-5 group-hover:bg-sky-600 group-hover:text-white group-hover:border-sky-500 transition-all duration-300">
+                                                {mod.icon}
+                                            </div>
+                                            <h3 className="landing-display text-lg landing-heading-text mb-2 !tracking-tight">{mod.title}</h3>
+                                            <p className="text-sm landing-body-text font-medium leading-relaxed flex-1 mb-5">{mod.desc}</p>
+                                            <span className="landing-nav-label text-[10px] landing-accent-text flex items-center gap-1.5">
+                                                Tap to preview <FiArrowRight size={14} />
+                                            </span>
+                                        </div>
+                                    )}
+                                </article>
+                                </ScrollReveal>
+                            );
+                        })}
+                    </div>
+
+                    {/* Workflow */}
+                    <ScrollReveal
+                        id="workflow"
+                        className="mt-20 md:mt-32 pt-16 md:pt-24 pb-4 md:pb-8 border-t border-white/10"
+                        distance={48}
+                        amount={0.2}
+                    >
+                        <div className="text-center mb-14 md:mb-20">
+                            <p className="landing-nav-label text-lg md:text-xl text-white mb-3 tracking-[0.2em]">Workflow</p>
+                            <h3 className="landing-display text-3xl md:text-5xl lg:text-6xl landing-heading-text mb-4">
+                                Start here, <span className="landing-accent-text">stay consistent</span>
+                            </h3>
+                            <p className="landing-body-text font-medium text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+                                Sign up once, follow four simple steps, and turn scattered study sessions into a routine that lasts.
+                            </p>
+                        </div>
+
+                        <div className="relative max-w-6xl mx-auto px-2">
+                            <div className="hidden md:block absolute top-5 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-sky-500/50 to-transparent" />
+
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+                                {workflowSteps.map((item, index) => (
+                                    <ScrollReveal
+                                        key={item.step}
+                                        delay={index * 120}
+                                        direction="up"
+                                        distance={50}
+                                        amount={0.3}
+                                        className="relative text-center"
+                                    >
+                                        <button
+                                            type="button"
+                                            onClick={item.action}
+                                            className="group w-full flex md:flex-col items-center gap-5 md:gap-0 text-left md:text-center"
+                                        >
+                                            <div className="relative shrink-0 flex md:flex-col items-center gap-5 md:gap-4 w-full md:w-auto">
+                                                <span className="w-10 h-10 rounded-full bg-[#08080d] border-[3px] border-sky-500 group-hover:bg-sky-600 group-hover:border-sky-400 transition-all shadow-sm shadow-sky-500/30 z-10 shrink-0" />
+                                                <span className="md:hidden flex-1 h-px bg-white/10" aria-hidden />
+                                                <span className="landing-display text-xl md:text-2xl landing-accent-text md:mt-2">{item.step}</span>
+                                            </div>
+                                            <div className="flex-1 md:mt-4 md:px-2">
+                                                <p className="text-base md:text-lg font-bold landing-heading-text group-hover:text-sky-300 transition-colors">{item.label}</p>
+                                                <p className="text-sm md:text-base landing-muted-text mt-2 leading-relaxed">{item.desc}</p>
+                                            </div>
+                                        </button>
+                                    </ScrollReveal>
+                                ))}
+                            </div>
+
+                            <div className="mt-14 md:mt-16 flex justify-center">
+                                <button
+                                    type="button"
+                                    onClick={scrollToSignup}
+                                    className="landing-cta landing-nav-label text-xs md:text-sm text-white px-8 py-3.5 rounded-full inline-flex items-center gap-2 transition-all group active:scale-[0.98]"
+                                >
+                                    Sign up <FiArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                                </button>
+                            </div>
+                        </div>
+                    </ScrollReveal>
+                </div>
+            </section>
+
+            <section className="py-12">
+                <ScrollReveal className="max-w-6xl mx-auto px-5 sm:px-8 text-center" distance={48} amount={0.25}>
+                    <p className="landing-nav-label text-[10px] landing-muted-text mb-6">Built with</p>
+                    <div className="flex flex-wrap justify-center gap-3 md:gap-5">
+                        {stack.map((tech) => (
+                            <span key={tech} className="landing-nav-label text-[10px] landing-pill-dark px-4 py-2 rounded-full">
+                                {tech}
+                            </span>
                         ))}
                     </div>
-                </div>
+                </ScrollReveal>
             </section>
 
-            {/* Matrix-Inspired CTA Section */}
-            <section className="py-24 text-center relative z-10 bg-white transition-colors overflow-hidden">
-                 <div className="absolute inset-0 matrix-grid opacity-20 animate-pulse"></div>
-                 <div className="max-w-4xl mx-auto px-6 relative z-10">
-                    <h4 className="text-[10px] font-black text-violet-500 uppercase tracking-[0.5em] mb-12 animate-in fade-in slide-in-from-bottom-4">System Initialized</h4>
-                    <h2 className="text-7xl md:text-[10rem] font-heading text-slate-950 tracking-tighter mb-10 leading-[0.8] uppercase animate-in fade-in slide-in-from-bottom-8">Ready to join the <br className="hidden md:block"/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-cyan-500 text-glow">Learning Tracker?</span></h2>
-                    <button 
-                        onClick={() => navigate('/login')}
-                        className="px-28 py-8 bg-slate-950 text-white rounded-2xl font-black text-xs uppercase tracking-[0.4em] hover:scale-110 active:scale-[0.98] transition-all shadow-[0_30px_70px_rgba(0,0,0,0.1)] glow-border"
-                    >
-                        Initialize Your Account
-                    </button>
-                 </div>
-            </section>
-
-            {/* Modern Minimal Footer */}
-            <footer className="py-12 border-t border-slate-100 text-center relative z-10 bg-white">
-                <div className="flex flex-col items-center gap-8">
-                    <div className="w-12 h-12 grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100 duration-500">
-                        <img src={logo} alt="LT" className="w-full h-full object-contain" />
+            <section id="signup" className="py-20 md:py-28">
+                <div className="max-w-3xl mx-auto px-5 sm:px-8">
+                    <ScrollReveal className="text-center mb-10 md:mb-12" distance={64} amount={0.3}>
+                        <h2 className="landing-display text-4xl md:text-6xl landing-heading-text mb-3">
+                            Start tracking today
+                        </h2>
+                        <p className="landing-body-text font-medium text-sm md:text-base mb-4">
+                            Create your free account — use for free.
+                        </p>
+                    </ScrollReveal>
+                    <ScrollReveal delay={150} direction="left" distance={80} amount={0.2}>
+                    <div className="bg-white border border-slate-200 rounded-2xl shadow-lg shadow-slate-200/50 p-6 sm:p-10">
+                        <SignupForm embedded />
                     </div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">© 2026 Learning Tracker Blueprint • Engineered for Performance</p>
+                    </ScrollReveal>
+                    <ScrollReveal delay={250} direction="right" distance={60} amount={0.2}>
+                    <p className="text-center mt-6 text-xs font-semibold landing-muted-text">
+                        Already registered?{' '}
+                        <button type="button" onClick={() => navigate('/login')} className="landing-accent-text hover:text-sky-300 font-bold underline underline-offset-4">
+                            Sign in here
+                        </button>
+                    </p>
+                    </ScrollReveal>
                 </div>
+            </section>
+
+            <footer className="py-10 text-center">
+                <ScrollReveal className="flex flex-col items-center gap-4" distance={40} amount={0.3}>
+                    <img src={logo} alt="Learning Tracker" className="w-10 h-10 object-contain opacity-70" />
+                    <p className="landing-nav-label text-[10px] landing-muted-text">© 2026 Learning Tracker</p>
+                </ScrollReveal>
             </footer>
+            </div>
         </div>
     );
 };

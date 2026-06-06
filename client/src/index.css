@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -276,6 +278,291 @@ body {
   .font-heading { font-family: 'Syne', sans-serif; }
   .font-body { font-family: 'Outfit', sans-serif; }
   .font-nav { font-family: var(--font-nav); }
+
+  .landing-hero-tagline {
+    font-family: 'Bricolage Grotesque', 'Outfit', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* Landing: bold geometric display (reference-style headlines) */
+  .landing-display {
+    font-family: 'Archivo', 'Outfit', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    line-height: 0.92;
+  }
+
+  .landing-nav-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .landing-cta {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    box-shadow: 0 8px 32px rgb(14 165 233 / 0.4), 0 0 48px rgb(56 189 248 / 0.12);
+  }
+
+  .landing-cta:hover {
+    background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+    box-shadow: 0 10px 36px rgb(14 165 233 / 0.5), 0 0 56px rgb(56 189 248 / 0.18);
+  }
+
+  .landing-nav-glass {
+    background: rgb(12 12 18 / 0.72);
+    border: 1px solid rgb(255 255 255 / 0.09);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.45);
+  }
+
+  /* Landing body only — navbar keeps landing-cta / landing-nav-label above */
+  .landing-accent-label {
+    font-family: 'Bricolage Grotesque', 'Outfit', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .landing-gradient-text {
+    background: linear-gradient(120deg, #2563eb 0%, #7c3aed 35%, #06b6d4 70%, #f43f5e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .landing-hero-primary {
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #06b6d4 100%);
+    background-size: 200% 200%;
+    box-shadow: 0 12px 40px rgba(124, 58, 237, 0.35), 0 4px 12px rgba(37, 99, 235, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-position 0.4s ease;
+  }
+
+  .landing-hero-primary:hover {
+    background-position: 100% 50%;
+    box-shadow: 0 16px 48px rgba(124, 58, 237, 0.45), 0 6px 16px rgba(6, 182, 212, 0.3);
+  }
+
+  .landing-hero-secondary {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    box-shadow: 0 4px 24px rgba(37, 99, 235, 0.08);
+    position: relative;
+  }
+
+  .landing-hero-secondary::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa, #22d3ee);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .landing-card-glass {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .landing-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    background-size: 200% 100%;
+    animation: landingShimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes landingShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  @keyframes landingFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(3deg); }
+  }
+
+  .landing-float {
+    animation: landingFloat 6s ease-in-out infinite;
+  }
+
+  .landing-float-delay {
+    animation: landingFloat 7s ease-in-out 1s infinite;
+  }
+
+  .landing-page-bg {
+    --lt-accent: #7dd3fc;
+    --lt-accent-bright: #38bdf8;
+    --lt-heading: #f8fafc;
+    --lt-body: #94a3b8;
+    --lt-muted: #64748b;
+    --lt-border: rgb(255 255 255 / 0.08);
+    --lt-surface: rgb(15 17 26 / 0.72);
+    background-color: #08080d;
+    color: var(--lt-body);
+    isolation: isolate;
+  }
+
+  .landing-page-bg::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .landing-page-bg::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 75% 55% at 50% 22%, rgb(14 165 233 / 0.2) 0%, transparent 62%),
+      radial-gradient(ellipse 45% 35% at 88% 8%, rgb(56 189 248 / 0.1) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 30% at 6% 75%, rgb(2 132 199 / 0.08) 0%, transparent 50%),
+      linear-gradient(180deg, #0c0c14 0%, #08080d 45%, #050508 100%);
+  }
+
+  .landing-bg-shapes {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .landing-bg-shape {
+    position: absolute;
+    color: rgb(125 211 252 / 0.14);
+  }
+
+  .landing-accent-text {
+    color: var(--lt-accent-bright);
+  }
+
+  .landing-heading-text {
+    color: var(--lt-heading);
+  }
+
+  .landing-body-text {
+    color: var(--lt-body);
+  }
+
+  .landing-muted-text {
+    color: var(--lt-muted);
+  }
+
+  .landing-hero-mesh {
+    background: radial-gradient(ellipse 60% 50% at 50% 38%, rgb(56 189 248 / 0.12) 0%, transparent 68%);
+  }
+
+  .landing-hero-highlight {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .landing-card-dark {
+    background: var(--lt-surface);
+    border: 1px solid var(--lt-border);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.35);
+  }
+
+  .landing-pill-dark {
+    background: rgb(20 22 32 / 0.8);
+    border: 1px solid var(--lt-border);
+    color: var(--lt-body);
+  }
+
+  .landing-btn-ghost {
+    border: 1px solid rgb(255 255 255 / 0.14);
+    background: rgb(255 255 255 / 0.04);
+    color: #e2e8f0;
+  }
+
+  .landing-btn-ghost:hover {
+    border-color: rgb(56 189 248 / 0.45);
+    background: rgb(14 165 233 / 0.1);
+    color: #f8fafc;
+  }
+
+  .landing-icon-chip {
+    background: rgb(14 165 233 / 0.12);
+    border: 1px solid rgb(56 189 248 / 0.22);
+    color: var(--lt-accent-bright);
+  }
+
+  /* Hero-only: soft drifting glow (scoped to top section) */
+  .landing-hero-blob {
+    animation: landingHeroDrift 14s ease-in-out infinite;
+  }
+
+  .landing-hero-blob-alt {
+    animation: landingHeroDrift 18s ease-in-out 2s infinite reverse;
+  }
+
+  @keyframes landingHeroDrift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 15px) scale(0.95); }
+  }
+
+  .landing-hero-orbit {
+    animation: landingHeroOrbit 24s linear infinite;
+  }
+
+  @keyframes landingHeroOrbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .landing-hero-shine {
+    background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
+    background-size: 200% 100%;
+    animation: landingHeroShine 4s ease-in-out infinite;
+  }
+
+  @keyframes landingHeroShine {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .landing-hero-ticker {
+    animation: landingHeroTicker 28s linear infinite;
+  }
+
+  @keyframes landingHeroTicker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Portfolio-style scroll reveal (whileInView) */
+  .scroll-reveal {
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
 
   /* Sidebar + bottom nav label style (Dashboard, Goals, Insights, etc.) */
   .text-nav-label {
