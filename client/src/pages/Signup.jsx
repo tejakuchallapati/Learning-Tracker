@@ -1,60 +1,15 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
-import ResponsiveGoogleLogin from '../components/ResponsiveGoogleLogin';
-import { Eye, EyeOff } from 'lucide-react';
+import SignupForm from '../components/SignupForm';
 
 const Signup = () => {
-    const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
-    const [error, setError] = useState('');
-    const [googleLoading, setGoogleLoading] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const { user, register, googleLogin } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (user) {
-            navigate('/dashboard');
-        }
+        if (user) navigate('/dashboard');
     }, [user, navigate]);
-
-    const handleGoogleSuccess = async (credentialResponse) => {
-        setError('');
-        if (!credentialResponse?.credential) {
-            setError('Google did not return a sign-in token. Please try again.');
-            return;
-        }
-        setGoogleLoading(true);
-        try {
-            await googleLogin(credentialResponse.credential);
-            navigate('/dashboard');
-        } catch (err) {
-            setError(err.response?.data?.message || err.message || 'Google sign up failed. Please try again.');
-        } finally {
-            setGoogleLoading(false);
-        }
-    };
-
-    const handleGoogleError = () => {
-        setError('Google sign up was unsuccessful');
-    };
-
-    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (formData.password !== formData.confirmPassword) {
-            return setError('Passwords do not match');
-        }
-
-        try {
-            await register(formData.name, formData.email, formData.password);
-            navigate('/dashboard');
-        } catch (err) {
-            setError(err.response?.data?.message || 'Failed to sign up');
-        }
-    };
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500 max-md:min-h-[100dvh] max-md:py-8 overflow-x-hidden">
@@ -64,107 +19,7 @@ const Signup = () => {
             </div>
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div className="bg-white dark:bg-slate-900 py-8 px-6 sm:py-10 sm:px-12 shadow-3xl border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-[2rem] transition-all">
-                    <form className="space-y-5" onSubmit={handleSubmit}>
-                        {error && <div className="p-4 bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 rounded-xl text-xs font-bold border border-rose-100 dark:border-rose-900/50">{error}</div>}
-
-                        <div className="space-y-1.5">
-                            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">Identification</label>
-                            <input 
-                                type="text" 
-                                name="name" 
-                                required 
-                                placeholder="Full Name" 
-                                className="block w-full h-12 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-base font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" 
-                                onChange={handleChange} 
-                            />
-                        </div>
-
-                        <div className="space-y-1.5">
-                            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">Email Address</label>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                required 
-                                placeholder="Email Address" 
-                                className="block w-full h-12 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-base font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" 
-                                onChange={handleChange} 
-                            />
-                        </div>
-
-                        <div className="space-y-1.5">
-                            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">Access Protocol</label>
-                            <div className="relative">
-                                <input 
-                                    type={showPassword ? "text" : "password"} 
-                                    name="password" 
-                                    required 
-                                    placeholder="Security Key" 
-                                    className="block w-full h-12 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 pr-12 text-base font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" 
-                                    onChange={handleChange} 
-                                />
-                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 tap-target-icon pr-2 flex items-center justify-center text-slate-400 hover:text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/30 rounded-lg transition-colors" aria-label={showPassword ? 'Hide password' : 'Show password'}>
-                                    {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="space-y-1.5">
-                            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1">Verify Protocol</label>
-                            <div className="relative">
-                                <input 
-                                    type={showConfirmPassword ? "text" : "password"} 
-                                    name="confirmPassword" 
-                                    required 
-                                    placeholder="Repeat Security Key" 
-                                    className="block w-full h-12 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 pr-12 text-base font-semibold text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600" 
-                                    onChange={handleChange} 
-                                />
-                                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute inset-y-0 right-0 tap-target-icon pr-2 flex items-center justify-center text-slate-400 hover:text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/30 rounded-lg transition-colors" aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}>
-                                    {showConfirmPassword ? <Eye size={18} /> : <EyeOff size={18} />}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="pt-2">
-                            <button type="submit" className="w-full h-12 flex items-center justify-center bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-xs md:text-sm font-bold uppercase tracking-wider shadow-xl shadow-violet-200 dark:shadow-none transition-all transform active:scale-[0.98] max-md:min-h-12 max-md:btn-text-safe">Authorize Account &rarr;</button>
-                        </div>
-                    </form>
-
-                    <div className="mt-8">
-                        <div className="relative">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-slate-100 dark:border-slate-800"></div>
-                            </div>
-                            <div className="relative flex justify-center text-xs font-bold uppercase tracking-wider">
-                                <span className="px-3 bg-white dark:bg-slate-900 text-slate-400">Collaborative Entry</span>
-                            </div>
-                        </div>
-
-                        <div className="mt-6 w-full min-w-0">
-                            {googleLoading ? (
-                                <div className="flex items-center justify-center gap-2 py-3 text-sm font-medium text-slate-500">
-                                    <span className="w-4 h-4 border-2 border-violet-300 border-t-violet-600 rounded-full animate-spin" />
-                                    Signing up with Google…
-                                </div>
-                            ) : (
-                                <ResponsiveGoogleLogin
-                                    onSuccess={handleGoogleSuccess}
-                                    onError={handleGoogleError}
-                                    size="large"
-                                    shape="rectangular"
-                                    theme="outline"
-                                    text="signup_with"
-                                    logo_alignment="left"
-                                />
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="mt-8 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
-                        Already have an active protocol? <Link to="/login" className="text-violet-600 hover:text-violet-700 underline underline-offset-4 pl-1">Sign in &rarr;</Link>
-                    </div>
-                </div>
+                <SignupForm />
             </div>
         </div>
     );
