@@ -564,11 +564,17 @@ body {
     }
   }
 
+  /* App nav accent — matches landing --lt-accent-bright (#38bdf8) */
+  :root {
+    --nav-accent: #38bdf8;
+    --nav-accent-bg: rgb(14 165 233 / 0.12);
+    --nav-accent-border: rgb(56 189 248 / 0.3);
+  }
+
   /* Sidebar + bottom nav label style (Dashboard, Goals, Insights, etc.) */
   .text-nav-label {
     font-family: var(--font-nav);
     font-size: 0.8125rem;
-    font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1.25;
   }

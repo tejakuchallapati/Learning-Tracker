@@ -1,28 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-    FiArrowRight,
-    FiLayout,
-    FiBookOpen,
-    FiTarget,
-    FiBookmark,
-    FiEdit,
-    FiMail,
-    FiX,
-} from 'react-icons/fi';
+import { FiArrowRight, FiX } from 'react-icons/fi';
 import { Header } from '../components/ui/header-2';
+import NavIcon from '../components/icons/NavIcon';
 import SignupForm from '../components/SignupForm';
 import ModulePreview from '../components/landing/ModulePreview';
 import ScrollReveal from '../components/landing/ScrollReveal';
 import logo from '../assets/logo.png';
 
 const modules = [
-    { id: 'dashboard', icon: <FiLayout size={22} />, title: 'Dashboard', desc: 'See active learning paths and goal progress in one place.' },
-    { id: 'roadmaps', icon: <FiBookOpen size={22} />, title: 'Roadmaps', desc: 'Browse structured course roadmaps across development, AI, frontend, and more.' },
-    { id: 'daily-goals', icon: <FiTarget size={22} />, title: 'Daily Goals', desc: 'Set daily objectives, build streaks, and get email reminders for incomplete tasks.' },
-    { id: 'resources', icon: <FiBookmark size={22} />, title: 'Resources', desc: 'Organize docs, tutorials, videos, and tools in your personal resource library.' },
-    { id: 'email-reminders', icon: <FiMail size={22} />, title: 'Email Reminders', desc: 'Get daily email nudges for incomplete goals so you stay consistent without checking the app.' },
-    { id: 'study-notes', icon: <FiEdit size={22} />, title: 'Study Notes', desc: 'Save daily learnings and future plans — synced securely to your account.' },
+    { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', desc: 'See active learning paths and goal progress in one place.' },
+    { id: 'roadmaps', icon: 'roadmaps', title: 'Roadmaps', desc: 'Browse structured course roadmaps across development, AI, frontend, and more.' },
+    { id: 'daily-goals', icon: 'goals', title: 'Daily Goals', desc: 'Set daily objectives, build streaks, and get email reminders for incomplete tasks.' },
+    { id: 'resources', icon: 'resources', title: 'Resources', desc: 'Organize docs, tutorials, videos, and tools in your personal resource library.' },
+    { id: 'email-reminders', icon: 'email', title: 'Email Reminders', desc: 'Get daily email nudges for incomplete goals so you stay consistent without checking the app.' },
+    { id: 'study-notes', icon: 'notes', title: 'Study Notes', desc: 'Save daily learnings and future plans — synced securely to your account.' },
 ];
 
 const stack = ['React', 'Node.js', 'MongoDB', 'JWT', 'Google OAuth', 'Tailwind'];
@@ -203,9 +195,7 @@ const Landing = () => {
                                         <div className="absolute inset-0 z-10 flex flex-col p-4 md:p-5 rounded-2xl landing-card-dark">
                                             <div className="flex items-center justify-between gap-2 mb-3">
                                                 <div className="flex items-center gap-2 min-w-0">
-                                                    <div className="w-9 h-9 rounded-lg flex items-center justify-center landing-icon-chip shrink-0">
-                                                        {mod.icon}
-                                                    </div>
+                                                    <NavIcon name={mod.icon} size={20} active compact />
                                                     <h3 className="landing-display text-sm landing-heading-text !tracking-tight truncate">{mod.title}</h3>
                                                 </div>
                                                 <button
@@ -230,9 +220,7 @@ const Landing = () => {
                                         </div>
                                     ) : (
                                         <div className="p-6 md:p-7 flex flex-col h-full">
-                                            <div className="w-12 h-12 rounded-xl flex items-center justify-center landing-icon-chip mb-5 group-hover:bg-sky-600 group-hover:text-white group-hover:border-sky-500 transition-all duration-300">
-                                                {mod.icon}
-                                            </div>
+                                            <NavIcon name={mod.icon} size={24} large className="mb-5 group-hover:scale-105" />
                                             <h3 className="landing-display text-lg landing-heading-text mb-2 !tracking-tight">{mod.title}</h3>
                                             <p className="text-sm landing-body-text font-medium leading-relaxed flex-1 mb-5">{mod.desc}</p>
                                             <span className="landing-nav-label text-[10px] landing-accent-text flex items-center gap-1.5">
@@ -322,11 +310,12 @@ const Landing = () => {
                 </ScrollReveal>
             </section>
 
-            <section id="signup" className="py-20 md:py-28">
+            <section id="signup" className="py-24 md:py-32">
                 <div className="max-w-3xl mx-auto px-5 sm:px-8">
-                    <ScrollReveal className="text-center mb-10 md:mb-12" distance={64} amount={0.3}>
-                        <h2 className="landing-display text-4xl md:text-6xl landing-heading-text mb-3">
-                            Start tracking today
+                    <ScrollReveal className="text-center mb-14 md:mb-16" distance={64} amount={0.3}>
+                        <h2 className="landing-display flex flex-col items-center gap-2 md:gap-3 text-4xl md:text-6xl landing-heading-text mb-6 !tracking-[0.02em]">
+                            <span>Start tracking</span>
+                            <span className="landing-accent-text">today</span>
                         </h2>
                         <p className="landing-body-text font-medium text-sm md:text-base mb-4">
                             Create your free account — use for free.

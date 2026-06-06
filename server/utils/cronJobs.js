@@ -2,6 +2,13 @@ const cron = require('node-cron');
 const DailyGoal = require('../models/DailyGoal');
 const User = require('../models/User');
 const sendEmail = require('./emailService');
+const {
+    DEFAULT_TIMEZONE,
+    getLocalNow,
+    isReminderDue,
+    wasReminderSentToday,
+    to24HourParts,
+} = require('./reminderSchedule');
 
 // Reset only goals completed on a previous calendar day (not all users at once blindly)
 cron.schedule('0 0 * * *', async () => {
@@ -21,40 +28,24 @@ cron.schedule('0 0 * * *', async () => {
 
 // Main function to check and send reminders
 const checkAndSendReminders = async () => {
-    console.log('Running daily goal reminder check...');
+    const localNow = getLocalNow();
 
     try {
-        // Find all users who have emailNotification enabled
         const users = await User.find({ emailNotification: true });
 
-        const now = new Date();
-        const todayStr = now.toDateString(); // e.g. "Wed May 27 2026"
-        const currentHour = now.getHours();
-        const currentMin = now.getMinutes();
-
         for (const user of users) {
-            // 1. Check if reminder was already sent today
-            if (user.lastReminderSent && new Date(user.lastReminderSent).toDateString() === todayStr) {
+            if (wasReminderSentToday(user, localNow)) {
                 continue;
             }
 
-            // 2. Parse preference time (default to 20:00 if not set)
-            const reminderTimeStr = user.reminderTime || '20:00';
-            const [prefHour, prefMin] = reminderTimeStr.split(':').map(Number);
-
-            const isPastPreferredTime =
-                currentHour > prefHour ||
-                (currentHour === prefHour && currentMin >= prefMin);
-
-            if (!isPastPreferredTime) {
+            if (!isReminderDue(user, localNow)) {
                 continue;
             }
 
-            // 3. Find all incomplete goals for this user where emailReminders is true
             const incompleteGoals = await DailyGoal.find({
                 userId: user._id,
                 completed: false,
-                emailReminders: true
+                emailReminders: true,
             });
 
             if (incompleteGoals.length === 0) {
@@ -62,7 +53,7 @@ const checkAndSendReminders = async () => {
             }
 
             const includeStreak = user.streakAlertNotification !== false;
-            const goalListText = incompleteGoals.map(g => {
+            const goalListText = incompleteGoals.map((g) => {
                 let streakText = '';
                 if (includeStreak && g.streak > 0) {
                     streakText = ` (Current Streak: ${g.streak})`;
@@ -72,15 +63,18 @@ const checkAndSendReminders = async () => {
 
             const message = `Hello ${user.name},\n\nYou have some pending daily goals in Learning Tracker to complete today:\n\n${goalListText}\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe Learning Tracker Team`;
 
+            const { hour, minute } = to24HourParts(user.reminderTime, user.reminderAmPm);
+
             try {
                 await sendEmail({
                     email: user.email,
                     subject: 'Learning Tracker - Daily Reminder: Pending Goals',
                     message,
                 });
-                console.log(`Reminder email sent to ${user.email}`);
+                console.log(
+                    `Reminder email sent to ${user.email} (scheduled ${pad(hour)}:${pad(minute)}, tz ${localNow.timezone}, local ${pad(localNow.hour)}:${pad(localNow.minute)})`
+                );
 
-                // Update lastReminderSent timestamp
                 user.lastReminderSent = new Date();
                 await user.save();
             } catch (err) {
@@ -92,12 +86,15 @@ const checkAndSendReminders = async () => {
     }
 };
 
-// Schedule check every 30 minutes
-cron.schedule('*/30 * * * *', async () => {
+const pad = (n) => String(n).padStart(2, '0');
+
+// Check every minute so reminders go out within ~1 min of the chosen time
+cron.schedule('* * * * *', async () => {
     await checkAndSendReminders();
 });
 
 module.exports = {
     cron,
-    checkAndSendReminders
+    checkAndSendReminders,
+    DEFAULT_TIMEZONE,
 };

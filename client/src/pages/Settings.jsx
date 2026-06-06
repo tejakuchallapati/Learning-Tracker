@@ -80,12 +80,26 @@ const Settings = () => {
         }));
     };
 
+    const applyAmPmToTime = (time24, nextAmPm) => {
+        const [hStr, m] = time24.split(':');
+        const hour12 = (parseInt(hStr, 10) % 12) || 12;
+        const hour24 =
+            nextAmPm === 'AM'
+                ? (hour12 === 12 ? 0 : hour12)
+                : (hour12 === 12 ? 12 : hour12 + 12);
+        return `${String(hour24).padStart(2, '0')}:${m}`;
+    };
+
+    const amPmFromTime = (time24) => (parseInt(time24.split(':')[0], 10) >= 12 ? 'PM' : 'AM');
+
     const handleAmPmChange = (value) => {
         setAmPm(value);
+        setReminderTime((prev) => applyAmPmToTime(prev, value));
     };
 
     const handleTimeChange = (value) => {
         setReminderTime(value);
+        setAmPm(amPmFromTime(value));
     };
 
     const handleSave = async () => {
@@ -218,7 +232,7 @@ const Settings = () => {
                         <div className="p-4 max-md:p-3.5 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 mb-6 max-md:mb-5 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
                             <h4 className="text-xs md:text-sm max-md:text-[11px] font-black text-slate-900 dark:text-white flex items-center gap-3 max-md:gap-2 relative z-10"><FiActivity className="text-violet-600 max-md:w-3 max-md:h-3" /> Email reminders</h4>
-                            <p className="text-xs md:text-sm max-md:text-[10px] text-slate-500 dark:text-slate-400 mt-2 max-md:mt-1.5 font-semibold leading-relaxed max-w-lg relative z-10">When Email digest is on and you save, the server sends a daily email after your chosen time for incomplete daily goals that have the bell icon enabled on the Goals page.</p>
+                            <p className="text-xs md:text-sm max-md:text-[10px] text-slate-500 dark:text-slate-400 mt-2 max-md:mt-1.5 font-semibold leading-relaxed max-w-lg relative z-10">When Email digest is on and you save, the server sends one daily email at your chosen time (India timezone) for incomplete daily goals that have the bell icon enabled on the Goals page.</p>
                         </div>
 
                         <div className="space-y-5 max-md:space-y-4">
@@ -249,7 +263,7 @@ const Settings = () => {
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
                             <div className="flex-1 min-w-0">
                                 <h4 className="text-xs md:text-sm max-md:text-[10px] font-bold text-slate-900 dark:text-white tracking-wider uppercase">Adaptive Time Window</h4>
-                                <p className="text-xs max-md:text-[10px] text-slate-500 dark:text-slate-400 font-semibold mt-1 max-md:mt-0.5">Set your high-performance focus period.</p>
+                                <p className="text-xs max-md:text-[10px] text-slate-500 dark:text-slate-400 font-semibold mt-1 max-md:mt-0.5">Daily reminder is sent at this time (IST). Save to apply.</p>
                             </div>
                             <div className="flex items-center bg-slate-50/80 dark:bg-slate-800 rounded-xl p-2 max-md:p-1.5 gap-2 max-md:gap-1.5 border border-slate-200 dark:border-slate-700 shrink-0">
                                 <input 

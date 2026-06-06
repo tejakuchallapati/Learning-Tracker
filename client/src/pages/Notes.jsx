@@ -12,6 +12,17 @@ const Notes = () => {
         return `${year}-${month}-${day}`;
     };
 
+    const normalizeDate = (dateStr) => {
+        if (!dateStr) return getTodayString();
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
+        const d = new Date(dateStr);
+        if (Number.isNaN(d.getTime())) return dateStr;
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     const [selectedDate, setSelectedDate] = useState(getTodayString());
     const [learned, setLearned] = useState('');
     const [future, setFuture] = useState('');
@@ -32,21 +43,36 @@ const Notes = () => {
         fetchNotesList();
     }, []);
 
-    // Load active notes when selectedDate changes
+    const loadNoteForDate = async (date, preload = null) => {
+        const normalized = normalizeDate(date);
+        setSelectedDate(normalized);
+
+        if (preload) {
+            setLearned(preload.learned || '');
+            setFuture(preload.future || '');
+            return;
+        }
+
+        try {
+            const { data } = await API.get(`notes/date/${normalized}`);
+            setLearned(data.learned || '');
+            setFuture(data.future || '');
+        } catch (err) {
+            console.error('Error loading note:', err);
+            setLearned('');
+            setFuture('');
+        }
+    };
+
     useEffect(() => {
-        const fetchActiveNote = async () => {
-            try {
-                const { data } = await API.get(`notes/date/${selectedDate}`);
-                setLearned(data.learned || '');
-                setFuture(data.future || '');
-            } catch (err) {
-                console.error('Error loading note:', err);
-                setLearned('');
-                setFuture('');
-            }
-        };
-        fetchActiveNote();
-    }, [selectedDate]);
+        loadNoteForDate(selectedDate);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const openArchiveLog = (note) => {
+        loadNoteForDate(note.date, note);
+        document.getElementById('notes-editor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
 
     const handleSave = async () => {
         try {
@@ -72,7 +98,7 @@ const Notes = () => {
             await API.delete(`notes/date/${dateToDelete}`);
             fetchNotesList();
 
-            if (selectedDate === dateToDelete) {
+            if (selectedDate === normalizeDate(dateToDelete)) {
                 setLearned('');
                 setFuture('');
             }
@@ -104,11 +130,11 @@ const Notes = () => {
                     onClick={handleSave}
                     className="px-6 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-black text-[9px] uppercase tracking-widest hover:bg-violet-600 transition-all shadow-lg shadow-slate-200 dark:shadow-none flex items-center gap-2 btn-hover-scale"
                 >
-                    <FiSave size={16} /> SYNC LOGS {saved && <FiCheckCircle className="animate-in zoom-in duration-300" />}
+                    <FiSave size={16} /> Save logs {saved && <FiCheckCircle className="animate-in zoom-in duration-300" />}
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div id="notes-editor" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Column 1: Today's Learnings */}
                 <div className="bg-white dark:bg-slate-900 premium-shadow p-6 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-6 transition-all">
                     <div className="flex items-center justify-between">
@@ -174,7 +200,7 @@ const Notes = () => {
                             <input 
                                 type="date" 
                                 value={selectedDate}
-                                onChange={(e) => setSelectedDate(e.target.value)}
+                                onChange={(e) => loadNoteForDate(e.target.value)}
                                 className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-xs font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 transition-all outline-none"
                             />
                         </div>
@@ -191,33 +217,44 @@ const Notes = () => {
                         ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-48 overflow-y-auto pr-2">
                                 {notesList.map((note) => {
-                                    const isSelected = note.date === selectedDate;
+                                    const isSelected = normalizeDate(note.date) === selectedDate;
                                     const displayLearned = note.learned || 'Empty log';
                                     return (
-                                        <button
+                                        <div
                                             key={note.date}
-                                            onClick={() => setSelectedDate(note.date)}
                                             className={`p-3 rounded-xl border text-left transition-all flex justify-between items-center group/item ${isSelected ? 'bg-violet-600 border-violet-500 text-white shadow-lg shadow-violet-500/25' : 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 hover:border-violet-500 text-slate-900 dark:text-slate-300'}`}
                                         >
-                                            <div className="min-w-0 flex-1 pr-2">
+                                            <button
+                                                type="button"
+                                                onClick={() => openArchiveLog(note)}
+                                                className="min-w-0 flex-1 pr-2 text-left"
+                                            >
                                                 <p className={`text-[10px] font-black uppercase tracking-wider ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white'}`}>
-                                                    {new Date(note.date + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                    {new Date(normalizeDate(note.date) + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                                                 </p>
                                                 <p className={`text-[9px] font-medium truncate mt-1 ${isSelected ? 'text-violet-200' : 'text-slate-500 dark:text-slate-400'}`}>
                                                     {displayLearned}
                                                 </p>
-                                            </div>
+                                            </button>
                                             <div className="flex items-center gap-2 shrink-0">
                                                 <button
+                                                    type="button"
                                                     onClick={(e) => handleDeleteLog(note.date, e)}
                                                     title="Delete this log"
                                                     className={`p-1.5 rounded-lg transition-colors ${isSelected ? 'text-violet-200 hover:text-white hover:bg-violet-700' : 'text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
                                                 >
                                                     <FiTrash2 size={12} />
                                                 </button>
-                                                <FiArrowRight size={14} className={`${isSelected ? 'text-white' : 'text-slate-400 group-hover/item:translate-x-1 transition-transform'}`} />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => openArchiveLog(note)}
+                                                    title="Open saved log"
+                                                    className={`p-1.5 rounded-lg transition-all ${isSelected ? 'text-white hover:bg-violet-700' : 'text-slate-400 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-slate-100 dark:hover:bg-slate-800 group-hover/item:translate-x-0.5'}`}
+                                                >
+                                                    <FiArrowRight size={14} />
+                                                </button>
                                             </div>
-                                        </button>
+                                        </div>
                                     );
                                 })}
                             </div>

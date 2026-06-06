@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { FiBell, FiSearch, FiSettings, FiUser, FiLogOut, FiLayout, FiSun, FiMoon } from 'react-icons/fi';
+import { FiBell, FiSearch, FiSettings, FiUser, FiLogOut, FiSun, FiMoon } from 'react-icons/fi';
+import NavIcon from './icons/NavIcon';
 import { useNavigate } from 'react-router-dom';
 import { courses } from '../data/CourseData';
 
@@ -123,8 +124,8 @@ const Navbar = () => {
                             <button onClick={() => { setShowProfileMenu(false); navigate('/settings'); }} className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-cyan-600">
                                 <FiUser className="text-cyan-500" /> My Profile
                             </button>
-                            <button onClick={() => { setShowProfileMenu(false); navigate('/dashboard'); }} className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-cyan-600">
-                                <FiLayout className="text-cyan-500" /> Dashboard
+                            <button onClick={() => { setShowProfileMenu(false); navigate('/dashboard'); }} className="group w-full text-left p-3 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-600 hover:bg-sky-500/10 hover:text-sky-600">
+                                <NavIcon name="dashboard" size={16} compact className="!w-7 !h-7" /> Dashboard
                             </button>
                             <div className="pt-2 mt-2 border-t border-slate-100">
                                 <button 

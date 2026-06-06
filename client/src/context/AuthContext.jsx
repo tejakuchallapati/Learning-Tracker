@@ -4,17 +4,58 @@ import { AuthContext } from './AuthContextType';
 import { AUTH_SESSION_EXPIRED } from '../utils/authEvents';
 export { AuthContext };
 
-export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(() => {
-        try {
-            const saved = localStorage.getItem('user');
-            if (saved && saved !== 'undefined') return JSON.parse(saved);
-        } catch (error) {
-            console.error('Auth initialization error:', error);
-        }
+const readStoredSession = () => {
+    try {
+        const saved = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+        if (!saved || saved === 'undefined' || !token) return null;
+        const parsed = JSON.parse(saved);
+        if (!parsed?._id) return null;
+        return { ...parsed, token };
+    } catch (error) {
+        console.error('Auth initialization error:', error);
         return null;
-    });
-    const loading = false;
+    }
+};
+
+const clearStoredSession = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+};
+
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        const restoreSession = async () => {
+            const stored = readStoredSession();
+            if (!stored) {
+                if (!cancelled) {
+                    setUser(null);
+                    setLoading(false);
+                }
+                return;
+            }
+
+            try {
+                const { data } = await API.get('auth/me');
+                if (!cancelled) setUser(data);
+            } catch {
+                clearStoredSession();
+                if (!cancelled) setUser(null);
+            } finally {
+                if (!cancelled) setLoading(false);
+            }
+        };
+
+        restoreSession();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
     useEffect(() => {
         const onSessionExpired = () => setUser(null);
@@ -22,37 +63,29 @@ export const AuthProvider = ({ children }) => {
         return () => window.removeEventListener(AUTH_SESSION_EXPIRED, onSessionExpired);
     }, []);
 
-    // Persist user changes
     useEffect(() => {
         if (user) {
             localStorage.setItem('user', JSON.stringify(user));
             if (user.token) {
                 localStorage.setItem('token', user.token);
             }
-        } else {
-            localStorage.removeItem('user');
-            localStorage.removeItem('token');
+        } else if (!loading) {
+            clearStoredSession();
         }
-    }, [user]);
+    }, [user, loading]);
 
     const login = async (email, password) => {
         const { data } = await API.post('auth/login', { email, password });
-        localStorage.setItem('user', JSON.stringify(data));
-        localStorage.setItem('token', data.token);
         setUser(data);
     };
 
     const register = async (name, email, password) => {
         const { data } = await API.post('auth/register', { name, email, password });
-        localStorage.setItem('user', JSON.stringify(data));
-        localStorage.setItem('token', data.token);
         setUser(data);
     };
 
     const googleLogin = async (credential) => {
         const { data } = await API.post('auth/google', { credential });
-        localStorage.setItem('user', JSON.stringify(data));
-        localStorage.setItem('token', data.token);
         setUser(data);
     };
 
@@ -62,22 +95,19 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Logout API failed:', error);
         } finally {
-            localStorage.removeItem('user');
-            localStorage.removeItem('token');
             setUser(null);
         }
     };
 
     const updateProfile = async (profileData) => {
         const { data } = await API.put('auth/profile', profileData);
-        localStorage.setItem('user', JSON.stringify(data));
         setUser(data);
         return data;
     };
 
     return (
         <AuthContext.Provider value={{ user, login, register, googleLogin, logout, updateProfile, loading }}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     );
 };

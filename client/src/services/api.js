@@ -27,7 +27,8 @@ API.interceptors.response.use(
             const isAuthAttempt =
                 url.includes('auth/login') ||
                 url.includes('auth/google') ||
-                url.includes('auth/register');
+                url.includes('auth/register') ||
+                url.includes('auth/me');
             if (!isAuthAttempt) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');

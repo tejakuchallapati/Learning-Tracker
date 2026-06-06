@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
 const { verifyGoogleCredential } = require('../config/googleAuth');
+const { normalizeReminderStorage } = require('../utils/reminderSchedule');
 
 const generateToken = (id) => {
     if (!process.env.JWT_SECRET) {
@@ -158,6 +159,13 @@ const googleLogin = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Get current logged-in user
+// @route   GET /api/auth/me
+// @access  Private
+const getMe = asyncHandler(async (req, res) => {
+    res.json(formatAuthResponse(req.user));
+});
+
 // @desc    Logout user / clear cookie if HTTP-only approach
 // @route   GET /api/auth/logout
 // @access  Public
@@ -190,11 +198,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         if (req.body.pushNotification !== undefined) {
             user.pushNotification = req.body.pushNotification;
         }
-        if (req.body.reminderTime !== undefined) {
-            user.reminderTime = req.body.reminderTime;
-        }
-        if (req.body.reminderAmPm !== undefined) {
-            user.reminderAmPm = req.body.reminderAmPm;
+        if (req.body.reminderTime !== undefined || req.body.reminderAmPm !== undefined) {
+            const normalized = normalizeReminderStorage(
+                req.body.reminderTime ?? user.reminderTime,
+                req.body.reminderAmPm ?? user.reminderAmPm
+            );
+            user.reminderTime = normalized.reminderTime;
+            user.reminderAmPm = normalized.reminderAmPm;
         }
 
         if (req.body.password) {
@@ -227,6 +237,7 @@ module.exports = {
     registerUser,
     loginUser,
     googleLogin,
+    getMe,
     logoutUser,
     updateUserProfile,
 };
