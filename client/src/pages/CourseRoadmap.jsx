@@ -53,7 +53,7 @@ const CourseRoadmap = () => {
                                 <p className="text-slate-700 dark:text-slate-400 leading-relaxed mb-10 text-lg font-bold">{track.description}</p>
                                 
                                 <div className="w-full space-y-4 pt-4">
-                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-violet-400 dark:text-violet-500">Core Architecture</p>
+                                    <p className="text-xs font-black uppercase tracking-[0.2em] text-violet-400 dark:text-violet-500">Core Architecture</p>
                                     <div className="flex flex-wrap justify-center gap-2">
                                         {track.tools.map(tool => (
                                             <span key={tool} className="px-5 py-2.5 bg-slate-100 dark:bg-slate-950 rounded-[1rem] text-xs font-black text-slate-700 dark:text-slate-400 border border-slate-100 dark:border-slate-800 uppercase tracking-tight">{tool}</span>
@@ -94,7 +94,7 @@ const CourseRoadmap = () => {
                 </div>
                 
                 <div className="relative z-10 max-w-3xl">
-                    <span className="inline-flex items-center px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-violet-600 text-white mb-8 border border-violet-400/50 shadow-lg shadow-violet-200/50 dark:shadow-none">
+                    <span className="inline-flex items-center px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-[0.2em] bg-violet-600 text-white mb-8 border border-violet-400/50 shadow-lg shadow-violet-200/50 dark:shadow-none">
                         {activeSubTrack ? `${course.subTracks.find(t => t.id === activeSubTrack).title} MASTERCLASS` : 'PROFESSIONAL PATHWAY'}
                     </span>
                     <h1 className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter leading-[1] uppercase">
@@ -106,10 +106,10 @@ const CourseRoadmap = () => {
 
                     <div className="mt-14 flex flex-wrap items-center gap-10">
                         <div className="space-y-4">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-500 pl-1">Primary Stack</p>
+                            <p className="text-xs font-black uppercase tracking-widest text-slate-600 dark:text-slate-500 pl-1">Primary Stack</p>
                             <div className="flex -space-x-3 mt-3">
                                 {course.tools.slice(0, 5).map((tool, i) => (
-                                    <div key={i} className="w-14 h-14 rounded-[1.2rem] bg-slate-50 dark:bg-slate-800 border-2 border-white dark:border-slate-700 flex items-center justify-center shadow-xl text-[10px] font-black text-violet-600 dark:text-violet-400 transform hover:-translate-y-2 transition-all cursor-default">
+                                    <div key={i} className="w-14 h-14 rounded-[1.2rem] bg-slate-50 dark:bg-slate-800 border-2 border-white dark:border-slate-700 flex items-center justify-center shadow-xl text-xs font-black text-violet-600 dark:text-violet-400 transform hover:-translate-y-2 transition-all cursor-default">
                                         {tool[0].toUpperCase()}
                                     </div>
                                 ))}
@@ -117,7 +117,7 @@ const CourseRoadmap = () => {
                         </div>
                         <div className="h-16 w-px bg-slate-100 dark:bg-slate-800 hidden md:block"></div>
                         <div className="space-y-4">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-500 pl-1">Progression</p>
+                            <p className="text-xs font-black uppercase tracking-widest text-slate-600 dark:text-slate-500 pl-1">Progression</p>
                             <p className="text-4xl font-black text-violet-600 dark:text-violet-400 tracking-tight leading-none uppercase">{filteredRoadmap.length} Milestones</p>
                         </div>
                     </div>
@@ -143,7 +143,7 @@ const CourseRoadmap = () => {
                                         <FiCheckCircle className="text-slate-100 dark:text-slate-800 w-10 h-10 shrink-0 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors" />
                                     </div>
                                     <div className="mt-10">
-                                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-violet-500 dark:text-violet-400 mb-6 flex items-center gap-3">
+                                        <p className="text-xs font-black uppercase tracking-[0.2em] text-violet-500 dark:text-violet-400 mb-6 flex items-center gap-3">
                                             <FiTool size={16} /> ARCHITECTURE & TOOLING
                                         </p>
                                         <div className="flex flex-wrap gap-3">

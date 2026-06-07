@@ -81,7 +81,7 @@ const Insights = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <div className="lg:col-span-1 bg-white dark:bg-slate-900 premium-shadow p-5 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-6 flex flex-col items-center">
-                    <h3 className="text-[10px] font-black text-slate-900 dark:text-white flex items-center gap-3 self-start uppercase tracking-[0.2em]">
+                    <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-3 self-start uppercase tracking-[0.2em]">
                         <div className="w-8 h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiActivity size={16} /></div>
                         Goal progress
                     </h3>
@@ -94,7 +94,7 @@ const Insights = () => {
                                     ))}
                                 </Pie>
                                 <Tooltip contentStyle={{ borderRadius: '1.5rem', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)', padding: '16px', backgroundColor: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)', fontFamily: 'Outfit' }} />
-                                <Legend verticalAlign="bottom" height={36} iconType="circle" formatter={(value) => <span className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{value}</span>} />
+                                <Legend verticalAlign="bottom" height={36} iconType="circle" formatter={(value) => <span className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{value}</span>} />
                             </PieChart>
                         </ResponsiveContainer>
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] text-center pointer-events-none">
@@ -105,7 +105,7 @@ const Insights = () => {
                 </div>
 
                 <div className="lg:col-span-2 bg-white dark:bg-slate-900 premium-shadow p-5 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col overflow-hidden">
-                    <h3 className="text-[10px] font-black text-slate-900 dark:text-white mb-6 flex items-center gap-3 uppercase tracking-[0.2em]">
+                    <h3 className="text-xs font-black text-slate-900 dark:text-white mb-6 flex items-center gap-3 uppercase tracking-[0.2em]">
                         <div className="w-8 h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiList size={16} /></div>
                         Active learning paths
                     </h3>
@@ -113,7 +113,7 @@ const Insights = () => {
                         {data?.goalsAnalysis?.length > 0 ? (
                             <table className="w-full text-left">
                                 <thead>
-                                    <tr className="border-b border-slate-100 dark:border-slate-800 text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                                    <tr className="border-b border-slate-100 dark:border-slate-800 text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                                         <th className="pb-4 px-4">Track</th>
                                         <th className="pb-4 px-4">Current</th>
                                         <th className="pb-4 px-4">Expected</th>
@@ -129,7 +129,7 @@ const Insights = () => {
                                             <td className="py-4 px-4 text-xs font-black text-violet-600 dark:text-violet-400">{goal.currentProgress}%</td>
                                             <td className="py-4 px-4 text-xs font-bold text-slate-400 dark:text-slate-500">{goal.expectedProgress}%</td>
                                             <td className="py-4 px-4 text-right">
-                                                <span className="px-4 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-[1rem] text-[8px] font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30 max-w-[200px] inline-block truncate">
+                                                <span className="px-4 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-[1rem] text-xs font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30 max-w-[200px] inline-block truncate">
                                                     {goal.suggestion}
                                                 </span>
                                             </td>
@@ -155,7 +155,7 @@ const Insights = () => {
                             {stat.icon}
                         </div>
                         <p className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">{stat.val}</p>
-                        <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mt-3 leading-none">{stat.label}</p>
+                        <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mt-3 leading-none">{stat.label}</p>
                     </div>
                 ))}
             </div>

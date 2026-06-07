@@ -54,7 +54,7 @@ const SignupForm = ({ embedded = false }) => {
 
     const inputClass = `block w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-base font-semibold text-slate-900 focus:ring-4 outline-none transition-all placeholder:text-slate-400 ${accentRing}`;
     const labelClass = embedded
-        ? 'block text-[10px] font-bold text-slate-500 uppercase tracking-wider pl-1 landing-nav-label'
+        ? 'block text-xs font-bold text-slate-500 uppercase tracking-wider pl-1 landing-nav-label'
         : 'block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pl-1';
 
     return (

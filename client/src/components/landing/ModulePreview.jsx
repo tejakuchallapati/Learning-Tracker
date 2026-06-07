@@ -4,7 +4,7 @@ const BrowserChrome = ({ title, children }) => (
             <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
             <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-            <span className="ml-2 text-[9px] font-bold text-slate-500 truncate">{title}</span>
+            <span className="ml-2 text-xs font-bold text-slate-500 truncate">{title}</span>
         </div>
         <div className="bg-white p-3 sm:p-4 pointer-events-none select-none">{children}</div>
     </div>
@@ -22,12 +22,12 @@ const DashboardPreview = () => (
                     <div key={s.label} className="rounded-lg border border-slate-100 p-2">
                         <div className={`w-6 h-6 rounded-md ${s.color} opacity-80 mb-2`} />
                         <p className="text-sm font-black text-slate-900">{s.value}</p>
-                        <p className="text-[8px] font-bold text-slate-400 uppercase">{s.label}</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase">{s.label}</p>
                     </div>
                 ))}
             </div>
             <div className="rounded-lg border border-slate-100 p-2 h-24 relative overflow-hidden">
-                <p className="text-[8px] font-bold text-slate-400 uppercase mb-1">Weekly intensity</p>
+                <p className="text-xs font-bold text-slate-400 uppercase mb-1">Weekly intensity</p>
                 <div className="absolute bottom-2 left-2 right-2 flex items-end gap-1 h-14">
                     {[40, 65, 30, 80, 55, 90, 70].map((h, i) => (
                         <div key={i} className="flex-1 bg-violet-200 rounded-t-sm" style={{ height: `${h}%` }} />
@@ -35,7 +35,7 @@ const DashboardPreview = () => (
                 </div>
             </div>
             <div className="rounded-lg border border-violet-100 bg-violet-50/50 p-2">
-                <p className="text-[9px] font-black text-violet-700">Full Stack Development</p>
+                <p className="text-xs font-black text-violet-700">Full Stack Development</p>
                 <div className="mt-1 h-1.5 rounded-full bg-violet-100">
                     <div className="h-full w-[62%] rounded-full bg-violet-500" />
                 </div>
@@ -67,7 +67,7 @@ const RoadmapsPreview = () => (
                 ].map((c) => (
                     <div key={c.title} className="rounded-lg border border-slate-100 p-2">
                         <span className="text-base">{c.emoji}</span>
-                        <p className="text-[9px] font-black text-slate-800 mt-1 leading-tight">{c.title}</p>
+                        <p className="text-xs font-black text-slate-800 mt-1 leading-tight">{c.title}</p>
                     </div>
                 ))}
             </div>
@@ -86,11 +86,11 @@ const DailyGoalsPreview = () => (
             ].map((g) => (
                 <div key={g.task} className="flex items-center gap-2 rounded-lg border border-slate-100 px-2 py-1.5">
                     <span className={`w-3.5 h-3.5 rounded border-2 shrink-0 ${g.done ? 'bg-violet-600 border-violet-600' : 'border-slate-300'}`} />
-                    <span className={`text-[9px] font-semibold ${g.done ? 'text-slate-400 line-through' : 'text-slate-700'}`}>{g.task}</span>
+                    <span className={`text-xs font-semibold ${g.done ? 'text-slate-400 line-through' : 'text-slate-700'}`}>{g.task}</span>
                 </div>
             ))}
             <div className="flex items-center justify-between rounded-lg bg-violet-50 border border-violet-100 px-2 py-1.5">
-                <span className="text-[8px] font-bold text-violet-700">Current streak</span>
+                <span className="text-xs font-bold text-violet-700">Current streak</span>
                 <span className="text-sm font-black text-violet-600">7 days 🔥</span>
             </div>
         </div>
@@ -107,7 +107,7 @@ const ResourcesPreview = () => (
                 { title: 'Fireship YouTube', tag: 'YouTube', color: 'text-rose-600 bg-rose-50' },
             ].map((b) => (
                 <div key={b.title} className="flex items-center justify-between rounded-lg border border-slate-100 px-2 py-1.5">
-                    <p className="text-[9px] font-bold text-slate-800 truncate pr-2">{b.title}</p>
+                    <p className="text-xs font-bold text-slate-800 truncate pr-2">{b.title}</p>
                     <span className={`text-[7px] font-black px-1.5 py-0.5 rounded shrink-0 ${b.color}`}>{b.tag}</span>
                 </div>
             ))}
@@ -125,15 +125,15 @@ const EmailRemindersPreview = () => (
                 { label: 'Push notifications', on: false },
             ].map((t) => (
                 <div key={t.label} className="flex items-center justify-between rounded-lg border border-slate-100 px-2 py-1.5">
-                    <span className="text-[9px] font-semibold text-slate-700">{t.label}</span>
+                    <span className="text-xs font-semibold text-slate-700">{t.label}</span>
                     <span className={`w-8 h-4 rounded-full relative ${t.on ? 'bg-violet-600' : 'bg-slate-200'}`}>
                         <span className={`absolute top-0.5 w-3 h-3 rounded-full bg-white shadow ${t.on ? 'right-0.5' : 'left-0.5'}`} />
                     </span>
                 </div>
             ))}
             <div className="rounded-lg bg-blue-50 border border-blue-100 px-2 py-1.5 flex items-center justify-between">
-                <span className="text-[8px] font-bold text-blue-700">Reminder time</span>
-                <span className="text-[9px] font-black text-blue-800">8:00 PM</span>
+                <span className="text-xs font-bold text-blue-700">Reminder time</span>
+                <span className="text-xs font-black text-blue-800">8:00 PM</span>
             </div>
         </div>
     </BrowserChrome>
@@ -144,14 +144,14 @@ const StudyNotesPreview = () => (
         <div className="space-y-2">
             <p className="text-xs font-black text-slate-900">Study Notes — Today</p>
             <div className="rounded-lg border border-slate-100 p-2">
-                <p className="text-[8px] font-bold text-slate-400 uppercase mb-1">What I learned</p>
-                <p className="text-[9px] text-slate-600 leading-relaxed">
+                <p className="text-xs font-bold text-slate-400 uppercase mb-1">What I learned</p>
+                <p className="text-xs text-slate-600 leading-relaxed">
                     Covered useEffect cleanup patterns and custom hooks for API fetching...
                 </p>
             </div>
             <div className="rounded-lg border border-slate-100 p-2">
-                <p className="text-[8px] font-bold text-slate-400 uppercase mb-1">Tomorrow&apos;s plan</p>
-                <p className="text-[9px] text-slate-600 leading-relaxed">
+                <p className="text-xs font-bold text-slate-400 uppercase mb-1">Tomorrow&apos;s plan</p>
+                <p className="text-xs text-slate-600 leading-relaxed">
                     Practice React Router nested routes and finish module quiz.
                 </p>
             </div>

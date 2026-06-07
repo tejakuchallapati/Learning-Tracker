@@ -279,6 +279,26 @@ body {
   .font-body { font-family: 'Outfit', sans-serif; }
   .font-nav { font-family: var(--font-nav); }
 
+  .page-hero-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .page-hero-desc {
+    font-family: 'Bricolage Grotesque', 'Outfit', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1.55;
+  }
+
+  .page-section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
   .landing-hero-tagline {
     font-family: 'Bricolage Grotesque', 'Outfit', sans-serif;
     font-weight: 600;
@@ -574,7 +594,7 @@ body {
   /* Sidebar + bottom nav label style (Dashboard, Goals, Insights, etc.) */
   .text-nav-label {
     font-family: var(--font-nav);
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     letter-spacing: -0.025em;
     line-height: 1.25;
   }

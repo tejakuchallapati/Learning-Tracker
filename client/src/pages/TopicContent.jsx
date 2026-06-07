@@ -117,7 +117,7 @@ const TopicContent = () => {
             <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden premium-shadow">
                 <div className="p-5 md:p-8 space-y-8 max-md:p-4 max-md:space-y-6">
                     <div className="space-y-4">
-                        <div className="inline-flex items-center gap-2 px-4 py-1 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-full text-[10px] font-black uppercase tracking-widest">
+                        <div className="inline-flex items-center gap-2 px-4 py-1 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-full text-xs font-black uppercase tracking-widest">
                             <FiBookOpen /> Architecture &amp; Logic
                         </div>
                         <h2 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white leading-tight">Mastering the Core</h2>
@@ -137,7 +137,7 @@ const TopicContent = () => {
                                     <thead>
                                         <tr>
                                             {topic.deepContent.table.headers.map((h, i) => (
-                                                <th key={i} className="px-4 py-3 text-[10px] font-black text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800 uppercase tracking-widest">{h}</th>
+                                                <th key={i} className="px-4 py-3 text-xs font-black text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800 uppercase tracking-widest">{h}</th>
                                             ))}
                                         </tr>
                                     </thead>
@@ -169,7 +169,7 @@ const TopicContent = () => {
                                         <div className="w-3 h-3 rounded-full bg-amber-500/20 border border-amber-500/40"></div>
                                         <div className="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/40"></div>
                                     </div>
-                                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">standard_implementation.js</span>
+                                    <span className="text-xs font-black text-slate-500 uppercase tracking-widest">standard_implementation.js</span>
                                 </div>
                                 <pre className="text-sm md:text-base font-mono leading-loose overflow-x-auto text-violet-100 selection:bg-violet-500/30">
                                     <code>{topic.deepContent.code}</code>
@@ -184,7 +184,7 @@ const TopicContent = () => {
                                 <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Expert Curations</h3>
                                 <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm font-medium">Industry-vetted channels for detailed visual mastery.</p>
                             </div>
-                            <div className="px-4 py-2 bg-rose-50 text-rose-600 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 border border-rose-100">
+                            <div className="px-4 py-2 bg-rose-50 text-rose-600 rounded-xl text-xs font-black uppercase tracking-widest flex items-center gap-2 border border-rose-100">
                                 <FiPlay size={16} /> Premium Sources
                             </div>
                         </div>
@@ -198,7 +198,7 @@ const TopicContent = () => {
                                     </div>
                                     <div className="min-w-0">
                                         <p className="text-base font-black text-slate-900 dark:text-white truncate leading-tight">{channel.name}</p>
-                                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest mt-2 group-hover:text-rose-600 transition-colors">Start Workshop</p>
+                                        <p className="text-xs text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest mt-2 group-hover:text-rose-600 transition-colors">Start Workshop</p>
                                     </div>
                                 </a>
                             ))}
@@ -212,7 +212,7 @@ const TopicContent = () => {
                 <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/10 rounded-full blur-[150px] -mr-48 -mt-48 max-md:w-64 max-md:h-64 max-md:mr-0 max-md:mt-0"></div>
                 <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
                     <div className="space-y-4">
-                        <div className="inline-block px-4 py-1 bg-white/20 border border-white/30 text-white rounded-full text-[10px] font-black uppercase tracking-widest">AI Intelligence</div>
+                        <div className="inline-block px-4 py-1 bg-white/20 border border-white/30 text-white rounded-full text-xs font-black uppercase tracking-widest">AI Intelligence</div>
                         <h2 className="text-2xl md:text-4xl font-black tracking-tight leading-tight">Stuck on <span className="text-violet-200">{topic.title}</span>?<br/>Your Mentor is ready.</h2>
                         <p className="text-violet-100 text-lg max-w-xl font-medium leading-relaxed">Get instant explanations, code examples, and answers to questions about this exact topic.</p>
                     </div>
@@ -233,7 +233,7 @@ const TopicContent = () => {
                         </div>
                         <div>
                             <h3 className="text-white font-black text-sm">AI Topic Mentor</h3>
-                            <p className="text-white/70 text-[10px] font-bold uppercase tracking-widest truncate max-w-[180px]">{topic.title}</p>
+                            <p className="text-white/70 text-xs font-bold uppercase tracking-widest truncate max-w-[180px]">{topic.title}</p>
                         </div>
                     </div>
                     <button onClick={() => setMentorOpen(false)} className="text-white/80 hover:text-white rounded-xl tap-target-icon hover:bg-white/10 transition-all" aria-label="Close AI mentor">

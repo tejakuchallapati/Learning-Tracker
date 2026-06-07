@@ -96,7 +96,7 @@ export function Header() {
                             type="button"
                             className={cn(
                                 'landing-nav-label text-slate-400 hover:text-sky-300 transition-all duration-500',
-                                compact ? 'text-[9px]' : 'text-[11px]',
+                                compact ? 'text-xs' : 'text-xs',
                             )}
                             onClick={link.onClick}
                         >
@@ -108,7 +108,7 @@ export function Header() {
                         onClick={scrollToSignup}
                         className={cn(
                             'landing-cta landing-nav-label text-white rounded-full transition-all duration-500',
-                            compact ? 'text-[9px] px-4 py-2' : 'text-[11px] px-6 py-3',
+                            compact ? 'text-xs px-4 py-2' : 'text-xs px-6 py-3',
                         )}
                     >
                         Get started

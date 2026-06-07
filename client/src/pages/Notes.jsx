@@ -128,7 +128,7 @@ const Notes = () => {
                 </div>
                 <button 
                     onClick={handleSave}
-                    className="px-6 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-black text-[9px] uppercase tracking-widest hover:bg-violet-600 transition-all shadow-lg shadow-slate-200 dark:shadow-none flex items-center gap-2 btn-hover-scale"
+                    className="px-6 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-violet-600 transition-all shadow-lg shadow-slate-200 dark:shadow-none flex items-center gap-2 btn-hover-scale"
                 >
                     <FiSave size={16} /> Save logs {saved && <FiCheckCircle className="animate-in zoom-in duration-300" />}
                 </button>
@@ -138,11 +138,11 @@ const Notes = () => {
                 {/* Column 1: Today's Learnings */}
                 <div className="bg-white dark:bg-slate-900 premium-shadow p-6 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-6 transition-all">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-[10px] font-black text-slate-900 dark:text-white flex items-center gap-3 uppercase tracking-[0.2em]">
+                        <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-3 uppercase tracking-[0.2em]">
                             <div className="w-8 h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiEdit size={16} /></div>
                             Daily Manifest
                         </h3>
-                        <span className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-500 rounded-xl text-[8px] font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">
+                        <span className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-500 rounded-xl text-xs font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">
                             {formatDisplayDate(selectedDate)}
                         </span>
                     </div>
@@ -159,7 +159,7 @@ const Notes = () => {
                     <div className="absolute top-0 right-0 w-48 h-48 bg-violet-500/5 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
                     
                     <div className="flex items-center justify-between relative z-10">
-                        <h3 className="text-[10px] font-black text-slate-900 dark:text-white flex items-center gap-3 uppercase tracking-[0.2em]">
+                        <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-3 uppercase tracking-[0.2em]">
                             <div className="w-8 h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiCalendar size={16} /></div>
                             Future Sprint
                         </h3>
@@ -170,7 +170,7 @@ const Notes = () => {
                         placeholder="Write your future plan here..."
                         className="w-full h-[250px] bg-slate-50/50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-6 text-[13px] font-bold text-slate-800 dark:text-slate-300 focus:ring-4 focus:ring-violet-500/10 transition-all resize-none placeholder-slate-500 dark:placeholder-slate-600 leading-relaxed font-mono relative z-10 outline-none"
                     />
-                    <div className="pt-2 flex items-center gap-3 text-[8px] font-black text-violet-600 dark:text-violet-400 uppercase tracking-[0.3em] relative z-10">
+                    <div className="pt-2 flex items-center gap-3 text-xs font-black text-violet-600 dark:text-violet-400 uppercase tracking-[0.3em] relative z-10">
                         <FiArrowRight className="animate-pulse" /> BUILD SMALL • SHIP OFTEN • REPEAT
                     </div>
                 </div>
@@ -180,8 +180,8 @@ const Notes = () => {
             <div className="p-6 bg-slate-100/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center gap-6 group transition-all">
                 <div className="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 flex items-center justify-center text-xl shrink-0 shadow-sm group-hover:rotate-12 transition-transform duration-500"><FiTrash2 /></div>
                 <div>
-                    <p className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest">Persistence Active</p>
-                    <p className="text-[9px] text-slate-600 dark:text-slate-500 font-bold mt-1.5 uppercase tracking-tight leading-relaxed">Log data is stored securely in the database. Connected to your user profile.</p>
+                    <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Persistence Active</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-500 font-bold mt-1.5 uppercase tracking-tight leading-relaxed">Log data is stored securely in the database. Connected to your user profile.</p>
                 </div>
             </div>
 
@@ -195,7 +195,7 @@ const Notes = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
                     {/* Date Picker Card */}
                     <div className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-4">
-                        <label className="block text-[9px] font-black uppercase tracking-widest text-slate-500">Choose Active Date</label>
+                        <label className="block text-xs font-black uppercase tracking-widest text-slate-500">Choose Active Date</label>
                         <div className="relative">
                             <input 
                                 type="date" 
@@ -204,14 +204,14 @@ const Notes = () => {
                                 className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-xs font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 transition-all outline-none"
                             />
                         </div>
-                        <p className="text-[9px] text-violet-600 dark:text-violet-400 font-black uppercase tracking-tight">
+                        <p className="text-xs text-violet-600 dark:text-violet-400 font-black uppercase tracking-tight">
                             Selected: {formatDisplayDate(selectedDate)}
                         </p>
                     </div>
 
                     {/* History/Saved List */}
                     <div className="lg:col-span-2 bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-4">
-                        <label className="block text-[9px] font-black uppercase tracking-widest text-slate-500">Saved Logs Archive</label>
+                        <label className="block text-xs font-black uppercase tracking-widest text-slate-500">Saved Logs Archive</label>
                         {notesList.length === 0 ? (
                             <p className="text-xs font-bold text-slate-400 py-6 text-center border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl uppercase">No archived logs found.</p>
                         ) : (
@@ -229,10 +229,10 @@ const Notes = () => {
                                                 onClick={() => openArchiveLog(note)}
                                                 className="min-w-0 flex-1 pr-2 text-left"
                                             >
-                                                <p className={`text-[10px] font-black uppercase tracking-wider ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white'}`}>
+                                                <p className={`text-xs font-black uppercase tracking-wider ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white'}`}>
                                                     {new Date(normalizeDate(note.date) + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                                                 </p>
-                                                <p className={`text-[9px] font-medium truncate mt-1 ${isSelected ? 'text-violet-200' : 'text-slate-500 dark:text-slate-400'}`}>
+                                                <p className={`text-xs font-medium truncate mt-1 ${isSelected ? 'text-violet-200' : 'text-slate-500 dark:text-slate-400'}`}>
                                                     {displayLearned}
                                                 </p>
                                             </button>

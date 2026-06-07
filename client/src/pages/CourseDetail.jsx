@@ -16,7 +16,7 @@ const CourseDetail = () => {
             {/* Context Navigation */}
             <button 
                 onClick={() => navigate(`/roadmap/${courseId}`)}
-                className="flex items-center gap-3 text-[10px] font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all uppercase tracking-[0.2em] group"
+                className="flex items-center gap-3 text-xs font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all uppercase tracking-[0.2em] group"
             >
                 <div className="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg group-hover:bg-violet-50 dark:group-hover:bg-violet-900/30 transition-colors"><FiChevronLeft /></div> 
                 Back to {course.title} Roadmap
@@ -27,9 +27,9 @@ const CourseDetail = () => {
                 <div className="absolute -top-20 -right-20 w-80 h-80 bg-violet-600/5 rounded-full blur-[80px] group-hover:scale-150 transition-transform duration-1000"></div>
                 <div className="relative z-10">
                     <div className="flex items-center gap-6 mb-8">
-                        <span className="px-6 py-2 bg-violet-600 text-white rounded-[1.2rem] text-[9px] font-black uppercase tracking-[0.2em] shadow-lg shadow-violet-200/30">Milestone 0{parseInt(stepIdx) + 1}</span>
+                        <span className="px-6 py-2 bg-violet-600 text-white rounded-[1.2rem] text-xs font-black uppercase tracking-[0.2em] shadow-lg shadow-violet-200/30">Milestone 0{parseInt(stepIdx) + 1}</span>
                         <div className="w-1.5 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
-                        <span className="text-slate-600 dark:text-slate-500 font-black text-[10px] uppercase tracking-[0.2em]">{course.title}</span>
+                        <span className="text-slate-600 dark:text-slate-500 font-black text-xs uppercase tracking-[0.2em]">{course.title}</span>
                     </div>
                     <h1 className="text-6xl font-black text-slate-900 dark:text-white leading-[1.1] mb-6 tracking-tighter uppercase">{step.step}</h1>
                     <p className="text-slate-700 dark:text-slate-400 text-xl font-bold max-w-2xl leading-relaxed">
@@ -59,11 +59,11 @@ const CourseDetail = () => {
                                     <div className="mt-8 flex items-center gap-8">
                                         <button 
                                             onClick={() => navigate(`/roadmap/${courseId}/${stepIdx}/${i}`)}
-                                            className="flex items-center gap-3 text-[10px] font-black text-violet-600 dark:text-violet-400 hover:gap-5 transition-all uppercase tracking-[0.2em]"
+                                            className="flex items-center gap-3 text-xs font-black text-violet-600 dark:text-violet-400 hover:gap-5 transition-all uppercase tracking-[0.2em]"
                                         >
                                             Technical Protocol <FiArrowRight />
                                         </button>
-                                        <button className="flex items-center gap-3 text-[10px] font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all uppercase tracking-[0.2em]">
+                                        <button className="flex items-center gap-3 text-xs font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-all uppercase tracking-[0.2em]">
                                             <FiPlayCircle size={16} /> Workshop Session
                                         </button>
                                     </div>
@@ -91,12 +91,12 @@ const CourseDetail = () => {
                     <div className="bg-white rounded-[2.5rem] p-12 text-slate-900 flex flex-col md:flex-row items-center justify-between gap-10 premium-shadow relative overflow-hidden group border border-violet-100">
                         <div className="absolute top-0 right-0 w-80 h-80 bg-violet-600/5 rounded-full blur-[100px] group-hover:scale-150 transition-transform duration-1000"></div>
                         <div className="relative z-10">
-                            <p className="text-violet-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Core Track Progression</p>
+                            <p className="text-violet-500 font-black uppercase tracking-[0.4em] text-xs mb-4">Core Track Progression</p>
                             <h3 className="text-4xl font-black tracking-tight uppercase leading-tight text-slate-900">{course.roadmap[parseInt(stepIdx) + 1].step}</h3>
                         </div>
                         <button 
                             onClick={() => navigate(`/roadmap/${courseId}/${parseInt(stepIdx) + 1}`)}
-                            className="px-12 py-5 bg-red-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-red-700 transition-all flex items-center gap-4 whitespace-nowrap shadow-2xl shadow-red-600/30 btn-hover-scale relative z-10 active:scale-95"
+                            className="px-12 py-5 bg-red-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-red-700 transition-all flex items-center gap-4 whitespace-nowrap shadow-2xl shadow-red-600/30 btn-hover-scale relative z-10 active:scale-95"
                         >
                             Next Milestone <FiPlayCircle size={20} />
                         </button>

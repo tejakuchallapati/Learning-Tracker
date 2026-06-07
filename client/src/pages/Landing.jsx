@@ -111,7 +111,7 @@ const Landing = () => {
                         <ScrollReveal className="mt-12 overflow-hidden py-2" delay={500} distance={24}>
                             <div className="flex w-max landing-hero-ticker gap-8">
                                 {[...tickerItems, ...tickerItems].map((item, i) => (
-                                    <span key={`${item}-${i}`} className="landing-nav-label text-[10px] landing-muted-text whitespace-nowrap">
+                                    <span key={`${item}-${i}`} className="landing-nav-label text-xs landing-muted-text whitespace-nowrap">
                                         {item}
                                         <span className="text-white/15 ml-8">/</span>
                                     </span>
@@ -120,8 +120,8 @@ const Landing = () => {
                         </ScrollReveal>
 
                         <ScrollReveal className="xl:hidden mt-10 text-center" delay={550} amount={0.1}>
-                            <p className="landing-nav-label text-[9px] landing-muted-text mb-3">How it works</p>
-                            <div className="flex flex-wrap justify-center items-center gap-2 text-[10px] font-bold landing-body-text">
+                            <p className="landing-nav-label text-xs landing-muted-text mb-3">How it works</p>
+                            <div className="flex flex-wrap justify-center items-center gap-2 text-xs font-bold landing-body-text">
                                 {workflowSteps.map((item, i) => (
                                     <span key={item.step} className="inline-flex items-center gap-2">
                                         {i > 0 && <span className="text-white/20">→</span>}
@@ -153,7 +153,7 @@ const Landing = () => {
                             Learning Tracker is a free app for self-learners — plan roadmaps, hit daily goals, save notes,
                             and get email reminders. Everything below is what you get when you sign up.
                         </p>
-                        <p className="landing-accent-text landing-nav-label text-[10px] mt-3">Click any module to preview</p>
+                        <p className="landing-accent-text landing-nav-label text-xs mt-3">Click any module to preview</p>
                     </ScrollReveal>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
@@ -213,7 +213,7 @@ const Landing = () => {
                                             <button
                                                 type="button"
                                                 onClick={(e) => { e.stopPropagation(); scrollToSignup(); }}
-                                                className="text-left landing-nav-label text-[10px] landing-accent-text hover:text-sky-300 flex items-center gap-1.5 mt-3 pt-2 border-t border-white/10"
+                                                className="text-left landing-nav-label text-xs landing-accent-text hover:text-sky-300 flex items-center gap-1.5 mt-3 pt-2 border-t border-white/10"
                                             >
                                                 Unlock free <FiArrowRight size={14} />
                                             </button>
@@ -223,7 +223,7 @@ const Landing = () => {
                                             <NavIcon name={mod.icon} size={24} large className="mb-5 group-hover:scale-105" />
                                             <h3 className="landing-display text-lg landing-heading-text mb-2 !tracking-tight">{mod.title}</h3>
                                             <p className="text-sm landing-body-text font-medium leading-relaxed flex-1 mb-5">{mod.desc}</p>
-                                            <span className="landing-nav-label text-[10px] landing-accent-text flex items-center gap-1.5">
+                                            <span className="landing-nav-label text-xs landing-accent-text flex items-center gap-1.5">
                                                 Tap to preview <FiArrowRight size={14} />
                                             </span>
                                         </div>
@@ -299,10 +299,10 @@ const Landing = () => {
 
             <section className="py-12">
                 <ScrollReveal className="max-w-6xl mx-auto px-5 sm:px-8 text-center" distance={48} amount={0.25}>
-                    <p className="landing-nav-label text-[10px] landing-muted-text mb-6">Built with</p>
+                    <p className="landing-nav-label text-xs landing-muted-text mb-6">Built with</p>
                     <div className="flex flex-wrap justify-center gap-3 md:gap-5">
                         {stack.map((tech) => (
-                            <span key={tech} className="landing-nav-label text-[10px] landing-pill-dark px-4 py-2 rounded-full">
+                            <span key={tech} className="landing-nav-label text-xs landing-pill-dark px-4 py-2 rounded-full">
                                 {tech}
                             </span>
                         ))}
@@ -340,7 +340,7 @@ const Landing = () => {
             <footer className="py-10 text-center">
                 <ScrollReveal className="flex flex-col items-center gap-4" distance={40} amount={0.3}>
                     <img src={logo} alt="Learning Tracker" className="w-10 h-10 object-contain opacity-70" />
-                    <p className="landing-nav-label text-[10px] landing-muted-text">© 2026 Learning Tracker</p>
+                    <p className="landing-nav-label text-xs landing-muted-text">© 2026 Learning Tracker</p>
                 </ScrollReveal>
             </footer>
             </div>

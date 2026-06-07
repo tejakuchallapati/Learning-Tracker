@@ -157,7 +157,7 @@ const Dashboard = () => {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/5 rounded-full -mr-20 -mt-20 blur-3xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="max-w-md">
-                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] mb-4 border border-slate-200 dark:border-slate-700">
+                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-black uppercase tracking-[0.2em] mb-4 border border-slate-200 dark:border-slate-700">
                             Adaptive Roadmap
                         </span>
                         <h2 className="text-2xl font-black leading-tight mb-2 tracking-tighter text-slate-900 dark:text-white italic">Fast-Track Your <br />Learning Goal</h2>
@@ -165,7 +165,7 @@ const Dashboard = () => {
                     </div>
                     <button
                         onClick={() => navigate('/courses')}
-                        className="px-8 py-4 bg-slate-900 dark:bg-slate-800 text-white font-black rounded-[2rem] hover:bg-slate-800 dark:hover:bg-slate-700 transition-all transform hover:scale-105 active:scale-95 shadow-md whitespace-nowrap flex items-center gap-3 group/btn uppercase tracking-widest text-[10px]"
+                        className="px-8 py-4 bg-slate-900 dark:bg-slate-800 text-white font-black rounded-[2rem] hover:bg-slate-800 dark:hover:bg-slate-700 transition-all transform hover:scale-105 active:scale-95 shadow-md whitespace-nowrap flex items-center gap-3 group/btn uppercase tracking-widest text-xs"
                     >
                         Generate My Path <FiArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
                     </button>
@@ -188,12 +188,12 @@ const Dashboard = () => {
                                     <FiClock size={20} />
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Efficiency</p>
-                                    <p className="text-[10px] font-bold text-emerald-500">+12% Peak</p>
+                                    <p className="text-xs font-black text-slate-600 uppercase tracking-widest">Efficiency</p>
+                                    <p className="text-xs font-bold text-emerald-500">+12% Peak</p>
                                 </div>
                             </div>
                             <h3 className="text-2xl font-black text-slate-900 dark:text-white">{data?.totalStudyHours ?? 0}h</h3>
-                            <p className="text-[11px] font-semibold text-slate-500 mt-0.5">Total Study Time</p>
+                            <p className="text-xs font-semibold text-slate-500 mt-0.5">Total Study Time</p>
                         </div>
 
                         <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
@@ -202,12 +202,12 @@ const Dashboard = () => {
                                     <FiActivity size={20} />
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Intensity</p>
-                                    <p className="text-[10px] font-bold text-rose-500">High Focus</p>
+                                    <p className="text-xs font-black text-slate-600 uppercase tracking-widest">Intensity</p>
+                                    <p className="text-xs font-bold text-rose-500">High Focus</p>
                                 </div>
                             </div>
                             <h3 className="text-2xl font-black text-slate-900 dark:text-white">{data?.weeklyStudyHours ?? 0}h</h3>
-                            <p className="text-[11px] font-bold text-slate-700 mt-0.5">Weekly Intensity</p>
+                            <p className="text-xs font-bold text-slate-700 mt-0.5">Weekly Intensity</p>
                         </div>
 
                         <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default lg:col-span-2 relative overflow-hidden">
@@ -221,7 +221,7 @@ const Dashboard = () => {
                                     </div>
                                     <div>
                                         <h3 className="text-lg font-black text-slate-900 dark:text-white">Current Goal Progress</h3>
-                                        <p className="text-[11px] font-bold text-slate-700 dark:text-slate-400">Track and manage your active paths</p>
+                                        <p className="text-xs font-bold text-slate-700 dark:text-slate-400">Track and manage your active paths</p>
                                     </div>
                                 </div>
                                 <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mt-1">
@@ -339,7 +339,7 @@ const Dashboard = () => {
                         </h3>
                         <div className="space-y-3 relative z-10">
                             <div className="space-y-1">
-                                <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Course Choice</label>
+                                <label className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Course Choice</label>
                                 <select 
                                     value={selectedTrack}
                                     onChange={(e) => setSelectedTrack(e.target.value)}
@@ -351,7 +351,7 @@ const Dashboard = () => {
                                 </select>
                             </div>
                             <div className="space-y-1">
-                                <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Target Date</label>
+                                <label className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Target Date</label>
                                 <input 
                                     type="date" 
                                     value={targetDate}
@@ -361,7 +361,7 @@ const Dashboard = () => {
                             </div>
                             <div className="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 text-center rounded-xl">
                                 <p className="text-3xl font-black text-violet-600 dark:text-violet-400">{daysLeft}</p>
-                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Days to Mastery</p>
+                                <p className="text-xs font-black text-slate-400 uppercase tracking-widest mt-0.5">Days to Mastery</p>
                             </div>
                         </div>
                         <button 
@@ -383,8 +383,8 @@ const Dashboard = () => {
                                 const isStreak = isPastOrToday && i >= Math.max(0, todayIndex - 4); // Simulated active streak for the past 5 days
                                 return (
                                 <div key={i} className="flex flex-col items-center gap-3">
-                                    <span className={`text-[10px] font-black uppercase ${i === todayIndex ? 'text-violet-600 dark:text-violet-400' : 'text-slate-600 dark:text-slate-500'}`}>{day}</span>
-                                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-[10px] font-black ${isStreak ? 'bg-violet-600 text-white shadow-lg shadow-violet-100' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${i === todayIndex ? 'ring-2 ring-violet-400 ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
+                                    <span className={`text-xs font-black uppercase ${i === todayIndex ? 'text-violet-600 dark:text-violet-400' : 'text-slate-600 dark:text-slate-500'}`}>{day}</span>
+                                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black ${isStreak ? 'bg-violet-600 text-white shadow-lg shadow-violet-100' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${i === todayIndex ? 'ring-2 ring-violet-400 ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
                                         {i + 1}
                                     </div>
                                 </div>

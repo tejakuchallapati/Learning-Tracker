@@ -30,7 +30,7 @@ const CourseCatalog = () => {
                         <button
                             key={cat}
                             onClick={() => setCategory(cat)}
-                            className={`px-3 py-1.5 rounded-md text-[10px] font-black transition-all transform active:scale-95 border ${
+                            className={`px-3 py-1.5 rounded-md text-xs font-black transition-all transform active:scale-95 border ${
                                 category === cat
                                     ? 'bg-violet-600 text-white border-violet-500 shadow-md shadow-violet-500/20'
                                     : 'bg-white text-slate-500 border-slate-200 hover:border-violet-400 hover:text-violet-600'
@@ -58,7 +58,7 @@ const CourseCatalog = () => {
                         </div>
 
                         <div className="relative z-10 flex-1">
-                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-[0.2em] bg-violet-50 text-violet-600 mb-3 border border-violet-100">
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-black uppercase tracking-[0.2em] bg-violet-50 text-violet-600 mb-3 border border-violet-100">
                                 {course.category}
                             </span>
                             <h3 className="text-lg font-black text-slate-900 group-hover:text-violet-600 transition-colors leading-tight">{course.title}</h3>
@@ -66,10 +66,10 @@ const CourseCatalog = () => {
 
                             <div className="mt-4 flex flex-wrap gap-1.5">
                                 {course.tools.slice(0, 3).map(tool => (
-                                    <span key={tool} className="px-2 py-1 bg-slate-50 text-slate-600 rounded-md text-[9px] font-black border border-slate-200 capitalize">{tool}</span>
+                                    <span key={tool} className="px-2 py-1 bg-slate-50 text-slate-600 rounded-md text-xs font-black border border-slate-200 capitalize">{tool}</span>
                                 ))}
                                 {course.tools.length > 3 && (
-                                    <span className="px-2 py-1 bg-violet-50 text-violet-600 rounded-md text-[9px] font-black border border-violet-100">+{course.tools.length - 3}</span>
+                                    <span className="px-2 py-1 bg-violet-50 text-violet-600 rounded-md text-xs font-black border border-violet-100">+{course.tools.length - 3}</span>
                                 )}
                             </div>
                         </div>
@@ -77,9 +77,9 @@ const CourseCatalog = () => {
                         <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between relative z-10">
                             <div className="flex flex-col">
                                 <span className="text-sm font-black text-slate-900">{course.roadmap.length}</span>
-                                <span className="text-[8px] font-black text-violet-500 uppercase tracking-widest">Chapters</span>
+                                <span className="text-xs font-black text-violet-500 uppercase tracking-widest">Chapters</span>
                             </div>
-                            <button className="px-4 py-2 bg-red-600 text-white rounded-md font-black text-[10px] hover:bg-red-700 transition-all shadow-md shadow-red-500/20 flex items-center gap-1.5 group-hover:translate-x-1">
+                            <button className="px-4 py-2 bg-red-600 text-white rounded-md font-black text-xs hover:bg-red-700 transition-all shadow-md shadow-red-500/20 flex items-center gap-1.5 group-hover:translate-x-1">
                                 BEGIN <FiChevronRight size={12} />
                             </button>
                         </div>

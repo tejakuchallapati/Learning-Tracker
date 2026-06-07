@@ -5,7 +5,7 @@ const StatsCard = ({ title, value, icon, description }) => {
                 {icon}
             </div>
             <div>
-                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">{title}</p>
+                <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">{title}</p>
                 <div className="flex items-baseline gap-2">
                     <span className="text-3xl font-black text-slate-900 dark:text-white">{value}</span>
                     {description && <span className="text-xs font-bold text-emerald-500">{description}</span>}
