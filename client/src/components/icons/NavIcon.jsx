@@ -20,22 +20,6 @@ export const iconRegistry = {
     email: MdMail,
 };
 
-const chipSizes = {
-    compact: 'w-9 h-9',
-    default: 'w-10 h-10',
-    large: 'w-12 h-12',
-};
-
-/* Matches landing .landing-icon-chip / --lt-accent-bright (#38bdf8) */
-const accentChip =
-    'text-sky-400 bg-sky-500/12 border-sky-400/30 shadow-sm shadow-sky-500/10';
-
-const idleChip =
-    'text-slate-500 bg-slate-100/70 border-slate-200/80 dark:text-slate-400 dark:bg-white/5 dark:border-white/10';
-
-const hoverChip =
-    'group-hover:text-sky-400 group-hover:bg-sky-500/12 group-hover:border-sky-400/30 group-hover:shadow-sm group-hover:shadow-sky-500/10 hover:text-sky-400 hover:bg-sky-500/12 hover:border-sky-400/30 hover:shadow-sm hover:shadow-sky-500/10';
-
 const NavIcon = ({
     name,
     size = 20,
@@ -47,16 +31,18 @@ const NavIcon = ({
     const Icon = iconRegistry[name];
     if (!Icon) return null;
 
-    const chipSize = large ? chipSizes.large : compact ? chipSizes.compact : chipSizes.default;
+    const iconSize = size || (large ? 24 : compact ? 18 : 20);
 
-    const stateClass = active ? accentChip : `${idleChip} ${hoverChip}`;
+    const colorClass = active
+        ? 'text-sky-500 dark:text-sky-400'
+        : 'text-slate-500 dark:text-slate-400 group-hover:text-sky-500 dark:group-hover:text-sky-400 hover:text-sky-500 dark:hover:text-sky-400';
 
     return (
         <span
-            className={`inline-flex shrink-0 items-center justify-center rounded-xl border transition-all duration-200 ${chipSize} ${stateClass} ${className}`}
+            className={`inline-flex shrink-0 items-center justify-center transition-colors duration-200 ${colorClass} ${className}`}
             aria-hidden
         >
-            <Icon size={size} />
+            <Icon size={iconSize} />
         </span>
     );
 };

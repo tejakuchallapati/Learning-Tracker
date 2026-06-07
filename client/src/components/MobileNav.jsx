@@ -6,10 +6,10 @@ import { mobileNavLinkClass, navLabelClass } from '../config/navLinkStyles';
 const MobileNav = () => {
     return (
         <nav
-            className="font-nav md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+            className="font-nav md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
             aria-label="Main navigation"
         >
-            <div className="grid grid-cols-5 gap-0 max-w-lg mx-auto">
+            <div className="grid grid-cols-5 gap-2 max-w-lg mx-auto">
                 {mobileNavItems.map((item) => (
                     <NavLink
                         key={item.name}
@@ -23,9 +23,8 @@ const MobileNav = () => {
                                     size={18}
                                     active={isActive}
                                     compact
-                                    className={isActive ? 'scale-105' : 'group-hover:scale-105'}
                                 />
-                                <span className={`text-[10px] max-[380px]:text-[9px] tracking-tight text-center leading-tight max-w-full truncate w-full px-0.5 ${navLabelClass(isActive)}`}>
+                                <span className={`text-xs max-[380px]:text-xs tracking-tight text-center leading-tight max-w-full truncate w-full px-0.5 ${navLabelClass(isActive)}`}>
                                     {item.name}
                                 </span>
                             </>

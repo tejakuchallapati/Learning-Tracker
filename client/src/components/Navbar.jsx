@@ -76,10 +76,10 @@ const Navbar = () => {
                                     <span className="text-2xl">{course.icon}</span>
                                     <div>
                                         <p className="text-sm font-black text-slate-900 group-hover:text-cyan-600 transition-colors">{course.title}</p>
-                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{course.category}</p>
+                                        <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">{course.category}</p>
                                     </div>
                                 </div>
-                                <span className="text-[10px] font-black text-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity">GO TO ROADMAP</span>
+                                <span className="text-xs font-black text-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity">GO TO ROADMAP</span>
                             </button>
                         ))}
                     </div>
@@ -108,7 +108,7 @@ const Navbar = () => {
                     >
                         <div className="text-right hidden sm:block leading-tight">
                             <p className="text-sm font-black text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors uppercase tracking-tight">{user?.name || 'Guest User'}</p>
-                            <p className="text-[10px] font-black text-violet-600 dark:text-violet-500 uppercase tracking-widest leading-none mt-1">Learner Pro</p>
+                            <p className="text-xs font-black text-violet-600 dark:text-violet-500 uppercase tracking-widest leading-none mt-1">Learner Pro</p>
                         </div>
                         <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-black shadow-lg shadow-cyan-500/20 transform group-hover:scale-105 transition-transform duration-200 border border-cyan-400/30">
                             {user?.name?.[0] || 'G'}
@@ -118,14 +118,14 @@ const Navbar = () => {
                     {showProfileMenu && (
                         <div className="absolute top-full right-0 mt-3 w-64 bg-white rounded-3xl shadow-2xl border border-slate-200 p-3 z-50 animate-in fade-in slide-in-from-bottom-2 text-slate-900">
                             <div className="p-4 border-b border-slate-100 mb-2">
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
+                                <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
                                 <p className="text-sm font-black text-slate-900 truncate">{user?.email || 'guest@example.com'}</p>
                             </div>
                             <button onClick={() => { setShowProfileMenu(false); navigate('/settings'); }} className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-cyan-600">
                                 <FiUser className="text-cyan-500" /> My Profile
                             </button>
                             <button onClick={() => { setShowProfileMenu(false); navigate('/dashboard'); }} className="group w-full text-left p-3 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-600 hover:bg-sky-500/10 hover:text-sky-600">
-                                <NavIcon name="dashboard" size={16} compact className="!w-7 !h-7" /> Dashboard
+                                <NavIcon name="dashboard" size={18} compact /> Dashboard
                             </button>
                             <div className="pt-2 mt-2 border-t border-slate-100">
                                 <button 

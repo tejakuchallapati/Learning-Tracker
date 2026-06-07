@@ -16,7 +16,7 @@ const Sidebar = () => {
                 </h1>
             </div>
 
-            <nav className="flex-1 py-1.5 px-2.5 space-y-0">
+            <nav className="flex-1 py-3 px-3 space-y-2">
                 {sidebarNavItems.map((item) => (
                     <NavLink
                         key={item.name}
@@ -30,7 +30,6 @@ const Sidebar = () => {
                                     size={20}
                                     active={isActive}
                                     compact
-                                    className={isActive ? 'scale-105' : 'group-hover:scale-105'}
                                 />
                                 <span className={navLabelClass(isActive)}>{item.name}</span>
                             </>
@@ -39,7 +38,7 @@ const Sidebar = () => {
                 ))}
             </nav>
 
-            <div className="p-3 bg-slate-50 dark:bg-slate-950/50 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-600 text-center border-t border-slate-200 dark:border-slate-800/50">
+            <div className="p-3 bg-slate-50 dark:bg-slate-950/50 text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-600 text-center border-t border-slate-200 dark:border-slate-800/50">
                 &copy; {new Date().getFullYear()} Learning Tracker
             </div>
         </aside>
