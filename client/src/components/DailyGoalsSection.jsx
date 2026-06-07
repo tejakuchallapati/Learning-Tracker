@@ -1,12 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import API from '../services/api';
 import { FiCheckCircle, FiCircle, FiBell, FiTrash2, FiPlus } from 'react-icons/fi';
 
-const DailyGoalsSection = () => {
+const DailyGoalsSection = ({ onGoalsChange }) => {
     const [goals, setGoals] = useState([]);
     const [newGoalTitle, setNewGoalTitle] = useState('');
     const [emailReminders, setEmailReminders] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [reminderNotice, setReminderNotice] = useState(null);
+    const noticeTimeoutRef = useRef(null);
+
+    const showReminderNotice = (enabled) => {
+        if (noticeTimeoutRef.current) clearTimeout(noticeTimeoutRef.current);
+        setReminderNotice(enabled ? 'Email reminders are on' : 'Email reminders are off');
+        noticeTimeoutRef.current = setTimeout(() => setReminderNotice(null), 3000);
+    };
+
+    useEffect(() => () => {
+        if (noticeTimeoutRef.current) clearTimeout(noticeTimeoutRef.current);
+    }, []);
 
     const fetchGoals = async () => {
         try {
@@ -36,6 +48,7 @@ const DailyGoalsSection = () => {
             setNewGoalTitle('');
             setEmailReminders(false);
             fetchGoals();
+            onGoalsChange?.();
         } catch (err) {
             console.error('Error adding daily goal:', err);
         }
@@ -50,6 +63,7 @@ const DailyGoalsSection = () => {
             setGoals(goals.map(g => 
                 g._id === goal._id ? { ...g, completed: !g.completed } : g
             ));
+            onGoalsChange?.();
         } catch (err) {
             console.error('Error updating daily goal:', err);
         }
@@ -60,6 +74,7 @@ const DailyGoalsSection = () => {
             await API.delete(`daily-goals/${id}`);
             // Optimistically update
             setGoals(goals.filter(g => g._id !== id));
+            onGoalsChange?.();
         } catch (err) {
             console.error('Error deleting daily goal:', err);
         }
@@ -71,111 +86,112 @@ const DailyGoalsSection = () => {
                 emailReminders: !goal.emailReminders
             });
             // Optimistically update
-            setGoals(goals.map(g => 
-                g._id === goal._id ? { ...g, emailReminders: !g.emailReminders } : g
+            const nextEnabled = !goal.emailReminders;
+            setGoals(goals.map(g =>
+                g._id === goal._id ? { ...g, emailReminders: nextEnabled } : g
             ));
+            showReminderNotice(nextEnabled);
         } catch (err) {
             console.error('Error updating daily goal reminder:', err);
         }
-    }
+    };
+
+    const handleNewGoalReminderToggle = () => {
+        setEmailReminders((prev) => {
+            const next = !prev;
+            showReminderNotice(next);
+            return next;
+        });
+    };
 
     return (
-        <div className="bg-white dark:bg-slate-900 premium-shadow p-3 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-4 mt-4 transition-all duration-500">
-            <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-                <div>
-                    <h2 className="text-lg font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-                        <div className="w-8 h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm text-lg">🎯</div>
-                        Daily Objectives
-                    </h2>
-                    <p className="text-slate-700 dark:text-slate-400 mt-1 font-bold text-xs leading-relaxed max-w-md">Synchronize your tactical operations with AI streak protocols.</p>
-                </div>
-                <div className="px-3 py-1.5 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-lg text-[8px] font-black uppercase tracking-widest border border-violet-100 dark:border-violet-800 mt-2 md:mt-0 shadow-sm">
-                    {goals.filter(g => g.completed).length}/{goals.length} SECURED
+        <div className="bg-white dark:bg-slate-900 premium-shadow p-3 md:p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-3 transition-all duration-500">
+            <div className="flex items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-2.5">
+                <h1 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-tight flex items-center gap-2">
+                    <div className="w-7 h-7 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-lg flex items-center justify-center text-sm shrink-0">🎯</div>
+                    Daily Goals
+                </h1>
+                <div className="px-2.5 py-1 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-md text-xs font-black uppercase tracking-widest border border-violet-100 dark:border-violet-800 shrink-0">
+                    {goals.filter(g => g.completed).length}/{goals.length} DONE
                 </div>
             </div>
 
-            {/* Add Goal Form */}
-            <form onSubmit={handleAddGoal} className="flex flex-col lg:flex-row gap-2 p-2 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-100 dark:border-slate-800 transition-all">
-                <div className="flex-1 w-full">
-                    <label className="block text-[8px] font-black text-slate-600 dark:text-slate-500 uppercase tracking-[0.2em] mb-1.5 ml-1">New Objective</label>
-                    <input 
-                        type="text" 
-                        placeholder="E.g., Complete 2 LeetCode problems..." 
-                        value={newGoalTitle}
-                        onChange={(e) => setNewGoalTitle(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600 shadow-sm"
-                        required
-                    />
+            {reminderNotice && (
+                <div
+                    role="status"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 rounded-lg text-xs font-bold animate-in fade-in duration-300"
+                >
+                    <FiBell size={12} />
+                    {reminderNotice}
                 </div>
-                <div className="flex items-center gap-4 shrink-0 self-end lg:pb-0">
-                    <label className="flex items-center gap-2 cursor-pointer group">
-                        <div className="relative">
-                            <input type="checkbox" className="hidden" checked={emailReminders} onChange={(e) => setEmailReminders(e.target.checked)} />
-                            <div className={`w-10 h-6 rounded-full flex items-center p-1 transition-all duration-500 ${emailReminders ? 'bg-violet-600 shadow-md shadow-violet-200' : 'bg-slate-300 dark:bg-slate-700'}`}>
-                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform duration-500 ${emailReminders ? 'translate-x-4' : 'translate-x-0'}`}></div>
-                            </div>
-                        </div>
-                        <span className="text-[9px] font-black text-slate-700 dark:text-slate-400 group-hover:text-violet-600 transition-colors uppercase tracking-widest flex items-center gap-1">
-                            <FiBell size={12} className={emailReminders ? 'text-violet-600 animate-bounce' : ''} /> Protocol
-                        </span>
-                    </label>
-                    
-                    <button type="submit" className="bg-violet-600 text-white p-2.5 rounded-xl hover:bg-violet-700 transition-all shadow-lg shadow-violet-100 hover:-translate-y-1 active:scale-95 group">
-                        <FiPlus size={18} className="group-hover:rotate-90 transition-transform duration-500" />
-                    </button>
-                </div>
+            )}
+
+            <form onSubmit={handleAddGoal} className="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-100 dark:border-slate-800">
+                <input
+                    type="text"
+                    placeholder="Add a new goal..."
+                    value={newGoalTitle}
+                    onChange={(e) => setNewGoalTitle(e.target.value)}
+                    className="flex-1 min-w-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1.5 text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500/10 focus:border-violet-500 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                    required
+                />
+                <button
+                    type="button"
+                    onClick={handleNewGoalReminderToggle}
+                    title={emailReminders ? 'Email reminders on for this goal' : 'Email reminders off for this goal'}
+                    className={`p-1.5 rounded-lg transition-all shrink-0 ${emailReminders ? 'bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400' : 'bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-800 hover:text-violet-600'}`}
+                >
+                    <FiBell size={14} />
+                </button>
+                <button type="submit" className="bg-violet-600 text-white p-1.5 rounded-lg hover:bg-violet-700 transition-all active:scale-95 shrink-0" title="Add goal">
+                    <FiPlus size={14} />
+                </button>
             </form>
 
-            {/* Goals List */}
-            <div className="space-y-4">
+            <div className="space-y-1.5 max-h-36 overflow-y-auto pr-0.5">
                 {loading ? (
-                    <div className="text-center py-12 text-slate-400 font-bold uppercase tracking-widest animate-pulse">Synchronizing Data...</div>
+                    <div className="text-center py-6 text-slate-400 text-xs font-bold uppercase tracking-widest animate-pulse">Loading goals...</div>
                 ) : goals.length === 0 ? (
-                    <div className="text-center py-20 bg-slate-50 dark:bg-slate-950 rounded-[2.5rem] border-2 border-dashed border-slate-200 dark:border-slate-800 group hover:border-violet-300 transition-colors duration-500">
-                        <div className="text-6xl mb-6 grayscale group-hover:grayscale-0 transition-all duration-500">🛸</div>
-                        <p className="text-slate-500 dark:text-slate-400 font-black uppercase tracking-[0.2em] text-sm">No Tactical Objectives Found</p>
-                        <p className="text-slate-400 dark:text-slate-600 text-xs mt-2 uppercase tracking-tight">Deploy your first goal to begin the streak protocol.</p>
+                    <div className="text-center py-6 bg-slate-50 dark:bg-slate-950 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
+                        <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wide">No goals yet</p>
                     </div>
                 ) : (
                     goals.map(goal => (
-                        <div key={goal._id} className={`flex items-center justify-between p-2 rounded-xl border transition-all duration-500 ${goal.completed ? 'bg-slate-50/50 dark:bg-slate-900/30 border-slate-100 dark:border-slate-800 opacity-60' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-violet-300 dark:hover:border-violet-500/50 shadow-md shadow-slate-100/50 dark:shadow-none group'}`}>
-                            <div className="flex items-center gap-3 flex-1 min-w-0">
-                                <button 
+                        <div key={goal._id} className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg border transition-all ${goal.completed ? 'bg-slate-50/50 dark:bg-slate-900/30 border-slate-100 dark:border-slate-800 opacity-60' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-violet-300 dark:hover:border-violet-500/50'}`}>
+                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                                <button
                                     onClick={() => toggleComplete(goal)}
-                                    title={goal.completed ? "Unmark Goal" : "Mark as Completed"}
-                                    className={`flex-shrink-0 transition-all duration-500 transform hover:scale-110 active:scale-90 ${goal.completed ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-200 dark:text-slate-700 hover:text-violet-500'}`}
+                                    title={goal.completed ? 'Unmark Goal' : 'Mark as Completed'}
+                                    className={`flex-shrink-0 transition-all ${goal.completed ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-200 dark:text-slate-700 hover:text-violet-500'}`}
                                 >
-                                    {goal.completed ? <FiCheckCircle size={20} /> : <FiCircle size={20} />}
+                                    {goal.completed ? <FiCheckCircle size={16} /> : <FiCircle size={16} />}
                                 </button>
-                                <div className="flex flex-col min-w-0">
-                                    <span className={`text-sm font-black transition-all truncate uppercase tracking-tight ${goal.completed ? 'text-slate-400 dark:text-slate-600 line-through' : 'text-slate-900 dark:text-white'}`}>
+                                <div className="flex items-center gap-2 min-w-0 flex-1">
+                                    <span className={`text-sm font-bold truncate ${goal.completed ? 'text-slate-400 dark:text-slate-600 line-through' : 'text-slate-900 dark:text-white'}`}>
                                         {goal.title}
                                     </span>
                                     {goal.streak > 0 && (
-                                        <div className="flex items-center gap-2 mt-0.5">
-                                            <div className="flex items-center gap-1 bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 px-2 py-0.5 rounded-md text-[8px] font-black border border-orange-100 dark:border-orange-900/30">
-                                                <span>{goal.streak} DAY STREAK</span>
-                                                <span role="img" aria-label="streak" className="animate-pulse">🔥</span>
-                                            </div>
-                                        </div>
+                                        <span className="flex items-center gap-0.5 bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 px-1.5 py-0.5 rounded text-[10px] font-black border border-orange-100 dark:border-orange-900/30 shrink-0">
+                                            {goal.streak}d 🔥
+                                        </span>
                                     )}
                                 </div>
                             </div>
-                            
-                            <div className="flex items-center gap-2 shrink-0 ml-4">
-                                <button 
+
+                            <div className="flex items-center gap-1 shrink-0 ml-2">
+                                <button
                                     onClick={() => toggleReminder(goal)}
-                                    title={goal.emailReminders ? "Reminders ON" : "Reminders OFF"}
-                                    className={`p-2 rounded-xl transition-all duration-500 ${goal.emailReminders ? 'bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 shadow-inner' : 'text-slate-400 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                                    title={goal.emailReminders ? 'Reminders ON' : 'Reminders OFF'}
+                                    className={`p-1 rounded-lg transition-all ${goal.emailReminders ? 'bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400' : 'text-slate-400 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
                                 >
-                                    <FiBell size={16} className={goal.emailReminders ? 'animate-bounce' : ''} />
+                                    <FiBell size={13} />
                                 </button>
-                                <button 
+                                <button
                                     onClick={() => handleDelete(goal._id)}
                                     title="Delete Goal"
-                                    className="p-2 text-slate-300 dark:text-slate-700 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl transition-all duration-500 transform hover:rotate-12"
+                                    className="p-1 text-slate-300 dark:text-slate-700 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-all"
                                 >
-                                    <FiTrash2 size={16} />
+                                    <FiTrash2 size={13} />
                                 </button>
                             </div>
                         </div>
