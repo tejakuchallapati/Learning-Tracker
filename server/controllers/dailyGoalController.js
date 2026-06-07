@@ -1,7 +1,76 @@
 const asyncHandler = require('express-async-handler');
 const DailyGoal = require('../models/DailyGoal');
+const DailyGoalCompletion = require('../models/DailyGoalCompletion');
 const User = require('../models/User'); // Explicitly require to avoid MissingSchemaError on refs
 const sendEmail = require('../utils/emailService');
+const { getLocalDateKey, getLocalNow } = require('../utils/reminderSchedule');
+
+const ACTIVITY_WEEKS = 12;
+
+const todayDateKey = () => getLocalNow().dateKey;
+
+const dateFromKey = (dateKey) => {
+    const [y, m, d] = dateKey.split('-').map(Number);
+    return new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
+};
+
+const logGoalCompletion = async (userId, goalId, dateKey = todayDateKey()) => {
+    await DailyGoalCompletion.findOneAndUpdate(
+        { userId, goalId, date: dateKey },
+        {},
+        { upsert: true, new: true }
+    );
+};
+
+const removeGoalCompletion = async (userId, goalId, dateKey = todayDateKey()) => {
+    await DailyGoalCompletion.deleteOne({ userId, goalId, date: dateKey });
+};
+
+const backfillRecentCompletions = async (userId) => {
+    const goals = await DailyGoal.find({ userId, lastCompletedDate: { $exists: true, $ne: null } });
+    for (const goal of goals) {
+        const dateKey = getLocalDateKey(goal.lastCompletedDate);
+        await DailyGoalCompletion.findOneAndUpdate(
+            { userId, goalId: goal._id, date: dateKey },
+            {},
+            { upsert: true }
+        );
+    }
+};
+
+const syncTodayCompletions = async (userId) => {
+    const todayKey = todayDateKey();
+    const goals = await DailyGoal.find({ userId });
+
+    for (const goal of goals) {
+        const completedToday =
+            goal.completed &&
+            (!goal.lastCompletedDate || getLocalDateKey(goal.lastCompletedDate) === todayKey);
+
+        if (completedToday) {
+            if (!goal.lastCompletedDate) {
+                goal.lastCompletedDate = dateFromKey(todayKey);
+                await goal.save();
+            }
+            await logGoalCompletion(userId, goal._id, todayKey);
+        } else {
+            await DailyGoalCompletion.deleteOne({ userId, goalId: goal._id, date: todayKey });
+        }
+    }
+};
+
+const buildCountByDate = async (userId, startKey, todayKey) => {
+    const rows = await DailyGoalCompletion.find({
+        userId,
+        date: { $gte: startKey, $lte: todayKey },
+    }).select('date');
+
+    const countByDate = {};
+    for (const row of rows) {
+        countByDate[row.date] = (countByDate[row.date] || 0) + 1;
+    }
+    return countByDate;
+};
 
 // @desc    Create a new daily goal
 // @route   POST /api/daily-goals/create
@@ -74,10 +143,11 @@ const getDailyGoals = asyncHandler(async (req, res) => {
         }
     }
 
-    // Return the sorted list of goals
+    await syncTodayCompletions(req.user.id);
+
     const sortedGoals = await DailyGoal.find({ userId: req.user.id })
         .sort({ completed: 1, createdAt: -1 });
-    
+
     res.status(200).json(sortedGoals);
 });
 
@@ -126,7 +196,7 @@ const updateDailyGoal = asyncHandler(async (req, res) => {
                 // First time completion
                 req.body.streak = 1;
             }
-            req.body.lastCompletedDate = today;
+            req.body.lastCompletedDate = dateFromKey(todayDateKey());
         } else {
             // Goal is being unmarked (rare but possible)
             // We could decrement streak if it was incremented today, but for simplicity
@@ -140,6 +210,12 @@ const updateDailyGoal = asyncHandler(async (req, res) => {
         req.body,
         { new: true }
     );
+
+    if (req.body.completed === true && goal.completed === false) {
+        await logGoalCompletion(req.user.id, goal._id);
+    } else if (req.body.completed === false && goal.completed === true) {
+        await removeGoalCompletion(req.user.id, goal._id);
+    }
 
     // Send email notification if goal was marked as completed and reminders are enabled
     if (req.body.completed === true && goal.completed === false && updatedGoal.emailReminders) {
@@ -175,9 +251,63 @@ const deleteDailyGoal = asyncHandler(async (req, res) => {
         throw new Error('User not authorized');
     }
 
+    await DailyGoalCompletion.deleteMany({ goalId: goal._id });
     await goal.deleteOne();
 
     res.status(200).json({ id: req.params.id });
+});
+
+// @desc    Get daily goal completion activity for consistency graph
+// @route   GET /api/daily-goals/activity
+// @access  Private
+const getDailyGoalActivity = asyncHandler(async (req, res) => {
+    await backfillRecentCompletions(req.user.id);
+    await syncTodayCompletions(req.user.id);
+
+    const totalGoals = await DailyGoal.countDocuments({ userId: req.user.id });
+    const totalDays = ACTIVITY_WEEKS * 7;
+    const todayKey = todayDateKey();
+    const [ty, tm, td] = todayKey.split('-').map(Number);
+    const today = new Date(ty, tm - 1, td);
+
+    const start = new Date(today);
+    start.setDate(start.getDate() - (totalDays - 1));
+
+    const startKey = getLocalDateKey(start);
+    const countByDate = await buildCountByDate(req.user.id, startKey, todayKey);
+
+    const days = [];
+    for (let i = 0; i < totalDays; i++) {
+        const d = new Date(start);
+        d.setDate(start.getDate() + i);
+        const dateKey = getLocalDateKey(d);
+        const count = countByDate[dateKey] || 0;
+        const isToday = dateKey === todayKey;
+        const allCompleted = isToday && totalGoals > 0 && count >= totalGoals;
+
+        days.push({
+            date: dateKey,
+            count,
+            dayOfWeek: d.getDay(),
+            isToday,
+            allCompleted,
+        });
+    }
+
+    const totalCompletions = days.reduce((sum, day) => sum + day.count, 0);
+    const activeDays = days.filter((day) => day.count > 0).length;
+    const todayDay = days.find((day) => day.isToday);
+    const allCompletedToday = Boolean(todayDay?.allCompleted);
+
+    res.status(200).json({
+        weeks: ACTIVITY_WEEKS,
+        days,
+        totalCompletions,
+        activeDays,
+        totalGoals,
+        todayKey,
+        allCompletedToday,
+    });
 });
 
 module.exports = {
@@ -185,4 +315,5 @@ module.exports = {
     getDailyGoals,
     updateDailyGoal,
     deleteDailyGoal,
+    getDailyGoalActivity,
 };
