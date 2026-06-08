@@ -1,11 +1,12 @@
 import { useState, useContext, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { FiUser, FiBell, FiMail, FiCheckCircle, FiMessageCircle } from 'react-icons/fi';
+import { FiUser, FiBell, FiMail, FiCheckCircle, FiMessageCircle, FiLock } from 'react-icons/fi';
 import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 import ReportIssueForm from '../components/feedback/ReportIssueForm';
 
 const Settings = () => {
-    const { user, updateProfile } = useContext(AuthContext);
+    const { user, updateProfile, refreshUser } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         name: user?.name || '',
         email: user?.email || '',
@@ -18,6 +19,11 @@ const Settings = () => {
     const [saveError, setSaveError] = useState('');
     const [amPm, setAmPm] = useState(user?.reminderAmPm || 'PM');
     const [reminderTime, setReminderTime] = useState(user?.reminderTime || '20:00');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [passwordSaved, setPasswordSaved] = useState(false);
+    const [passwordSaving, setPasswordSaving] = useState(false);
 
     const savedSnapshot = useMemo(() => {
         if (!user) return null;
@@ -57,6 +63,10 @@ const Settings = () => {
     }, [user]);
 
     useEffect(() => {
+        refreshUser?.();
+    }, [refreshUser]);
+
+    useEffect(() => {
         const hash = window.location.hash.replace('#', '');
         if (hash === 'reminders' || hash === 'feedback') {
             document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -83,6 +93,33 @@ const Settings = () => {
     const handleTimeChange = (value) => {
         setReminderTime(value);
         setAmPm(amPmFromTime(value));
+    };
+
+    const handleSetPassword = async () => {
+        setPasswordError('');
+        setPasswordSaved(false);
+
+        if (newPassword.length < 6) {
+            setPasswordError('Password must be at least 6 characters.');
+            return;
+        }
+        if (newPassword !== confirmPassword) {
+            setPasswordError('Passwords do not match.');
+            return;
+        }
+
+        setPasswordSaving(true);
+        try {
+            await updateProfile({ password: newPassword });
+            setNewPassword('');
+            setConfirmPassword('');
+            setPasswordSaved(true);
+            setTimeout(() => setPasswordSaved(false), 3000);
+        } catch (error) {
+            setPasswordError(error.response?.data?.message || 'Failed to set password. Please try again.');
+        } finally {
+            setPasswordSaving(false);
+        }
     };
 
     const handleSave = async () => {
@@ -130,6 +167,31 @@ const Settings = () => {
                 )}
             />
 
+            <div className={`max-w-2xl rounded-2xl p-4 border flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                user?.isAdmin
+                    ? 'bg-violet-50 dark:bg-violet-950/30 border-violet-100 dark:border-violet-900/50'
+                    : 'bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800'
+            }`}>
+                <div>
+                    <p className="text-sm font-black text-slate-900 dark:text-white">
+                        Signed in as <span className="text-sky-600">{user?.email}</span>
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                        {user?.isAdmin
+                            ? 'You have admin access.'
+                            : 'This account is a learner account. Admin uses the email set in server ADMIN_EMAIL.'}
+                    </p>
+                </div>
+                {user?.isAdmin ? (
+                    <Link
+                        to="/admin"
+                        className="shrink-0 px-4 py-2.5 bg-violet-600 text-white rounded-xl font-bold text-sm hover:bg-violet-700 transition-all text-center"
+                    >
+                        Open admin panel
+                    </Link>
+                ) : null}
+            </div>
+
             <div className="max-w-2xl bg-white dark:bg-slate-900 premium-shadow rounded-2xl p-6 border border-slate-100 dark:border-slate-800 space-y-5">
                 <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
                     <FiUser size={16} className="text-sky-500" />
@@ -159,6 +221,51 @@ const Settings = () => {
                     </div>
                 </div>
             </div>
+
+            {!user?.hasPassword && (
+                <div className="max-w-2xl bg-white dark:bg-slate-900 premium-shadow rounded-2xl p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+                    <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                        <FiLock size={16} className="text-violet-500" />
+                        Email login password
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                        You signed up with Google. Set a password here if you also want to sign in with email on the login page.
+                    </p>
+                    <div className="space-y-4">
+                        <div className="space-y-1.5">
+                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">New password</label>
+                            <input
+                                type="password"
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                                className="w-full h-11 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all"
+                                autoComplete="new-password"
+                            />
+                        </div>
+                        <div className="space-y-1.5">
+                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Confirm password</label>
+                            <input
+                                type="password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                className="w-full h-11 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all"
+                                autoComplete="new-password"
+                            />
+                        </div>
+                    </div>
+                    {passwordError && (
+                        <p className="text-xs font-semibold text-rose-600">{passwordError}</p>
+                    )}
+                    <button
+                        type="button"
+                        onClick={handleSetPassword}
+                        disabled={passwordSaving || !newPassword || !confirmPassword}
+                        className="px-5 py-2.5 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-bold text-sm hover:bg-sky-600 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
+                    >
+                        Set password {passwordSaved && <FiCheckCircle />}
+                    </button>
+                </div>
+            )}
 
             <div id="reminders" className="max-w-2xl bg-white dark:bg-slate-900 premium-shadow rounded-2xl p-6 border border-slate-100 dark:border-slate-800 scroll-mt-24 space-y-5">
                 <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">

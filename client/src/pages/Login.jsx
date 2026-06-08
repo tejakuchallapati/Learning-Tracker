@@ -85,7 +85,14 @@ const Login = () => {
                     {error && (
                         <div className="flex items-start gap-3 p-4 bg-rose-50 border border-rose-100 rounded-xl text-rose-700 text-sm font-medium">
                             <AlertCircle size={18} className="shrink-0 mt-0.5" />
-                            <span>{error}</span>
+                            <div>
+                                <span>{error}</span>
+                                {error.includes('Google Sign-In') && (
+                                    <p className="mt-2 text-rose-600/90 text-xs font-semibold">
+                                        Use the Google button above to sign in. You can add an email password later in Settings.
+                                    </p>
+                                )}
+                            </div>
                         </div>
                     )}
 

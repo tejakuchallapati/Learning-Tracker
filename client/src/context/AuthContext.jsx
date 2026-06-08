@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import API from '../services/api';
 import { AuthContext } from './AuthContextType';
 import { AUTH_SESSION_EXPIRED } from '../utils/authEvents';
@@ -25,7 +25,7 @@ const clearStoredSession = () => {
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(() => readStoredSession());
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(() => Boolean(readStoredSession()));
 
     useEffect(() => {
         let cancelled = false;
@@ -33,16 +33,20 @@ export const AuthProvider = ({ children }) => {
 
         if (!stored) {
             setUser(null);
+            setLoading(false);
             return undefined;
         }
 
         const validateSession = async () => {
+            setLoading(true);
             try {
                 const { data } = await API.get('auth/me', { timeout: 8000 });
                 if (!cancelled) setUser(data);
             } catch {
                 clearStoredSession();
                 if (!cancelled) setUser(null);
+            } finally {
+                if (!cancelled) setLoading(false);
             }
         };
 
@@ -103,8 +107,25 @@ export const AuthProvider = ({ children }) => {
         return data;
     };
 
+    const refreshUser = useCallback(async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setUser(null);
+            return null;
+        }
+        try {
+            const { data } = await API.get('auth/me', { timeout: 8000 });
+            setUser(data);
+            return data;
+        } catch {
+            clearStoredSession();
+            setUser(null);
+            return null;
+        }
+    }, []);
+
     return (
-        <AuthContext.Provider value={{ user, login, register, googleLogin, logout, updateProfile, loading }}>
+        <AuthContext.Provider value={{ user, login, register, googleLogin, logout, updateProfile, refreshUser, loading }}>
             {children}
         </AuthContext.Provider>
     );

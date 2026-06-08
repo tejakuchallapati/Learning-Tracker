@@ -24,6 +24,8 @@ const formatAuthResponse = (user) => ({
     reminderTime: user.reminderTime,
     reminderAmPm: user.reminderAmPm,
     isAdmin: isAdminEmail(user.email),
+    usesGoogleAuth: Boolean(user.googleId),
+    hasPassword: Boolean(user.password),
     token: generateToken(user._id),
 });
 
@@ -165,7 +167,19 @@ const googleLogin = asyncHandler(async (req, res) => {
 // @route   GET /api/auth/me
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
-    res.json(formatAuthResponse(req.user));
+    const userId = req.user?._id || req.user?.id;
+    const user = await User.findById(userId);
+    if (!user) {
+        res.status(404);
+        throw new Error('User not found');
+    }
+    const existingToken = req.headers.authorization?.startsWith('Bearer ')
+        ? req.headers.authorization.split(' ')[1]
+        : null;
+    res.json({
+        ...formatAuthResponse(user),
+        token: existingToken || generateToken(user._id),
+    });
 });
 
 // @desc    Logout user / clear cookie if HTTP-only approach
@@ -228,6 +242,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             reminderTime: updatedUser.reminderTime,
             reminderAmPm: updatedUser.reminderAmPm,
             isAdmin: isAdminEmail(updatedUser.email),
+            usesGoogleAuth: Boolean(updatedUser.googleId),
+            hasPassword: Boolean(updatedUser.password),
             token: generateToken(updatedUser._id),
         });
     } else {
