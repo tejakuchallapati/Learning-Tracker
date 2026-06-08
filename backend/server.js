@@ -2,7 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
-const connectDB = require('./config/db');
+const connectDB = require('./src/config/db');
 
 // Load env vars
 dotenv.config();
@@ -51,17 +51,17 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/goals', require('./routes/goalRoutes'));
-app.use('/api/progress', require('./routes/progressRoutes'));
-app.use('/api/time', require('./routes/timeRoutes'));
-app.use('/api/analytics', require('./routes/analyticsRoutes'));
-app.use('/api/daily-goals', require('./routes/dailyGoalRoutes'));
-app.use('/api/notes', require('./routes/noteRoutes'));
+app.use('/api/auth', require('./src/routes/authRoutes'));
+app.use('/api/goals', require('./src/routes/goalRoutes'));
+app.use('/api/progress', require('./src/routes/progressRoutes'));
+app.use('/api/time', require('./src/routes/timeRoutes'));
+app.use('/api/analytics', require('./src/routes/analyticsRoutes'));
+app.use('/api/daily-goals', require('./src/routes/dailyGoalRoutes'));
+app.use('/api/notes', require('./src/routes/noteRoutes'));
 
 // Initialize cron jobs
 const mongoose = require('mongoose');
-const { checkAndSendReminders } = require('./utils/cronJobs');
+const { checkAndSendReminders } = require('./src/utils/cronJobs');
 
 mongoose.connection.once('open', () => {
     console.log('MongoDB connection established. Running startup email reminders check...');

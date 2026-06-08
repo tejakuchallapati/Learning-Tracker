@@ -1,17 +1,16 @@
 const dotenv = require('dotenv');
 const path = require('path');
-const sendEmail = require('./utils/emailService');
+const sendEmail = require('../src/utils/emailService');
 
-// Load env vars specifically from the server directory
-dotenv.config({ path: path.join(__dirname, '.env') });
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const testEmail = async () => {
     if (!process.env.EMAIL_USER || process.env.EMAIL_USER === 'your_email@gmail.com') {
-        console.error('ERROR: Please set EMAIL_USER in server/.env');
+        console.error('ERROR: Please set EMAIL_USER in backend/.env');
         return;
     }
     if (!process.env.EMAIL_PASS || process.env.EMAIL_PASS === 'your_email_password') {
-        console.error('ERROR: Please set EMAIL_PASS in server/.env');
+        console.error('ERROR: Please set EMAIL_PASS in backend/.env');
         return;
     }
 
