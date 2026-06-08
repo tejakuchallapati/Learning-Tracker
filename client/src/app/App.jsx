@@ -7,6 +7,7 @@ import LandingPage from '../pages/LandingPage';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import Landing from '../pages/Landing';
+import AppWalkthrough from '../pages/AppWalkthrough';
 import Dashboard from '../pages/Dashboard';
 import CourseCatalog from '../pages/CourseCatalog';
 import CourseRoadmap from '../pages/CourseRoadmap';
@@ -85,6 +86,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/walkthrough" element={<AppWalkthrough />} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         

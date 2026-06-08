@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FiTarget, FiActivity, FiPieChart } from 'react-icons/fi';
-import logo from '../assets/logo.png';
+import Logo from '../components/brand/Logo';
 
 const LandingPage = () => {
     return (
@@ -8,7 +8,7 @@ const LandingPage = () => {
             {/* Navbar */}
             <nav className="flex items-center justify-between p-6 max-w-7xl w-full mx-auto">
                 <div className="flex items-center gap-3">
-                    <img src={logo} alt="Learning Tracker Logo" className="h-10 w-auto" />
+                    <Logo className="h-10 w-10" />
                     <h1 className="text-2xl font-bold tracking-tight text-indigo-900">Learning Tracker</h1>
                 </div>
                 <div className="flex gap-4">

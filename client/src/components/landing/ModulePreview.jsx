@@ -159,10 +159,76 @@ const StudyNotesPreview = () => (
     </BrowserChrome>
 );
 
+const TopicVideosPreview = () => (
+    <BrowserChrome title="learning-tracker.app/roadmap/react/0/0">
+        <div className="space-y-2">
+            <p className="text-xs font-black text-slate-900">Expert video sources</p>
+            <p className="text-[10px] font-semibold text-slate-500">Curated YouTube channels for each topic in your roadmap.</p>
+            <div className="grid grid-cols-2 gap-2">
+                {[
+                    { name: 'Fireship', tag: 'YouTube' },
+                    { name: 'Traversy Media', tag: 'YouTube' },
+                ].map((c) => (
+                    <div key={c.name} className="flex items-center gap-2 rounded-lg border border-rose-100 bg-rose-50/50 p-2">
+                        <div className="w-8 h-8 rounded-lg bg-rose-600 flex items-center justify-center text-white shrink-0">
+                            <span className="text-xs">▶</span>
+                        </div>
+                        <div className="min-w-0">
+                            <p className="text-[10px] font-black text-slate-800 truncate">{c.name}</p>
+                            <p className="text-[8px] font-bold text-rose-600 uppercase">{c.tag}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </BrowserChrome>
+);
+
+const AiMentorPreview = () => (
+    <BrowserChrome title="learning-tracker.app — AI Mentor">
+        <div className="space-y-2">
+            <div className="rounded-lg bg-violet-50 border border-violet-100 px-2 py-1.5">
+                <p className="text-[10px] font-semibold text-violet-800">Ask anything about this topic — concepts, code, or interview prep.</p>
+            </div>
+            <div className="rounded-lg bg-slate-100 px-2 py-1.5">
+                <p className="text-[10px] font-bold text-slate-500 mb-0.5">You</p>
+                <p className="text-xs text-slate-700">Explain React hooks simply</p>
+            </div>
+            <div className="rounded-lg bg-violet-600/10 border border-violet-100 px-2 py-1.5">
+                <p className="text-[10px] font-bold text-violet-600 mb-0.5">AI Mentor</p>
+                <p className="text-xs text-slate-700">Hooks let you use state in function components…</p>
+            </div>
+        </div>
+    </BrowserChrome>
+);
+
+const DailyRemindersPreview = () => (
+    <BrowserChrome title="learning-tracker.app/goals">
+        <div className="space-y-2">
+            <p className="text-xs font-black text-slate-900">Daily goals + bell</p>
+            {[
+                { task: 'Watch roadmap video', bell: true },
+                { task: 'Complete one module', bell: true },
+            ].map((g) => (
+                <div key={g.task} className="flex items-center justify-between rounded-lg border border-slate-100 px-2 py-1.5">
+                    <span className="text-xs font-semibold text-slate-700 truncate pr-2">{g.task}</span>
+                    <span className="text-rose-500 text-xs shrink-0">🔔</span>
+                </div>
+            ))}
+            <div className="rounded-lg bg-blue-50 border border-blue-100 px-2 py-1.5 text-center">
+                <p className="text-[10px] font-bold text-blue-700">Email reminder if incomplete</p>
+            </div>
+        </div>
+    </BrowserChrome>
+);
+
 const previews = {
     dashboard: DashboardPreview,
     roadmaps: RoadmapsPreview,
     'daily-goals': DailyGoalsPreview,
+    'topic-videos': TopicVideosPreview,
+    'ai-mentor': AiMentorPreview,
+    'daily-reminders': DailyRemindersPreview,
     resources: ResourcesPreview,
     'email-reminders': EmailRemindersPreview,
     'study-notes': StudyNotesPreview,

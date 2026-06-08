@@ -667,6 +667,15 @@ body {
     justify-content: center;
   }
 
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Prevent button label overflow on narrow screens */
   .btn-text-safe {
     overflow-wrap: anywhere;

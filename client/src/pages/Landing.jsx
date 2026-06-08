@@ -6,7 +6,7 @@ import NavIcon from '../components/icons/NavIcon';
 import SignupForm from '../components/auth/SignupForm';
 import ModulePreview from '../components/landing/ModulePreview';
 import ScrollReveal from '../components/landing/ScrollReveal';
-import logo from '../assets/logo.png';
+import Logo from '../components/brand/Logo';
 
 const modules = [
     { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', desc: 'See active learning paths and goal progress in one place.' },
@@ -97,13 +97,20 @@ const Landing = () => {
                         </ScrollReveal>
 
                         <ScrollReveal delay={400} distance={40}>
-                        <div className="flex justify-center">
+                        <div className="flex flex-col items-center gap-3">
                             <button
                                 type="button"
                                 onClick={scrollToSignup}
                                 className="landing-cta w-auto max-w-[240px] sm:max-w-none px-7 py-2.5 sm:px-10 sm:py-4 text-white rounded-full landing-nav-label text-[10px] sm:text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                             >
                                 Get started <FiArrowRight size={14} className="sm:w-4 sm:h-4" />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => navigate('/walkthrough')}
+                                className="landing-nav-label text-[10px] sm:text-xs landing-muted-text hover:text-sky-300 transition-colors underline underline-offset-4"
+                            >
+                                See the app in action
                             </button>
                         </div>
                         </ScrollReveal>
@@ -292,13 +299,20 @@ const Landing = () => {
                                 ))}
                             </div>
 
-                            <div className="mt-14 md:mt-16 flex justify-center">
+                            <div className="mt-10 sm:mt-14 md:mt-16 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
                                 <button
                                     type="button"
                                     onClick={scrollToSignup}
                                     className="landing-cta landing-nav-label text-xs md:text-sm text-white px-8 py-3.5 rounded-full inline-flex items-center gap-2 transition-all group active:scale-[0.98]"
                                 >
                                     Sign up <FiArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => navigate('/walkthrough')}
+                                    className="landing-nav-label text-xs md:text-sm landing-body-text px-6 py-3 rounded-full border border-white/15 hover:border-sky-400/40 hover:text-sky-300 transition-colors inline-flex items-center gap-2"
+                                >
+                                    Preview the app <FiArrowRight size={14} />
                                 </button>
                             </div>
                         </div>
@@ -348,7 +362,7 @@ const Landing = () => {
 
             <footer className="py-10 text-center">
                 <ScrollReveal className="flex flex-col items-center gap-4" distance={40} amount={0.3}>
-                    <img src={logo} alt="Learning Tracker" className="w-10 h-10 object-contain opacity-70" />
+                    <Logo className="w-10 h-10 opacity-80" />
                     <p className="landing-nav-label text-xs landing-muted-text">© 2026 Learning Tracker</p>
                 </ScrollReveal>
             </footer>

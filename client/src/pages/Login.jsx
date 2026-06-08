@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import ResponsiveGoogleLogin from '../components/auth/ResponsiveGoogleLogin';
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
+import Logo from '../components/brand/Logo';
 
 const Login = () => {
     const [email, setEmail]       = useState('');
@@ -66,9 +67,7 @@ const Login = () => {
 
                 {/* ── Logo / brand ───────────────────────── */}
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-violet-600 shadow-xl shadow-violet-200 mb-4">
-                        <span className="text-white text-2xl font-black">L</span>
-                    </div>
+                    <Logo className="w-14 h-14 mb-4 shadow-xl shadow-violet-200/80 rounded-2xl" />
                     <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                         Welcome back
                     </h1>

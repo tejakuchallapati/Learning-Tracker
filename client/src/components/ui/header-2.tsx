@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
 import { useScroll } from '@/components/ui/use-scroll';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/logo.png';
+import Logo from '../brand/Logo';
 
 export function Header() {
 	const [open, setOpen] = React.useState(false);
@@ -13,7 +13,7 @@ export function Header() {
     const navigate = useNavigate();
 	const compact = scrolled || open;
 
-	const scrollToAbout = () => {
+    const scrollToAbout = () => {
         document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
         setOpen(false);
     };
@@ -66,14 +66,12 @@ export function Header() {
                     style={{ gap: compact ? '0.5rem' : '0.75rem' }}
                     onClick={() => { navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 >
-                    <div
+                    <Logo
                         className={cn(
-                            'landing-icon-chip rounded-lg flex items-center justify-center p-1 group-hover:scale-105 transition-all duration-500',
+                            'shrink-0 group-hover:scale-105 transition-all duration-500',
                             compact ? 'w-7 h-7' : 'w-11 h-11',
                         )}
-                    >
-                        <img src={logo} alt="LT" className="w-full h-full object-contain" />
-                    </div>
+                    />
                     <span
                         className={cn(
                             'landing-display text-slate-100 hidden sm:inline !tracking-tight transition-all duration-500',
