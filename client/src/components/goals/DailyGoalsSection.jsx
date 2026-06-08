@@ -117,7 +117,7 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
             <div className="flex items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-2.5">
                 <h2 className="text-base font-black text-slate-900 dark:text-white tracking-tight leading-tight flex items-center gap-2">
                     <div className="w-6 h-6 bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 rounded-md flex items-center justify-center text-xs shrink-0">🎯</div>
-                    Today&apos;s goals
+                    TODAY&apos;S GOALS
                 </h2>
                 <div className="px-2.5 py-1 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-md text-xs font-black uppercase tracking-widest border border-violet-100 dark:border-violet-800 shrink-0">
                     {goals.filter(g => g.completed).length}/{goals.length} DONE
@@ -161,7 +161,7 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
                     <LoadingScreen message="Loading goals" compact className="rounded-xl" />
                 ) : goals.length === 0 ? (
                     <div className="text-center py-6 bg-slate-50 dark:bg-slate-950 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
-                        <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wide">No goals yet</p>
+                        <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wide">NO GOALS YET</p>
                     </div>
                 ) : (
                     goals.map(goal => (
@@ -175,7 +175,7 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
                                     {goal.completed ? <FiCheckCircle size={16} /> : <FiCircle size={16} />}
                                 </button>
                                 <div className="flex items-center gap-2 min-w-0 flex-1">
-                                    <span className={`text-sm font-bold truncate ${goal.completed ? 'text-slate-400 dark:text-slate-600 line-through' : 'text-slate-900 dark:text-white'}`}>
+                                    <span className={`text-sm font-bold truncate uppercase tracking-wide ${goal.completed ? 'text-slate-400 dark:text-slate-600 line-through' : 'text-slate-900 dark:text-white'}`}>
                                         {goal.title}
                                     </span>
                                     {goal.streak > 0 && (

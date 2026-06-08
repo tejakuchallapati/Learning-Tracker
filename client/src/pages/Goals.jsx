@@ -9,7 +9,7 @@ const Goals = () => {
     return (
         <div className={PAGE_SHELL}>
             <PageHeader
-                title="Daily Goals"
+                title="DAILY GOALS"
                 description="Set today's tasks, track streaks, and build consistency."
             />
             <DailyGoalsSection onGoalsChange={() => setMomentumRefreshKey((k) => k + 1)} />
