@@ -1,68 +1,36 @@
-# Learning Tracker – Learning Progress & Productivity Tracker
+# Learning Tracker
 
-Learning Tracker is a full-stack platform where developers can track their learning goals, monitor daily progress, and stay consistent using smart reminders and analytics.
+Full-stack learning progress tracker — React UI at the repo root, Express API in `server/`.
 
----
-
-## Tech Stack
+## Tech stack
 
 **Frontend:** React (Vite), Tailwind CSS, React Router, Recharts, Axios  
-**Backend:** Node.js, Express, MongoDB (Mongoose), JWT, bcryptjs, Nodemailer
+**Backend:** Node.js, Express, MongoDB, JWT, Nodemailer
 
----
-
-## How to Run Locally
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) installed
-- A [MongoDB Cluster](https://www.mongodb.com/atlas) or a local MongoDB instance
-
-### Option A — Run both apps from the repo root
+## Run locally
 
 ```bash
 npm run install:all
 npm run dev
 ```
 
-### Option B — Run frontend and backend separately
+- App: http://localhost:3000  
+- API: http://localhost:5001/api  
 
-**Backend**
+Copy `.env.example` → `.env` (frontend) and `server/.env.example` → `server/.env` (API).
 
-```bash
-cd backend
-npm install
-# Configure backend/.env (see backend/.env.example)
-npm run dev
-```
-
-API runs on `http://localhost:5001` (or your `PORT` in `.env`).
-
-**Frontend**
-
-```bash
-cd frontend
-npm install
-# Configure frontend/.env (see frontend/.env.example)
-npm run dev
-```
-
-UI runs on `http://localhost:3000`.
-
----
-
-## Project Structure
+## Project layout
 
 ```
 Learning-Tracker/
-├── frontend/     # React UI (Vite)
-├── backend/      # Express API + MongoDB
-├── scripts/      # Repo-level utility scripts
-└── docs/         # Documentation
+├── src/          # React frontend (repo root)
+├── server/       # Express API
+└── docs/         # More detail
 ```
 
-See [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) for the full folder breakdown.
+See [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md).
 
----
+## Deploy
 
-Enjoy tracking your tech journey!
+- **Vercel** — root directory: `.` (default)
+- **Render** — root directory: `server`, build: `npm install`, start: `npm start`

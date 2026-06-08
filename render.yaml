@@ -2,8 +2,7 @@ services:
   - type: web
     name: devtrack-backend
     env: node
-    # Root directory must be "backend" (not the legacy "server" folder).
-    rootDir: backend
+    rootDir: server
     buildCommand: npm install --omit=dev
     startCommand: npm start
     envVars:

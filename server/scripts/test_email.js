@@ -6,11 +6,11 @@ dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const testEmail = async () => {
     if (!process.env.EMAIL_USER || process.env.EMAIL_USER === 'your_email@gmail.com') {
-        console.error('ERROR: Please set EMAIL_USER in backend/.env');
+        console.error('ERROR: Please set EMAIL_USER in server/.env');
         return;
     }
     if (!process.env.EMAIL_PASS || process.env.EMAIL_PASS === 'your_email_password') {
-        console.error('ERROR: Please set EMAIL_PASS in backend/.env');
+        console.error('ERROR: Please set EMAIL_PASS in server/.env');
         return;
     }
 
