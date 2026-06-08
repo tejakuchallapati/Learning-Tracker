@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { FiBell, FiSearch, FiSettings, FiUser, FiLogOut, FiSun, FiMoon } from 'react-icons/fi';
-import NavIcon from './icons/NavIcon';
+import NavIcon from '../icons/NavIcon';
 import { useNavigate } from 'react-router-dom';
-import { courses } from '../data/CourseData';
+import { courses } from '../../data/CourseData';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);

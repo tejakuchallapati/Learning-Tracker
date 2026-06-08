@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import './index.css'
-import { AuthProvider } from './context/AuthContext.jsx'
+import '../styles/index.css'
+import { AuthProvider } from '../context/AuthContext.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '937868886257-sgoqf4onr843odrv2518eghvog3ppm97.apps.googleusercontent.com'; // Real Client ID Fallback

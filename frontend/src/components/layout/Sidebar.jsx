@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import NavIcon from './icons/NavIcon';
-import { sidebarNavItems } from '../config/navItems';
-import { sidebarNavLinkClass, navLabelClass } from '../config/navLinkStyles';
-import logo from '../assets/gg_logo.png';
+import NavIcon from '../icons/NavIcon';
+import { sidebarNavItems } from '../../config/navItems';
+import { sidebarNavLinkClass, navLabelClass } from '../../config/navLinkStyles';
+import logo from '../../assets/gg_logo.png';
 
 const Sidebar = () => {
     return (

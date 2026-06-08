@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import NavIcon from './icons/NavIcon';
-import { mobileNavItems } from '../config/navItems';
-import { mobileNavLinkClass, navLabelClass } from '../config/navLinkStyles';
+import NavIcon from '../icons/NavIcon';
+import { mobileNavItems } from '../../config/navItems';
+import { mobileNavLinkClass, navLabelClass } from '../../config/navLinkStyles';
 
 const MobileNav = () => {
     return (

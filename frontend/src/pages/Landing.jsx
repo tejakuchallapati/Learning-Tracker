@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FiArrowRight, FiX } from 'react-icons/fi';
 import { Header } from '../components/ui/header-2';
 import NavIcon from '../components/icons/NavIcon';
-import SignupForm from '../components/SignupForm';
+import SignupForm from '../components/auth/SignupForm';
 import ModulePreview from '../components/landing/ModulePreview';
 import ScrollReveal from '../components/landing/ScrollReveal';
 import logo from '../assets/logo.png';

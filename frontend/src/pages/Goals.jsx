@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import DailyGoalsSection from '../components/DailyGoalsSection';
-import GoalConsistencyGraph from '../components/GoalConsistencyGraph';
+import DailyGoalsSection from '../components/goals/DailyGoalsSection';
+import GoalConsistencyGraph from '../components/goals/GoalConsistencyGraph';
 
 const Goals = () => {
     const [graphRefreshKey, setGraphRefreshKey] = useState(0);

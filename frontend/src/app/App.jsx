@@ -1,28 +1,28 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from './context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 
 // Pages
-import LandingPage from './pages/LandingPage';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Landing from './pages/Landing';
-import Dashboard from './pages/Dashboard';
-import CourseCatalog from './pages/CourseCatalog';
-import CourseRoadmap from './pages/CourseRoadmap';
-import CourseDetail from './pages/CourseDetail';
-import TopicContent from './pages/TopicContent';
-import Progress from './pages/Progress';
-import Insights from './pages/Insights';
-import Settings from './pages/Settings';
-import Notes from './pages/Notes';
-import Bookmarks from './pages/Bookmarks';
-import Goals from './pages/Goals';
+import LandingPage from '../pages/LandingPage';
+import Login from '../pages/Login';
+import Signup from '../pages/Signup';
+import Landing from '../pages/Landing';
+import Dashboard from '../pages/Dashboard';
+import CourseCatalog from '../pages/CourseCatalog';
+import CourseRoadmap from '../pages/CourseRoadmap';
+import CourseDetail from '../pages/CourseDetail';
+import TopicContent from '../pages/TopicContent';
+import Progress from '../pages/Progress';
+import Insights from '../pages/Insights';
+import Settings from '../pages/Settings';
+import Notes from '../pages/Notes';
+import Bookmarks from '../pages/Bookmarks';
+import Goals from '../pages/Goals';
 
 // Layout
-import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
-import MobileNav from './components/MobileNav';
+import Sidebar from '../components/layout/Sidebar';
+import Navbar from '../components/layout/Navbar';
+import MobileNav from '../components/layout/MobileNav';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);

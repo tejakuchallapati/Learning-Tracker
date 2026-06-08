@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import API from '../services/api';
+import API from '../../services/api';
 import { FiCheckCircle, FiCircle, FiBell, FiTrash2, FiPlus } from 'react-icons/fi';
 
 const DailyGoalsSection = ({ onGoalsChange }) => {

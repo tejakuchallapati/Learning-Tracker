@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../services/api';
-import ProgressBar from '../components/ProgressBar';
+import ProgressBar from '../components/dashboard/ProgressBar';
 import { FiCheckCircle, FiClock, FiActivity, FiXCircle, FiPlay, FiPause, FiRotateCcw, FiCoffee, FiZap } from 'react-icons/fi';
 
 const Progress = () => {

@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import ResponsiveGoogleLogin from '../components/ResponsiveGoogleLogin';
+import ResponsiveGoogleLogin from '../components/auth/ResponsiveGoogleLogin';
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
 
 const Login = () => {

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import SignupForm from '../components/SignupForm';
+import SignupForm from '../components/auth/SignupForm';
 
 const Signup = () => {
     const { user } = useContext(AuthContext);

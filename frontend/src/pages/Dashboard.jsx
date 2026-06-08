@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { courses } from '../data/CourseData';
 import API from '../services/api';
 import { readDashboardCache, writeDashboardCache } from '../utils/dashboardCache';
-import StatsCard from '../components/StatsCard';
-import ChartCard from '../components/ChartCard';
-import ReminderCard from '../components/ReminderCard';
-import GoalCard from '../components/GoalCard';
+import StatsCard from '../components/dashboard/StatsCard';
+import ChartCard from '../components/dashboard/ChartCard';
+import ReminderCard from '../components/goals/ReminderCard';
+import GoalCard from '../components/goals/GoalCard';
 import { FiClock, FiTarget, FiActivity, FiCalendar, FiPlus, FiArrowRight } from 'react-icons/fi';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import API from '../services/api';
-import ChartCard from '../components/ChartCard';
-import ProgressBar from '../components/ProgressBar';
+import ChartCard from '../components/dashboard/ChartCard';
+import ProgressBar from '../components/dashboard/ProgressBar';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const dummyConsistencyData = [];
