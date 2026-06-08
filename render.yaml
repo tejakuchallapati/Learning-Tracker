@@ -2,9 +2,10 @@ services:
   - type: web
     name: devtrack-backend
     env: node
+    # Root directory must be "backend" (not the legacy "server" folder).
     rootDir: backend
-    buildCommand: npm install
-    startCommand: node server.js
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
     envVars:
       - key: PORT
         value: 5001
