@@ -96,7 +96,7 @@ const Dashboard = () => {
         let cancelled = false;
         const slowTimer = setTimeout(() => {
             if (!cancelled) setSlowLoad(true);
-        }, 3000);
+        }, 5000);
 
         const fetchGoals = API.get('goals')
             .then((res) => {

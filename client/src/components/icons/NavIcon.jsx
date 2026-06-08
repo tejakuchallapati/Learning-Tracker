@@ -39,10 +39,10 @@ const NavIcon = ({
 
     return (
         <span
-            className={`inline-flex shrink-0 items-center justify-center transition-colors duration-200 ${colorClass} ${className}`}
+            className={`inline-flex shrink-0 items-center justify-center leading-none transition-colors duration-200 ${colorClass} ${className}`}
             aria-hidden
         >
-            <Icon size={iconSize} />
+            <Icon size={iconSize} className="block" />
         </span>
     );
 };

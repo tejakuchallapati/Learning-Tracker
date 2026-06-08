@@ -40,14 +40,18 @@ export const AuthProvider = ({ children }) => {
                 return;
             }
 
+            // Show cached session immediately — don't block the UI on API cold starts
+            if (!cancelled) {
+                setUser(stored);
+                setLoading(false);
+            }
+
             try {
-                const { data } = await API.get('auth/me');
+                const { data } = await API.get('auth/me', { timeout: 8000 });
                 if (!cancelled) setUser(data);
             } catch {
                 clearStoredSession();
                 if (!cancelled) setUser(null);
-            } finally {
-                if (!cancelled) setLoading(false);
             }
         };
 

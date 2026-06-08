@@ -5,7 +5,7 @@ const API = axios.create({
     baseURL:
         import.meta.env.VITE_API_BASE_URL ||
         (import.meta.env.DEV ? '/api' : 'https://learning-tracker-api-hqzm.onrender.com/api'),
-    timeout: 30000,
+    timeout: 15000,
 });
 
 // Add a request interceptor to attach the JWT token

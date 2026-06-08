@@ -20,7 +20,7 @@ const MobileNav = () => {
                             <>
                                 <NavIcon
                                     name={item.icon}
-                                    size={18}
+                                    size={22}
                                     active={isActive}
                                     compact
                                 />

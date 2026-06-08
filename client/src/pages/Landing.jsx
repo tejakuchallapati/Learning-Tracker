@@ -221,7 +221,9 @@ const Landing = () => {
                                         </div>
                                     ) : (
                                         <div className="p-4 sm:p-6 md:p-7 flex flex-col h-full">
-                                            <NavIcon name={mod.icon} size={22} large className="mb-3 sm:mb-5 group-hover:scale-105" />
+                                            <div className="landing-icon-chip w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 group-hover:scale-105 transition-transform">
+                                                <NavIcon name={mod.icon} size={26} active className="text-sky-300" />
+                                            </div>
                                             <h3 className="landing-display text-base sm:text-lg landing-heading-text mb-1.5 sm:mb-2 !tracking-tight">{mod.title}</h3>
                                             <p className="text-sm landing-body-text font-medium leading-relaxed flex-1 mb-3 sm:mb-5">{mod.desc}</p>
                                             <span className="landing-nav-label text-xs landing-accent-text flex items-center gap-1.5">

@@ -24,10 +24,16 @@ import Sidebar from '../components/layout/Sidebar';
 import Navbar from '../components/layout/Navbar';
 import MobileNav from '../components/layout/MobileNav';
 
+const RouteSpinner = () => (
+  <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-950">
+    <div className="w-8 h-8 border-2 border-violet-200 border-t-violet-600 rounded-full animate-spin" />
+  </div>
+);
+
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
-  
-  if (loading) return <div>Loading...</div>;
+
+  if (loading) return <RouteSpinner />;
   if (!user) {
     return <Navigate to="/login" replace />;
   }
@@ -36,8 +42,8 @@ const ProtectedRoute = ({ children }) => {
 
 const PublicRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
-  
-  if (loading) return <div>Loading...</div>;
+
+  if (loading) return <RouteSpinner />;
   if (user) {
     return <Navigate to="/dashboard" replace />;
   }
