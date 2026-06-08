@@ -1,20 +1,21 @@
 {
-    "name": "devtrack-root",
-    "version": "1.0.0",
-    "description": "Learning Tracker Learning Tracker",
-    "scripts": {
-        "dev:server": "cd server && npm run dev",
-        "dev:client": "cd client && npm run dev",
-        "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-        "install:server": "cd server && npm install",
-        "install:client": "cd client && npm install",
-        "install:all": "npm install && npm run install:server && npm run install:client"
-    },
-    "devDependencies": {
-        "concurrently": "^8.2.2"
-    },
-    "dependencies": {
-        "dotenv": "^17.3.1",
-        "mongoose": "^9.2.4"
-    }
+  "name": "learning-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Learning Tracker monorepo",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=backend",
+    "dev:client": "npm run dev --workspace=frontend",
+    "dev": "concurrently -n backend,frontend -c blue,green npm:dev:server npm:dev:client",
+    "install:server": "npm install --workspace=backend",
+    "install:client": "npm install --workspace=frontend",
+    "install:all": "npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

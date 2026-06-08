@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
 
-// Load env vars from the server directory
-dotenv.config({ path: path.join(__dirname, 'server', '.env') });
+// Load env vars from the backend directory
+dotenv.config({ path: path.join(__dirname, '..', 'backend', '.env') });
 
 const checkUsers = async () => {
   try {
     if (!process.env.MONGO_URI) {
-      console.error('Error: MONGO_URI not found in server/.env');
+      console.error('Error: MONGO_URI not found in backend/.env');
       process.exit(1);
     }
 
