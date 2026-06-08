@@ -4,58 +4,65 @@ Learning Tracker is a full-stack platform where developers can track their learn
 
 ---
 
-## 🛠 Tech Stack
-**Frontend:** React (Vite), Tailwind CSS, React Router, Recharts, Axios
+## Tech Stack
+
+**Frontend:** React (Vite), Tailwind CSS, React Router, Recharts, Axios  
 **Backend:** Node.js, Express, MongoDB (Mongoose), JWT, bcryptjs, Nodemailer
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 ### Prerequisites
+
 - [Node.js](https://nodejs.org/) installed
-- A [MongoDB Cluster](https://www.mongodb.com/atlas) or a local MongoDB instance.
+- A [MongoDB Cluster](https://www.mongodb.com/atlas) or a local MongoDB instance
 
-### 1️⃣ Backend Setup
-1. Navigate to the server folder:
-   ```bash
-   cd server
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Look at the `.env` file inside the `server/` directory. Make sure to:
-   - Update `MONGO_URI` if you are using a cloud database (currently defaults to `mongodb://localhost:27017/devtrack`).
-   - Add your Gmail credentials to `EMAIL_USER` and `EMAIL_PASS` (generate an App Password) to enable Nodemailer reminders.
-4. Start the server:
-   ```bash
-   npm run dev
-   # If you use node instead of nodemon:
-   # node server.js
-   ```
-   *The server runs on http://localhost:5000*
+### Option A — Run both apps from the repo root
 
-### 2️⃣ Frontend Setup
-1. Open a new terminal tab and navigate to the client folder:
-   ```bash
-   cd client
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the Vite React app:
-   ```bash
-   npm run dev
-   ```
-   *The frontend runs usually on http://localhost:5173*
+```bash
+npm run install:all
+npm run dev
+```
+
+### Option B — Run frontend and backend separately
+
+**Backend**
+
+```bash
+cd backend
+npm install
+# Configure backend/.env (see backend/.env.example)
+npm run dev
+```
+
+API runs on `http://localhost:5001` (or your `PORT` in `.env`).
+
+**Frontend**
+
+```bash
+cd frontend
+npm install
+# Configure frontend/.env (see frontend/.env.example)
+npm run dev
+```
+
+UI runs on `http://localhost:3000`.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
-- `server/` - Express API handling MongoDB, Auth, Goals, Progress, Time Tracking, and Analytics.
-- `client/` - Clean React UI with modular Components and Pages, consuming the backend REST API via Axios.
+```
+Learning-Tracker/
+├── frontend/     # React UI (Vite)
+├── backend/      # Express API + MongoDB
+├── scripts/      # Repo-level utility scripts
+└── docs/         # Documentation
+```
+
+See [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) for the full folder breakdown.
+
+---
 
 Enjoy tracking your tech journey!
