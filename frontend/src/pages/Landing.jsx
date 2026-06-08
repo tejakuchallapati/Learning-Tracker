@@ -153,10 +153,11 @@ const Landing = () => {
                             Learning Tracker is a free app for self-learners — plan roadmaps, hit daily goals, save notes,
                             and get email reminders. Everything below is what you get when you sign up.
                         </p>
-                        <p className="landing-accent-text landing-nav-label text-xs mt-3">Click any module to preview</p>
+                        <p className="landing-accent-text landing-nav-label text-xs mt-3 max-sm:hidden">Click any module to preview</p>
+                        <p className="landing-accent-text landing-nav-label text-xs mt-3 sm:hidden">Tap any module to preview</p>
                     </ScrollReveal>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">
                         {modules.map((mod, index) => {
                             const isActive = activeModule === mod.id;
                             const isBlurred = activeModule && !isActive;
@@ -182,7 +183,7 @@ const Landing = () => {
                                         }
                                     }}
                                     className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 ${
-                                        previewOpen ? 'min-h-[22rem] md:min-h-[24rem]' : ''
+                                        previewOpen ? 'min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem]' : ''
                                     } ${
                                         isActive
                                             ? 'border-sky-400/60 shadow-xl shadow-sky-500/20 ring-2 ring-sky-500/20 z-20'
@@ -219,10 +220,10 @@ const Landing = () => {
                                             </button>
                                         </div>
                                     ) : (
-                                        <div className="p-6 md:p-7 flex flex-col h-full">
-                                            <NavIcon name={mod.icon} size={24} large className="mb-5 group-hover:scale-105" />
-                                            <h3 className="landing-display text-lg landing-heading-text mb-2 !tracking-tight">{mod.title}</h3>
-                                            <p className="text-sm landing-body-text font-medium leading-relaxed flex-1 mb-5">{mod.desc}</p>
+                                        <div className="p-4 sm:p-6 md:p-7 flex flex-col h-full">
+                                            <NavIcon name={mod.icon} size={22} large className="mb-3 sm:mb-5 group-hover:scale-105" />
+                                            <h3 className="landing-display text-base sm:text-lg landing-heading-text mb-1.5 sm:mb-2 !tracking-tight">{mod.title}</h3>
+                                            <p className="text-sm landing-body-text font-medium leading-relaxed flex-1 mb-3 sm:mb-5">{mod.desc}</p>
                                             <span className="landing-nav-label text-xs landing-accent-text flex items-center gap-1.5">
                                                 Tap to preview <FiArrowRight size={14} />
                                             </span>
@@ -237,13 +238,13 @@ const Landing = () => {
                     {/* Workflow */}
                     <ScrollReveal
                         id="workflow"
-                        className="mt-20 md:mt-32 pt-16 md:pt-24 pb-4 md:pb-8 border-t border-white/10"
+                        className="mt-14 sm:mt-20 md:mt-32 pt-10 sm:pt-16 md:pt-24 pb-4 md:pb-8 border-t border-white/10"
                         distance={48}
                         amount={0.2}
                     >
-                        <div className="text-center mb-14 md:mb-20">
-                            <p className="landing-nav-label text-lg md:text-xl text-white mb-3 tracking-[0.2em]">Workflow</p>
-                            <h3 className="landing-display text-3xl md:text-5xl lg:text-6xl landing-heading-text mb-4">
+                        <div className="text-center mb-8 sm:mb-14 md:mb-20 px-1">
+                            <p className="landing-nav-label text-sm sm:text-lg md:text-xl text-white mb-2 sm:mb-3 tracking-[0.2em]">Workflow</p>
+                            <h3 className="landing-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl landing-heading-text mb-3 sm:mb-4 leading-tight">
                                 Start here, <span className="landing-accent-text">stay consistent</span>
                             </h3>
                             <p className="landing-body-text font-medium text-sm md:text-base max-w-xl mx-auto leading-relaxed">
@@ -251,10 +252,10 @@ const Landing = () => {
                             </p>
                         </div>
 
-                        <div className="relative max-w-6xl mx-auto px-2">
+                        <div className="relative max-w-6xl mx-auto">
                             <div className="hidden md:block absolute top-5 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-sky-500/50 to-transparent" />
 
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
                                 {workflowSteps.map((item, index) => (
                                     <ScrollReveal
                                         key={item.step}
@@ -262,23 +263,29 @@ const Landing = () => {
                                         direction="up"
                                         distance={50}
                                         amount={0.3}
-                                        className="relative text-center"
+                                        className="relative"
                                     >
                                         <button
                                             type="button"
                                             onClick={item.action}
-                                            className="group w-full flex md:flex-col items-center gap-5 md:gap-0 text-left md:text-center"
+                                            className="group w-full min-w-0 text-left md:text-center rounded-xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 md:border-0 md:bg-transparent md:p-0 hover:border-sky-500/30 md:hover:border-0 transition-colors"
                                         >
-                                            <div className="relative shrink-0 flex md:flex-col items-center gap-5 md:gap-4 w-full md:w-auto">
-                                                <span className="w-10 h-10 rounded-full bg-[#08080d] border-[3px] border-sky-500 group-hover:bg-sky-600 group-hover:border-sky-400 transition-all shadow-sm shadow-sky-500/30 z-10 shrink-0" />
-                                                <span className="md:hidden flex-1 h-px bg-white/10" aria-hidden />
-                                                <span className="landing-display text-xl md:text-2xl landing-accent-text md:mt-2">{item.step}</span>
-                                            </div>
-                                            <div className="flex-1 md:mt-4 md:px-2">
-                                                <p className="text-base md:text-lg font-bold landing-heading-text group-hover:text-sky-300 transition-colors">{item.label}</p>
-                                                <p className="text-sm md:text-base landing-muted-text mt-2 leading-relaxed">{item.desc}</p>
+                                            <div className="flex flex-col items-start md:items-center gap-3 md:gap-4">
+                                                <div className="flex items-center gap-3 md:flex-col md:gap-4">
+                                                    <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#08080d] border-[3px] border-sky-500 group-hover:bg-sky-600 group-hover:border-sky-400 transition-all shadow-sm shadow-sky-500/30 shrink-0" />
+                                                    <span className="landing-display text-lg sm:text-xl md:text-2xl landing-accent-text">{item.step}</span>
+                                                </div>
+                                                <div className="w-full min-w-0 md:mt-0 md:px-2">
+                                                    <p className="text-base md:text-lg font-bold landing-heading-text group-hover:text-sky-300 transition-colors">{item.label}</p>
+                                                    <p className="text-sm md:text-base landing-muted-text mt-1.5 md:mt-2 leading-relaxed">{item.desc}</p>
+                                                </div>
                                             </div>
                                         </button>
+                                        {index < workflowSteps.length - 1 && (
+                                            <div className="md:hidden flex justify-center py-1" aria-hidden>
+                                                <span className="w-px h-4 bg-white/15" />
+                                            </div>
+                                        )}
                                     </ScrollReveal>
                                 ))}
                             </div>
