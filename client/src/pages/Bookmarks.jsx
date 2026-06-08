@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FiBookmark, FiPlus, FiTrash2, FiExternalLink, FiLink, FiTag } from 'react-icons/fi';
+import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 
 const categoryColors = {
     'Documentation': { bg: 'bg-violet-50 dark:bg-violet-900/20', text: 'text-violet-600 dark:text-violet-400', border: 'border-violet-100 dark:border-violet-800' },
@@ -40,19 +41,20 @@ const Bookmarks = () => {
     const filtered = filter === 'All' ? bookmarks : bookmarks.filter(b => b.category === filter);
 
     return (
-        <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-6 border-b border-slate-200 dark:border-slate-800">
-                <div>
-                    <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Resource Library</h1>
-                    <p className="text-slate-700 dark:text-slate-400 mt-4 text-xl font-bold leading-relaxed">Your personal knowledge base. Save links, tools, and references.</p>
-                </div>
-                <button
-                    onClick={() => setShowForm(v => !v)}
-                    className="flex items-center gap-3 px-8 py-4 bg-violet-600 text-white rounded-xl font-black text-sm hover:bg-violet-700 transition-all shadow-2xl shadow-violet-200 dark:shadow-none btn-hover-scale shrink-0"
-                >
-                    <FiPlus size={18} /> Add Resource
-                </button>
-            </div>
+        <div className={PAGE_SHELL}>
+            <PageHeader
+                title="Resources"
+                description="Save links, tools, and references in one place."
+                actions={(
+                    <button
+                        type="button"
+                        onClick={() => setShowForm((v) => !v)}
+                        className="flex items-center justify-center gap-2 px-5 py-2.5 bg-sky-600 text-white rounded-xl font-bold text-sm hover:bg-sky-700 transition-all"
+                    >
+                        <FiPlus size={16} /> Add resource
+                    </button>
+                )}
+            />
 
             {/* Add Form */}
             {showForm && (

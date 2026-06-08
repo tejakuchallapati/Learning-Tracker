@@ -5,7 +5,7 @@ const GoalCard = ({ goal, onDelete, onEdit }) => {
     const endDate = new Date(goal.endDate).toLocaleDateString();
 
     return (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl premium-shadow border border-slate-200 dark:border-slate-800 p-4 hover:border-violet-100 dark:hover:border-violet-900 transition-all group">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl premium-shadow border border-slate-200 dark:border-slate-800 p-5 hover:border-violet-100 dark:hover:border-violet-900 transition-all group">
             <div className="flex justify-between items-start mb-3">
                 <div>
                     <h3 className="text-base font-black text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase tracking-tight leading-tight">{goal.technology}</h3>

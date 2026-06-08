@@ -1,10 +1,14 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import NavIcon from '../icons/NavIcon';
-import { sidebarNavItems } from '../../config/navItems';
+import { sidebarNavItems, adminNavItem } from '../../config/navItems';
 import { sidebarNavLinkClass, navLabelClass } from '../../config/navLinkStyles';
 import Logo from '../brand/Logo';
+import { AuthContext } from '../../context/AuthContext';
 
 const Sidebar = () => {
+    const { user } = useContext(AuthContext);
+    const navItems = user?.isAdmin ? [...sidebarNavItems, adminNavItem] : sidebarNavItems;
     return (
         <aside className="font-nav w-60 bg-white dark:bg-slate-950 text-slate-500 dark:text-slate-400 flex-shrink-0 hidden md:flex flex-col border-r border-slate-200 dark:border-slate-800/50 backdrop-blur-md z-40 transition-colors duration-300">
             <div className="h-16 flex items-center px-5 gap-3 border-b border-slate-100 dark:border-slate-800/50">
@@ -15,7 +19,7 @@ const Sidebar = () => {
             </div>
 
             <nav className="flex-1 py-3 px-3 space-y-2">
-                {sidebarNavItems.map((item) => (
+                {navItems.map((item) => (
                     <NavLink
                         key={item.name}
                         to={item.path}

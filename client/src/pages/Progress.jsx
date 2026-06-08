@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../services/api';
+import LoadingScreen from '../components/ui/LoadingScreen';
+import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 import ProgressBar from '../components/dashboard/ProgressBar';
 import { FiCheckCircle, FiClock, FiActivity, FiXCircle, FiPlay, FiPause, FiRotateCcw, FiCoffee, FiZap } from 'react-icons/fi';
 
@@ -152,34 +154,32 @@ const Progress = () => {
         }
     };
 
-    if (loading) return (
-        <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-600"></div>
-        </div>
-    );
+    if (loading) return <LoadingScreen message="Loading progress" compact />;
 
     return (
-        <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 pb-6 border-b border-slate-200 dark:border-slate-800">
-                <div className="max-w-2xl">
-                    <h1 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Focus Station</h1>
-                    <p className="text-slate-700 dark:text-slate-400 mt-4 text-xl font-medium leading-relaxed">Precision learning via high-performance intervals and telemetry.</p>
-                </div>
-                <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
-                    <button 
-                        onClick={() => switchMode('stopwatch')}
-                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${timerMode === 'stopwatch' ? 'bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 shadow-sm' : 'text-slate-600 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'}`}
-                    >
-                        Total Focus
-                    </button>
-                    <button 
-                        onClick={() => switchMode('pomodoro')}
-                        className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${timerMode === 'pomodoro' ? 'bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 shadow-sm' : 'text-slate-600 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'}`}
-                    >
-                        Pomodoro Protocol
-                    </button>
-                </div>
-            </div>
+        <div className={PAGE_SHELL}>
+            <PageHeader
+                title="Focus Station"
+                description="Track study time and mark daily progress on your learning paths."
+                actions={(
+                    <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <button
+                            type="button"
+                            onClick={() => switchMode('stopwatch')}
+                            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${timerMode === 'stopwatch' ? 'bg-white dark:bg-slate-700 text-sky-600 dark:text-sky-400 shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'}`}
+                        >
+                            Stopwatch
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => switchMode('pomodoro')}
+                            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${timerMode === 'pomodoro' ? 'bg-white dark:bg-slate-700 text-sky-600 dark:text-sky-400 shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'}`}
+                        >
+                            Pomodoro
+                        </button>
+                    </div>
+                )}
+            />
 
             <div className={`p-12 rounded-3xl premium-shadow relative overflow-hidden group transition-all duration-700 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-50/50 border border-emerald-100' : 'bg-white border border-slate-100'}`}>
                 <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-[100px] -mr-48 -mt-48 group-hover:scale-150 transition-transform duration-1000 ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-500/5' : 'bg-violet-600/5'}`}></div>

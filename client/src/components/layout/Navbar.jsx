@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { FiBell, FiSearch, FiUser, FiLogOut } from 'react-icons/fi';
+import { FiBell, FiSearch, FiUser, FiLogOut, FiMessageCircle } from 'react-icons/fi';
 import NavIcon from '../icons/NavIcon';
 import { useNavigate } from 'react-router-dom';
 import { courses } from '../../data/CourseData';
+import ReportIssueModal from '../feedback/ReportIssueModal';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
@@ -12,6 +13,7 @@ const Navbar = () => {
     const [results, setResults] = useState([]);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
+    const [showReportIssue, setShowReportIssue] = useState(false);
     const menuRef = useRef(null);
     const bellRef = useRef(null);
 
@@ -57,6 +59,7 @@ const Navbar = () => {
     const streakInDigestOn = user?.streakAlertNotification !== false;
 
     return (
+        <>
         <header className="font-nav h-20 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 md:px-8 sticky top-0 z-30 transition-all duration-300">
             <div className="relative flex-1 max-w-md hidden md:block">
                 <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-900/50 px-5 py-2.5 rounded-2xl group focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:border-cyan-500 transition-all border border-slate-200 dark:border-slate-700/50 shadow-sm">
@@ -179,6 +182,22 @@ const Navbar = () => {
                             <button onClick={() => { setShowProfileMenu(false); navigate('/dashboard'); }} className="group w-full text-left p-3 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-600 hover:bg-sky-500/10 hover:text-sky-600">
                                 <NavIcon name="dashboard" size={18} compact /> Dashboard
                             </button>
+                            <button
+                                type="button"
+                                onClick={() => { setShowProfileMenu(false); setShowReportIssue(true); }}
+                                className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-sky-600"
+                            >
+                                <FiMessageCircle className="text-sky-500" /> Report an issue
+                            </button>
+                            {user?.isAdmin && (
+                                <button
+                                    type="button"
+                                    onClick={() => { setShowProfileMenu(false); navigate('/admin'); }}
+                                    className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-violet-600"
+                                >
+                                    <NavIcon name="admin" size={18} compact /> Admin panel
+                                </button>
+                            )}
                             <div className="pt-2 mt-2 border-t border-slate-100">
                                 <button
                                     onClick={() => { setShowProfileMenu(false); logout(); navigate('/login'); }}
@@ -192,6 +211,8 @@ const Navbar = () => {
                 </div>
             </div>
         </header>
+        <ReportIssueModal open={showReportIssue} onClose={() => setShowReportIssue(false)} />
+        </>
     );
 };
 

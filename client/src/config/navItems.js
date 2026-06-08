@@ -1,3 +1,5 @@
+export const adminNavItem = { name: 'Admin', path: '/admin', icon: 'admin' };
+
 export const sidebarNavItems = [
     { name: 'Dashboard', path: '/dashboard', icon: 'dashboard' },
     { name: 'Roadmaps', path: '/courses', icon: 'roadmaps' },

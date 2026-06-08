@@ -16,8 +16,10 @@ const Login = () => {
     const { user, login, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    const homePath = (session) => (session?.isAdmin ? '/admin' : '/dashboard');
+
     useEffect(() => {
-        if (user) navigate('/dashboard');
+        if (user) navigate(homePath(user));
     }, [user, navigate]);
 
     /* ── email/password login ──────────────────────────────── */
@@ -26,8 +28,8 @@ const Login = () => {
         setError('');
         setLoading(true);
         try {
-            await login(email, password);
-            navigate('/dashboard');
+            const session = await login(email, password);
+            navigate(homePath(session));
         } catch (err) {
             setError(err.response?.data?.message || 'Incorrect email or password. Please try again.');
         } finally {
@@ -44,8 +46,8 @@ const Login = () => {
         }
         setGoogleLoading(true);
         try {
-            await googleLogin(credentialResponse.credential);
-            navigate('/dashboard');
+            const session = await googleLogin(credentialResponse.credential);
+            navigate(homePath(session));
         } catch (err) {
             const msg = err.response?.data?.message || err.message || 'Google sign-in failed. Please try again.';
             setError(msg);
@@ -62,12 +64,12 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-violet-50/30 flex items-center justify-center px-4 py-12 max-md:min-h-[100dvh] max-md:py-8 overflow-x-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-sky-50/40 flex items-center justify-center px-4 py-12 max-md:min-h-[100dvh] max-md:py-8 overflow-x-hidden">
             <div className="w-full max-w-md min-w-0">
 
                 {/* ── Logo / brand ───────────────────────── */}
                 <div className="text-center mb-8">
-                    <Logo className="w-14 h-14 mb-4 shadow-xl shadow-violet-200/80 rounded-2xl" />
+                    <Logo className="w-14 h-14 mb-4 shadow-xl shadow-sky-200/80 rounded-2xl" />
                     <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                         Welcome back
                     </h1>

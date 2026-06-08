@@ -19,34 +19,40 @@ import Settings from '../pages/Settings';
 import Notes from '../pages/Notes';
 import Bookmarks from '../pages/Bookmarks';
 import Goals from '../pages/Goals';
+import Admin from '../pages/Admin';
 
 // Layout
 import Sidebar from '../components/layout/Sidebar';
 import Navbar from '../components/layout/Navbar';
 import MobileNav from '../components/layout/MobileNav';
-
-const RouteSpinner = () => (
-  <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-950">
-    <div className="w-8 h-8 border-2 border-violet-200 border-t-violet-600 rounded-full animate-spin" />
-  </div>
-);
+import LoadingScreen from '../components/ui/LoadingScreen';
+import { DASHBOARD_MAIN } from '../components/layout/PageHeader';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
-  if (loading) return <RouteSpinner />;
+  if (loading) return <LoadingScreen message="Starting up" />;
   if (!user) {
     return <Navigate to="/login" replace />;
   }
   return children;
 };
 
+const AdminRoute = ({ children }) => {
+  const { user, loading } = useContext(AuthContext);
+
+  if (loading) return <LoadingScreen message="Starting up" />;
+  if (!user) return <Navigate to="/login" replace />;
+  if (!user.isAdmin) return <Navigate to="/dashboard" replace />;
+  return children;
+};
+
 const PublicRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
-  if (loading) return <RouteSpinner />;
+  if (loading) return <LoadingScreen message="Starting up" />;
   if (user) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to={user.isAdmin ? '/admin' : '/dashboard'} replace />;
   }
   return children;
 };
@@ -57,7 +63,7 @@ const DashboardLayout = ({ children }) => {
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-slate-950 p-3 md:p-4 pb-20 md:pb-4 transition-colors max-md:overscroll-y-contain max-md:[-webkit-overflow-scrolling:touch]">
+        <main className={DASHBOARD_MAIN}>
           {children}
         </main>
         <MobileNav />
@@ -79,6 +85,7 @@ const dashboardRoutes = [
   { path: "/bookmarks", element: <Bookmarks /> },
   { path: "/goals", element: <Goals /> },
   { path: "/settings", element: <Settings /> },
+  { path: "/admin", element: <Admin />, adminOnly: true },
 ];
 
 function App() {
@@ -91,14 +98,20 @@ function App() {
         <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         
         {/* Wrap all dashboard routes in the layout and protection once */}
-        {dashboardRoutes.map(({ path, element }) => (
+        {dashboardRoutes.map(({ path, element, adminOnly }) => (
           <Route
             key={path}
             path={path}
             element={
-              <ProtectedRoute>
-                <DashboardLayout>{element}</DashboardLayout>
-              </ProtectedRoute>
+              adminOnly ? (
+                <AdminRoute>
+                  <DashboardLayout>{element}</DashboardLayout>
+                </AdminRoute>
+              ) : (
+                <ProtectedRoute>
+                  <DashboardLayout>{element}</DashboardLayout>
+                </ProtectedRoute>
+              )
             }
           />
         ))}

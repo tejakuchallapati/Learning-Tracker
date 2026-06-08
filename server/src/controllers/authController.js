@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
 const { verifyGoogleCredential } = require('../config/googleAuth');
 const { normalizeReminderStorage } = require('../utils/reminderSchedule');
+const { isAdminEmail } = require('../utils/adminAccess');
 
 const generateToken = (id) => {
     if (!process.env.JWT_SECRET) {
@@ -22,6 +23,7 @@ const formatAuthResponse = (user) => ({
     pushNotification: user.pushNotification,
     reminderTime: user.reminderTime,
     reminderAmPm: user.reminderAmPm,
+    isAdmin: isAdminEmail(user.email),
     token: generateToken(user._id),
 });
 
@@ -225,6 +227,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             pushNotification: updatedUser.pushNotification,
             reminderTime: updatedUser.reminderTime,
             reminderAmPm: updatedUser.reminderAmPm,
+            isAdmin: isAdminEmail(updatedUser.email),
             token: generateToken(updatedUser._id),
         });
     } else {

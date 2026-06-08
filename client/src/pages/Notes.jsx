@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FiEdit, FiSave, FiTrash2, FiCalendar, FiArrowRight, FiCheckCircle } from 'react-icons/fi';
 import API from '../services/api';
+import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 
 const Notes = () => {
     // Get local date in YYYY-MM-DD format
@@ -120,19 +121,20 @@ const Notes = () => {
     };
 
     return (
-        <div className="max-w-5xl mx-auto space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-10">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-slate-200 dark:border-slate-800">
-                <div className="max-w-xl">
-                    <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Engineering Logs</h1>
-                    <p className="text-slate-700 dark:text-slate-400 mt-2 text-sm font-bold leading-relaxed">Persistent documentation of your daily technical growth.</p>
-                </div>
-                <button 
-                    onClick={handleSave}
-                    className="px-6 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-violet-600 transition-all shadow-lg shadow-slate-200 dark:shadow-none flex items-center gap-2 btn-hover-scale"
-                >
-                    <FiSave size={16} /> Save logs {saved && <FiCheckCircle className="animate-in zoom-in duration-300" />}
-                </button>
-            </div>
+        <div className={PAGE_SHELL}>
+            <PageHeader
+                title="Study Notes"
+                description="Document what you learned today and what to tackle next."
+                actions={(
+                    <button
+                        type="button"
+                        onClick={handleSave}
+                        className="px-5 py-2.5 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-bold text-sm hover:bg-sky-600 transition-all flex items-center justify-center gap-2"
+                    >
+                        <FiSave size={16} /> Save {saved && <FiCheckCircle className="animate-in zoom-in duration-300" />}
+                    </button>
+                )}
+            />
 
             <div id="notes-editor" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Column 1: Today's Learnings */}

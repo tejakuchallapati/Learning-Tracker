@@ -7,6 +7,7 @@ import {
     MdInsights,
     MdSettings,
     MdMail,
+    MdAdminPanelSettings,
 } from 'react-icons/md';
 
 export const iconRegistry = {
@@ -18,6 +19,7 @@ export const iconRegistry = {
     insights: MdInsights,
     settings: MdSettings,
     email: MdMail,
+    admin: MdAdminPanelSettings,
 };
 
 const NavIcon = ({

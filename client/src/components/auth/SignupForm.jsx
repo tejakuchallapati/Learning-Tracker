@@ -13,12 +13,10 @@ const SignupForm = ({ embedded = false }) => {
     const { register, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const accentRing = embedded ? 'focus:ring-blue-500/15 focus:border-blue-500' : 'focus:ring-violet-500/10 focus:border-violet-500';
-    const accentBtn = embedded
-        ? 'bg-blue-600 hover:bg-blue-700 shadow-blue-200'
-        : 'bg-violet-600 hover:bg-violet-700 shadow-violet-200 dark:shadow-none';
-    const accentLink = embedded ? 'text-blue-600 hover:text-blue-800' : 'text-violet-600 hover:text-violet-700';
-    const accentIcon = embedded ? 'hover:text-blue-600 hover:bg-blue-50' : 'hover:text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/30';
+    const accentRing = 'focus:ring-sky-500/15 focus:border-sky-500';
+    const accentBtn = 'bg-sky-600 hover:bg-sky-700 shadow-sky-200 dark:shadow-none';
+    const accentLink = 'text-sky-600 hover:text-sky-800 dark:hover:text-sky-400';
+    const accentIcon = 'hover:text-sky-600 hover:bg-sky-50 dark:hover:bg-sky-900/30';
 
     const handleGoogleSuccess = async (credentialResponse) => {
         setError('');

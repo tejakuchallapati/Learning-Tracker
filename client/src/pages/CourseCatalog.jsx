@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { courses } from '../data/CourseData';
 import { FiChevronRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 
 const CourseCatalog = () => {
     const [search] = useState('');
@@ -18,29 +19,29 @@ const CourseCatalog = () => {
     });
 
     return (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 bg-transparent min-h-screen p-4 md:p-6 rounded-2xl">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-3 border-b border-slate-200">
-                <div className="max-w-xl">
-                    <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">Mastery Tracks</h1>
-                    <p className="text-slate-500 mt-1 text-base font-bold leading-relaxed">Systematic learning paths engineered for rapid technical progression.</p>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5 bg-slate-50 p-1.5 rounded-lg border border-slate-200">
-                    {categories.map(cat => (
-                        <button
-                            key={cat}
-                            onClick={() => setCategory(cat)}
-                            className={`px-3 py-1.5 rounded-md text-xs font-black transition-all transform active:scale-95 border ${
-                                category === cat
-                                    ? 'bg-violet-600 text-white border-violet-500 shadow-md shadow-violet-500/20'
-                                    : 'bg-white text-slate-500 border-slate-200 hover:border-violet-400 hover:text-violet-600'
-                            }`}
-                        >
-                            {cat.toUpperCase()}
-                        </button>
-                    ))}
-                </div>
-            </div>
+        <div className={PAGE_SHELL}>
+            <PageHeader
+                title="Mastery Tracks"
+                description="Systematic learning paths engineered for rapid technical progression."
+                actions={(
+                    <div className="flex flex-wrap gap-1.5 bg-slate-50 dark:bg-slate-900 p-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                type="button"
+                                onClick={() => setCategory(cat)}
+                                className={`px-3 py-1.5 rounded-md text-xs font-black transition-all active:scale-95 border ${
+                                    category === cat
+                                        ? 'bg-sky-600 text-white border-sky-500 shadow-md shadow-sky-500/20'
+                                        : 'bg-white dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700 hover:border-sky-400 hover:text-sky-600'
+                                }`}
+                            >
+                                {cat.toUpperCase()}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {filteredCourses.map(course => (

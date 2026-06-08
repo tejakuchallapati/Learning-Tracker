@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Learning Tracker">
   <defs>
-    <linearGradient id="lt-bg" x1="10" y1="6" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+    <linearGradient id="lt-bg" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38bdf8"/>
       <stop stop-color="#0ea5e9"/>
-      <stop stop-color="#7c3aed"/>
+      <stop stop-color="#0284c7"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="url(#lt-bg)"/>
-  <path d="M15 43V23.5c0-1.4 1.1-2.3 2.6-2.1l13.4 2.4v22.4L17.6 48c-1.5.3-2.6-.6-2.6-2V43Z" fill="white" fill-opacity="0.95"/>
-  <path d="M49 43V23.5c0-1.4-1.1-2.3-2.6-2.1L33 23.8v22.4l13.4 2.7c1.5.3 2.6-.6 2.6-2V43Z" fill="white" fill-opacity="0.72"/>
-  <path d="M31 31.5l4.2 4.2L43 26" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="64" height="64" rx="15" fill="url(#lt-bg)"/>
+  <path d="M18 20v24.5a2.5 2.5 0 0 0 2.5 2.5H34" stroke="white" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M38 20h16M46 20v27" stroke="white" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

@@ -8,6 +8,7 @@ import ChartCard from '../components/dashboard/ChartCard';
 import ReminderCard from '../components/goals/ReminderCard';
 import GoalCard from '../components/goals/GoalCard';
 import { FiClock, FiTarget, FiActivity, FiCalendar, FiPlus, FiArrowRight } from 'react-icons/fi';
+import { PAGE_SHELL_FULL } from '../components/layout/PageHeader';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const dummyChartData = [
@@ -21,7 +22,7 @@ const dummyChartData = [
 ];
 
 const StatSkeleton = () => (
-    <div className="glass-card premium-shadow p-4 rounded-xl animate-pulse">
+    <div className="glass-card premium-shadow p-5 rounded-xl animate-pulse">
         <div className="h-10 w-10 bg-slate-200 dark:bg-slate-700 rounded-xl mb-4" />
         <div className="h-8 w-16 bg-slate-200 dark:bg-slate-700 rounded-lg mb-2" />
         <div className="h-3 w-24 bg-slate-100 dark:bg-slate-800 rounded" />
@@ -146,14 +147,13 @@ const Dashboard = () => {
     }, [data, goals, loadingStats, loadingGoals]);
 
     return (
-        <div className="font-body space-y-6 animate-in fade-in duration-500">
+        <div className={PAGE_SHELL_FULL}>
             {slowLoad && (loadingStats || loadingGoals) && (
                 <div className="text-xs font-semibold text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-900/20 border border-violet-100 dark:border-violet-800 rounded-xl px-4 py-2.5">
                     Loading your data — the server may take a moment to wake up on first visit.
                 </div>
             )}
-            {/* Header Section */}
-            <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] p-6 text-slate-800 dark:text-slate-100 relative overflow-hidden shadow-sm group">
+            <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 md:p-6 text-slate-800 dark:text-slate-100 relative overflow-hidden shadow-sm group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/5 rounded-full -mr-20 -mt-20 blur-3xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="max-w-md">
@@ -182,7 +182,7 @@ const Dashboard = () => {
                     </>
                 ) : (
                     <>
-                        <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
+                        <div className="glass-card premium-shadow p-5 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="p-3 bg-violet-50 text-violet-600 rounded-xl group-hover:bg-violet-600 group-hover:text-white transition-all duration-500">
                                     <FiClock size={20} />
@@ -196,7 +196,7 @@ const Dashboard = () => {
                             <p className="text-xs font-semibold text-slate-500 mt-0.5">Total Study Time</p>
                         </div>
 
-                        <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
+                        <div className="glass-card premium-shadow p-5 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="p-3 bg-rose-50 text-rose-600 rounded-xl group-hover:bg-rose-600 group-hover:text-white transition-all duration-500">
                                     <FiActivity size={20} />
@@ -210,7 +210,7 @@ const Dashboard = () => {
                             <p className="text-xs font-bold text-slate-700 mt-0.5">Weekly Intensity</p>
                         </div>
 
-                        <div className="glass-card premium-shadow p-4 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default lg:col-span-2 relative overflow-hidden">
+                        <div className="glass-card premium-shadow p-5 rounded-xl group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-default lg:col-span-2 relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-8 opacity-5">
                                 <FiPlus size={100} />
                             </div>
@@ -242,7 +242,7 @@ const Dashboard = () => {
                 <div className="lg:col-span-8 space-y-6">
                     {/* Activity Chart */}
                     <div className="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-sm relative overflow-hidden">
-                         <div className="flex items-center justify-between mb-10">
+                         <div className="flex items-center justify-between mb-8">
                             <div>
                                 <h3 className="text-2xl font-black text-slate-900 dark:text-white">Focus Distribution</h3>
                                 <p className="text-sm font-bold text-slate-700 dark:text-slate-400 mt-1">Detailed activity analysis by days</p>
@@ -252,7 +252,7 @@ const Dashboard = () => {
                                 <button className="px-6 py-2 text-slate-400 dark:text-slate-500 rounded-xl text-xs font-black hover:text-slate-600 dark:hover:text-slate-300 transition-all">MONTHLY</button>
                             </div>
                         </div>
-                        <div className="h-[200px] -ml-6">
+                        <div className="h-[220px] -ml-6">
                             <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart data={dummyChartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                                     <defs>
@@ -334,10 +334,10 @@ const Dashboard = () => {
                 <div className="lg:col-span-4 space-y-6">
                     <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
-                        <h3 className="text-base font-black mb-3 flex items-center gap-3 text-slate-900 dark:text-white">
+                        <h3 className="text-base font-black mb-4 flex items-center gap-3 text-slate-900 dark:text-white">
                             <FiTarget className="text-violet-600 dark:text-violet-400" /> Fast-Track Goal
                         </h3>
-                        <div className="space-y-3 relative z-10">
+                        <div className="space-y-4 relative z-10">
                             <div className="space-y-1">
                                 <label className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">Course Choice</label>
                                 <select 

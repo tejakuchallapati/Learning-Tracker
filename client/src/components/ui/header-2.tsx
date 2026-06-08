@@ -23,11 +23,6 @@ export function Header() {
         setOpen(false);
     };
 
-    const scrollToSignup = () => {
-        document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' });
-        setOpen(false);
-    };
-
 	const links = [
 		{ label: 'About us', onClick: scrollToAbout },
 		{ label: 'Workflow', onClick: scrollToWorkflow },
@@ -101,16 +96,6 @@ export function Header() {
 							{link.label}
 						</button>
 					))}
-					<button
-                        type="button"
-                        onClick={scrollToSignup}
-                        className={cn(
-                            'landing-cta landing-nav-label text-white rounded-full transition-all duration-500',
-                            compact ? 'text-xs px-4 py-2' : 'text-xs px-6 py-3',
-                        )}
-                    >
-                        Get started
-                    </button>
 				</div>
 
 				<Button
@@ -152,17 +137,10 @@ export function Header() {
 					</button>
 					<button
                         type="button"
-                        className="text-left py-3 landing-display text-lg text-slate-100 border-b border-white/10"
+                        className="text-left py-3 landing-display text-lg text-slate-100"
                         onClick={() => { navigate('/login'); setOpen(false); }}
                     >
 						Sign In
-					</button>
-					<button
-                        type="button"
-                        className="landing-cta mt-3 py-4 rounded-full landing-nav-label text-xs text-white"
-                        onClick={scrollToSignup}
-                    >
-						Get started free
 					</button>
 				</div>
 			</div>

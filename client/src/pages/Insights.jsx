@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { FiActivity, FiClock, FiList, FiDownload } from 'react-icons/fi';
 import API from '../services/api';
+import LoadingScreen from '../components/ui/LoadingScreen';
+import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 
 const PIE_COLORS = ['#6366f1', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#06b6d4'];
 
@@ -51,27 +53,24 @@ const Insights = () => {
             : 0;
 
     if (loading) {
-        return (
-            <div className="font-body flex items-center justify-center min-h-[40vh]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-600" />
-            </div>
-        );
+        return <LoadingScreen message="Loading insights" compact />;
     }
 
     return (
-        <div className="font-body max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-10">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-4 border-b border-slate-200 dark:border-slate-800">
-                <div className="max-w-xl">
-                    <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">Mastery Analytics</h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-3 text-lg font-medium leading-relaxed">Live stats from your study logs and learning goals.</p>
-                </div>
-                <button
-                    onClick={() => window.print()}
-                    className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl font-black text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200 dark:border-slate-700 btn-hover-scale shrink-0 print:hidden"
-                >
-                    <FiDownload size={18} /> Export PDF Report
-                </button>
-            </div>
+        <div className={PAGE_SHELL}>
+            <PageHeader
+                title="Insights"
+                description="Live stats from your study logs and learning goals."
+                actions={(
+                    <button
+                        type="button"
+                        onClick={() => window.print()}
+                        className="flex items-center justify-center gap-2 px-5 py-2.5 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700 print:hidden"
+                    >
+                        <FiDownload size={16} /> Export PDF
+                    </button>
+                )}
+            />
 
             {error && (
                 <p className="text-sm font-semibold text-rose-600 bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-800 rounded-xl px-4 py-3">
@@ -79,7 +78,7 @@ const Insights = () => {
                 </p>
             )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-1 bg-white dark:bg-slate-900 premium-shadow p-5 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-6 flex flex-col items-center">
                     <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-3 self-start uppercase tracking-[0.2em]">
                         <div className="w-8 h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiActivity size={16} /></div>

@@ -262,7 +262,10 @@ const Landing = () => {
                         </div>
 
                         <div className="relative max-w-6xl mx-auto">
-                            <div className="hidden md:block absolute top-5 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-sky-500/50 to-transparent" />
+                            <div
+                                className="hidden md:block absolute top-5 left-[12%] right-[12%] h-px bg-sky-500/35"
+                                aria-hidden
+                            />
 
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
                                 {workflowSteps.map((item, index) => (
@@ -280,7 +283,7 @@ const Landing = () => {
                                             className="group w-full min-w-0 text-left md:text-center rounded-xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 md:border-0 md:bg-transparent md:p-0 hover:border-sky-500/30 md:hover:border-0 transition-colors"
                                         >
                                             <div className="flex flex-col items-start md:items-center gap-3 md:gap-4">
-                                                <div className="flex items-center gap-3 md:flex-col md:gap-4">
+                                                <div className="relative z-10 flex items-center gap-3 md:flex-col md:gap-4">
                                                     <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#08080d] border-[3px] border-sky-500 group-hover:bg-sky-600 group-hover:border-sky-400 transition-all shadow-sm shadow-sky-500/30 shrink-0" />
                                                     <span className="landing-display text-lg sm:text-xl md:text-2xl landing-accent-text">{item.step}</span>
                                                 </div>
@@ -348,14 +351,6 @@ const Landing = () => {
                     <div className="bg-white border border-slate-200 rounded-2xl shadow-lg shadow-slate-200/50 p-6 sm:p-10">
                         <SignupForm embedded />
                     </div>
-                    </ScrollReveal>
-                    <ScrollReveal delay={250} direction="right" distance={60} amount={0.2}>
-                    <p className="text-center mt-6 text-xs font-semibold landing-muted-text">
-                        Already registered?{' '}
-                        <button type="button" onClick={() => navigate('/login')} className="landing-accent-text hover:text-sky-300 font-bold underline underline-offset-4">
-                            Sign in here
-                        </button>
-                    </p>
                     </ScrollReveal>
                 </div>
             </section>

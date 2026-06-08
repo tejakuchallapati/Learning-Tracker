@@ -34,7 +34,7 @@ export const walkthroughSteps = [
             <div className="flex flex-col items-center justify-center min-h-[min(52vh,380px)] py-4 sm:py-6">
                 <div className="w-full max-w-sm">
                     <div className="text-center mb-4 sm:mb-6">
-                        <Logo className="w-12 h-12 sm:w-14 sm:h-14 mb-2 sm:mb-3 shadow-lg shadow-violet-200/80 rounded-2xl mx-auto" />
+                        <Logo className="w-12 h-12 sm:w-14 sm:h-14 mb-2 sm:mb-3 shadow-lg shadow-sky-200/80 rounded-2xl mx-auto" />
                         <h2 className="text-xl sm:text-2xl font-black text-slate-900">Welcome back</h2>
                         <p className="text-slate-500 text-xs sm:text-sm mt-1">Sign in to continue</p>
                     </div>
@@ -48,7 +48,7 @@ export const walkthroughSteps = [
                             <div className="h-10 sm:h-11 rounded-xl bg-slate-50 border border-slate-200 px-3 flex items-center text-xs sm:text-sm text-slate-400">••••••••</div>
                         </div>
                         <div className="relative pt-1 sm:pt-2">
-                            <button type="button" className="w-full h-11 sm:h-12 bg-violet-600 text-white font-bold text-sm rounded-xl shadow-lg shadow-violet-200 ring-2 ring-sky-400 ring-offset-2">
+                            <button type="button" className="w-full h-11 sm:h-12 bg-sky-600 text-white font-bold text-sm rounded-xl shadow-lg shadow-sky-200 ring-2 ring-sky-400 ring-offset-2">
                                 Sign In →
                             </button>
                             <TapHint label="Tap sign in" className="justify-center mt-2 sm:mt-3" />
@@ -69,7 +69,7 @@ export const walkthroughSteps = [
         Screen: () => (
             <div className="space-y-3 sm:space-y-4">
                 <div className="rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-200 p-4 sm:p-5">
-                    <p className="text-[10px] sm:text-xs font-black text-violet-600 uppercase tracking-widest mb-1">Adaptive Roadmap</p>
+                    <p className="text-[10px] sm:text-xs font-black text-sky-600 uppercase tracking-widest mb-1">Adaptive Roadmap</p>
                     <h2 className="text-base sm:text-xl font-black text-slate-900 leading-tight">Fast-Track Your Learning Goal</h2>
                 </div>
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
@@ -84,9 +84,9 @@ export const walkthroughSteps = [
                         </div>
                     ))}
                 </div>
-                <div className="rounded-xl border border-slate-100 p-3 sm:p-4 h-20 sm:h-28 bg-gradient-to-t from-violet-50 to-white flex items-end gap-1">
+                <div className="rounded-xl border border-slate-100 p-3 sm:p-4 h-20 sm:h-28 bg-gradient-to-t from-sky-50 to-white flex items-end gap-1">
                     {[40, 65, 30, 80, 55, 90, 70].map((h, i) => (
-                        <div key={i} className="flex-1 bg-violet-400 rounded-t opacity-80" style={{ height: `${h}%` }} />
+                        <div key={i} className="flex-1 bg-sky-400 rounded-t opacity-80" style={{ height: `${h}%` }} />
                     ))}
                 </div>
                 <TapHint label="Your home base" />
@@ -102,12 +102,12 @@ export const walkthroughSteps = [
         Screen: () => (
             <div className="space-y-3 sm:space-y-4 max-w-md mx-auto">
                 <h3 className="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
-                    <span className="text-violet-600">◎</span> Fast-Track Goal
+                    <span className="text-sky-600">◎</span> Fast-Track Goal
                 </h3>
                 <div className="space-y-3 rounded-xl sm:rounded-2xl border border-slate-200 p-4 sm:p-5 bg-white shadow-sm">
                     <div>
                         <label className="text-[10px] font-black text-slate-400 uppercase">Course</label>
-                        <div className="mt-1 h-10 sm:h-11 rounded-xl bg-violet-50 border-2 border-violet-300 px-3 flex items-center text-xs sm:text-sm font-bold text-slate-800 ring-2 ring-sky-400 ring-offset-1">
+                        <div className="mt-1 h-10 sm:h-11 rounded-xl bg-sky-50 border-2 border-sky-300 px-3 flex items-center text-xs sm:text-sm font-bold text-slate-800 ring-2 ring-sky-400 ring-offset-1">
                             React Mastery ▾
                         </div>
                     </div>
@@ -139,7 +139,7 @@ export const walkthroughSteps = [
                     <div className="flex-1 h-10 sm:h-11 rounded-xl bg-slate-50 border-2 border-sky-300 px-3 flex items-center text-xs sm:text-sm text-slate-500 ring-2 ring-sky-400 ring-offset-1">
                         Watch 1 roadmap video…
                     </div>
-                    <button type="button" className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-violet-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">+</button>
+                    <button type="button" className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-sky-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">+</button>
                 </form>
                 <TapHint label="Add daily goal" />
                 <div className="space-y-2 pt-1">
@@ -149,7 +149,7 @@ export const walkthroughSteps = [
                         { task: 'Review notes', done: false },
                     ].map((g) => (
                         <div key={g.task} className="flex items-center gap-2 sm:gap-3 rounded-xl border border-slate-100 px-3 py-2.5 sm:py-3 bg-white">
-                            <span className={`w-4 h-4 sm:w-5 sm:h-5 rounded border-2 shrink-0 flex items-center justify-center text-[10px] ${g.done ? 'bg-violet-600 border-violet-600 text-white' : 'border-slate-300'}`}>
+                            <span className={`w-4 h-4 sm:w-5 sm:h-5 rounded border-2 shrink-0 flex items-center justify-center text-[10px] ${g.done ? 'bg-sky-600 border-sky-600 text-white' : 'border-slate-300'}`}>
                                 {g.done ? '✓' : ''}
                             </span>
                             <span className={`text-xs sm:text-sm font-semibold flex-1 min-w-0 ${g.done ? 'text-slate-400 line-through' : 'text-slate-700'}`}>{g.task}</span>
@@ -218,7 +218,7 @@ export const walkthroughSteps = [
                             key={t.n}
                             className={`flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl border ${t.active ? 'border-sky-400 bg-sky-50 ring-2 ring-sky-400 ring-offset-1' : 'border-slate-100 bg-white'}`}
                         >
-                            <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-violet-100 text-violet-700 font-black flex items-center justify-center text-xs sm:text-sm shrink-0">{t.n}</span>
+                            <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-sky-100 text-sky-700 font-black flex items-center justify-center text-xs sm:text-sm shrink-0">{t.n}</span>
                             <div className="flex-1 min-w-0">
                                 <p className="text-sm sm:text-base font-black text-slate-900 leading-tight">{t.title}</p>
                                 {t.active && <p className="text-[10px] sm:text-xs text-sky-600 font-bold mt-0.5">Open topic →</p>}
@@ -275,24 +275,24 @@ export const walkthroughSteps = [
             <div className="flex flex-col min-h-[min(50vh,360px)]">
                 <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-2 sm:gap-3 mb-3 sm:mb-4 pb-3 border-b border-slate-100">
                     <div>
-                        <p className="text-[10px] sm:text-xs font-black text-violet-600 uppercase">AI Mentor</p>
+                        <p className="text-[10px] sm:text-xs font-black text-sky-600 uppercase">AI Mentor</p>
                         <p className="text-xs sm:text-sm font-bold text-slate-700">Hooks &amp; State</p>
                     </div>
-                    <button type="button" className="w-full xs:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-xs font-black ring-2 ring-sky-400 ring-offset-2">
+                    <button type="button" className="w-full xs:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-500 text-white text-xs font-black ring-2 ring-sky-400 ring-offset-2">
                         ⚡ Ask AI Mentor
                     </button>
                 </div>
                 <div className="flex-1 space-y-2 sm:space-y-3">
-                    <div className="rounded-xl sm:rounded-2xl bg-violet-50 border border-violet-100 p-3 sm:p-4 max-w-[95%]">
-                        <p className="text-[10px] font-bold text-violet-600 mb-1">AI Mentor</p>
+                    <div className="rounded-xl sm:rounded-2xl bg-sky-50 border border-sky-100 p-3 sm:p-4 max-w-[95%]">
+                        <p className="text-[10px] font-bold text-sky-600 mb-1">AI Mentor</p>
                         <p className="text-xs sm:text-sm text-slate-700">Ask me anything about this topic!</p>
                     </div>
                     <div className="rounded-xl sm:rounded-2xl bg-slate-100 p-3 sm:p-4 max-w-[90%] ml-auto">
                         <p className="text-[10px] font-bold text-slate-500 mb-1">You</p>
                         <p className="text-xs sm:text-sm text-slate-800">Explain useEffect simply</p>
                     </div>
-                    <div className="rounded-xl sm:rounded-2xl bg-violet-600/10 border border-violet-100 p-3 sm:p-4 max-w-[95%]">
-                        <p className="text-[10px] font-bold text-violet-600 mb-1">AI Mentor</p>
+                    <div className="rounded-xl sm:rounded-2xl bg-sky-600/10 border border-sky-100 p-3 sm:p-4 max-w-[95%]">
+                        <p className="text-[10px] font-bold text-sky-600 mb-1">AI Mentor</p>
                         <p className="text-xs sm:text-sm text-slate-700">Cleanup prevents memory leaks when…</p>
                     </div>
                 </div>

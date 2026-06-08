@@ -24,28 +24,19 @@ const clearStoredSession = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(() => readStoredSession());
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         let cancelled = false;
+        const stored = readStoredSession();
 
-        const restoreSession = async () => {
-            const stored = readStoredSession();
-            if (!stored) {
-                if (!cancelled) {
-                    setUser(null);
-                    setLoading(false);
-                }
-                return;
-            }
+        if (!stored) {
+            setUser(null);
+            return undefined;
+        }
 
-            // Show cached session immediately — don't block the UI on API cold starts
-            if (!cancelled) {
-                setUser(stored);
-                setLoading(false);
-            }
-
+        const validateSession = async () => {
             try {
                 const { data } = await API.get('auth/me', { timeout: 8000 });
                 if (!cancelled) setUser(data);
@@ -55,7 +46,7 @@ export const AuthProvider = ({ children }) => {
             }
         };
 
-        restoreSession();
+        validateSession();
         return () => {
             cancelled = true;
         };
@@ -81,16 +72,19 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         const { data } = await API.post('auth/login', { email, password });
         setUser(data);
+        return data;
     };
 
     const register = async (name, email, password) => {
         const { data } = await API.post('auth/register', { name, email, password });
         setUser(data);
+        return data;
     };
 
     const googleLogin = async (credential) => {
         const { data } = await API.post('auth/google', { credential });
         setUser(data);
+        return data;
     };
 
     const logout = async () => {

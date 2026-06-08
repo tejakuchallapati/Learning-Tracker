@@ -1,5 +1,10 @@
-/** Learning Tracker mark — flat book + check, scales cleanly in nav and auth. */
+import { useId } from 'react';
+
+/** Flat LT monogram — matches landing typography, stays crisp in the navbar. */
 export default function Logo({ className = 'w-8 h-8', ...props }) {
+    const uid = useId().replace(/:/g, '');
+    const bg = `lt-bg-${uid}`;
+
     return (
         <svg
             className={className}
@@ -11,26 +16,25 @@ export default function Logo({ className = 'w-8 h-8', ...props }) {
             {...props}
         >
             <defs>
-                <linearGradient id="lt-bg" x1="10" y1="6" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+                <linearGradient id={bg} x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#38bdf8" />
                     <stop stopColor="#0ea5e9" />
-                    <stop stopColor="#7c3aed" />
+                    <stop stopColor="#0284c7" />
                 </linearGradient>
             </defs>
-            <rect width="64" height="64" rx="14" fill="url(#lt-bg)" />
+
+            <rect width="64" height="64" rx="15" fill={`url(#${bg})`} />
             <path
-                d="M15 43V23.5c0-1.4 1.1-2.3 2.6-2.1l13.4 2.4v22.4L17.6 48c-1.5.3-2.6-.6-2.6-2V43Z"
-                fill="white"
-                fillOpacity="0.95"
-            />
-            <path
-                d="M49 43V23.5c0-1.4-1.1-2.3-2.6-2.1L33 23.8v22.4l13.4 2.7c1.5.3 2.6-.6 2.6-2V43Z"
-                fill="white"
-                fillOpacity="0.72"
-            />
-            <path
-                d="M31 31.5l4.2 4.2L43 26"
+                d="M18 20v24.5a2.5 2.5 0 0 0 2.5 2.5H34"
                 stroke="white"
-                strokeWidth="3.5"
+                strokeWidth="4.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M38 20h16M46 20v27"
+                stroke="white"
+                strokeWidth="4.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
             />

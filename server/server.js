@@ -58,6 +58,8 @@ app.use('/api/time', require('./src/routes/timeRoutes'));
 app.use('/api/analytics', require('./src/routes/analyticsRoutes'));
 app.use('/api/daily-goals', require('./src/routes/dailyGoalRoutes'));
 app.use('/api/notes', require('./src/routes/noteRoutes'));
+app.use('/api/feedback', require('./src/routes/feedbackRoutes'));
+app.use('/api/admin', require('./src/routes/adminRoutes'));
 
 // Initialize cron jobs
 const mongoose = require('mongoose');

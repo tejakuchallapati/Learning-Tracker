@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import API from '../../services/api';
+import { readGoalsCache, writeGoalsCache } from '../../utils/goalsCache';
+import LoadingScreen from '../ui/LoadingScreen';
 import { FiCheckCircle, FiCircle, FiBell, FiTrash2, FiPlus } from 'react-icons/fi';
 
 const DailyGoalsSection = ({ onGoalsChange }) => {
-    const [goals, setGoals] = useState([]);
+    const cachedGoals = readGoalsCache();
+    const [goals, setGoals] = useState(() => (Array.isArray(cachedGoals) ? cachedGoals : []));
     const [newGoalTitle, setNewGoalTitle] = useState('');
     const [emailReminders, setEmailReminders] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(!cachedGoals);
     const [reminderNotice, setReminderNotice] = useState(null);
     const noticeTimeoutRef = useRef(null);
 
@@ -20,11 +23,12 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
         if (noticeTimeoutRef.current) clearTimeout(noticeTimeoutRef.current);
     }, []);
 
-    const fetchGoals = async () => {
+    const fetchGoals = async (silent = false) => {
         try {
-            setLoading(true);
-            const { data } = await API.get('daily-goals');
+            if (!silent && goals.length === 0) setLoading(true);
+            const { data } = await API.get('daily-goals', { timeout: 10000 });
             setGoals(data);
+            writeGoalsCache(data);
         } catch (err) {
             console.error('Error fetching daily goals:', err);
         } finally {
@@ -47,7 +51,7 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
             });
             setNewGoalTitle('');
             setEmailReminders(false);
-            fetchGoals();
+            fetchGoals(true);
             onGoalsChange?.();
         } catch (err) {
             console.error('Error adding daily goal:', err);
@@ -60,9 +64,11 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
                 completed: !goal.completed
             });
             // Optimistically update
-            setGoals(goals.map(g => 
+            const next = goals.map(g =>
                 g._id === goal._id ? { ...g, completed: !g.completed } : g
-            ));
+            );
+            setGoals(next);
+            writeGoalsCache(next);
             onGoalsChange?.();
         } catch (err) {
             console.error('Error updating daily goal:', err);
@@ -73,7 +79,9 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
         try {
             await API.delete(`daily-goals/${id}`);
             // Optimistically update
-            setGoals(goals.filter(g => g._id !== id));
+            const next = goals.filter(g => g._id !== id);
+            setGoals(next);
+            writeGoalsCache(next);
             onGoalsChange?.();
         } catch (err) {
             console.error('Error deleting daily goal:', err);
@@ -107,10 +115,10 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
     return (
         <div className="bg-white dark:bg-slate-900 premium-shadow p-3 md:p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-3 transition-all duration-500">
             <div className="flex items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-2.5">
-                <h1 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-tight flex items-center gap-2">
-                    <div className="w-7 h-7 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-lg flex items-center justify-center text-sm shrink-0">🎯</div>
-                    Daily Goals
-                </h1>
+                <h2 className="text-base font-black text-slate-900 dark:text-white tracking-tight leading-tight flex items-center gap-2">
+                    <div className="w-6 h-6 bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 rounded-md flex items-center justify-center text-xs shrink-0">🎯</div>
+                    Today&apos;s goals
+                </h2>
                 <div className="px-2.5 py-1 bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-md text-xs font-black uppercase tracking-widest border border-violet-100 dark:border-violet-800 shrink-0">
                     {goals.filter(g => g.completed).length}/{goals.length} DONE
                 </div>
@@ -149,8 +157,8 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
             </form>
 
             <div className="space-y-1.5 max-h-36 overflow-y-auto pr-0.5">
-                {loading ? (
-                    <div className="text-center py-6 text-slate-400 text-xs font-bold uppercase tracking-widest animate-pulse">Loading goals...</div>
+                {loading && goals.length === 0 ? (
+                    <LoadingScreen message="Loading goals" compact className="rounded-xl" />
                 ) : goals.length === 0 ? (
                     <div className="text-center py-6 bg-slate-50 dark:bg-slate-950 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
                         <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wide">No goals yet</p>
