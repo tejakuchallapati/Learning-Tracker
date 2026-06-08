@@ -69,7 +69,7 @@ const Landing = () => {
             </div>
 
             {/* Hero */}
-            <section className="relative overflow-hidden w-full px-5 sm:px-8 xl:px-10 pt-12 md:pt-20 pb-16 md:pb-24">
+            <section className="relative overflow-hidden w-full px-5 sm:px-8 xl:px-10 pt-12 md:pt-20 pb-10 md:pb-24">
                 <div className="pointer-events-none absolute inset-0 -z-10 landing-hero-mesh" aria-hidden />
 
                 <div className="relative z-10 max-w-6xl mx-auto text-center">
@@ -90,7 +90,7 @@ const Landing = () => {
                         </ScrollReveal>
 
                         <ScrollReveal delay={300} distance={40}>
-                        <p className="text-sm md:text-base landing-body-text max-w-2xl mx-auto font-medium leading-relaxed mb-10">
+                        <p className="text-sm md:text-base landing-body-text max-w-2xl mx-auto font-medium leading-relaxed mb-6 md:mb-10">
                             You don&apos;t need perfect motivation — you need a system. Pick a path, hit one goal a day,
                             and stack small wins until studying feels automatic. We&apos;ll remind you before you fall behind.
                         </p>
@@ -101,14 +101,14 @@ const Landing = () => {
                             <button
                                 type="button"
                                 onClick={scrollToSignup}
-                                className="landing-cta w-full sm:w-auto px-10 py-4 text-white rounded-full landing-nav-label text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+                                className="landing-cta w-auto max-w-[240px] sm:max-w-none px-7 py-2.5 sm:px-10 sm:py-4 text-white rounded-full landing-nav-label text-[10px] sm:text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                             >
-                                Get started <FiArrowRight />
+                                Get started <FiArrowRight size={14} className="sm:w-4 sm:h-4" />
                             </button>
                         </div>
                         </ScrollReveal>
 
-                        <ScrollReveal className="mt-12 overflow-hidden py-2" delay={500} distance={24}>
+                        <ScrollReveal className="mt-8 md:mt-12 overflow-hidden py-2" delay={500} distance={24}>
                             <div className="flex w-max landing-hero-ticker gap-8">
                                 {[...tickerItems, ...tickerItems].map((item, i) => (
                                     <span key={`${item}-${i}`} className="landing-nav-label text-xs landing-muted-text whitespace-nowrap">
@@ -119,7 +119,7 @@ const Landing = () => {
                             </div>
                         </ScrollReveal>
 
-                        <ScrollReveal className="xl:hidden mt-10 text-center" delay={550} amount={0.1}>
+                        <ScrollReveal className="xl:hidden mt-16 sm:mt-14 text-center" delay={550} amount={0.1}>
                             <p className="landing-nav-label text-xs landing-muted-text mb-3">How it works</p>
                             <div className="flex flex-wrap justify-center items-center gap-2 text-xs font-bold landing-body-text">
                                 {workflowSteps.map((item, i) => (
