@@ -2,29 +2,35 @@
 
 ```
 Learning-Tracker/
-├── src/                 # React app (frontend at repo root)
-├── public/              # Static assets for Vite
+├── client/              # React frontend (Vercel deploys this folder)
+│   ├── src/             # App source
+│   ├── public/          # Static assets
+│   ├── index.html       # Vite entry
+│   ├── vite.config.js
+│   ├── vercel.json
+│   └── package.json
 ├── server/              # Express API (Render deploys this folder)
-├── scripts/             # Repo utility scripts
-├── docs/                # Documentation
-├── package.json         # Frontend dependencies & dev scripts
-├── vite.config.js
-├── index.html
-└── vercel.json          # Vercel deploys repo root (frontend)
+│   ├── server.js        # Entry point
+│   ├── src/             # Controllers, models, routes, etc.
+│   ├── scripts/         # Maintenance scripts
+│   └── package.json
+├── docs/                  # Documentation
+├── scripts/               # Repo-level utilities
+└── package.json           # Dev scripts to run client + server
 ```
 
-## Frontend (repo root)
+## Frontend (`client/`)
 
 | Path | Purpose |
 |------|---------|
 | `src/app/` | App entry, routing |
 | `src/pages/` | Route screens |
-| `src/components/` | UI by feature (`layout`, `goals`, `dashboard`, `auth`, `landing`, `ui`) |
+| `src/components/` | UI by feature |
 | `src/context/` | React context |
 | `src/services/` | API client |
 | `src/styles/` | Global CSS |
 
-**Run:** `npm run dev` (port 3000)
+**Run:** `npm run dev --prefix client` (port 3000)
 
 ## Backend (`server/`)
 
@@ -45,12 +51,14 @@ Learning-Tracker/
 
 | Platform | Root directory | Build | Start |
 |----------|----------------|-------|-------|
-| **Vercel** | `.` (repo root) | `npm run build` | static |
+| **Vercel** | `client` | `npm run build` | static (`dist`) |
 | **Render** | `server` | `npm install` | `npm start` |
 
 ## Quick commands
 
 ```bash
-npm run install:all   # Install root + server deps
+npm run install:all   # Install root + server + client deps
 npm run dev           # Frontend + API together
+npm run dev:client    # Frontend only
+npm run dev:server    # API only
 ```

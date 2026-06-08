@@ -1,36 +1,40 @@
 # Learning Tracker
 
-Full-stack learning progress tracker — React UI at the repo root, Express API in `server/`.
+Full-stack learning progress tracker with a clear **client / server** layout.
+
+## Project layout
+
+```
+Learning-Tracker/
+├── client/          # React frontend (Vercel)
+├── server/          # Express API (Render)
+├── docs/            # Documentation
+└── package.json     # Run both apps from here
+```
 
 ## Tech stack
 
-**Frontend:** React (Vite), Tailwind CSS, React Router, Recharts, Axios  
-**Backend:** Node.js, Express, MongoDB, JWT, Nodemailer
+**Frontend (`client/`):** React, Vite, Tailwind CSS, React Router, Recharts, Axios  
+**Backend (`server/`):** Node.js, Express, MongoDB, JWT, Nodemailer
 
 ## Run locally
 
 ```bash
 npm run install:all
+cp server/.env.example server/.env   # first time — add MONGO_URI & JWT_SECRET
 npm run dev
 ```
 
 - App: http://localhost:3000  
 - API: http://localhost:5001/api  
 
-Copy `.env.example` → `.env` (frontend) and `server/.env.example` → `server/.env` (API).
-
-## Project layout
-
-```
-Learning-Tracker/
-├── src/          # React frontend (repo root)
-├── server/       # Express API
-└── docs/         # More detail
-```
-
-See [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md).
+Only `server/.env` is required for local dev. The client proxies `/api` to the server automatically.
 
 ## Deploy
 
-- **Vercel** — root directory: `.` (default)
-- **Render** — root directory: `server`, build: `npm install`, start: `npm start`
+| Platform | Root directory | Notes |
+|----------|----------------|-------|
+| **Vercel** | `client` | Build: `npm run build`, Output: `dist` |
+| **Render** | `server` | Build: `npm install`, Start: `npm start` |
+
+See [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) for more detail.
