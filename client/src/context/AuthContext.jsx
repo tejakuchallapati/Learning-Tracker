@@ -25,7 +25,7 @@ const clearStoredSession = () => {
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(() => readStoredSession());
-    const [loading, setLoading] = useState(() => Boolean(readStoredSession()));
+    const [loading] = useState(false);
 
     useEffect(() => {
         let cancelled = false;
@@ -33,20 +33,16 @@ export const AuthProvider = ({ children }) => {
 
         if (!stored) {
             setUser(null);
-            setLoading(false);
             return undefined;
         }
 
         const validateSession = async () => {
-            setLoading(true);
             try {
                 const { data } = await API.get('auth/me', { timeout: 8000 });
                 if (!cancelled) setUser(data);
             } catch {
                 clearStoredSession();
                 if (!cancelled) setUser(null);
-            } finally {
-                if (!cancelled) setLoading(false);
             }
         };
 

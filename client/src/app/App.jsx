@@ -25,13 +25,11 @@ import Admin from '../pages/Admin';
 import Sidebar from '../components/layout/Sidebar';
 import Navbar from '../components/layout/Navbar';
 import MobileNav from '../components/layout/MobileNav';
-import LoadingScreen from '../components/ui/LoadingScreen';
 import { DASHBOARD_MAIN } from '../components/layout/PageHeader';
 
 const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  if (loading) return <LoadingScreen message="Starting up" />;
   if (!user) {
     return <Navigate to="/login" replace />;
   }
@@ -39,18 +37,16 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const AdminRoute = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  if (loading) return <LoadingScreen message="Starting up" />;
   if (!user) return <Navigate to="/login" replace />;
   if (!user.isAdmin) return <Navigate to="/dashboard" replace />;
   return children;
 };
 
 const PublicRoute = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  if (loading) return <LoadingScreen message="Starting up" />;
   if (user) {
     return <Navigate to={user.isAdmin ? '/admin' : '/dashboard'} replace />;
   }

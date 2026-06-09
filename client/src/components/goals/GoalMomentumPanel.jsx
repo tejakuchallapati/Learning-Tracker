@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { FiZap, FiTrendingUp, FiCalendar } from 'react-icons/fi';
 import API from '../../services/api';
 import { readActivityCache, writeActivityCache } from '../../utils/goalsCache';
-import LoadingScreen from '../ui/LoadingScreen';
 
 const calcStreak = (days) => {
     if (!days?.length) return 0;
@@ -24,7 +23,6 @@ const weekRate = (days) => {
 const GoalMomentumPanel = ({ refreshKey = 0 }) => {
     const cached = readActivityCache();
     const [activity, setActivity] = useState(cached);
-    const [loading, setLoading] = useState(!cached);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -33,7 +31,6 @@ const GoalMomentumPanel = ({ refreshKey = 0 }) => {
         const fetchActivity = async () => {
             try {
                 setError('');
-                setLoading((prev) => prev || !readActivityCache());
                 const { data } = await API.get('daily-goals/activity', { timeout: 10000 });
                 if (!cancelled) {
                     setActivity(data);
@@ -42,10 +39,8 @@ const GoalMomentumPanel = ({ refreshKey = 0 }) => {
             } catch (err) {
                 console.error('Error fetching goal activity:', err);
                 if (!cancelled) {
-                    setError((e) => e || 'Could not load momentum. Try again in a moment.');
+                    setError('Could not load momentum. Try again in a moment.');
                 }
-            } finally {
-                if (!cancelled) setLoading(false);
             }
         };
 
@@ -56,10 +51,6 @@ const GoalMomentumPanel = ({ refreshKey = 0 }) => {
     const streak = useMemo(() => calcStreak(activity?.days), [activity]);
     const weekly = useMemo(() => weekRate(activity?.days), [activity]);
     const last7 = useMemo(() => activity?.days?.slice(-7) ?? [], [activity]);
-
-    if (loading && !activity) {
-        return <LoadingScreen message="Loading momentum" compact className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900" />;
-    }
 
     const ringRadius = 36;
     const circumference = 2 * Math.PI * ringRadius;
