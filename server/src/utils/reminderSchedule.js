@@ -2,8 +2,14 @@ const DEFAULT_TIMEZONE = process.env.REMINDER_TIMEZONE || 'Asia/Kolkata';
 
 const pad2 = (n) => String(n).padStart(2, '0');
 
+const hasReminderTime = (user) =>
+    Boolean(user?.reminderTime && /^\d{1,2}:\d{2}$/.test(user.reminderTime));
+
 /** Convert stored reminderTime + reminderAmPm to 24-hour parts. */
-const to24HourParts = (reminderTime = '20:00', reminderAmPm = 'PM') => {
+const to24HourParts = (reminderTime, reminderAmPm = 'AM') => {
+    if (!reminderTime) {
+        return null;
+    }
     const [rawH, rawM] = reminderTime.split(':').map(Number);
     let hour = Number.isFinite(rawH) ? rawH : 20;
     const minute = Number.isFinite(rawM) ? rawM : 0;
@@ -23,8 +29,12 @@ const to24HourParts = (reminderTime = '20:00', reminderAmPm = 'PM') => {
 };
 
 /** Persist a single canonical 24h time string + matching AM/PM for the UI. */
-const normalizeReminderStorage = (reminderTime = '20:00', reminderAmPm = 'PM') => {
-    const { hour, minute } = to24HourParts(reminderTime, reminderAmPm);
+const normalizeReminderStorage = (reminderTime, reminderAmPm = 'AM') => {
+    const parts = to24HourParts(reminderTime, reminderAmPm);
+    if (!parts) {
+        return { reminderTime: undefined, reminderAmPm: undefined };
+    }
+    const { hour, minute } = parts;
     const reminderTime24 = `${pad2(hour)}:${pad2(minute)}`;
     const amPm = hour >= 12 ? 'PM' : 'AM';
     return { reminderTime: reminderTime24, reminderAmPm: amPm };
@@ -68,7 +78,14 @@ const minutesSinceMidnight = (hour, minute) => hour * 60 + minute;
 
 /** True once local clock has reached the user's preferred reminder time today. */
 const isReminderDue = (user, localNow = getLocalNow()) => {
-    const { hour, minute } = to24HourParts(user.reminderTime, user.reminderAmPm);
+    if (!hasReminderTime(user)) {
+        return false;
+    }
+    const parts = to24HourParts(user.reminderTime, user.reminderAmPm);
+    if (!parts) {
+        return false;
+    }
+    const { hour, minute } = parts;
     const preferred = minutesSinceMidnight(hour, minute);
     const current = minutesSinceMidnight(localNow.hour, localNow.minute);
     return current >= preferred;
@@ -81,6 +98,7 @@ const wasReminderSentToday = (user, localNow = getLocalNow()) => {
 
 module.exports = {
     DEFAULT_TIMEZONE,
+    hasReminderTime,
     to24HourParts,
     normalizeReminderStorage,
     getLocalNow,

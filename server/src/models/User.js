@@ -46,11 +46,9 @@ const userSchema = mongoose.Schema(
         },
         reminderTime: {
             type: String,
-            default: '20:00',
         },
         reminderAmPm: {
             type: String,
-            default: 'PM',
         },
         lastReminderSent: {
             type: Date,

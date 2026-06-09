@@ -211,6 +211,10 @@ const updateDailyGoal = asyncHandler(async (req, res) => {
         { new: true }
     );
 
+    if (req.body.emailReminders === true && !goal.emailReminders) {
+        await User.findByIdAndUpdate(req.user.id, { lastReminderSent: undefined });
+    }
+
     if (req.body.completed === true && goal.completed === false) {
         await logGoalCompletion(req.user.id, goal._id);
     } else if (req.body.completed === false && goal.completed === true) {

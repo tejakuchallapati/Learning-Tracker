@@ -60,8 +60,9 @@ app.use('/api/daily-goals', require('./src/routes/dailyGoalRoutes'));
 app.use('/api/notes', require('./src/routes/noteRoutes'));
 app.use('/api/feedback', require('./src/routes/feedbackRoutes'));
 app.use('/api/admin', require('./src/routes/adminRoutes'));
+app.use('/api/cron', require('./src/routes/cronRoutes'));
 
-// Initialize cron jobs
+// Initialize cron jobs (also exposed at POST /api/cron/reminders for hosted cron pings)
 const mongoose = require('mongoose');
 const { checkAndSendReminders } = require('./src/utils/cronJobs');
 

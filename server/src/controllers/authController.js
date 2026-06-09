@@ -118,6 +118,7 @@ const googleLogin = asyncHandler(async (req, res) => {
         console.log('Google Auth Success for:', email);
 
         let user = await User.findOne({ email });
+        let isNewUser = false;
 
         if (!user) {
             console.log('Creating new user from Google account');
@@ -127,6 +128,7 @@ const googleLogin = asyncHandler(async (req, res) => {
                     email,
                     googleId,
                 });
+                isNewUser = true;
             } catch (createErr) {
                 if (createErr.code === 11000) {
                     user = await User.findOne({ email });
@@ -205,22 +207,29 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         user.specialization = req.body.specialization || user.specialization;
         user.role = req.body.role || user.role;
 
-        if (req.body.emailNotification !== undefined) {
-            user.emailNotification = req.body.emailNotification;
-        }
-        if (req.body.streakAlertNotification !== undefined) {
-            user.streakAlertNotification = req.body.streakAlertNotification;
-        }
         if (req.body.pushNotification !== undefined) {
             user.pushNotification = req.body.pushNotification;
         }
         if (req.body.reminderTime !== undefined || req.body.reminderAmPm !== undefined) {
-            const normalized = normalizeReminderStorage(
-                req.body.reminderTime ?? user.reminderTime,
-                req.body.reminderAmPm ?? user.reminderAmPm
-            );
-            user.reminderTime = normalized.reminderTime;
-            user.reminderAmPm = normalized.reminderAmPm;
+            const rawTime = req.body.reminderTime ?? user.reminderTime;
+            if (!rawTime) {
+                user.reminderTime = undefined;
+                user.reminderAmPm = undefined;
+                user.lastReminderSent = undefined;
+            } else {
+                const normalized = normalizeReminderStorage(
+                    rawTime,
+                    req.body.reminderAmPm ?? user.reminderAmPm ?? 'AM'
+                );
+                const timeChanged =
+                    normalized.reminderTime !== user.reminderTime ||
+                    normalized.reminderAmPm !== user.reminderAmPm;
+                user.reminderTime = normalized.reminderTime;
+                user.reminderAmPm = normalized.reminderAmPm;
+                if (timeChanged) {
+                    user.lastReminderSent = undefined;
+                }
+            }
         }
 
         if (req.body.password) {

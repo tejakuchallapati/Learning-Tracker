@@ -1,7 +1,10 @@
 const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
-    // Create a transporter
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        throw new Error('EMAIL_USER and EMAIL_PASS must be set in server/.env');
+    }
+
     const transporter = nodemailer.createTransport({
         service: 'Gmail', // or another service
         auth: {
