@@ -164,7 +164,7 @@ const Landing = () => {
                         <p className="landing-accent-text landing-nav-label text-xs mt-3 sm:hidden">Tap any module to preview</p>
                     </ScrollReveal>
 
-                    <div className="flex flex-col items-center gap-1 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-5 md:gap-6 sm:items-stretch w-full">
+                    <div className="flex flex-col items-center gap-2 max-sm:px-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-5 md:gap-6 sm:items-stretch w-full">
                         {modules.map((mod, index) => {
                             const isActive = activeModule === mod.id;
                             const isBlurred = activeModule && !isActive;
@@ -194,7 +194,7 @@ const Landing = () => {
                                     className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 overflow-hidden ${
                                         isActive
                                             ? 'w-full min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem]'
-                                            : 'w-[min(62vw,10.25rem)] aspect-square sm:w-full sm:aspect-auto max-sm:hover:-translate-y-1 max-sm:active:scale-[0.98]'
+                                            : 'w-[min(calc(100vw-3rem),16.5rem)] aspect-square mx-auto sm:mx-0 sm:w-full sm:max-w-none sm:aspect-auto max-sm:hover:-translate-y-1 max-sm:active:scale-[0.98]'
                                     } ${
                                         !isActive && !isBlurred ? 'landing-module-float' : ''
                                     } ${
@@ -233,24 +233,24 @@ const Landing = () => {
                                             </button>
                                         </div>
                                     ) : (
-                                        <div className="p-3 sm:p-6 md:p-7 flex flex-col h-full min-h-0 justify-between">
+                                        <div className="p-4 sm:p-6 md:p-7 flex flex-col h-full min-h-0 justify-between">
                                             <div className="min-w-0">
-                                                <span className="text-[9px] sm:hidden font-black landing-muted-text tabular-nums mb-1.5 block">
+                                                <span className="text-[10px] sm:hidden font-black landing-muted-text tabular-nums mb-2 block">
                                                     {String(index + 1).padStart(2, '0')}
                                                 </span>
-                                                <div className="mb-2 sm:mb-5 group-hover:scale-105 transition-transform w-fit">
+                                                <div className="mb-2.5 sm:mb-5 group-hover:scale-105 transition-transform w-fit">
                                                     <LandingModuleIcon moduleId={mod.id} size="mobile" className="sm:hidden" />
                                                     <LandingModuleIcon moduleId={mod.id} className="hidden sm:inline-flex" />
                                                 </div>
-                                                <h3 className="landing-display text-[11px] sm:text-lg landing-heading-text mb-1 sm:mb-2 !tracking-tight leading-tight break-words line-clamp-2 sm:line-clamp-none">
+                                                <h3 className="landing-display text-xs sm:text-lg landing-heading-text mb-1.5 sm:mb-2 !tracking-tight leading-tight break-words line-clamp-2 sm:line-clamp-none">
                                                     {mod.title}
                                                 </h3>
-                                                <p className="text-[10px] sm:text-sm landing-body-text font-medium leading-snug sm:leading-relaxed line-clamp-2 sm:line-clamp-none sm:flex-1 sm:mb-5">
+                                                <p className="text-[11px] sm:text-sm landing-body-text font-medium leading-snug sm:leading-relaxed line-clamp-3 sm:line-clamp-none sm:flex-1 sm:mb-5">
                                                     {mod.desc}
                                                 </p>
                                             </div>
-                                            <span className="landing-nav-label text-[9px] sm:text-xs landing-accent-text flex items-center gap-1 shrink-0 mt-1.5 sm:mt-0">
-                                                Tap to preview <FiArrowRight size={10} className="sm:w-3.5 sm:h-3.5" />
+                                            <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center gap-1 shrink-0 mt-2 sm:mt-0">
+                                                Tap to preview <FiArrowRight size={11} className="sm:w-3.5 sm:h-3.5" />
                                             </span>
                                         </div>
                                     )}

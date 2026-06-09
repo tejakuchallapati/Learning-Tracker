@@ -36,7 +36,7 @@ const moduleConfig = {
 
 const sizeStyles = {
     compact: { box: 'w-9 h-9 rounded-lg', icon: 'w-4 h-4' },
-    mobile: { box: 'w-10 h-10 rounded-xl', icon: 'w-5 h-5' },
+    mobile: { box: 'w-11 h-11 rounded-xl', icon: 'w-5 h-5' },
     default: { box: 'w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl', icon: 'w-5 h-5 sm:w-7 sm:h-7' },
 };
 

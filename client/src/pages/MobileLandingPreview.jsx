@@ -48,14 +48,14 @@ const MobileLandingPreview = () => (
                         <p className="landing-accent-text landing-nav-label text-xs mt-2">Tap any module to preview</p>
                     </div>
 
-                    <div className="flex flex-col items-center gap-1 w-full">
+                    <div className="flex flex-col items-center gap-2 px-4 w-full">
                         {modules.map((mod, index) => (
                             <div key={mod.id} className="w-full flex flex-col items-center">
                                 <article
                                     style={{ animationDelay: `${index * 0.35}s` }}
-                                    className="group relative rounded-2xl landing-card-dark flex flex-col cursor-default overflow-hidden w-[min(62vw,10.25rem)] aspect-square landing-module-float border border-white/10 hover:border-sky-400/40"
+                                    className="group relative rounded-2xl landing-card-dark flex flex-col cursor-default overflow-hidden w-[min(calc(100%-2rem),16.5rem)] aspect-square mx-auto landing-module-float border border-white/10 hover:border-sky-400/40"
                                 >
-                                    <div className="p-3 flex flex-col h-full min-h-0 justify-between">
+                                    <div className="p-4 flex flex-col h-full min-h-0 justify-between">
                                         <div className="min-w-0">
                                             <span className="text-[9px] font-black landing-muted-text tabular-nums mb-1.5 block">
                                                 {String(index + 1).padStart(2, '0')}
@@ -63,10 +63,10 @@ const MobileLandingPreview = () => (
                                             <div className="mb-2 w-fit">
                                                 <LandingModuleIcon moduleId={mod.id} size="mobile" />
                                             </div>
-                                            <h3 className="landing-display text-[11px] landing-heading-text mb-1 !tracking-tight leading-tight break-words line-clamp-2">
+                                            <h3 className="landing-display text-xs landing-heading-text mb-1.5 !tracking-tight leading-tight break-words line-clamp-2">
                                                 {mod.title}
                                             </h3>
-                                            <p className="text-[10px] landing-body-text font-medium leading-snug line-clamp-2">
+                                            <p className="text-[11px] landing-body-text font-medium leading-snug line-clamp-3">
                                                 {mod.desc}
                                             </p>
                                         </div>
