@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import API from '../../services/api';
 import { readGoalsCache, writeGoalsCache } from '../../utils/goalsCache';
-import LoadingScreen from '../ui/LoadingScreen';
 import { FiCheckCircle, FiCircle, FiBell, FiTrash2, FiPlus } from 'react-icons/fi';
 
 const DailyGoalsSection = ({ onGoalsChange }) => {
@@ -15,7 +14,11 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
 
     const showReminderNotice = (enabled) => {
         if (noticeTimeoutRef.current) clearTimeout(noticeTimeoutRef.current);
-        setReminderNotice(enabled ? 'Email reminders are on' : 'Email reminders are off');
+        setReminderNotice(
+            enabled
+                ? 'Reminders on — set your send time in Settings if you have not yet'
+                : 'Email reminders are off'
+        );
         noticeTimeoutRef.current = setTimeout(() => setReminderNotice(null), 3000);
     };
 
@@ -156,9 +159,13 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
                 </button>
             </form>
 
-            <div className="space-y-1.5 max-h-36 overflow-y-auto pr-0.5">
+            <div className="space-y-1.5 max-h-56 overflow-y-auto pr-0.5">
                 {loading && goals.length === 0 ? (
-                    <LoadingScreen message="Loading goals" compact className="rounded-xl" />
+                    <div className="space-y-1.5" aria-hidden>
+                        {[0, 1, 2].map((i) => (
+                            <div key={i} className="h-9 rounded-lg bg-slate-100 dark:bg-slate-800 animate-pulse" />
+                        ))}
+                    </div>
                 ) : goals.length === 0 ? (
                     <div className="text-center py-6 bg-slate-50 dark:bg-slate-950 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
                         <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wide">NO GOALS YET</p>

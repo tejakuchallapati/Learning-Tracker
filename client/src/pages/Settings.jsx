@@ -6,19 +6,16 @@ import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 import ReportIssueForm from '../components/feedback/ReportIssueForm';
 
 const Settings = () => {
-    const { user, updateProfile, refreshUser } = useContext(AuthContext);
+    const { user, updateProfile } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         name: user?.name || '',
         email: user?.email || '',
     });
 
-    const [notifications, setNotifications] = useState({
-        email: user?.emailNotification !== undefined ? user.emailNotification : true,
-    });
     const [saved, setSaved] = useState(false);
     const [saveError, setSaveError] = useState('');
-    const [amPm, setAmPm] = useState(user?.reminderAmPm || 'PM');
-    const [reminderTime, setReminderTime] = useState(user?.reminderTime || '20:00');
+    const [amPm, setAmPm] = useState(user?.reminderAmPm || 'AM');
+    const [reminderTime, setReminderTime] = useState(user?.reminderTime || '');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
@@ -30,9 +27,8 @@ const Settings = () => {
         return JSON.stringify({
             name: user.name || '',
             email: user.email || '',
-            emailNotification: user.emailNotification !== undefined ? user.emailNotification : true,
-            reminderTime: user.reminderTime || '20:00',
-            reminderAmPm: user.reminderAmPm || 'PM',
+            reminderTime: user.reminderTime || '',
+            reminderAmPm: user.reminderAmPm || 'AM',
         });
     }, [user]);
 
@@ -41,12 +37,11 @@ const Settings = () => {
         const current = JSON.stringify({
             name: formData.name,
             email: formData.email,
-            emailNotification: notifications.email,
             reminderTime,
             reminderAmPm: amPm,
         });
         return current !== savedSnapshot;
-    }, [savedSnapshot, formData, notifications, reminderTime, amPm]);
+    }, [savedSnapshot, formData, reminderTime, amPm]);
 
     useEffect(() => {
         if (user) {
@@ -54,17 +49,10 @@ const Settings = () => {
                 name: user.name || '',
                 email: user.email || '',
             });
-            setNotifications({
-                email: user.emailNotification !== undefined ? user.emailNotification : true,
-            });
-            setAmPm(user.reminderAmPm || 'PM');
-            setReminderTime(user.reminderTime || '20:00');
+            setAmPm(user.reminderAmPm || 'AM');
+            setReminderTime(user.reminderTime || '');
         }
     }, [user]);
-
-    useEffect(() => {
-        refreshUser?.();
-    }, [refreshUser]);
 
     useEffect(() => {
         const hash = window.location.hash.replace('#', '');
@@ -86,6 +74,7 @@ const Settings = () => {
     const amPmFromTime = (time24) => (parseInt(time24.split(':')[0], 10) >= 12 ? 'PM' : 'AM');
 
     const handleAmPmChange = (value) => {
+        if (!reminderTime) return;
         setAmPm(value);
         setReminderTime((prev) => applyAmPmToTime(prev, value));
     };
@@ -93,6 +82,7 @@ const Settings = () => {
     const handleTimeChange = (value) => {
         setReminderTime(value);
         setAmPm(amPmFromTime(value));
+        if (value) setSaveError('');
     };
 
     const handleSetPassword = async () => {
@@ -127,10 +117,7 @@ const Settings = () => {
         try {
             await updateProfile({
                 ...formData,
-                emailNotification: notifications.email,
-                streakAlertNotification: notifications.email,
-                reminderTime,
-                reminderAmPm: amPm,
+                ...(reminderTime ? { reminderTime, reminderAmPm: amPm } : { reminderTime: '', reminderAmPm: '' }),
             });
             setSaved(true);
             setTimeout(() => setSaved(false), 3000);
@@ -273,27 +260,16 @@ const Settings = () => {
                     Email reminders
                 </h3>
 
-                <div className="flex items-center justify-between gap-4 py-1">
-                    <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-bold text-slate-900 dark:text-white">Daily digest</h4>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">One email for incomplete goals with the bell on.</p>
-                    </div>
-                    <button
-                        type="button"
-                        onClick={() => setNotifications((p) => ({ ...p, email: !p.email }))}
-                        className={`w-12 h-7 rounded-full transition-all relative shrink-0 ${notifications.email ? 'bg-sky-600' : 'bg-slate-200 dark:bg-slate-800'}`}
-                        aria-pressed={notifications.email}
-                    >
-                        <div className={`absolute top-1 w-5 h-5 bg-white rounded-full transition-all shadow-sm ${notifications.email ? 'left-6' : 'left-1'}`} />
-                    </button>
-                </div>
-
-                <div className="h-px bg-slate-100 dark:bg-slate-800" />
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Set when you want reminder emails. On Daily Goals, turn on the bell for each goal you want included.
+                </p>
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                         <h4 className="text-sm font-bold text-slate-900 dark:text-white">Send at</h4>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">IST — save to apply</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            {reminderTime ? 'IST — save to apply' : 'Pick a time — no default until you save'}
+                        </p>
                     </div>
                     <div className="flex items-center bg-slate-50 dark:bg-slate-800 rounded-xl p-2 gap-2 border border-slate-200 dark:border-slate-700 shrink-0">
                         <input

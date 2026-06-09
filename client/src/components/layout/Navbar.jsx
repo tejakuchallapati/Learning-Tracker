@@ -55,8 +55,7 @@ const Navbar = () => {
         navigate(`/roadmap/${id}`);
     };
 
-    const emailRemindersOn = user?.emailNotification !== false;
-    const streakInDigestOn = user?.streakAlertNotification !== false;
+    const hasReminderTime = Boolean(user?.reminderTime);
 
     return (
         <>
@@ -108,7 +107,7 @@ const Navbar = () => {
                         aria-expanded={showNotifications}
                     >
                         <FiBell size={20} />
-                        {emailRemindersOn && (
+                        {hasReminderTime && (
                             <span className="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full border-2 border-white dark:border-slate-950" />
                         )}
                     </button>
@@ -116,24 +115,15 @@ const Navbar = () => {
                     {showNotifications && (
                         <div className="absolute top-full right-0 mt-3 w-72 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 z-50 animate-in fade-in slide-in-from-top-2 text-slate-900">
                             <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Reminders</p>
-                            <div className="space-y-3 text-sm">
-                                <div className="flex items-center justify-between gap-3">
-                                    <span className="font-semibold text-slate-700">Email digest</span>
-                                    <span className={`text-xs font-bold px-2 py-1 rounded-full ${emailRemindersOn ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
-                                        {emailRemindersOn ? 'On' : 'Off'}
-                                    </span>
-                                </div>
-                                <div className="flex items-center justify-between gap-3">
-                                    <span className="font-semibold text-slate-700">Streak in digest</span>
-                                    <span className={`text-xs font-bold px-2 py-1 rounded-full ${streakInDigestOn ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
-                                        {streakInDigestOn ? 'On' : 'Off'}
-                                    </span>
-                                </div>
-                                {user?.reminderTime && (
-                                    <p className="text-xs text-slate-500 font-medium">
-                                        Daily email at {user.reminderTime} {user.reminderAmPm || ''} (IST)
-                                    </p>
-                                )}
+                            <div className="space-y-2 text-sm">
+                                <p className="text-xs text-slate-500 font-medium">
+                                    {user?.reminderTime
+                                        ? `Reminders at ${user.reminderTime} ${user.reminderAmPm || ''} (IST)`
+                                        : 'Set your reminder time in Settings'}
+                                </p>
+                                <p className="text-xs text-slate-500 font-medium">
+                                    Turn on the bell on each daily goal to receive emails.
+                                </p>
                             </div>
                             <button
                                 type="button"
