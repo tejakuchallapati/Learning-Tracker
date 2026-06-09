@@ -12,8 +12,8 @@ export const sidebarNavItems = [
 
 export const mobileNavItems = [
     { name: 'Home', path: '/dashboard', icon: 'dashboard' },
-    { name: 'Roadmaps', path: '/courses', icon: 'roadmaps' },
+    { name: 'Tracks', path: '/courses', icon: 'roadmaps' },
     { name: 'Goals', path: '/goals', icon: 'goals' },
-    { name: 'Insights', path: '/analytics', icon: 'insights' },
-    { name: 'Settings', path: '/settings', icon: 'settings' },
+    { name: 'Stats', path: '/analytics', icon: 'insights' },
+    { name: 'Setup', path: '/settings', icon: 'settings' },
 ];

@@ -9,7 +9,7 @@ const MobileNav = () => {
             className="font-nav md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
             aria-label="Main navigation"
         >
-            <div className="grid grid-cols-5 gap-2 max-w-lg mx-auto">
+            <div className="grid grid-cols-5 gap-1 max-w-lg mx-auto">
                 {mobileNavItems.map((item) => (
                     <NavLink
                         key={item.name}
@@ -24,7 +24,7 @@ const MobileNav = () => {
                                     active={isActive}
                                     compact
                                 />
-                                <span className={`text-xs max-[380px]:text-xs tracking-tight text-center leading-tight max-w-full truncate w-full px-0.5 ${navLabelClass(isActive)}`}>
+                                <span className={`text-[10px] sm:text-xs tracking-tight text-center leading-tight w-full px-0.5 whitespace-nowrap ${navLabelClass(isActive)}`}>
                                     {item.name}
                                 </span>
                             </>

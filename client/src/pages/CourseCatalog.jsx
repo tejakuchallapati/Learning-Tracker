@@ -19,12 +19,12 @@ const CourseCatalog = () => {
     });
 
     return (
-        <div className="w-full min-h-[calc(100dvh-5rem)] max-md:min-h-[calc(100dvh-8.5rem)] flex flex-col pt-3 md:pt-4 pb-3 md:pb-4">
+        <div className="w-full min-h-[calc(100dvh-5rem)] max-md:min-h-[calc(100dvh-8.5rem)] flex flex-col pt-3 md:pt-4 pb-3 md:pb-4 min-w-0 overflow-x-hidden">
             <PageHeader
                 title="Mastery Tracks"
                 description="Systematic learning paths engineered for rapid technical progression."
                 actions={(
-                    <div className="flex flex-wrap gap-1.5 bg-slate-50 dark:bg-slate-900 p-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <div className="flex flex-nowrap sm:flex-wrap gap-1.5 bg-slate-50 dark:bg-slate-900 p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto max-w-full [-webkit-overflow-scrolling:touch]">
                         {categories.map((cat) => (
                             <button
                                 key={cat}
@@ -43,11 +43,11 @@ const CourseCatalog = () => {
                 )}
             />
 
-            <div className="grid flex-1 grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-3 md:gap-4 w-full min-h-0 auto-rows-fr">
+            <div className="grid flex-1 grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-2 sm:gap-3 md:gap-4 w-full min-h-0 auto-rows-fr">
                 {filteredCourses.map(course => (
                     <div
                         key={course.id}
-                        className="bg-white group rounded-xl p-4 md:p-5 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col h-full min-h-0 relative overflow-hidden border border-slate-200 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10 shadow-sm"
+                        className="bg-white group rounded-xl p-3 sm:p-4 md:p-5 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col h-full min-h-0 relative overflow-hidden border border-slate-200 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10 shadow-sm max-md:aspect-square"
                         onClick={() => navigate(`/roadmap/${course.id}`)}
                     >
                         <div className="absolute -top-8 -right-8 w-24 h-24 bg-violet-500/5 rounded-full group-hover:scale-150 transition-transform duration-700 blur-2xl pointer-events-none" />
@@ -62,7 +62,7 @@ const CourseCatalog = () => {
                             <span className="inline-flex w-fit items-center px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-[0.15em] bg-violet-50 text-violet-600 mb-2 border border-violet-100">
                                 {course.category}
                             </span>
-                            <h3 className="text-base font-black text-slate-900 group-hover:text-violet-600 transition-colors leading-tight">{course.title}</h3>
+                            <h3 className="text-sm sm:text-base font-black text-slate-900 group-hover:text-violet-600 transition-colors leading-tight break-words line-clamp-2">{course.title}</h3>
                             <p className="text-slate-500 mt-1.5 text-xs font-semibold leading-relaxed line-clamp-2">{course.description}</p>
 
                             <div className="mt-3 flex flex-wrap gap-1.5">

@@ -164,7 +164,7 @@ const Landing = () => {
                         <p className="landing-accent-text landing-nav-label text-xs mt-3 sm:hidden">Tap any module to preview</p>
                     </ScrollReveal>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">
                         {modules.map((mod, index) => {
                             const isActive = activeModule === mod.id;
                             const isBlurred = activeModule && !isActive;
@@ -189,8 +189,10 @@ const Landing = () => {
                                             focusModule(mod.id);
                                         }
                                     }}
-                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 ${
-                                        previewOpen ? 'min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem]' : ''
+                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 overflow-hidden ${
+                                        isActive
+                                            ? 'min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem] col-span-2 sm:col-span-1'
+                                            : 'max-sm:aspect-square'
                                     } ${
                                         isActive
                                             ? 'border-sky-400/60 shadow-xl shadow-sky-500/20 ring-2 ring-sky-500/20 z-20'
@@ -227,14 +229,15 @@ const Landing = () => {
                                             </button>
                                         </div>
                                     ) : (
-                                        <div className="p-4 sm:p-6 md:p-7 flex flex-col h-full">
-                                            <div className="landing-icon-chip w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-4 sm:mb-5 group-hover:scale-105 transition-transform">
-                                                <NavIcon name={mod.icon} size={26} active className="text-sky-300" />
+                                        <div className="p-3 sm:p-6 md:p-7 flex flex-col h-full min-h-0">
+                                            <div className="landing-icon-chip w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mb-2 sm:mb-5 group-hover:scale-105 transition-transform shrink-0">
+                                                <NavIcon name={mod.icon} size={22} active className="text-sky-300 sm:hidden" />
+                                                <NavIcon name={mod.icon} size={26} active className="text-sky-300 hidden sm:block" />
                                             </div>
-                                            <h3 className="landing-display text-base sm:text-lg landing-heading-text mb-1.5 sm:mb-2 !tracking-tight">{mod.title}</h3>
-                                            <p className="text-sm landing-body-text font-medium leading-relaxed flex-1 mb-3 sm:mb-5">{mod.desc}</p>
-                                            <span className="landing-nav-label text-xs landing-accent-text flex items-center gap-1.5">
-                                                Tap to preview <FiArrowRight size={14} />
+                                            <h3 className="landing-display text-xs sm:text-lg landing-heading-text mb-1 sm:mb-2 !tracking-tight leading-tight break-words">{mod.title}</h3>
+                                            <p className="text-[11px] sm:text-sm landing-body-text font-medium leading-snug sm:leading-relaxed flex-1 mb-2 sm:mb-5 line-clamp-3 sm:line-clamp-none">{mod.desc}</p>
+                                            <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center gap-1 shrink-0">
+                                                Tap to preview <FiArrowRight size={12} className="sm:w-3.5 sm:h-3.5" />
                                             </span>
                                         </div>
                                     )}
