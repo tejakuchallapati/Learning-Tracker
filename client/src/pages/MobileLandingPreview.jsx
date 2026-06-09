@@ -50,16 +50,18 @@ const MobileLandingPreview = () => (
                                 className="rounded-2xl landing-card-dark border border-white/10 overflow-hidden w-full"
                             >
                                 <div className="p-4 flex flex-col">
-                                    <div className="mb-3 w-fit">
-                                        <LandingModuleIcon moduleId={mod.id} size="default" />
+                                    <div className="flex items-center gap-3">
+                                        <div className="shrink-0">
+                                            <LandingModuleIcon moduleId={mod.id} size="default" />
+                                        </div>
+                                        <h3 className="flex-1 min-w-0 landing-display text-sm landing-heading-text !tracking-tight leading-tight break-words">
+                                            {mod.title}
+                                        </h3>
                                     </div>
-                                    <h3 className="landing-display text-sm landing-heading-text mb-1.5 !tracking-tight leading-tight break-words">
-                                        {mod.title}
-                                    </h3>
-                                    <p className="text-xs landing-body-text font-medium leading-relaxed mb-2">
+                                    <p className="text-xs landing-body-text font-medium leading-relaxed text-center mt-2 mb-3">
                                         {mod.desc}
                                     </p>
-                                    <span className="landing-nav-label text-[10px] landing-accent-text flex items-center gap-1">
+                                    <span className="landing-nav-label text-[10px] landing-accent-text flex items-center justify-center gap-1">
                                         Tap to preview <FiArrowRight size={11} />
                                     </span>
                                 </div>

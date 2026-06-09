@@ -229,16 +229,18 @@ const Landing = () => {
                                         </div>
                                     ) : (
                                         <div className="p-4 sm:p-6 md:p-7 flex flex-col">
-                                            <div className="mb-3 sm:mb-5 group-hover:scale-105 transition-transform w-fit">
-                                                <LandingModuleIcon moduleId={mod.id} size="default" />
+                                            <div className="flex items-center gap-3 sm:block sm:mb-0">
+                                                <div className="shrink-0 group-hover:scale-105 transition-transform sm:mb-5">
+                                                    <LandingModuleIcon moduleId={mod.id} size="default" />
+                                                </div>
+                                                <h3 className="flex-1 min-w-0 landing-display text-sm sm:text-lg landing-heading-text sm:mb-2 !tracking-tight leading-tight break-words">
+                                                    {mod.title}
+                                                </h3>
                                             </div>
-                                            <h3 className="landing-display text-sm sm:text-lg landing-heading-text mb-1.5 sm:mb-2 !tracking-tight leading-tight break-words">
-                                                {mod.title}
-                                            </h3>
-                                            <p className="text-xs sm:text-sm landing-body-text font-medium leading-relaxed mb-2 sm:mb-5 sm:flex-1">
+                                            <p className="text-xs sm:text-sm landing-body-text font-medium leading-relaxed text-center sm:text-left mt-2 sm:mt-0 mb-3 sm:mb-5 sm:flex-1">
                                                 {mod.desc}
                                             </p>
-                                            <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center gap-1 shrink-0">
+                                            <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center justify-center sm:justify-start gap-1 shrink-0">
                                                 <span className="sm:hidden">Tap to preview</span>
                                                 <span className="hidden sm:inline">Click to preview</span>
                                                 <FiArrowRight size={11} className="sm:w-3.5 sm:h-3.5" />
