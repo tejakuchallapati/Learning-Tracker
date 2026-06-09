@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowRight, FiX } from 'react-icons/fi';
 import { Header } from '../components/ui/header-2';
-import NavIcon from '../components/icons/NavIcon';
+import LandingModuleIcon from '../components/landing/LandingModuleIcon';
 import SignupForm from '../components/auth/SignupForm';
 import ModulePreview from '../components/landing/ModulePreview';
 import ScrollReveal from '../components/landing/ScrollReveal';
@@ -164,7 +164,7 @@ const Landing = () => {
                         <p className="landing-accent-text landing-nav-label text-xs mt-3 sm:hidden">Tap any module to preview</p>
                     </ScrollReveal>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6 max-w-xl sm:max-w-none mx-auto">
                         {modules.map((mod, index) => {
                             const isActive = activeModule === mod.id;
                             const isBlurred = activeModule && !isActive;
@@ -189,10 +189,10 @@ const Landing = () => {
                                             focusModule(mod.id);
                                         }
                                     }}
-                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 overflow-hidden ${
+                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 overflow-hidden w-full ${
                                         isActive
-                                            ? 'min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem] col-span-2 sm:col-span-1'
-                                            : 'max-sm:aspect-square'
+                                            ? 'min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem]'
+                                            : ''
                                     } ${
                                         isActive
                                             ? 'border-sky-400/60 shadow-xl shadow-sky-500/20 ring-2 ring-sky-500/20 z-20'
@@ -205,7 +205,7 @@ const Landing = () => {
                                         <div className="absolute inset-0 z-10 flex flex-col p-4 md:p-5 rounded-2xl landing-card-dark">
                                             <div className="flex items-center justify-between gap-2 mb-3">
                                                 <div className="flex items-center gap-2 min-w-0">
-                                                    <NavIcon name={mod.icon} size={20} active compact />
+                                                    <LandingModuleIcon moduleId={mod.id} compact />
                                                     <h3 className="landing-display text-sm landing-heading-text !tracking-tight truncate">{mod.title}</h3>
                                                 </div>
                                                 <button
@@ -229,16 +229,22 @@ const Landing = () => {
                                             </button>
                                         </div>
                                     ) : (
-                                        <div className="p-3 sm:p-6 md:p-7 flex flex-col h-full min-h-0">
-                                            <div className="landing-icon-chip w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mb-2 sm:mb-5 group-hover:scale-105 transition-transform shrink-0">
-                                                <NavIcon name={mod.icon} size={22} active className="text-sky-300 sm:hidden" />
-                                                <NavIcon name={mod.icon} size={26} active className="text-sky-300 hidden sm:block" />
+                                        <div className="p-4 sm:p-6 md:p-7 flex flex-row sm:flex-col gap-4 sm:gap-0 h-full min-h-0 items-start">
+                                            <div className="flex flex-col items-center gap-1 shrink-0 sm:mb-5">
+                                                <span className="text-[10px] font-black landing-muted-text sm:hidden tabular-nums">
+                                                    {String(index + 1).padStart(2, '0')}
+                                                </span>
+                                                <div className="group-hover:scale-105 transition-transform">
+                                                    <LandingModuleIcon moduleId={mod.id} />
+                                                </div>
                                             </div>
-                                            <h3 className="landing-display text-xs sm:text-lg landing-heading-text mb-1 sm:mb-2 !tracking-tight leading-tight break-words">{mod.title}</h3>
-                                            <p className="text-[11px] sm:text-sm landing-body-text font-medium leading-snug sm:leading-relaxed flex-1 mb-2 sm:mb-5 line-clamp-3 sm:line-clamp-none">{mod.desc}</p>
-                                            <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center gap-1 shrink-0">
-                                                Tap to preview <FiArrowRight size={12} className="sm:w-3.5 sm:h-3.5" />
-                                            </span>
+                                            <div className="flex-1 min-w-0 flex flex-col sm:flex-1">
+                                                <h3 className="landing-display text-sm sm:text-lg landing-heading-text mb-1 sm:mb-2 !tracking-tight leading-tight break-words">{mod.title}</h3>
+                                                <p className="text-xs sm:text-sm landing-body-text font-medium leading-relaxed flex-1 mb-2 sm:mb-5">{mod.desc}</p>
+                                                <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center gap-1 shrink-0">
+                                                    Tap to preview <FiArrowRight size={12} className="sm:w-3.5 sm:h-3.5" />
+                                                </span>
+                                            </div>
                                         </div>
                                     )}
                                 </article>
@@ -254,23 +260,23 @@ const Landing = () => {
                         distance={48}
                         amount={0.2}
                     >
-                        <div className="text-center mb-8 sm:mb-14 md:mb-20 px-1">
-                            <p className="landing-nav-label text-sm sm:text-lg md:text-xl text-white mb-2 sm:mb-3 tracking-[0.2em]">Workflow</p>
-                            <h3 className="landing-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl landing-heading-text mb-3 sm:mb-4 leading-tight">
+                        <div className="text-center mb-6 sm:mb-14 md:mb-20 px-1">
+                            <p className="landing-nav-label text-xs sm:text-lg md:text-xl text-white mb-1.5 sm:mb-3 tracking-[0.2em]">Workflow</p>
+                            <h3 className="landing-display text-xl sm:text-3xl md:text-5xl lg:text-6xl landing-heading-text mb-2 sm:mb-4 leading-tight">
                                 Start here, <span className="landing-accent-text">stay consistent</span>
                             </h3>
-                            <p className="landing-body-text font-medium text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+                            <p className="landing-body-text font-medium text-xs sm:text-sm md:text-base max-w-sm sm:max-w-xl mx-auto leading-relaxed">
                                 Sign up once, follow four simple steps, and turn scattered study sessions into a routine that lasts.
                             </p>
                         </div>
 
-                        <div className="relative max-w-6xl mx-auto">
+                        <div className="relative max-w-md sm:max-w-6xl mx-auto">
                             <div
                                 className="hidden md:block absolute top-5 left-[12%] right-[12%] h-px bg-sky-500/35"
                                 aria-hidden
                             />
 
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 sm:gap-6 md:gap-8">
                                 {workflowSteps.map((item, index) => (
                                     <ScrollReveal
                                         key={item.step}
@@ -283,33 +289,33 @@ const Landing = () => {
                                         <button
                                             type="button"
                                             onClick={item.action}
-                                            className="group w-full min-w-0 text-left md:text-center rounded-xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 md:border-0 md:bg-transparent md:p-0 hover:border-sky-500/30 md:hover:border-0 transition-colors"
+                                            className="group w-full min-w-0 text-left md:text-center rounded-lg sm:rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 sm:p-5 md:border-0 md:bg-transparent md:p-0 hover:border-sky-500/30 md:hover:border-0 transition-colors"
                                         >
-                                            <div className="flex flex-col items-start md:items-center gap-3 md:gap-4">
-                                                <div className="relative z-10 flex items-center gap-3 md:flex-col md:gap-4">
-                                                    <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#08080d] border-[3px] border-sky-500 group-hover:bg-sky-600 group-hover:border-sky-400 transition-all shadow-sm shadow-sky-500/30 shrink-0" />
-                                                    <span className="landing-display text-lg sm:text-xl md:text-2xl landing-accent-text">{item.step}</span>
+                                            <div className="flex flex-col items-start md:items-center gap-2 sm:gap-3 md:gap-4">
+                                                <div className="relative z-10 flex items-center gap-2 sm:gap-3 md:flex-col md:gap-4">
+                                                    <span className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-[#08080d] border-2 sm:border-[3px] border-sky-500 group-hover:bg-sky-600 group-hover:border-sky-400 transition-all shadow-sm shadow-sky-500/20 sm:shadow-sky-500/30 shrink-0" />
+                                                    <span className="landing-display text-sm sm:text-xl md:text-2xl landing-accent-text">{item.step}</span>
                                                 </div>
                                                 <div className="w-full min-w-0 md:mt-0 md:px-2">
-                                                    <p className="text-base md:text-lg font-bold landing-heading-text group-hover:text-sky-300 transition-colors">{item.label}</p>
-                                                    <p className="text-sm md:text-base landing-muted-text mt-1.5 md:mt-2 leading-relaxed">{item.desc}</p>
+                                                    <p className="text-sm sm:text-base md:text-lg font-bold landing-heading-text group-hover:text-sky-300 transition-colors">{item.label}</p>
+                                                    <p className="text-xs sm:text-sm md:text-base landing-muted-text mt-0.5 sm:mt-1.5 md:mt-2 leading-snug sm:leading-relaxed">{item.desc}</p>
                                                 </div>
                                             </div>
                                         </button>
                                         {index < workflowSteps.length - 1 && (
-                                            <div className="md:hidden flex justify-center py-1" aria-hidden>
-                                                <span className="w-px h-4 bg-white/15" />
+                                            <div className="md:hidden flex justify-center py-0.5" aria-hidden>
+                                                <span className="w-px h-2.5 bg-white/15" />
                                             </div>
                                         )}
                                     </ScrollReveal>
                                 ))}
                             </div>
 
-                            <div className="mt-10 sm:mt-14 md:mt-16 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                            <div className="mt-7 sm:mt-14 md:mt-16 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
                                 <button
                                     type="button"
                                     onClick={scrollToSignup}
-                                    className="landing-cta landing-nav-label text-xs md:text-sm text-white px-8 py-3.5 rounded-full inline-flex items-center gap-2 transition-all group active:scale-[0.98]"
+                                    className="landing-cta landing-nav-label text-xs md:text-sm text-white px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full inline-flex items-center gap-2 transition-all group active:scale-[0.98]"
                                 >
                                     Sign up <FiArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
                                 </button>
