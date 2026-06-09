@@ -228,26 +228,21 @@ const Landing = () => {
                                             </button>
                                         </div>
                                     ) : (
-                                        <div className="p-4 sm:p-6 md:p-7 flex flex-row sm:flex-col gap-3.5 sm:gap-0 items-start sm:items-stretch">
-                                            <div className="flex flex-col items-center sm:items-start shrink-0 gap-1.5 sm:mb-5">
-                                                <span className="text-[10px] sm:hidden font-black landing-muted-text tabular-nums">
-                                                    {String(index + 1).padStart(2, '0')}
-                                                </span>
-                                                <div className="group-hover:scale-105 transition-transform">
-                                                    <LandingModuleIcon moduleId={mod.id} size="default" />
-                                                </div>
+                                        <div className="p-4 sm:p-6 md:p-7 flex flex-col">
+                                            <div className="mb-3 sm:mb-5 group-hover:scale-105 transition-transform w-fit">
+                                                <LandingModuleIcon moduleId={mod.id} size="default" />
                                             </div>
-                                            <div className="flex-1 min-w-0 flex flex-col gap-1 sm:gap-0 sm:flex-1">
-                                                <h3 className="landing-display text-sm sm:text-lg landing-heading-text sm:mb-2 !tracking-tight leading-tight break-words">
-                                                    {mod.title}
-                                                </h3>
-                                                <p className="text-xs sm:text-sm landing-body-text font-medium leading-relaxed sm:flex-1 sm:mb-5">
-                                                    {mod.desc}
-                                                </p>
-                                                <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center gap-1 shrink-0 mt-1 sm:mt-0">
-                                                    Tap to preview <FiArrowRight size={11} className="sm:w-3.5 sm:h-3.5" />
-                                                </span>
-                                            </div>
+                                            <h3 className="landing-display text-sm sm:text-lg landing-heading-text mb-1.5 sm:mb-2 !tracking-tight leading-tight break-words">
+                                                {mod.title}
+                                            </h3>
+                                            <p className="text-xs sm:text-sm landing-body-text font-medium leading-relaxed mb-2 sm:mb-5 sm:flex-1">
+                                                {mod.desc}
+                                            </p>
+                                            <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center gap-1 shrink-0">
+                                                <span className="sm:hidden">Tap to preview</span>
+                                                <span className="hidden sm:inline">Click to preview</span>
+                                                <FiArrowRight size={11} className="sm:w-3.5 sm:h-3.5" />
+                                            </span>
                                         </div>
                                     )}
                                 </article>

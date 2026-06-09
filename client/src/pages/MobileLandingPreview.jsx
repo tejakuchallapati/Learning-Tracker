@@ -38,35 +38,30 @@ const MobileLandingPreview = () => (
                         <h2 className="landing-display text-2xl landing-heading-text mb-2">About us</h2>
                         <p className="landing-body-text text-xs leading-relaxed px-1">
                             Learning Tracker is a free app for self-learners — plan roadmaps, hit daily goals, save notes,
-                            and get email reminders.
+                            and get email reminders. Everything below is what you get when you sign up.
                         </p>
                         <p className="landing-accent-text landing-nav-label text-xs mt-2">Tap any module to preview</p>
                     </div>
 
                     <div className="flex flex-col gap-3 w-full">
-                        {modules.map((mod, index) => (
+                        {modules.map((mod) => (
                             <article
                                 key={mod.id}
                                 className="rounded-2xl landing-card-dark border border-white/10 overflow-hidden w-full"
                             >
-                                <div className="p-4 flex flex-row gap-3.5 items-start">
-                                    <div className="flex flex-col items-center shrink-0 gap-1.5">
-                                        <span className="text-[10px] font-black landing-muted-text tabular-nums">
-                                            {String(index + 1).padStart(2, '0')}
-                                        </span>
+                                <div className="p-4 flex flex-col">
+                                    <div className="mb-3 w-fit">
                                         <LandingModuleIcon moduleId={mod.id} size="default" />
                                     </div>
-                                    <div className="flex-1 min-w-0 flex flex-col gap-1">
-                                        <h3 className="landing-display text-sm landing-heading-text !tracking-tight leading-tight break-words">
-                                            {mod.title}
-                                        </h3>
-                                        <p className="text-xs landing-body-text font-medium leading-relaxed">
-                                            {mod.desc}
-                                        </p>
-                                        <span className="landing-nav-label text-[10px] landing-accent-text flex items-center gap-1 mt-1">
-                                            Tap to preview <FiArrowRight size={11} />
-                                        </span>
-                                    </div>
+                                    <h3 className="landing-display text-sm landing-heading-text mb-1.5 !tracking-tight leading-tight break-words">
+                                        {mod.title}
+                                    </h3>
+                                    <p className="text-xs landing-body-text font-medium leading-relaxed mb-2">
+                                        {mod.desc}
+                                    </p>
+                                    <span className="landing-nav-label text-[10px] landing-accent-text flex items-center gap-1">
+                                        Tap to preview <FiArrowRight size={11} />
+                                    </span>
                                 </div>
                             </article>
                         ))}

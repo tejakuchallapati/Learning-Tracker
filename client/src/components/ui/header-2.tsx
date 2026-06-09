@@ -69,11 +69,12 @@ export function Header() {
                     />
                     <span
                         className={cn(
-                            'landing-display text-slate-100 hidden sm:inline !tracking-tight transition-all duration-500',
+                            'landing-display hidden sm:inline !tracking-tight transition-all duration-500',
+                            'text-slate-800 sm:text-slate-100',
                             compact ? 'text-sm' : 'text-base md:text-lg',
                         )}
                     >
-                        Learning<span className="text-sky-400">Tracker</span>
+                        Learning<span className="text-sky-500 sm:text-sky-400">Tracker</span>
                     </span>
                 </div>
 
@@ -103,7 +104,9 @@ export function Header() {
                     variant="outline"
                     onClick={() => setOpen(!open)}
                     className={cn(
-                        'md:hidden rounded-full border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 tap-target-icon transition-all duration-500',
+                        'md:hidden rounded-full tap-target-icon transition-all duration-500',
+                        'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100',
+                        'md:border-white/10 md:bg-white/5 md:text-slate-300 md:hover:bg-white/10',
                         compact ? 'h-9 w-9' : 'h-11 w-11',
                     )}
                     aria-label={open ? 'Close menu' : 'Open menu'}
@@ -123,21 +126,21 @@ export function Header() {
 				<div className="flex flex-col gap-2 p-5">
 					<button
                         type="button"
-                        className="text-left py-3 landing-display text-lg text-slate-100 border-b border-white/10"
+                        className="text-left py-3 landing-display text-lg text-slate-800 border-b border-slate-200"
                         onClick={scrollToAbout}
                     >
 						About us
 					</button>
 					<button
                         type="button"
-                        className="text-left py-3 landing-display text-lg text-slate-100 border-b border-white/10"
+                        className="text-left py-3 landing-display text-lg text-slate-800 border-b border-slate-200"
                         onClick={scrollToWorkflow}
                     >
 						Workflow
 					</button>
 					<button
                         type="button"
-                        className="text-left py-3 landing-display text-lg text-slate-100"
+                        className="text-left py-3 landing-display text-lg text-slate-800"
                         onClick={() => { navigate('/login'); setOpen(false); }}
                     >
 						Sign In
