@@ -78,6 +78,28 @@ const getDashboardData = asyncHandler(async (req, res) => {
               )
             : 0;
 
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const weeklyActivity = [];
+    for (let i = 6; i >= 0; i -= 1) {
+        const dayStart = new Date(now);
+        dayStart.setDate(now.getDate() - i);
+        dayStart.setHours(0, 0, 0, 0);
+        const dayEnd = new Date(dayStart);
+        dayEnd.setDate(dayStart.getDate() + 1);
+
+        const hours = timeLogs
+            .filter((log) => {
+                const logDate = new Date(log.date);
+                return logDate >= dayStart && logDate < dayEnd;
+            })
+            .reduce((sum, log) => sum + log.hours, 0);
+
+        weeklyActivity.push({
+            name: dayNames[dayStart.getDay()],
+            hours: Math.round(hours * 10) / 10,
+        });
+    }
+
     res.status(200).json({
         totalStudyHours: Math.round(totalHours * 10) / 10,
         weeklyStudyHours: Math.round(weeklyHours * 10) / 10,
@@ -85,6 +107,7 @@ const getDashboardData = asyncHandler(async (req, res) => {
         completionRate,
         consistencyMetrics: { uniqueStudyDays: uniqueStudyDays.size },
         goalsAnalysis: goalProgressList,
+        weeklyActivity,
     });
 });
 

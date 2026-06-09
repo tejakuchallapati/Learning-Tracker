@@ -11,15 +11,10 @@ import { FiClock, FiTarget, FiActivity, FiCalendar, FiPlus, FiArrowRight } from 
 import { PAGE_SHELL_FULL } from '../components/layout/PageHeader';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const dummyChartData = [
-    { name: 'Mon', hours: 1.5 },
-    { name: 'Tue', hours: 2.2 },
-    { name: 'Wed', hours: 1.0 },
-    { name: 'Thu', hours: 3.5 },
-    { name: 'Fri', hours: 2.8 },
-    { name: 'Sat', hours: 4.1 },
-    { name: 'Sun', hours: 3.2 },
-];
+const emptyWeekChart = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((name) => ({
+    name,
+    hours: 0,
+}));
 
 const StatSkeleton = () => (
     <div className="glass-card premium-shadow p-5 rounded-xl animate-pulse">
@@ -36,9 +31,9 @@ const Dashboard = () => {
     const [data, setData] = useState(initialCache?.data ?? null);
     const [loadingStats, setLoadingStats] = useState(!initialCache?.data);
     const [loadingGoals, setLoadingGoals] = useState(!initialCache);
-    const [slowLoad, setSlowLoad] = useState(false);
     const [goals, setGoals] = useState(initialCache?.goals ?? []);
-    
+    const [goalActivity, setGoalActivity] = useState(null);
+
     // Goal Setting State
     const [selectedTrack, setSelectedTrack] = useState(courses[0].id);
     const [targetDate, setTargetDate] = useState('2026-08-30');
@@ -95,9 +90,6 @@ const Dashboard = () => {
 
     useEffect(() => {
         let cancelled = false;
-        const slowTimer = setTimeout(() => {
-            if (!cancelled) setSlowLoad(true);
-        }, 5000);
 
         const fetchGoals = API.get('goals')
             .then((res) => {
@@ -109,6 +101,15 @@ const Dashboard = () => {
             })
             .finally(() => {
                 if (!cancelled) setLoadingGoals(false);
+            });
+
+        const fetchActivity = API.get('daily-goals/activity')
+            .then((res) => {
+                if (!cancelled) setGoalActivity(res?.data ?? null);
+            })
+            .catch((err) => {
+                console.warn('Failed to load goal activity', err);
+                if (!cancelled) setGoalActivity(null);
             });
 
         const fetchAnalytics = API.get('analytics/dashboard')
@@ -127,16 +128,8 @@ const Dashboard = () => {
                 if (!cancelled) setLoadingStats(false);
             });
 
-        Promise.all([fetchGoals, fetchAnalytics]).finally(() => {
-            if (!cancelled) {
-                clearTimeout(slowTimer);
-                setSlowLoad(false);
-            }
-        });
-
         return () => {
             cancelled = true;
-            clearTimeout(slowTimer);
         };
     }, []);
 
@@ -146,13 +139,13 @@ const Dashboard = () => {
         }
     }, [data, goals, loadingStats, loadingGoals]);
 
+    const chartData = data?.weeklyActivity?.length ? data.weeklyActivity : emptyWeekChart;
+    const weekActivity = goalActivity?.days?.slice(-7) ?? [];
+    const hasChartData = chartData.some((d) => d.hours > 0);
+    const activeStreakDays = weekActivity.filter((d) => d.count > 0 || d.allCompleted).length;
+
     return (
         <div className={PAGE_SHELL_FULL}>
-            {slowLoad && (loadingStats || loadingGoals) && (
-                <div className="text-xs font-semibold text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-900/20 border border-violet-100 dark:border-violet-800 rounded-xl px-4 py-2.5">
-                    Loading your data — the server may take a moment to wake up on first visit.
-                </div>
-            )}
             <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 md:p-6 text-slate-800 dark:text-slate-100 relative overflow-hidden shadow-sm group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/5 rounded-full -mr-20 -mt-20 blur-3xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -189,7 +182,7 @@ const Dashboard = () => {
                                 </div>
                                 <div className="text-right">
                                     <p className="text-xs font-black text-slate-600 uppercase tracking-widest">Efficiency</p>
-                                    <p className="text-xs font-bold text-emerald-500">+12% Peak</p>
+                                    <p className="text-xs font-bold text-slate-400">{hasChartData ? 'This week' : 'No logs yet'}</p>
                                 </div>
                             </div>
                             <h3 className="text-2xl font-black text-slate-900 dark:text-white">{data?.totalStudyHours ?? 0}h</h3>
@@ -203,7 +196,7 @@ const Dashboard = () => {
                                 </div>
                                 <div className="text-right">
                                     <p className="text-xs font-black text-slate-600 uppercase tracking-widest">Intensity</p>
-                                    <p className="text-xs font-bold text-rose-500">High Focus</p>
+                                    <p className="text-xs font-bold text-slate-400">{data?.weeklyStudyHours ? 'Last 7 days' : 'Start logging'}</p>
                                 </div>
                             </div>
                             <h3 className="text-2xl font-black text-slate-900 dark:text-white">{data?.weeklyStudyHours ?? 0}h</h3>
@@ -254,7 +247,7 @@ const Dashboard = () => {
                         </div>
                         <div className="h-[220px] -ml-6">
                             <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={dummyChartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                                <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                                     <defs>
                                         <linearGradient id="colorHours" x1="0" y1="0" x2="0" y2="1">
                                             <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.4} />
@@ -376,20 +369,28 @@ const Dashboard = () => {
                          <h3 className="text-xl font-black text-slate-900 dark:text-white mb-8 flex items-center gap-3">
                             <FiCalendar className="text-indigo-600" /> Focus Streak
                         </h3>
-                        <div className="grid grid-cols-7 gap-2">
-                            {['M','T','W','T','F','S','S'].map((day, i) => {
-                                const todayIndex = (new Date().getDay() + 6) % 7; // Convert Sun(0) to 6, Mon(1) to 0
-                                const isPastOrToday = i <= todayIndex;
-                                const isStreak = isPastOrToday && i >= Math.max(0, todayIndex - 4); // Simulated active streak for the past 5 days
-                                return (
-                                <div key={i} className="flex flex-col items-center gap-3">
-                                    <span className={`text-xs font-black uppercase ${i === todayIndex ? 'text-violet-600 dark:text-violet-400' : 'text-slate-600 dark:text-slate-500'}`}>{day}</span>
-                                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black ${isStreak ? 'bg-violet-600 text-white shadow-lg shadow-violet-100' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${i === todayIndex ? 'ring-2 ring-violet-400 ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
-                                        {i + 1}
-                                    </div>
-                                </div>
-                            )})}
-                        </div>
+                        {weekActivity.length > 0 ? (
+                            <div className="grid grid-cols-7 gap-2">
+                                {weekActivity.map((day) => {
+                                    const dateNum = day.date?.split('-')[2] ?? '';
+                                    const dayLabel = ['S', 'M', 'T', 'W', 'T', 'F', 'S'][day.dayOfWeek] ?? '';
+                                    const isActive = day.count > 0 || day.allCompleted;
+                                    return (
+                                        <div key={day.date} className="flex flex-col items-center gap-3">
+                                            <span className={`text-xs font-black uppercase ${day.isToday ? 'text-violet-600 dark:text-violet-400' : 'text-slate-600 dark:text-slate-500'}`}>{dayLabel}</span>
+                                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black ${isActive ? 'bg-violet-600 text-white shadow-lg shadow-violet-100' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${day.isToday ? 'ring-2 ring-violet-400 ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
+                                                {dateNum}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            <p className="text-sm font-semibold text-slate-500">Add daily goals and check them off to build your streak.</p>
+                        )}
+                        {activeStreakDays > 0 && (
+                            <p className="text-xs font-bold text-violet-600 dark:text-violet-400 mt-4">{activeStreakDays} active day{activeStreakDays === 1 ? '' : 's'} this week</p>
+                        )}
                     </div>
 
                     {data?.goalsAnalysis?.[0] && <ReminderCard suggestion={data.goalsAnalysis[0].suggestion} />}
