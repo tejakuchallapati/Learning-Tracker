@@ -164,12 +164,10 @@ const Landing = () => {
                         <p className="landing-accent-text landing-nav-label text-xs mt-3 sm:hidden">Tap any module to preview</p>
                     </ScrollReveal>
 
-                    <div className="flex flex-col items-center gap-2 max-sm:px-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-5 md:gap-6 sm:items-stretch w-full">
+                    <div className="flex flex-col gap-3 max-sm:px-1 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-5 md:gap-6 sm:items-stretch w-full">
                         {modules.map((mod, index) => {
                             const isActive = activeModule === mod.id;
                             const isBlurred = activeModule && !isActive;
-                            const previewOpen = Boolean(activeModule);
-
                             return (
                                 <Fragment key={mod.title}>
                                 <ScrollReveal
@@ -178,7 +176,7 @@ const Landing = () => {
                                     distance={40}
                                     amount={0.2}
                                     duration={0.55}
-                                    className={`w-full flex justify-center sm:block ${previewOpen && !isActive ? 'sm:col-span-1' : ''}`}
+                                    className="w-full"
                                 >
                                 <article
                                     role="button"
@@ -190,13 +188,10 @@ const Landing = () => {
                                             focusModule(mod.id);
                                         }
                                     }}
-                                    style={!isActive ? { animationDelay: `${index * 0.35}s` } : undefined}
-                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 overflow-hidden ${
+                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 overflow-hidden w-full ${
                                         isActive
-                                            ? 'w-full min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem]'
-                                            : 'w-[min(calc(100vw-3rem),16.5rem)] aspect-square mx-auto sm:mx-0 sm:w-full sm:max-w-none sm:aspect-auto max-sm:hover:-translate-y-1 max-sm:active:scale-[0.98]'
-                                    } ${
-                                        !isActive && !isBlurred ? 'landing-module-float' : ''
+                                            ? 'min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem]'
+                                            : 'max-sm:hover:-translate-y-0.5 max-sm:active:scale-[0.99]'
                                     } ${
                                         isActive
                                             ? 'border-sky-400/60 shadow-xl shadow-sky-500/20 ring-2 ring-sky-500/20 z-20'
@@ -233,34 +228,30 @@ const Landing = () => {
                                             </button>
                                         </div>
                                     ) : (
-                                        <div className="p-4 sm:p-6 md:p-7 flex flex-col h-full min-h-0 justify-between">
-                                            <div className="min-w-0">
-                                                <span className="text-[10px] sm:hidden font-black landing-muted-text tabular-nums mb-2 block">
+                                        <div className="p-4 sm:p-6 md:p-7 flex flex-row sm:flex-col gap-3.5 sm:gap-0 items-start sm:items-stretch">
+                                            <div className="flex flex-col items-center sm:items-start shrink-0 gap-1.5 sm:mb-5">
+                                                <span className="text-[10px] sm:hidden font-black landing-muted-text tabular-nums">
                                                     {String(index + 1).padStart(2, '0')}
                                                 </span>
-                                                <div className="mb-2.5 sm:mb-5 group-hover:scale-105 transition-transform w-fit">
-                                                    <LandingModuleIcon moduleId={mod.id} size="mobile" className="sm:hidden" />
-                                                    <LandingModuleIcon moduleId={mod.id} className="hidden sm:inline-flex" />
+                                                <div className="group-hover:scale-105 transition-transform">
+                                                    <LandingModuleIcon moduleId={mod.id} size="default" />
                                                 </div>
-                                                <h3 className="landing-display text-xs sm:text-lg landing-heading-text mb-1.5 sm:mb-2 !tracking-tight leading-tight break-words line-clamp-2 sm:line-clamp-none">
+                                            </div>
+                                            <div className="flex-1 min-w-0 flex flex-col gap-1 sm:gap-0 sm:flex-1">
+                                                <h3 className="landing-display text-sm sm:text-lg landing-heading-text sm:mb-2 !tracking-tight leading-tight break-words">
                                                     {mod.title}
                                                 </h3>
-                                                <p className="text-[11px] sm:text-sm landing-body-text font-medium leading-snug sm:leading-relaxed line-clamp-3 sm:line-clamp-none sm:flex-1 sm:mb-5">
+                                                <p className="text-xs sm:text-sm landing-body-text font-medium leading-relaxed sm:flex-1 sm:mb-5">
                                                     {mod.desc}
                                                 </p>
+                                                <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center gap-1 shrink-0 mt-1 sm:mt-0">
+                                                    Tap to preview <FiArrowRight size={11} className="sm:w-3.5 sm:h-3.5" />
+                                                </span>
                                             </div>
-                                            <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center gap-1 shrink-0 mt-2 sm:mt-0">
-                                                Tap to preview <FiArrowRight size={11} className="sm:w-3.5 sm:h-3.5" />
-                                            </span>
                                         </div>
                                     )}
                                 </article>
                                 </ScrollReveal>
-                                {index < modules.length - 1 && !previewOpen && (
-                                    <div className="sm:hidden flex justify-center py-0.5" aria-hidden>
-                                        <span className="w-px h-2 bg-white/12" />
-                                    </div>
-                                )}
                                 </Fragment>
                             );
                         })}
