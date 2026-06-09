@@ -20,6 +20,7 @@ import Notes from '../pages/Notes';
 import Bookmarks from '../pages/Bookmarks';
 import Goals from '../pages/Goals';
 import Admin from '../pages/Admin';
+import MobileLandingPreview from '../pages/MobileLandingPreview';
 
 // Layout
 import Sidebar from '../components/layout/Sidebar';
@@ -90,6 +91,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/walkthrough" element={<AppWalkthrough />} />
+        <Route path="/preview/mobile" element={<MobileLandingPreview />} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         

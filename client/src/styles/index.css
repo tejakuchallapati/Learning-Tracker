@@ -419,6 +419,15 @@ body {
     animation: landingFloat 7s ease-in-out 1s infinite;
   }
 
+  @keyframes landingModuleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .landing-module-float {
+    animation: landingModuleFloat 4.5s ease-in-out infinite;
+  }
+
   .landing-page-bg {
     --lt-accent: #7dd3fc;
     --lt-accent-bright: #38bdf8;

@@ -34,23 +34,25 @@ const moduleConfig = {
     },
 };
 
-const LandingModuleIcon = ({ moduleId, compact = false, className = '' }) => {
+const sizeStyles = {
+    compact: { box: 'w-9 h-9 rounded-lg', icon: 'w-4 h-4' },
+    mobile: { box: 'w-10 h-10 rounded-xl', icon: 'w-5 h-5' },
+    default: { box: 'w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl', icon: 'w-5 h-5 sm:w-7 sm:h-7' },
+};
+
+const LandingModuleIcon = ({ moduleId, size = 'default', className = '' }) => {
     const config = moduleConfig[moduleId];
     if (!config) return null;
 
     const { Icon, chip } = config;
-    const boxClass = compact
-        ? 'w-9 h-9 rounded-lg'
-        : 'w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl';
+    const styles = sizeStyles[size] || sizeStyles.default;
+
     return (
         <span
-            className={`inline-flex shrink-0 items-center justify-center ring-1 ${chip} ${boxClass} ${className}`}
+            className={`inline-flex shrink-0 items-center justify-center ring-1 ${chip} ${styles.box} ${className}`}
             aria-hidden
         >
-            <Icon
-                strokeWidth={2}
-                className={compact ? 'w-4 h-4' : 'w-5 h-5 sm:w-7 sm:h-7'}
-            />
+            <Icon strokeWidth={2} className={styles.icon} />
         </span>
     );
 };
