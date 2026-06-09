@@ -1,5 +1,6 @@
 import { FiArrowRight } from 'react-icons/fi';
 import LandingModuleIcon from '../components/landing/LandingModuleIcon';
+import ScrollReveal from '../components/landing/ScrollReveal';
 
 const modules = [
     { id: 'dashboard', title: 'Dashboard', desc: 'See active learning paths and goal progress in one place.' },
@@ -43,18 +44,28 @@ const MobileLandingPreview = () => (
                         <p className="landing-accent-text landing-nav-label text-xs mt-2">Tap any module to preview</p>
                     </div>
 
-                    <div className="flex flex-col items-center gap-3 w-full">
-                        {modules.map((mod) => (
-                            <article
+                    <div className="flex flex-col items-center gap-4 w-full">
+                        {modules.map((mod, index) => (
+                            <ScrollReveal
                                 key={mod.id}
+                                delay={0}
+                                direction="up"
+                                distance={24}
+                                amount={0.12}
+                                viewportMargin="0px 0px 10% 0px"
+                                once
+                                duration={0.38}
+                                className="w-full flex justify-center mb-1"
+                            >
+                            <article
                                 className="rounded-2xl landing-card-dark border border-white/10 overflow-hidden w-[88%] min-h-[11.5rem]"
                             >
                                 <div className="px-4 py-5 flex flex-col min-h-[11.5rem] justify-between">
-                                    <div className="flex items-center justify-center gap-3">
+                                    <div className="flex items-center gap-3">
                                         <div className="shrink-0">
                                             <LandingModuleIcon moduleId={mod.id} size="default" />
                                         </div>
-                                        <h3 className="landing-display text-sm landing-heading-text !tracking-tight leading-tight break-words text-center">
+                                        <h3 className="flex-1 min-w-0 landing-display text-sm landing-heading-text !tracking-tight leading-tight break-words">
                                             {mod.title}
                                         </h3>
                                     </div>
@@ -66,6 +77,7 @@ const MobileLandingPreview = () => (
                                     </span>
                                 </div>
                             </article>
+                            </ScrollReveal>
                         ))}
                     </div>
                 </section>

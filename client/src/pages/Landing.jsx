@@ -164,19 +164,21 @@ const Landing = () => {
                         <p className="landing-accent-text landing-nav-label text-xs mt-3 sm:hidden">Tap any module to preview</p>
                     </ScrollReveal>
 
-                    <div className="flex flex-col items-center gap-3 max-sm:px-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-5 md:gap-6 sm:items-stretch w-full">
+                    <div className="flex flex-col items-center gap-5 max-sm:gap-4 max-sm:px-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-5 md:gap-6 sm:items-stretch w-full">
                         {modules.map((mod, index) => {
                             const isActive = activeModule === mod.id;
                             const isBlurred = activeModule && !isActive;
                             return (
                                 <Fragment key={mod.title}>
                                 <ScrollReveal
-                                    delay={index * 140}
+                                    delay={0}
                                     direction="up"
-                                    distance={40}
-                                    amount={0.2}
-                                    duration={0.55}
-                                    className="w-full flex justify-center sm:block"
+                                    distance={24}
+                                    amount={0.12}
+                                    viewportMargin="0px 0px 10% 0px"
+                                    once
+                                    duration={0.38}
+                                    className="w-full flex justify-center sm:block max-sm:mb-1"
                                 >
                                 <article
                                     role="button"
@@ -229,11 +231,11 @@ const Landing = () => {
                                         </div>
                                     ) : (
                                         <div className="px-4 py-5 sm:p-6 md:p-7 flex flex-col max-sm:min-h-[11.5rem] max-sm:justify-between">
-                                            <div className="flex items-center justify-center gap-3 sm:block sm:mb-0">
+                                            <div className="flex items-center gap-3 sm:block sm:mb-0">
                                                 <div className="shrink-0 group-hover:scale-105 transition-transform sm:mb-5">
                                                     <LandingModuleIcon moduleId={mod.id} size="default" />
                                                 </div>
-                                                <h3 className="landing-display text-sm sm:text-lg landing-heading-text sm:mb-2 !tracking-tight leading-tight break-words text-center sm:text-left">
+                                                <h3 className="flex-1 min-w-0 landing-display text-sm sm:text-lg landing-heading-text sm:mb-2 !tracking-tight leading-tight break-words">
                                                     {mod.title}
                                                 </h3>
                                             </div>

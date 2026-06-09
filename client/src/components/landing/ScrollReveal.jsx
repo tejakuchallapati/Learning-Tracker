@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const motionTags = {
     div: motion.div,
@@ -30,22 +30,34 @@ const ScrollReveal = ({
     direction = 'up',
     amount = 0.2,
     once = false,
+    viewportMargin = '0px 0px 8% 0px',
     as = 'div',
     ...rest
 }) => {
+    const reduceMotion = useReducedMotion();
     const Component = motionTags[as] ?? motion.div;
+
+    if (reduceMotion) {
+        const Tag = as;
+        return (
+            <Tag className={className} {...rest}>
+                {children}
+            </Tag>
+        );
+    }
 
     return (
         <Component
             className={className}
             initial={hiddenByDirection(direction, distance)}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
-            viewport={{ once, amount }}
+            viewport={{ once, amount, margin: viewportMargin }}
             transition={{
                 duration,
                 delay: delay / 1000,
-                ease: [0.22, 1, 0.36, 1],
+                ease: [0.16, 1, 0.3, 1],
             }}
+            style={{ willChange: 'transform, opacity' }}
             {...rest}
         >
             {children}
