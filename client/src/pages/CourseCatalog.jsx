@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { courses } from '../data/CourseData';
 import { FiChevronRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
+import PageHeader from '../components/layout/PageHeader';
 
 const CourseCatalog = () => {
     const [search] = useState('');
@@ -19,7 +19,7 @@ const CourseCatalog = () => {
     });
 
     return (
-        <div className={PAGE_SHELL}>
+        <div className="w-full min-h-[calc(100dvh-5rem)] max-md:min-h-[calc(100dvh-8.5rem)] flex flex-col pt-3 md:pt-4 pb-3 md:pb-4">
             <PageHeader
                 title="Mastery Tracks"
                 description="Systematic learning paths engineered for rapid technical progression."
@@ -43,44 +43,47 @@ const CourseCatalog = () => {
                 )}
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid flex-1 grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-3 md:gap-4 w-full min-h-0 auto-rows-fr">
                 {filteredCourses.map(course => (
                     <div
                         key={course.id}
-                        className="bg-white group rounded-xl p-5 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col relative overflow-hidden border border-slate-200 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10 shadow-sm"
+                        className="bg-white group rounded-xl p-4 md:p-5 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col h-full min-h-0 relative overflow-hidden border border-slate-200 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10 shadow-sm"
                         onClick={() => navigate(`/roadmap/${course.id}`)}
                     >
-                        <div className="absolute -top-8 -right-8 w-24 h-24 bg-violet-500/5 rounded-full group-hover:scale-150 transition-transform duration-700 blur-2xl"></div>
+                        <div className="absolute -top-8 -right-8 w-24 h-24 bg-violet-500/5 rounded-full group-hover:scale-150 transition-transform duration-700 blur-2xl pointer-events-none" />
 
-                        <div className="mb-4 relative z-10">
-                            <div className="w-12 h-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-md flex items-center justify-center text-2xl group-hover:scale-110 group-hover:-rotate-6 group-hover:border-violet-300 transition-all duration-300">
+                        <div className="mb-3 relative z-10">
+                            <div className="w-11 h-11 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center justify-center text-xl group-hover:scale-110 group-hover:border-violet-300 transition-all duration-300">
                                 {course.icon}
                             </div>
                         </div>
 
-                        <div className="relative z-10 flex-1">
-                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-black uppercase tracking-[0.2em] bg-violet-50 text-violet-600 mb-3 border border-violet-100">
+                        <div className="relative z-10 flex-1 flex flex-col min-h-0">
+                            <span className="inline-flex w-fit items-center px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-[0.15em] bg-violet-50 text-violet-600 mb-2 border border-violet-100">
                                 {course.category}
                             </span>
-                            <h3 className="text-lg font-black text-slate-900 group-hover:text-violet-600 transition-colors leading-tight">{course.title}</h3>
+                            <h3 className="text-base font-black text-slate-900 group-hover:text-violet-600 transition-colors leading-tight">{course.title}</h3>
                             <p className="text-slate-500 mt-1.5 text-xs font-semibold leading-relaxed line-clamp-2">{course.description}</p>
 
-                            <div className="mt-4 flex flex-wrap gap-1.5">
+                            <div className="mt-3 flex flex-wrap gap-1.5">
                                 {course.tools.slice(0, 3).map(tool => (
-                                    <span key={tool} className="px-2 py-1 bg-slate-50 text-slate-600 rounded-md text-xs font-black border border-slate-200 capitalize">{tool}</span>
+                                    <span key={tool} className="px-2 py-1 bg-slate-50 text-slate-600 rounded-md text-[10px] font-black border border-slate-200 capitalize">{tool}</span>
                                 ))}
                                 {course.tools.length > 3 && (
-                                    <span className="px-2 py-1 bg-violet-50 text-violet-600 rounded-md text-xs font-black border border-violet-100">+{course.tools.length - 3}</span>
+                                    <span className="px-2 py-1 bg-violet-50 text-violet-600 rounded-md text-[10px] font-black border border-violet-100">+{course.tools.length - 3}</span>
                                 )}
                             </div>
                         </div>
 
-                        <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between relative z-10">
+                        <div className="mt-auto pt-3 border-t border-slate-100 flex items-end justify-between relative z-10">
                             <div className="flex flex-col">
-                                <span className="text-sm font-black text-slate-900">{course.roadmap.length}</span>
-                                <span className="text-xs font-black text-violet-500 uppercase tracking-widest">Chapters</span>
+                                <span className="text-sm font-black text-slate-900 leading-none">{course.roadmap.length}</span>
+                                <span className="text-[10px] font-black text-violet-500 uppercase tracking-widest mt-1">Chapters</span>
                             </div>
-                            <button className="px-4 py-2 bg-red-600 text-white rounded-md font-black text-xs hover:bg-red-700 transition-all shadow-md shadow-red-500/20 flex items-center gap-1.5 group-hover:translate-x-1">
+                            <button
+                                type="button"
+                                className="px-3.5 py-2 bg-red-600 text-white rounded-md font-black text-[10px] hover:bg-red-700 transition-all shadow-md shadow-red-500/20 flex items-center gap-1 group-hover:translate-x-0.5"
+                            >
                                 BEGIN <FiChevronRight size={12} />
                             </button>
                         </div>

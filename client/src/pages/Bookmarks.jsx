@@ -17,6 +17,7 @@ const defaultBookmarks = [
     { id: 3, title: 'Fireship YouTube',         url: 'https://youtube.com/@Fireship', category: 'YouTube',    topic: 'General' },
     { id: 4, title: 'CSS Tricks',               url: 'https://css-tricks.com',      category: 'Article',       topic: 'CSS' },
     { id: 5, title: 'Vite.js Build Tool',       url: 'https://vitejs.dev',          category: 'Tool',          topic: 'Tooling' },
+    { id: 6, title: 'MDN Web Docs',             url: 'https://developer.mozilla.org', category: 'Documentation', topic: 'Web' },
 ];
 
 const Bookmarks = () => {
