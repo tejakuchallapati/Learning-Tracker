@@ -13,6 +13,7 @@ const Settings = () => {
     });
 
     const [saved, setSaved] = useState(false);
+    const [saving, setSaving] = useState(false);
     const [saveError, setSaveError] = useState('');
     const [amPm, setAmPm] = useState(user?.reminderAmPm || 'AM');
     const [reminderTime, setReminderTime] = useState(user?.reminderTime || '');
@@ -114,6 +115,8 @@ const Settings = () => {
 
     const handleSave = async () => {
         setSaveError('');
+        setSaving(true);
+        setSaved(false);
         try {
             await updateProfile({
                 ...formData,
@@ -124,6 +127,8 @@ const Settings = () => {
         } catch (error) {
             console.error('Failed to update profile:', error);
             setSaveError(error.response?.data?.message || 'Failed to save preferences. Please try again.');
+        } finally {
+            setSaving(false);
         }
     };
 
@@ -145,10 +150,10 @@ const Settings = () => {
                         <button
                             type="button"
                             onClick={handleSave}
-                            disabled={!hasUnsavedChanges}
+                            disabled={!hasUnsavedChanges || saving}
                             className="w-full sm:w-auto px-5 py-2.5 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-bold text-sm hover:bg-sky-600 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
                         >
-                            Save {saved && <FiCheckCircle className="animate-in zoom-in duration-300" />}
+                            {saving ? 'Saving…' : 'Save'} {saved && !saving && <FiCheckCircle className="animate-in zoom-in duration-300" />}
                         </button>
                     </>
                 )}

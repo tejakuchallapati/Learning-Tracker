@@ -143,8 +143,6 @@ const getDailyGoals = asyncHandler(async (req, res) => {
         }
     }
 
-    await syncTodayCompletions(req.user.id);
-
     const sortedGoals = await DailyGoal.find({ userId: req.user.id })
         .sort({ completed: 1, createdAt: -1 });
 
@@ -265,7 +263,6 @@ const deleteDailyGoal = asyncHandler(async (req, res) => {
 // @route   GET /api/daily-goals/activity
 // @access  Private
 const getDailyGoalActivity = asyncHandler(async (req, res) => {
-    await backfillRecentCompletions(req.user.id);
     await syncTodayCompletions(req.user.id);
 
     const totalGoals = await DailyGoal.countDocuments({ userId: req.user.id });

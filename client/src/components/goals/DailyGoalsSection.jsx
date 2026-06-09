@@ -9,6 +9,7 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
     const [newGoalTitle, setNewGoalTitle] = useState('');
     const [emailReminders, setEmailReminders] = useState(false);
     const [loading, setLoading] = useState(!cachedGoals);
+    const [adding, setAdding] = useState(false);
     const [reminderNotice, setReminderNotice] = useState(null);
     const noticeTimeoutRef = useRef(null);
 
@@ -45,19 +46,40 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
 
     const handleAddGoal = async (e) => {
         e.preventDefault();
-        if (!newGoalTitle.trim()) return;
+        if (!newGoalTitle.trim() || adding) return;
+
+        const title = newGoalTitle.trim();
+        const reminders = emailReminders;
+        const tempId = `temp-${Date.now()}`;
+
+        setAdding(true);
+        setGoals((prev) => {
+            const next = [...prev, { _id: tempId, title, completed: false, emailReminders: reminders, streak: 0 }];
+            writeGoalsCache(next);
+            return next;
+        });
+        setNewGoalTitle('');
+        setEmailReminders(false);
 
         try {
-            await API.post('daily-goals/create', {
-                title: newGoalTitle,
-                emailReminders
+            const { data } = await API.post('daily-goals/create', { title, emailReminders: reminders });
+            setGoals((prev) => {
+                const next = prev.map((g) => (g._id === tempId ? data : g));
+                writeGoalsCache(next);
+                return next;
             });
-            setNewGoalTitle('');
-            setEmailReminders(false);
-            fetchGoals(true);
             onGoalsChange?.();
         } catch (err) {
             console.error('Error adding daily goal:', err);
+            setGoals((prev) => {
+                const next = prev.filter((g) => g._id !== tempId);
+                writeGoalsCache(next);
+                return next;
+            });
+            setNewGoalTitle(title);
+            setEmailReminders(reminders);
+        } finally {
+            setAdding(false);
         }
     };
 
@@ -154,7 +176,7 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
                 >
                     <FiBell size={14} />
                 </button>
-                <button type="submit" className="bg-violet-600 text-white p-1.5 rounded-lg hover:bg-violet-700 transition-all active:scale-95 shrink-0" title="Add goal">
+                <button type="submit" disabled={adding} className="bg-violet-600 text-white p-1.5 rounded-lg hover:bg-violet-700 transition-all active:scale-95 shrink-0 disabled:opacity-50" title="Add goal">
                     <FiPlus size={14} />
                 </button>
             </form>

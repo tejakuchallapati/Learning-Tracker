@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import ResponsiveGoogleLogin from '../components/auth/ResponsiveGoogleLogin';
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
 import Logo from '../components/brand/Logo';
+import { prefetchDashboard } from '../utils/prefetchDashboard';
 
 const Login = () => {
     const [email, setEmail]       = useState('');
@@ -29,6 +30,7 @@ const Login = () => {
         setLoading(true);
         try {
             const session = await login(email, password);
+            if (!session?.isAdmin) prefetchDashboard();
             navigate(homePath(session));
         } catch (err) {
             setError(err.response?.data?.message || 'Incorrect email or password. Please try again.');
@@ -47,6 +49,7 @@ const Login = () => {
         setGoogleLoading(true);
         try {
             const session = await googleLogin(credentialResponse.credential);
+            if (!session?.isAdmin) prefetchDashboard();
             navigate(homePath(session));
         } catch (err) {
             const msg = err.response?.data?.message || err.message || 'Google sign-in failed. Please try again.';

@@ -24,15 +24,15 @@ const StatSkeleton = () => (
     </div>
 );
 
-const initialCache = readDashboardCache();
-
 const Dashboard = () => {
     const navigate = useNavigate();
-    const [data, setData] = useState(initialCache?.data ?? null);
-    const [loadingStats, setLoadingStats] = useState(!initialCache?.data);
-    const [loadingGoals, setLoadingGoals] = useState(!initialCache);
-    const [goals, setGoals] = useState(initialCache?.goals ?? []);
+    const [data, setData] = useState(() => readDashboardCache()?.data ?? null);
+    const [loadingStats, setLoadingStats] = useState(false);
+    const [loadingGoals, setLoadingGoals] = useState(false);
+    const [goals, setGoals] = useState(() => readDashboardCache()?.goals ?? []);
     const [goalActivity, setGoalActivity] = useState(null);
+    const [addingGoal, setAddingGoal] = useState(false);
+    const [goalNotice, setGoalNotice] = useState('');
 
     // Goal Setting State
     const [selectedTrack, setSelectedTrack] = useState(courses[0].id);
@@ -64,16 +64,20 @@ const Dashboard = () => {
             endDate: targetDate,
             durationDays: daysLeft,
             dailyTargetHours: 2,
-            subTasks: track?.roadmap?.map(r => ({ title: r.step, completed: false })) || []
+            subTasks: (track?.roadmap || []).slice(0, 12).map((r) => ({ title: r.step, completed: false })),
         };
 
+        setAddingGoal(true);
+        setGoalNotice('');
         try {
             const { data } = await API.post('goals/create', goalData);
-            setGoals(prev => [data, ...(prev || [])]);
-            alert(`Successfully added ${track?.title} to your active goals!`);
+            setGoals((prev) => [data, ...(prev || [])]);
+            setGoalNotice(`${track?.title} added to your active paths.`);
         } catch (err) {
             console.error('Failed to add goal', err);
-            alert(err.response?.data?.message || 'Failed to add goal. Please try again.');
+            setGoalNotice(err.response?.data?.message || 'Failed to add goal. Please try again.');
+        } finally {
+            setAddingGoal(false);
         }
     };
 
@@ -103,15 +107,6 @@ const Dashboard = () => {
                 if (!cancelled) setLoadingGoals(false);
             });
 
-        const fetchActivity = API.get('daily-goals/activity')
-            .then((res) => {
-                if (!cancelled) setGoalActivity(res?.data ?? null);
-            })
-            .catch((err) => {
-                console.warn('Failed to load goal activity', err);
-                if (!cancelled) setGoalActivity(null);
-            });
-
         const fetchAnalytics = API.get('analytics/dashboard')
             .then((res) => {
                 if (!cancelled) {
@@ -128,8 +123,19 @@ const Dashboard = () => {
                 if (!cancelled) setLoadingStats(false);
             });
 
+        const activityTimer = setTimeout(() => {
+            API.get('daily-goals/activity', { timeout: 12000 })
+                .then((res) => {
+                    if (!cancelled) setGoalActivity(res?.data ?? null);
+                })
+                .catch((err) => {
+                    console.warn('Failed to load goal activity', err);
+                });
+        }, 300);
+
         return () => {
             cancelled = true;
+            clearTimeout(activityTimer);
         };
     }, []);
 
@@ -145,15 +151,20 @@ const Dashboard = () => {
     const activeStreakDays = weekActivity.filter((d) => d.count > 0 || d.allCompleted).length;
 
     return (
-        <div className={PAGE_SHELL_FULL}>
-            <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 md:p-6 text-slate-800 dark:text-slate-100 relative overflow-hidden shadow-sm group">
+        <div className={`${PAGE_SHELL_FULL} min-w-0`}>
+            {goalNotice && (
+                <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900 rounded-xl px-4 py-2.5 break-words">
+                    {goalNotice}
+                </p>
+            )}
+            <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 sm:p-5 md:p-6 text-slate-800 dark:text-slate-100 relative overflow-hidden shadow-sm group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/5 rounded-full -mr-20 -mt-20 blur-3xl group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="max-w-md">
                         <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-black uppercase tracking-[0.2em] mb-4 border border-slate-200 dark:border-slate-700">
                             Adaptive Roadmap
                         </span>
-                        <h2 className="text-2xl font-black leading-tight mb-2 tracking-tighter text-slate-900 dark:text-white italic">Fast-Track Your <br />Learning Goal</h2>
+                        <h2 className="text-xl sm:text-2xl font-black leading-tight mb-2 tracking-tighter text-slate-900 dark:text-white italic break-words">Fast-Track Your <br className="hidden sm:block" />Learning Goal</h2>
                         <p className="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed mt-2">Our AI-powered engine crafts personalized paths. Finish courses 3x faster with optimized daily targets.</p>
                     </div>
                     <button
@@ -237,7 +248,7 @@ const Dashboard = () => {
                     <div className="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-sm relative overflow-hidden">
                          <div className="flex items-center justify-between mb-8">
                             <div>
-                                <h3 className="text-2xl font-black text-slate-900 dark:text-white">Focus Distribution</h3>
+                                <h3 className="text-lg sm:text-2xl font-black text-slate-900 dark:text-white break-words">Focus Distribution</h3>
                                 <p className="text-sm font-bold text-slate-700 dark:text-slate-400 mt-1">Detailed activity analysis by days</p>
                             </div>
                             <div className="flex bg-slate-50 dark:bg-slate-800 p-1 rounded-2xl border border-slate-100 dark:border-slate-700">
@@ -359,9 +370,10 @@ const Dashboard = () => {
                         </div>
                         <button 
                             onClick={handleAddGoal}
-                            className="w-full mt-4 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-black text-xs hover:bg-slate-800 dark:hover:bg-slate-700 transition-all shadow-md flex items-center justify-center gap-3 btn-hover-scale"
+                            disabled={addingGoal}
+                            className="w-full mt-4 py-3 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-black text-xs hover:bg-slate-800 dark:hover:bg-slate-700 transition-all shadow-md flex items-center justify-center gap-3 btn-hover-scale disabled:opacity-60 disabled:pointer-events-none"
                         >
-                            <FiPlus /> Add Learning Goal
+                            <FiPlus /> {addingGoal ? 'Adding…' : 'Add Learning Goal'}
                         </button>
                     </div>
 

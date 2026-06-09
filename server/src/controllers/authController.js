@@ -238,7 +238,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
         const updatedUser = await user.save();
 
-        res.json({
+        const payload = {
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
@@ -253,8 +253,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             isAdmin: isAdminEmail(updatedUser.email),
             usesGoogleAuth: Boolean(updatedUser.googleId),
             hasPassword: Boolean(updatedUser.password),
-            token: generateToken(updatedUser._id),
-        });
+        };
+
+        if (req.body.password) {
+            payload.token = generateToken(updatedUser._id);
+        }
+
+        res.json(payload);
     } else {
         res.status(404);
         throw new Error('User not found');

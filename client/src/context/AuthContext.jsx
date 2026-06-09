@@ -98,9 +98,19 @@ export const AuthProvider = ({ children }) => {
     };
 
     const updateProfile = async (profileData) => {
-        const { data } = await API.put('auth/profile', profileData);
-        setUser(data);
-        return data;
+        const previous = user;
+        setUser((current) => (current ? { ...current, ...profileData } : current));
+        try {
+            const { data } = await API.put('auth/profile', profileData);
+            setUser((current) => ({
+                ...data,
+                token: data.token || current?.token,
+            }));
+            return data;
+        } catch (error) {
+            setUser(previous);
+            throw error;
+        }
     };
 
     const refreshUser = useCallback(async () => {
