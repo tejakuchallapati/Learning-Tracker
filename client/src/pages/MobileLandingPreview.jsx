@@ -43,22 +43,22 @@ const MobileLandingPreview = () => (
                         <p className="landing-accent-text landing-nav-label text-xs mt-2">Tap any module to preview</p>
                     </div>
 
-                    <div className="flex flex-col gap-3 w-full">
+                    <div className="flex flex-col items-center gap-3 w-full">
                         {modules.map((mod) => (
                             <article
                                 key={mod.id}
-                                className="rounded-2xl landing-card-dark border border-white/10 overflow-hidden w-full"
+                                className="rounded-2xl landing-card-dark border border-white/10 overflow-hidden w-[88%] min-h-[11.5rem]"
                             >
-                                <div className="p-4 flex flex-col">
-                                    <div className="flex items-center gap-3">
+                                <div className="px-4 py-5 flex flex-col min-h-[11.5rem] justify-between">
+                                    <div className="flex items-center justify-center gap-3">
                                         <div className="shrink-0">
                                             <LandingModuleIcon moduleId={mod.id} size="default" />
                                         </div>
-                                        <h3 className="flex-1 min-w-0 landing-display text-sm landing-heading-text !tracking-tight leading-tight break-words">
+                                        <h3 className="landing-display text-sm landing-heading-text !tracking-tight leading-tight break-words text-center">
                                             {mod.title}
                                         </h3>
                                     </div>
-                                    <p className="text-xs landing-body-text font-medium leading-relaxed text-center mt-2 mb-3">
+                                    <p className="text-xs landing-body-text font-medium leading-relaxed text-center mt-3 mb-3">
                                         {mod.desc}
                                     </p>
                                     <span className="landing-nav-label text-[10px] landing-accent-text flex items-center justify-center gap-1">

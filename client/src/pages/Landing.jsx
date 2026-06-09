@@ -164,7 +164,7 @@ const Landing = () => {
                         <p className="landing-accent-text landing-nav-label text-xs mt-3 sm:hidden">Tap any module to preview</p>
                     </ScrollReveal>
 
-                    <div className="flex flex-col gap-3 max-sm:px-1 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-5 md:gap-6 sm:items-stretch w-full">
+                    <div className="flex flex-col items-center gap-3 max-sm:px-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-5 md:gap-6 sm:items-stretch w-full">
                         {modules.map((mod, index) => {
                             const isActive = activeModule === mod.id;
                             const isBlurred = activeModule && !isActive;
@@ -176,7 +176,7 @@ const Landing = () => {
                                     distance={40}
                                     amount={0.2}
                                     duration={0.55}
-                                    className="w-full"
+                                    className="w-full flex justify-center sm:block"
                                 >
                                 <article
                                     role="button"
@@ -188,10 +188,10 @@ const Landing = () => {
                                             focusModule(mod.id);
                                         }
                                     }}
-                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 overflow-hidden w-full ${
+                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 overflow-hidden w-full max-sm:w-[88%] sm:w-full ${
                                         isActive
                                             ? 'min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem]'
-                                            : 'max-sm:hover:-translate-y-0.5 max-sm:active:scale-[0.99]'
+                                            : 'max-sm:min-h-[11.5rem] max-sm:hover:-translate-y-0.5 max-sm:active:scale-[0.99]'
                                     } ${
                                         isActive
                                             ? 'border-sky-400/60 shadow-xl shadow-sky-500/20 ring-2 ring-sky-500/20 z-20'
@@ -228,16 +228,16 @@ const Landing = () => {
                                             </button>
                                         </div>
                                     ) : (
-                                        <div className="p-4 sm:p-6 md:p-7 flex flex-col">
-                                            <div className="flex items-center gap-3 sm:block sm:mb-0">
+                                        <div className="px-4 py-5 sm:p-6 md:p-7 flex flex-col max-sm:min-h-[11.5rem] max-sm:justify-between">
+                                            <div className="flex items-center justify-center gap-3 sm:block sm:mb-0">
                                                 <div className="shrink-0 group-hover:scale-105 transition-transform sm:mb-5">
                                                     <LandingModuleIcon moduleId={mod.id} size="default" />
                                                 </div>
-                                                <h3 className="flex-1 min-w-0 landing-display text-sm sm:text-lg landing-heading-text sm:mb-2 !tracking-tight leading-tight break-words">
+                                                <h3 className="landing-display text-sm sm:text-lg landing-heading-text sm:mb-2 !tracking-tight leading-tight break-words text-center sm:text-left">
                                                     {mod.title}
                                                 </h3>
                                             </div>
-                                            <p className="text-xs sm:text-sm landing-body-text font-medium leading-relaxed text-center sm:text-left mt-2 sm:mt-0 mb-3 sm:mb-5 sm:flex-1">
+                                            <p className="text-xs sm:text-sm landing-body-text font-medium leading-relaxed text-center sm:text-left mt-3 sm:mt-0 mb-3 sm:mb-5 sm:flex-1">
                                                 {mod.desc}
                                             </p>
                                             <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center justify-center sm:justify-start gap-1 shrink-0">
