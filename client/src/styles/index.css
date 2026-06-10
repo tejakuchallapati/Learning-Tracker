@@ -338,14 +338,6 @@ body {
     box-shadow: 0 8px 32px rgb(0 0 0 / 0.45);
   }
 
-  @media (max-width: 767px) {
-    .landing-nav-glass {
-      background: rgb(255 255 255 / 0.96);
-      border-color: rgb(226 232 240);
-      box-shadow: 0 4px 24px rgb(0 0 0 / 0.08);
-    }
-  }
-
   /* Landing body only — navbar keeps landing-cta / landing-nav-label above */
   .landing-accent-label {
     font-family: 'Bricolage Grotesque', 'Outfit', sans-serif;

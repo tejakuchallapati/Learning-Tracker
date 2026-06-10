@@ -173,11 +173,11 @@ const Landing = () => {
                                 <ScrollReveal
                                     delay={0}
                                     direction="up"
-                                    distance={24}
-                                    amount={0.12}
-                                    viewportMargin="0px 0px 10% 0px"
+                                    distance={36}
+                                    amount={0.38}
+                                    viewportMargin="0px 0px 6% 0px"
                                     once
-                                    duration={0.38}
+                                    duration={0.48}
                                     className="w-full flex justify-center sm:block max-sm:mb-1"
                                 >
                                 <article
