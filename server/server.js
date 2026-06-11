@@ -50,6 +50,11 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
+// Lightweight health check (no DB) — warms Render instance for login
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ ok: true });
+});
+
 // Routes
 app.use('/api/auth', require('./src/routes/authRoutes'));
 app.use('/api/goals', require('./src/routes/goalRoutes'));
