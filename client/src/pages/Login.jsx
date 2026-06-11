@@ -5,6 +5,8 @@ import ResponsiveGoogleLogin from '../components/auth/ResponsiveGoogleLogin';
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
 import Logo from '../components/brand/Logo';
 import { prefetchDashboard } from '../utils/prefetchDashboard';
+import { formatApiError } from '../utils/apiErrors';
+import { warmApi } from '../utils/warmApi';
 
 const Login = () => {
     const [email, setEmail]       = useState('');
@@ -23,6 +25,10 @@ const Login = () => {
         if (user) navigate(homePath(user));
     }, [user, navigate]);
 
+    useEffect(() => {
+        warmApi();
+    }, []);
+
     /* ── email/password login ──────────────────────────────── */
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,7 +39,7 @@ const Login = () => {
             if (!session?.isAdmin) prefetchDashboard();
             navigate(homePath(session));
         } catch (err) {
-            setError(err.response?.data?.message || 'Incorrect email or password. Please try again.');
+            setError(formatApiError(err, 'Incorrect email or password. Please try again.'));
         } finally {
             setLoading(false);
         }
@@ -52,8 +58,7 @@ const Login = () => {
             if (!session?.isAdmin) prefetchDashboard();
             navigate(homePath(session));
         } catch (err) {
-            const msg = err.response?.data?.message || err.message || 'Google sign-in failed. Please try again.';
-            setError(msg);
+            setError(formatApiError(err, 'Google sign-in failed. Please try again.'));
         } finally {
             setGoogleLoading(false);
         }

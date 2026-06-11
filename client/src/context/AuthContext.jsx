@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import API from '../services/api';
+import { authRequest } from '../utils/authRequest';
 import { AuthContext } from './AuthContextType';
 import { AUTH_SESSION_EXPIRED } from '../utils/authEvents';
 export { AuthContext };
@@ -70,19 +71,25 @@ export const AuthProvider = ({ children }) => {
     }, [user, loading]);
 
     const login = async (email, password) => {
-        const { data } = await API.post('auth/login', { email, password });
+        const { data } = await authRequest((config) =>
+            API.post('auth/login', { email, password }, config)
+        );
         setUser(data);
         return data;
     };
 
     const register = async (name, email, password) => {
-        const { data } = await API.post('auth/register', { name, email, password });
+        const { data } = await authRequest((config) =>
+            API.post('auth/register', { name, email, password }, config)
+        );
         setUser(data);
         return data;
     };
 
     const googleLogin = async (credential) => {
-        const { data } = await API.post('auth/google', { credential });
+        const { data } = await authRequest((config) =>
+            API.post('auth/google', { credential }, config)
+        );
         setUser(data);
         return data;
     };

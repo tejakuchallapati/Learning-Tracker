@@ -1,8 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import ResponsiveGoogleLogin from './ResponsiveGoogleLogin';
 import { Eye, EyeOff } from 'lucide-react';
+import { formatApiError } from '../../utils/apiErrors';
+import { warmApi } from '../../utils/warmApi';
 
 const SignupForm = ({ embedded = false }) => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
@@ -12,6 +14,10 @@ const SignupForm = ({ embedded = false }) => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const { register, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        warmApi();
+    }, []);
 
     const accentRing = 'focus:ring-sky-500/15 focus:border-sky-500';
     const accentBtn = 'bg-sky-600 hover:bg-sky-700 shadow-sky-200 dark:shadow-none';
@@ -29,7 +35,7 @@ const SignupForm = ({ embedded = false }) => {
             await googleLogin(credentialResponse.credential);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || err.message || 'Google sign up failed. Please try again.');
+            setError(formatApiError(err, 'Google sign up failed. Please try again.'));
         } finally {
             setGoogleLoading(false);
         }
@@ -46,7 +52,7 @@ const SignupForm = ({ embedded = false }) => {
             await register(formData.name, formData.email, formData.password);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Failed to sign up');
+            setError(formatApiError(err, 'Failed to sign up'));
         }
     };
 
