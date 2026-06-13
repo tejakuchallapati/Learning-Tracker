@@ -685,6 +685,13 @@ body {
     display: none;
   }
 
+  /* Prevent text overflow in dense mobile cards */
+  .mobile-text-safe {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    min-width: 0;
+  }
+
   /* Prevent button label overflow on narrow screens */
   .btn-text-safe {
     overflow-wrap: anywhere;

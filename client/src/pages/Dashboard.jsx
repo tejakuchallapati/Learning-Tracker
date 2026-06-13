@@ -169,9 +169,9 @@ const Dashboard = () => {
                     </div>
                     <button
                         onClick={() => navigate('/courses')}
-                        className="px-8 py-4 bg-slate-900 dark:bg-slate-800 text-white font-black rounded-[2rem] hover:bg-slate-800 dark:hover:bg-slate-700 transition-all transform hover:scale-105 active:scale-95 shadow-md whitespace-nowrap flex items-center gap-3 group/btn uppercase tracking-widest text-xs"
+                        className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-slate-900 dark:bg-slate-800 text-white font-black rounded-2xl sm:rounded-[2rem] hover:bg-slate-800 dark:hover:bg-slate-700 transition-all transform hover:scale-105 active:scale-95 shadow-md flex items-center justify-center gap-2 sm:gap-3 group/btn uppercase tracking-widest text-[10px] sm:text-xs"
                     >
-                        Generate My Path <FiArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
+                        Generate My Path <FiArrowRight className="group-hover/btn:translate-x-1 transition-transform shrink-0" />
                     </button>
                 </div>
             </div>
@@ -246,14 +246,14 @@ const Dashboard = () => {
                 <div className="lg:col-span-8 space-y-6">
                     {/* Activity Chart */}
                     <div className="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-sm relative overflow-hidden">
-                         <div className="flex items-center justify-between mb-8">
-                            <div>
-                                <h3 className="text-lg sm:text-2xl font-black text-slate-900 dark:text-white break-words">Focus Distribution</h3>
-                                <p className="text-sm font-bold text-slate-700 dark:text-slate-400 mt-1">Detailed activity analysis by days</p>
+                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8">
+                            <div className="min-w-0">
+                                <h3 className="text-base sm:text-lg md:text-2xl font-black text-slate-900 dark:text-white break-words">Focus Distribution</h3>
+                                <p className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-400 mt-1">Detailed activity analysis by days</p>
                             </div>
-                            <div className="flex bg-slate-50 dark:bg-slate-800 p-1 rounded-2xl border border-slate-100 dark:border-slate-700">
-                                <button className="px-6 py-2 bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 rounded-xl text-xs font-black shadow-sm shadow-violet-100 transition-all">WEEKLY</button>
-                                <button className="px-6 py-2 text-slate-400 dark:text-slate-500 rounded-xl text-xs font-black hover:text-slate-600 dark:hover:text-slate-300 transition-all">MONTHLY</button>
+                            <div className="flex shrink-0 self-start sm:self-auto bg-slate-50 dark:bg-slate-800 p-1 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-700">
+                                <button type="button" className="px-3 sm:px-6 py-1.5 sm:py-2 bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black shadow-sm shadow-violet-100 transition-all">WEEKLY</button>
+                                <button type="button" className="px-3 sm:px-6 py-1.5 sm:py-2 text-slate-400 dark:text-slate-500 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black hover:text-slate-600 dark:hover:text-slate-300 transition-all">MONTHLY</button>
                             </div>
                         </div>
                         <div className="h-[220px] -ml-6">

@@ -7,8 +7,8 @@ const GoalCard = ({ goal, onDelete, onEdit }) => {
     return (
         <div className="bg-white dark:bg-slate-900 rounded-3xl premium-shadow border border-slate-200 dark:border-slate-800 p-5 hover:border-violet-100 dark:hover:border-violet-900 transition-all group">
             <div className="flex justify-between items-start mb-3">
-                <div>
-                    <h3 className="text-base font-black text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase tracking-tight leading-tight">{goal.technology}</h3>
+                <div className="min-w-0 flex-1 pr-2">
+                    <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase tracking-tight leading-tight break-words line-clamp-2">{goal.technology}</h3>
                     <div className="mt-1">
                         <span className="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-black uppercase tracking-widest bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-100/50 dark:border-emerald-500/20">
                             Active

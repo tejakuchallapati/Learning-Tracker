@@ -59,7 +59,7 @@ const Navbar = () => {
 
     return (
         <>
-        <header className="font-nav h-20 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 md:px-8 sticky top-0 z-30 transition-all duration-300">
+        <header className="font-nav h-14 sm:h-20 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-3 sm:px-4 md:px-8 sticky top-0 z-30 transition-all duration-300 min-w-0">
             <div className="relative flex-1 max-w-md hidden md:block">
                 <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-900/50 px-5 py-2.5 rounded-2xl group focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:border-cyan-500 transition-all border border-slate-200 dark:border-slate-700/50 shadow-sm">
                     <FiSearch className="text-slate-400 w-4 h-4 group-focus-within:text-cyan-400 transition-colors" />
