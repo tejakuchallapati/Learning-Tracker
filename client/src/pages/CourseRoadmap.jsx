@@ -38,12 +38,12 @@ const CourseRoadmap = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-6 md:gap-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6 md:gap-10">
                     {course.subTracks.map(track => (
                         <div 
                             key={track.id}
                             onClick={() => setActiveSubTrack(track.id)}
-                            className="bg-white dark:bg-slate-900 premium-shadow rounded-2xl sm:rounded-[2.5rem] p-4 sm:p-8 md:p-12 hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500 cursor-pointer group relative overflow-hidden text-center border border-slate-100 dark:border-slate-800 max-md:aspect-square flex flex-col justify-center"
+                            className="bg-white dark:bg-slate-900 premium-shadow rounded-2xl sm:rounded-[2.5rem] p-4 sm:p-8 md:p-12 hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500 cursor-pointer group relative overflow-hidden text-center border border-slate-100 dark:border-slate-800 flex flex-col justify-center min-w-0"
                         >
                             <div className="absolute top-0 right-0 p-6 sm:p-10 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
                                 <span className="text-[4rem] sm:text-[140px] leading-none grayscale group-hover:grayscale-0 transition-all">{track.icon}</span>
@@ -53,10 +53,10 @@ const CourseRoadmap = () => {
                                 <div className="w-14 h-14 sm:w-24 sm:h-24 bg-slate-50 dark:bg-slate-800 shadow-xl rounded-2xl sm:rounded-[2rem] flex items-center justify-center text-3xl sm:text-5xl mb-4 sm:mb-10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 border border-white dark:border-slate-700 shrink-0">
                                     {track.icon}
                                 </div>
-                                <h2 className="text-lg sm:text-4xl font-black text-slate-900 dark:text-white mb-2 sm:mb-6 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase tracking-tight leading-tight break-words w-full">
+                                <h2 className="text-base sm:text-4xl font-black text-slate-900 dark:text-white mb-2 sm:mb-6 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase tracking-tight leading-tight break-words w-full px-1">
                                     {track.title}
                                 </h2>
-                                <p className="text-slate-700 dark:text-slate-400 leading-snug sm:leading-relaxed mb-4 sm:mb-10 text-xs sm:text-lg font-bold line-clamp-3 sm:line-clamp-none px-1">
+                                <p className="text-slate-700 dark:text-slate-400 leading-snug sm:leading-relaxed mb-4 sm:mb-10 text-[11px] sm:text-lg font-bold line-clamp-2 sm:line-clamp-none px-1">
                                     {track.description}
                                 </p>
                                 
@@ -105,7 +105,7 @@ const CourseRoadmap = () => {
                     <span className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] bg-violet-600 text-white mb-4 sm:mb-8 border border-violet-400/50 shadow-lg shadow-violet-200/50 dark:shadow-none">
                         {activeSubTrack ? `${course.subTracks.find(t => t.id === activeSubTrack).title} MASTERCLASS` : 'PROFESSIONAL PATHWAY'}
                     </span>
-                    <h1 className="text-2xl sm:text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tighter leading-tight uppercase break-words">
+                    <h1 className="text-xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter leading-tight uppercase break-words">
                         {activeSubTrack ? course.subTracks.find(t => t.id === activeSubTrack).title : `Mastering ${course.title}`}
                     </h1>
                     <p className="text-slate-700 dark:text-slate-400 mt-4 sm:mt-8 text-sm sm:text-xl leading-relaxed font-bold">
