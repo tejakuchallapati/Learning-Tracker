@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import API from '../services/api';
 import { authRequest } from '../utils/authRequest';
+import { persistSession, clearSession } from '../utils/authSession';
 import { AuthContext } from './AuthContextType';
 import { AUTH_SESSION_EXPIRED } from '../utils/authEvents';
 export { AuthContext };
@@ -19,14 +20,15 @@ const readStoredSession = () => {
     }
 };
 
-const clearStoredSession = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-};
-
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(() => readStoredSession());
     const [loading] = useState(false);
+
+    const applyAuthResponse = useCallback((data) => {
+        persistSession(data);
+        setUser(data);
+        return data;
+    }, []);
 
     useEffect(() => {
         let cancelled = false;
@@ -39,11 +41,14 @@ export const AuthProvider = ({ children }) => {
 
         const validateSession = async () => {
             try {
-                const { data } = await API.get('auth/me', { timeout: 8000 });
-                if (!cancelled) setUser(data);
-            } catch {
-                clearStoredSession();
-                if (!cancelled) setUser(null);
+                const { data } = await authRequest((config) => API.get('auth/me', config));
+                if (!cancelled) applyAuthResponse(data);
+            } catch (err) {
+                // Only clear session when the token is invalid — not on cold-start / network errors.
+                if (err.response?.status === 401) {
+                    clearSession();
+                    if (!cancelled) setUser(null);
+                }
             }
         };
 
@@ -51,7 +56,7 @@ export const AuthProvider = ({ children }) => {
         return () => {
             cancelled = true;
         };
-    }, []);
+    }, [applyAuthResponse]);
 
     useEffect(() => {
         const onSessionExpired = () => setUser(null);
@@ -61,12 +66,9 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         if (user) {
-            localStorage.setItem('user', JSON.stringify(user));
-            if (user.token) {
-                localStorage.setItem('token', user.token);
-            }
+            persistSession(user);
         } else if (!loading) {
-            clearStoredSession();
+            clearSession();
         }
     }, [user, loading]);
 
@@ -74,24 +76,21 @@ export const AuthProvider = ({ children }) => {
         const { data } = await authRequest((config) =>
             API.post('auth/login', { email, password }, config)
         );
-        setUser(data);
-        return data;
+        return applyAuthResponse(data);
     };
 
     const register = async (name, email, password) => {
         const { data } = await authRequest((config) =>
             API.post('auth/register', { name, email, password }, config)
         );
-        setUser(data);
-        return data;
+        return applyAuthResponse(data);
     };
 
     const googleLogin = async (credential) => {
         const { data } = await authRequest((config) =>
             API.post('auth/google', { credential }, config)
         );
-        setUser(data);
-        return data;
+        return applyAuthResponse(data);
     };
 
     const logout = async () => {
@@ -100,6 +99,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Logout API failed:', error);
         } finally {
+            clearSession();
             setUser(null);
         }
     };
@@ -109,11 +109,10 @@ export const AuthProvider = ({ children }) => {
         setUser((current) => (current ? { ...current, ...profileData } : current));
         try {
             const { data } = await API.put('auth/profile', profileData);
-            setUser((current) => ({
+            return applyAuthResponse({
                 ...data,
-                token: data.token || current?.token,
-            }));
-            return data;
+                token: data.token || user?.token,
+            });
         } catch (error) {
             setUser(previous);
             throw error;
@@ -127,15 +126,16 @@ export const AuthProvider = ({ children }) => {
             return null;
         }
         try {
-            const { data } = await API.get('auth/me', { timeout: 8000 });
-            setUser(data);
-            return data;
-        } catch {
-            clearStoredSession();
-            setUser(null);
+            const { data } = await authRequest((config) => API.get('auth/me', config));
+            return applyAuthResponse(data);
+        } catch (err) {
+            if (err.response?.status === 401) {
+                clearSession();
+                setUser(null);
+            }
             return null;
         }
-    }, []);
+    }, [applyAuthResponse]);
 
     return (
         <AuthContext.Provider value={{ user, login, register, googleLogin, logout, updateProfile, refreshUser, loading }}>

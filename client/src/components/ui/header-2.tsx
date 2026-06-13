@@ -4,13 +4,14 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
 import { useScroll } from '@/components/ui/use-scroll';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Logo from '../brand/Logo';
 
 export function Header() {
 	const [open, setOpen] = React.useState(false);
 	const scrolled = useScroll(40);
     const navigate = useNavigate();
+    const location = useLocation();
 	const compact = scrolled || open;
 
     const scrollToAbout = () => {
@@ -23,10 +24,25 @@ export function Header() {
         setOpen(false);
     };
 
+    const goToSignup = () => {
+        setOpen(false);
+        if (location.pathname === '/') {
+            document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            navigate('/signup');
+        }
+    };
+
+    const goToLogin = () => {
+        navigate('/login');
+        setOpen(false);
+    };
+
 	const links = [
 		{ label: 'About us', onClick: scrollToAbout },
 		{ label: 'Workflow', onClick: scrollToWorkflow },
-		{ label: 'Sign In', onClick: () => { navigate('/login'); setOpen(false); } },
+		{ label: 'Sign up', onClick: goToSignup, accent: true },
+		{ label: 'Log in', onClick: goToLogin },
 	];
 
 	React.useEffect(() => {
@@ -80,7 +96,7 @@ export function Header() {
 				<div
                     className={cn(
                         'hidden items-center md:flex transition-all duration-500',
-                        compact ? 'gap-4' : 'gap-8',
+                        compact ? 'gap-3' : 'gap-6',
                     )}
                 >
 					{links.map((link) => (
@@ -88,8 +104,10 @@ export function Header() {
                             key={link.label}
                             type="button"
                             className={cn(
-                                'landing-nav-label text-slate-400 hover:text-sky-300 transition-all duration-500',
-                                compact ? 'text-xs' : 'text-xs',
+                                'landing-nav-label transition-all duration-500 text-xs',
+                                link.accent
+                                    ? 'text-sky-300 hover:text-sky-200'
+                                    : 'text-slate-400 hover:text-sky-300',
                             )}
                             onClick={link.onClick}
                         >
@@ -145,10 +163,17 @@ export function Header() {
 					</button>
 					<button
                         type="button"
-                        className="text-left py-3 landing-display text-lg text-slate-100"
-                        onClick={() => { navigate('/login'); setOpen(false); }}
+                        className="text-left py-3 landing-display text-lg text-sky-300 border-b border-white/10"
+                        onClick={goToSignup}
                     >
-						Sign In
+						Sign up
+					</button>
+					<button
+                        type="button"
+                        className="text-left py-3 landing-display text-lg text-slate-100"
+                        onClick={goToLogin}
+                    >
+						Log in
 					</button>
 				</div>
 			</div>
