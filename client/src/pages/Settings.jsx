@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import { FiUser, FiBell, FiMail, FiCheckCircle, FiMessageCircle, FiLock } from 'react-icons/fi';
 import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 import ReportIssueForm from '../components/feedback/ReportIssueForm';
+import { formatReminderTime } from '../utils/formatReminderTime';
 
 const Settings = () => {
     const { user, updateProfile } = useContext(AuthContext);
@@ -268,6 +269,16 @@ const Settings = () => {
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                     Set when you want reminder emails. On Daily Goals, turn on the bell for each goal you want included.
                 </p>
+
+                {user?.reminderTime ? (
+                    <div className="rounded-xl border border-emerald-100 dark:border-emerald-900/40 bg-emerald-50/80 dark:bg-emerald-950/30 px-4 py-3 text-xs text-emerald-800 dark:text-emerald-300 font-medium">
+                        Active: emails send at <strong>{formatReminderTime(user.reminderTime, user.reminderAmPm)} IST</strong> for incomplete goals with the bell on.
+                    </div>
+                ) : (
+                    <div className="rounded-xl border border-amber-100 dark:border-amber-900/40 bg-amber-50/80 dark:bg-amber-950/30 px-4 py-3 text-xs text-amber-800 dark:text-amber-300 font-medium">
+                        No send time saved yet — pick a time below and tap <strong>Save</strong>.
+                    </div>
+                )}
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>

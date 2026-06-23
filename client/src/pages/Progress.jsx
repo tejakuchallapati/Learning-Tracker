@@ -213,23 +213,23 @@ const Progress = () => {
                         </div>
                     </div>
 
-                    <div className="text-center lg:text-right space-y-8 min-w-[300px]">
-                        <div className={`text-9xl font-black text-slate-900 tracking-tighter tabular-nums drop-shadow-sm transition-all duration-500 ${timerActive ? 'scale-105' : 'scale-100'}`}>
+                    <div className="text-center lg:text-right space-y-6 min-w-0 w-full">
+                        <div className={`text-5xl sm:text-7xl lg:text-9xl font-black text-slate-900 tracking-tighter tabular-nums drop-shadow-sm transition-all duration-500 ${timerActive ? 'scale-105' : 'scale-100'}`}>
                             {formatTime(timerMode === 'stopwatch' ? time : pomoTimeLeft)}
                         </div>
-                        <div className="flex gap-4 justify-center lg:justify-end">
+                        <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-end w-full">
                             {!timerActive ? (
                                 <button 
                                     onClick={() => setTimerActive(true)} 
                                     disabled={!activeGoalId} 
-                                    className={`px-10 py-5 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-2xl disabled:opacity-20 flex items-center gap-3 btn-hover-scale ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-600 shadow-emerald-600/20' : 'bg-violet-600 shadow-violet-600/20'}`}
+                                    className={`w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5 text-white rounded-xl font-black text-[10px] sm:text-xs uppercase tracking-widest transition-all shadow-2xl disabled:opacity-20 flex items-center justify-center gap-3 btn-hover-scale ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-600 shadow-emerald-600/20' : 'bg-violet-600 shadow-violet-600/20'}`}
                                 >
                                     <FiPlay size={16} /> Start Protocol
                                 </button>
                             ) : (
                                 <button 
                                     onClick={timerMode === 'stopwatch' ? handleStopTimer : () => setTimerActive(false)} 
-                                    className="px-10 py-5 bg-rose-600 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-rose-700 transition-all shadow-2xl shadow-rose-600/20 flex items-center gap-3 btn-hover-scale"
+                                    className="w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5 bg-rose-600 text-white rounded-xl font-black text-[10px] sm:text-xs uppercase tracking-widest hover:bg-rose-700 transition-all shadow-2xl shadow-rose-600/20 flex items-center justify-center gap-3 btn-hover-scale"
                                 >
                                     <FiPause size={16} /> {timerMode === 'stopwatch' ? 'Log & Reset' : 'Pause Protocol'}
                                 </button>
@@ -240,7 +240,7 @@ const Progress = () => {
                                         if (timerMode === 'stopwatch') setTime(0);
                                         else setPomoTimeLeft(pomoState === 'focus' ? 25*60 : 5*60);
                                     }} 
-                                    className="px-8 py-5 bg-white text-slate-500 rounded-xl font-black text-xs uppercase tracking-widest hover:text-slate-800 hover:bg-slate-50 transition-all border border-slate-200 flex items-center gap-2"
+                                    className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-5 bg-white text-slate-500 rounded-xl font-black text-[10px] sm:text-xs uppercase tracking-widest hover:text-slate-800 hover:bg-slate-50 transition-all border border-slate-200 flex items-center justify-center gap-2"
                                 >
                                     <FiRotateCcw /> Reset
                                 </button>

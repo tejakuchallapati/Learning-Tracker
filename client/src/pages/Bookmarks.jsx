@@ -89,9 +89,9 @@ const Bookmarks = () => {
             )}
 
             {/* Category Filter Pills */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-nowrap sm:flex-wrap gap-2 overflow-x-auto pb-1 scrollbar-none max-w-full">
                 {categories.map(c => (
-                    <button key={c} onClick={() => setFilter(c)} className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all border ${filter === c ? 'bg-violet-600 text-white border-violet-600 shadow-xl shadow-violet-100/50' : 'bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-800 hover:border-violet-200 hover:text-violet-600 dark:hover:text-violet-400'}`}>
+                    <button key={c} onClick={() => setFilter(c)} className={`shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wide transition-all border ${filter === c ? 'bg-violet-600 text-white border-violet-600 shadow-xl shadow-violet-100/50' : 'bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-800 hover:border-violet-200 hover:text-violet-600 dark:hover:text-violet-400'}`}>
                         {c} {c !== 'All' && `(${bookmarks.filter(b => b.category === c).length})`}
                     </button>
                 ))}

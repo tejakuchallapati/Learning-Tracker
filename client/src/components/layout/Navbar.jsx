@@ -4,7 +4,7 @@ import { FiBell, FiSearch, FiUser, FiLogOut, FiMessageCircle } from 'react-icons
 import NavIcon from '../icons/NavIcon';
 import { useNavigate } from 'react-router-dom';
 import { courses } from '../../data/CourseData';
-import ReportIssueModal from '../feedback/ReportIssueModal';
+import { formatReminderTime } from '../../utils/formatReminderTime';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
@@ -118,7 +118,7 @@ const Navbar = () => {
                             <div className="space-y-2 text-sm">
                                 <p className="text-xs text-slate-500 font-medium">
                                     {user?.reminderTime
-                                        ? `Reminders at ${user.reminderTime} ${user.reminderAmPm || ''} (IST)`
+                                        ? `Reminders at ${formatReminderTime(user.reminderTime, user.reminderAmPm)} (IST)`
                                         : 'Set your reminder time in Settings'}
                                 </p>
                                 <p className="text-xs text-slate-500 font-medium">
