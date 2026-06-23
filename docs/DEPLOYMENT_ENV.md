@@ -1,7 +1,7 @@
 # Production environment variables
 
-Set these in **Vercel** (frontend) and **Render** (API + cron) before launch.  
-Use the same values from your local `server/.env` where noted — never commit secrets to git.
+Set these in **Vercel** (frontend) and **Render** (API) before launch.  
+Reminders use **cron-job.org** (free) — see below.
 
 ---
 
@@ -51,20 +51,56 @@ Dashboard → your API service → **Environment**.
 openssl rand -hex 32
 ```
 
-Copy the output into Render for **both** the web service and the cron job.
+Copy the output into Render **web service** env as `CRON_SECRET`. You will use the same value in **cron-job.org** (free) below — **do not** create a paid Render Cron Job.
 
 ---
 
-## Render — Cron job (`learning-tracker-reminders`)
+## Free reminders — cron-job.org ($0)
 
-If the cron service is not created yet: **New +** → **Cron Job**, or deploy from `render.yaml`.
+**Skip Render Cron Job** (that costs money). Use this instead:
+
+1. **Wake the API first** (Render free tier sleeps): open  
+   `https://learning-tracker-api-hqzm.onrender.com/api/health` in your browser and wait until you see `{"status":"ok"...}`
+
+2. Go to [cron-job.org](https://cron-job.org) → sign up free → **Create cronjob**
+
+3. Use **GET** and put your secret **in the URL** (cron-job.org validates the URL without custom headers, so POST + `Authorization` often shows *“This URL does not look to be valid”*):
+
+| Field | Value |
+|-------|--------|
+| **Title** | Learning Tracker reminders |
+| **URL** | `https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=PASTE_CRON_SECRET_HERE` |
+| **Schedule** | Every **5 minutes** |
+| **Request method** | `GET` (default) |
+
+Replace `PASTE_CRON_SECRET_HERE` with the exact `CRON_SECRET` from Render → API service → Environment.  
+No spaces, no quotes, no `Bearer` — just the secret string after `?secret=`.
+
+4. **Save** and **Enable** the job  
+5. Open **History** after a few minutes — you should see **200** responses
+
+**Alternative (Advanced tab):** POST with header `Authorization: Bearer YOUR_CRON_SECRET` — only if GET with `?secret=` still fails after waking the API.
+
+**Test the exact URL in your browser** (replace secret):
+
+```
+https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=YOUR_CRON_SECRET
+```
+
+You should see JSON like `{"ok":true,...}`. If that works in the browser, paste the same URL into cron-job.org.
+
+---
+
+## Paid option (optional) — Render Cron Job
+
+Only if you prefer everything on Render (~$0.10–1.50/month). **Not required.**
 
 | Variable | Value |
 |----------|--------|
-| `CRON_SECRET` | **Same value** as web service |
+| `CRON_SECRET` | Same as web service |
 | `API_URL` | `https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders` |
 
-Schedule: `* * * * *` (every minute).
+Command: `node scripts/pingReminders.js` · Root: `server` · Schedule: `*/5 * * * *`
 
 ---
 
@@ -87,7 +123,7 @@ Expected: `{"ok":true,...}` or reminder skip stats — not `401` or `403`.
 ### Reminder checklist (must all be true)
 
 1. **Render web** has `EMAIL_USER`, `EMAIL_PASS`, `CRON_SECRET`, `REMINDER_TIMEZONE=Asia/Kolkata`
-2. **Render cron** `learning-tracker-reminders` runs every minute with the **same** `CRON_SECRET`
+2. **cron-job.org** pings `/api/cron/reminders` every 5 min with `Authorization: Bearer CRON_SECRET` (free)
 3. User saved a **reminder time** in Settings
 4. At least one daily goal has the **bell ON** and is **not completed**
 5. `emailNotification` is not disabled on the user account
@@ -99,7 +135,7 @@ Expected: `{"ok":true,...}` or reminder skip stats — not `401` or `403`.
 - [ ] Vercel: `VITE_API_BASE_URL` + `VITE_GOOGLE_CLIENT_ID` set, redeployed
 - [ ] Vercel: `VITE_GA_MEASUREMENT_ID` set (optional)
 - [ ] Render web: all variables above set
-- [ ] Render cron: `CRON_SECRET` matches web service
+- [ ] **cron-job.org** (free): reminder ping every 5 min — not paid Render cron
 - [ ] Google Cloud Console: OAuth authorized origins include `https://learning-tracker-two-xi.vercel.app`
 - [ ] Test login on live site after redeploy
 

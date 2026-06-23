@@ -29,7 +29,8 @@ services:
       - key: FRONTEND_URL
         value: https://learning-tracker-two-xi.vercel.app
 
-  # Pings /api/cron/reminders every minute so emails send while web service sleeps
+  # FREE: use cron-job.org to POST /api/cron/reminders every 5 min (see docs/DEPLOYMENT_ENV.md).
+  # Paid Render cron below is optional — delete this block if using cron-job.org only.
   - type: cron
     name: learning-tracker-reminders
     env: node
