@@ -2,107 +2,191 @@ import { useState } from 'react';
 import { courses } from '../data/CourseData';
 import { FiChevronRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import PageHeader from '../components/layout/PageHeader';
 
 const CourseCatalog = () => {
-    const [search] = useState('');
     const [category, setCategory] = useState('All');
     const navigate = useNavigate();
 
     const categories = ['All', ...new Set(courses.map(c => c.category))];
 
-    const filteredCourses = courses.filter(c => {
-        const matchesSearch = c.title.toLowerCase().includes(search.toLowerCase()) ||
-                             c.description.toLowerCase().includes(search.toLowerCase());
-        const matchesCategory = category === 'All' || c.category === category;
-        return matchesSearch && matchesCategory;
+    const filteredCourses = courses.filter((c) => {
+        return category === 'All' || c.category === category;
     });
 
+    const categoryFilters = (
+        <div className="flex flex-nowrap sm:flex-wrap gap-1.5 bg-slate-50 dark:bg-slate-900 p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto max-w-full [-webkit-overflow-scrolling:touch] scrollbar-none">
+            {categories.map((cat) => (
+                <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setCategory(cat)}
+                    className={`shrink-0 px-2.5 sm:px-3 py-1.5 rounded-md text-[10px] sm:text-xs font-black transition-all active:scale-95 border ${
+                        category === cat
+                            ? 'bg-sky-600 text-white border-sky-500 shadow-md shadow-sky-500/20'
+                            : 'bg-white dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700 hover:border-sky-400 hover:text-sky-600'
+                    }`}
+                >
+                    {cat.toUpperCase()}
+                </button>
+            ))}
+        </div>
+    );
+
+    const openCourse = (courseId) => navigate(`/roadmap/${courseId}`);
+
     return (
-        <div className="w-full min-h-[calc(100dvh-5rem)] max-md:min-h-[calc(100dvh-8.5rem)] flex flex-col pt-3 md:pt-4 pb-3 md:pb-4 min-w-0 overflow-x-hidden">
-            <PageHeader
-                title="Mastery Tracks"
-                description="Systematic learning paths engineered for rapid technical progression."
-                actions={(
-                    <div className="flex flex-nowrap sm:flex-wrap gap-1.5 bg-slate-50 dark:bg-slate-900 p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto max-w-full [-webkit-overflow-scrolling:touch] scrollbar-none">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                type="button"
-                                onClick={() => setCategory(cat)}
-                                className={`shrink-0 px-2.5 sm:px-3 py-1.5 rounded-md text-[10px] sm:text-xs font-black transition-all active:scale-95 border ${
-                                    category === cat
-                                        ? 'bg-sky-600 text-white border-sky-500 shadow-md shadow-sky-500/20'
-                                        : 'bg-white dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700 hover:border-sky-400 hover:text-sky-600'
-                                }`}
-                            >
-                                {cat.toUpperCase()}
-                            </button>
-                        ))}
-                    </div>
-                )}
-            />
+        <div className="w-full flex flex-col min-h-0 md:h-[calc(100dvh-5rem)] max-md:min-h-[calc(100dvh-8.5rem)] overflow-x-hidden">
+            <header className="shrink-0 flex flex-col lg:flex-row lg:items-end justify-between gap-2 md:gap-3 pb-2 md:pb-3 border-b border-slate-200 dark:border-slate-800">
+                <div className="min-w-0">
+                    <h1 className="text-xl sm:text-2xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                        Mastery Tracks
+                    </h1>
+                    <p className="text-slate-500 dark:text-slate-400 mt-0.5 text-[11px] sm:text-xs font-medium leading-snug line-clamp-1 md:line-clamp-2 max-w-xl">
+                        Systematic learning paths engineered for rapid technical progression.
+                    </p>
+                </div>
+                <div className="shrink-0 w-full lg:w-auto">{categoryFilters}</div>
+            </header>
 
-            <div className="grid flex-1 grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-3 md:gap-4 w-full min-h-0 content-start">
-                {filteredCourses.map(course => (
-                    <div
+            {/* Mobile — one card per row (like landing About us) */}
+            <div className="md:hidden flex flex-col items-center gap-4 flex-1 overflow-y-auto py-3 px-1 pb-4">
+                {filteredCourses.map((course) => (
+                    <article
                         key={course.id}
-                        className="bg-white group rounded-xl p-3 sm:p-4 md:p-5 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col min-h-0 relative overflow-hidden border border-slate-200 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-500/10 shadow-sm"
-                        onClick={() => navigate(`/roadmap/${course.id}`)}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => openCourse(course.id)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                openCourse(course.id);
+                            }
+                        }}
+                        className="w-[88%] rounded-2xl border border-slate-200 bg-white shadow-sm p-4 flex flex-col gap-3 cursor-pointer active:scale-[0.99] transition-transform"
                     >
-                        <div className="absolute -top-8 -right-8 w-24 h-24 bg-violet-500/5 rounded-full group-hover:scale-150 transition-transform duration-700 blur-2xl pointer-events-none" />
-
-                        <div className="mb-2 sm:mb-3 relative z-10 shrink-0">
-                            <div className="w-9 h-9 sm:w-11 sm:h-11 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center justify-center text-lg sm:text-xl group-hover:scale-110 group-hover:border-violet-300 transition-all duration-300">
+                        <div className="flex items-center gap-3 min-w-0">
+                            <div className="w-10 h-10 shrink-0 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center justify-center text-xl">
                                 {course.icon}
                             </div>
-                        </div>
-
-                        <div className="relative z-10 flex-1 flex flex-col min-h-0 min-w-0">
-                            <span className="inline-flex w-fit max-w-full items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-wide sm:tracking-[0.15em] bg-violet-50 text-violet-600 mb-1.5 sm:mb-2 border border-violet-100 truncate">
-                                {course.category}
-                            </span>
-                            <h3 className="text-xs sm:text-sm md:text-base font-black text-slate-900 group-hover:text-violet-600 transition-colors leading-snug break-words line-clamp-2">
-                                {course.title}
-                            </h3>
-                            <p className="hidden sm:block text-slate-500 mt-1.5 text-xs font-semibold leading-relaxed line-clamp-2">
-                                {course.description}
-                            </p>
-
-                            <div className="mt-2 sm:mt-3 flex flex-wrap gap-1 sm:gap-1.5 min-w-0">
-                                {course.tools.slice(0, 2).map(tool => (
-                                    <span
-                                        key={tool}
-                                        className="max-w-full truncate px-1.5 sm:px-2 py-0.5 sm:py-1 bg-slate-50 text-slate-600 rounded-md text-[9px] sm:text-[10px] font-bold border border-slate-200 capitalize"
-                                    >
-                                        {tool}
-                                    </span>
-                                ))}
-                                {course.tools.length > 2 && (
-                                    <span className="shrink-0 px-1.5 sm:px-2 py-0.5 sm:py-1 bg-violet-50 text-violet-600 rounded-md text-[9px] sm:text-[10px] font-black border border-violet-100">
-                                        +{course.tools.length - 2}
-                                    </span>
-                                )}
+                            <div className="flex-1 min-w-0">
+                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wide bg-violet-50 text-violet-600 border border-violet-100">
+                                    {course.category}
+                                </span>
+                                <h3 className="text-sm font-black text-slate-900 leading-tight break-words mt-1">
+                                    {course.title}
+                                </h3>
                             </div>
                         </div>
 
-                        <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex items-center justify-between gap-2 relative z-10 shrink-0 min-w-0">
-                            <div className="flex flex-col min-w-0">
-                                <span className="text-xs sm:text-sm font-black text-slate-900 leading-none tabular-nums">
+                        <p className="text-xs text-slate-500 font-medium leading-relaxed text-center px-1">
+                            {course.description}
+                        </p>
+
+                        <div className="flex flex-wrap justify-center gap-1.5">
+                            {course.tools.slice(0, 3).map((tool) => (
+                                <span
+                                    key={tool}
+                                    className="px-2 py-0.5 bg-slate-50 text-slate-600 rounded-md text-[9px] font-bold border border-slate-200 capitalize"
+                                >
+                                    {tool}
+                                </span>
+                            ))}
+                            {course.tools.length > 3 && (
+                                <span className="px-2 py-0.5 bg-violet-50 text-violet-600 rounded-md text-[9px] font-black border border-violet-100">
+                                    +{course.tools.length - 3}
+                                </span>
+                            )}
+                        </div>
+
+                        <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100">
+                            <div>
+                                <span className="text-sm font-black text-slate-900 tabular-nums leading-none">
                                     {course.roadmap.length}
                                 </span>
-                                <span className="text-[9px] sm:text-[10px] font-black text-violet-500 uppercase tracking-wider mt-0.5">
+                                <span className="text-[9px] font-black text-violet-500 uppercase tracking-wider ml-1">
+                                    Chapters
+                                </span>
+                            </div>
+                            <span className="text-[10px] font-black text-red-600 flex items-center gap-0.5">
+                                BEGIN <FiChevronRight size={12} />
+                            </span>
+                        </div>
+                    </article>
+                ))}
+            </div>
+
+            {/* Desktop — 4×2 grid filling the viewport */}
+            <div
+                className="hidden md:grid flex-1 min-h-0 grid-cols-4 gap-3 pt-3"
+                style={{ gridTemplateRows: `repeat(${Math.max(1, Math.ceil(filteredCourses.length / 4))}, minmax(0, 1fr))` }}
+            >
+                {filteredCourses.map((course) => (
+                    <article
+                        key={course.id}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => openCourse(course.id)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                openCourse(course.id);
+                            }
+                        }}
+                        className="group h-full min-h-0 bg-white rounded-xl p-3 lg:p-4 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer flex flex-col relative overflow-hidden border border-slate-200 hover:border-violet-300 hover:shadow-lg hover:shadow-violet-500/10 shadow-sm"
+                    >
+                        <div className="absolute -top-8 -right-8 w-20 h-20 bg-violet-500/5 rounded-full group-hover:scale-150 transition-transform duration-700 blur-2xl pointer-events-none" />
+
+                        <div className="relative z-10 flex items-start gap-2.5 shrink-0 mb-2">
+                            <div className="w-9 h-9 lg:w-10 lg:h-10 shrink-0 bg-white border border-slate-200 rounded-lg shadow-sm flex items-center justify-center text-lg group-hover:scale-105 group-hover:border-violet-300 transition-all">
+                                {course.icon}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[8px] lg:text-[9px] font-black uppercase tracking-wide bg-violet-50 text-violet-600 border border-violet-100">
+                                    {course.category}
+                                </span>
+                                <h3 className="text-xs lg:text-sm font-black text-slate-900 group-hover:text-violet-600 transition-colors leading-tight break-words line-clamp-2 mt-0.5">
+                                    {course.title}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <p className="relative z-10 text-[10px] lg:text-xs text-slate-500 font-semibold leading-snug line-clamp-2 flex-1 min-h-0">
+                            {course.description}
+                        </p>
+
+                        <div className="relative z-10 mt-2 flex flex-wrap gap-1 shrink-0">
+                            {course.tools.slice(0, 3).map((tool) => (
+                                <span
+                                    key={tool}
+                                    className="truncate max-w-[5.5rem] px-1.5 py-0.5 bg-slate-50 text-slate-600 rounded text-[8px] lg:text-[9px] font-bold border border-slate-200 capitalize"
+                                >
+                                    {tool}
+                                </span>
+                            ))}
+                            {course.tools.length > 3 && (
+                                <span className="shrink-0 px-1.5 py-0.5 bg-violet-50 text-violet-600 rounded text-[8px] lg:text-[9px] font-black border border-violet-100">
+                                    +{course.tools.length - 3}
+                                </span>
+                            )}
+                        </div>
+
+                        <div className="relative z-10 mt-auto pt-2 border-t border-slate-100 flex items-center justify-between gap-2 shrink-0">
+                            <div className="flex items-baseline gap-1">
+                                <span className="text-sm font-black text-slate-900 tabular-nums leading-none">
+                                    {course.roadmap.length}
+                                </span>
+                                <span className="text-[8px] lg:text-[9px] font-black text-violet-500 uppercase tracking-wider">
                                     Chapters
                                 </span>
                             </div>
                             <button
                                 type="button"
-                                className="shrink-0 px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-red-600 text-white rounded-md font-black text-[9px] sm:text-[10px] hover:bg-red-700 transition-all shadow-md shadow-red-500/20 flex items-center gap-0.5 sm:gap-1"
+                                className="shrink-0 px-2.5 py-1.5 bg-red-600 text-white rounded-md font-black text-[8px] lg:text-[9px] hover:bg-red-700 transition-all shadow-md shadow-red-500/20 flex items-center gap-0.5"
                             >
-                                BEGIN <FiChevronRight size={11} className="sm:w-3 sm:h-3" />
+                                BEGIN <FiChevronRight size={10} />
                             </button>
                         </div>
-                    </div>
+                    </article>
                 ))}
             </div>
         </div>
