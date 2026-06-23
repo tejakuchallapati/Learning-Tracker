@@ -86,7 +86,7 @@ const createDailyGoal = asyncHandler(async (req, res) => {
     const goal = await DailyGoal.create({
         userId: req.user.id,
         title,
-        emailReminders: emailReminders || false,
+        emailReminders: emailReminders !== false,
     });
 
     res.status(201).json(goal);
@@ -96,46 +96,35 @@ const createDailyGoal = asyncHandler(async (req, res) => {
 // @route   GET /api/daily-goals
 // @access  Private
 const getDailyGoals = asyncHandler(async (req, res) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
+    const todayKey = todayDateKey();
+    const [y, m, d] = todayKey.split('-').map(Number);
+    const yesterdayDate = new Date(Date.UTC(y, m - 1, d - 1, 12, 0, 0));
+    const yesterdayKey = getLocalDateKey(yesterdayDate);
 
     const goals = await DailyGoal.find({ userId: req.user.id });
 
-    // Dynamic reset for goals completed on previous days and streak checks
     for (let goal of goals) {
         let updated = false;
 
-        // If completed in the past, reset completed status to false for a new day
         if (goal.completed && goal.lastCompletedDate) {
-            const compDate = new Date(goal.lastCompletedDate);
-            compDate.setHours(0, 0, 0, 0);
-
-            if (compDate.getTime() < today.getTime()) {
+            const compKey = getLocalDateKey(goal.lastCompletedDate);
+            if (compKey < todayKey) {
                 goal.completed = false;
                 updated = true;
             }
         }
 
-        // If they missed completing it yesterday and haven't completed it today, reset the streak to 0
         if (goal.lastCompletedDate) {
-            const compDate = new Date(goal.lastCompletedDate);
-            compDate.setHours(0, 0, 0, 0);
-
-            if (compDate.getTime() < yesterday.getTime() && compDate.getTime() < today.getTime()) {
+            const compKey = getLocalDateKey(goal.lastCompletedDate);
+            if (compKey < yesterdayKey && compKey < todayKey) {
                 if (goal.streak > 0) {
                     goal.streak = 0;
                     updated = true;
                 }
             }
-        } else {
-            // No completion date, reset streak to 0 if it was positive
-            if (goal.streak > 0) {
-                goal.streak = 0;
-                updated = true;
-            }
+        } else if (goal.streak > 0) {
+            goal.streak = 0;
+            updated = true;
         }
 
         if (updated) {

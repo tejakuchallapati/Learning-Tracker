@@ -17,7 +17,7 @@ const dailyGoalSchema = mongoose.Schema(
         },
         emailReminders: {
             type: Boolean,
-            default: false,
+            default: true,
         },
         streak: {
             type: Number,

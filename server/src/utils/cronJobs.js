@@ -5,6 +5,7 @@ const sendEmail = require('./emailService');
 const {
     DEFAULT_TIMEZONE,
     getLocalNow,
+    getLocalDateKey,
     isReminderDue,
     wasReminderSentToday,
     hasReminderTime,
@@ -13,17 +14,38 @@ const {
 
 const pad = (n) => String(n).padStart(2, '0');
 
-// Reset only goals completed on a previous calendar day (not all users at once blindly)
-cron.schedule('0 0 * * *', async () => {
-    console.log('Running midnight daily goal reset...');
-    try {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const result = await DailyGoal.updateMany(
-            { completed: true, lastCompletedDate: { $lt: today } },
-            { completed: false }
+/** Reset goals completed on a previous local calendar day (IST by default). */
+const resetStaleCompletedGoals = async (localNow = getLocalNow()) => {
+    const todayKey = localNow.dateKey;
+    const completedGoals = await DailyGoal.find({
+        completed: true,
+        lastCompletedDate: { $exists: true, $ne: null },
+    });
+
+    let resetCount = 0;
+    for (const goal of completedGoals) {
+        const completedKey = getLocalDateKey(goal.lastCompletedDate, localNow.timezone);
+        if (completedKey < todayKey) {
+            goal.completed = false;
+            await goal.save();
+            resetCount += 1;
+        }
+    }
+
+    if (resetCount > 0) {
+        console.log(
+            `Reset ${resetCount} daily goals for new local day (${todayKey}, ${localNow.timezone})`
         );
-        console.log(`Reset ${result.modifiedCount} goals for a new day.`);
+    }
+
+    return resetCount;
+};
+
+// Midnight reset in server TZ — backup; primary reset runs each reminder check in user TZ
+cron.schedule('0 0 * * *', async () => {
+    console.log('Running midnight daily goal reset (backup)...');
+    try {
+        await resetStaleCompletedGoals();
     } catch (err) {
         console.error('Error resetting daily goals at midnight:', err);
     }
@@ -36,7 +58,6 @@ const getIncompleteReminderGoals = async (userId) =>
         emailReminders: true,
     });
 
-// Main function to check and send reminders
 const checkAndSendReminders = async () => {
     const localNow = getLocalNow();
 
@@ -45,8 +66,18 @@ const checkAndSendReminders = async () => {
         return { sent: 0, skipped: 0, reason: 'email_not_configured' };
     }
 
+    await resetStaleCompletedGoals(localNow);
+
     let sent = 0;
     let skipped = 0;
+    let eligibleUsers = 0;
+    const skipReasons = {
+        no_reminder_time: 0,
+        already_sent: 0,
+        not_due_yet: 0,
+        no_incomplete_goals: 0,
+        email_disabled: 0,
+    };
 
     try {
         const userIds = await DailyGoal.distinct('userId', {
@@ -54,25 +85,36 @@ const checkAndSendReminders = async () => {
             emailReminders: true,
         });
 
+        eligibleUsers = userIds.length;
+
         if (userIds.length === 0) {
-            return { sent: 0, skipped: 0, reason: 'no_eligible_goals' };
+            return { sent: 0, skipped: 0, reason: 'no_eligible_goals', timezone: localNow.timezone };
         }
 
         const users = await User.find({ _id: { $in: userIds } });
 
         for (const user of users) {
+            if (user.emailNotification === false) {
+                skipped += 1;
+                skipReasons.email_disabled += 1;
+                continue;
+            }
+
             if (!hasReminderTime(user)) {
                 skipped += 1;
+                skipReasons.no_reminder_time += 1;
                 continue;
             }
 
             if (wasReminderSentToday(user, localNow)) {
                 skipped += 1;
+                skipReasons.already_sent += 1;
                 continue;
             }
 
             if (!isReminderDue(user, localNow)) {
                 skipped += 1;
+                skipReasons.not_due_yet += 1;
                 continue;
             }
 
@@ -80,6 +122,7 @@ const checkAndSendReminders = async () => {
 
             if (incompleteGoals.length === 0) {
                 skipped += 1;
+                skipReasons.no_incomplete_goals += 1;
                 continue;
             }
 
@@ -97,6 +140,7 @@ const checkAndSendReminders = async () => {
             const timeParts = to24HourParts(user.reminderTime, user.reminderAmPm);
             if (!timeParts) {
                 skipped += 1;
+                skipReasons.no_reminder_time += 1;
                 continue;
             }
             const { hour, minute } = timeParts;
@@ -120,19 +164,29 @@ const checkAndSendReminders = async () => {
         }
     } catch (err) {
         console.error('Error running checkAndSendReminders:', err);
-        return { sent, skipped, error: err.message };
+        return { sent, skipped, skipReasons, error: err.message, timezone: localNow.timezone };
     }
 
-    return { sent, skipped };
+    if (sent === 0 && eligibleUsers > 0) {
+        console.log('Reminder check: no emails sent.', { skipped, skipReasons, timezone: localNow.timezone });
+    }
+
+    return { sent, skipped, skipReasons, timezone: localNow.timezone };
 };
 
-// Check every minute so reminders go out within ~1 min of the chosen time
-cron.schedule('* * * * *', async () => {
-    await checkAndSendReminders();
-});
+// Local dev fallback — production should use Render Cron pinging /api/cron/reminders
+const useInternalScheduler =
+    process.env.NODE_ENV !== 'production' || process.env.USE_INTERNAL_CRON === 'true';
+
+if (useInternalScheduler) {
+    cron.schedule('* * * * *', async () => {
+        await checkAndSendReminders();
+    });
+}
 
 module.exports = {
     cron,
     checkAndSendReminders,
+    resetStaleCompletedGoals,
     DEFAULT_TIMEZONE,
 };

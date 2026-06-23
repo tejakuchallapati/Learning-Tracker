@@ -18,7 +18,25 @@ services:
         sync: false
       - key: EMAIL_PASS
         sync: false
+      - key: CRON_SECRET
+        sync: false
+      - key: REMINDER_TIMEZONE
+        value: Asia/Kolkata
       - key: GOOGLE_CLIENT_ID
         sync: false
       - key: FRONTEND_URL
         value: https://learning-tracker-two-xi.vercel.app
+
+  # Pings /api/cron/reminders every minute so emails send while web service sleeps
+  - type: cron
+    name: learning-tracker-reminders
+    env: node
+    schedule: "* * * * *"
+    rootDir: server
+    buildCommand: npm install --omit=dev
+    startCommand: node scripts/pingReminders.js
+    envVars:
+      - key: CRON_SECRET
+        sync: false
+      - key: API_URL
+        value: https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders
