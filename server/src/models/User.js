@@ -54,6 +54,9 @@ const userSchema = mongoose.Schema(
         lastReminderSent: {
             type: Date,
         },
+        lastReminderDateKey: {
+            type: String,
+        },
         resetPasswordToken: {
             type: String,
             select: false,

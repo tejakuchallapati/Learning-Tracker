@@ -77,9 +77,20 @@ curl https://learning-tracker-api-hqzm.onrender.com/api/health
 # Reminders (replace YOUR_CRON_SECRET)
 curl -X POST https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders \
   -H "Authorization: Bearer YOUR_CRON_SECRET"
+
+# Local: who would get a reminder right now?
+cd server && node scripts/verifyReminders.js
 ```
 
 Expected: `{"ok":true,...}` or reminder skip stats — not `401` or `403`.
+
+### Reminder checklist (must all be true)
+
+1. **Render web** has `EMAIL_USER`, `EMAIL_PASS`, `CRON_SECRET`, `REMINDER_TIMEZONE=Asia/Kolkata`
+2. **Render cron** `learning-tracker-reminders` runs every minute with the **same** `CRON_SECRET`
+3. User saved a **reminder time** in Settings
+4. At least one daily goal has the **bell ON** and is **not completed**
+5. `emailNotification` is not disabled on the user account
 
 ---
 

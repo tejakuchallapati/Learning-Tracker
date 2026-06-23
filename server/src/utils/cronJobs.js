@@ -10,6 +10,7 @@ const {
     wasReminderSentToday,
     hasReminderTime,
     to24HourParts,
+    clearReminderSendMarkers,
 } = require('./reminderSchedule');
 
 const pad = (n) => String(n).padStart(2, '0');
@@ -41,15 +42,19 @@ const resetStaleCompletedGoals = async (localNow = getLocalNow()) => {
     return resetCount;
 };
 
-// Midnight reset in server TZ — backup; primary reset runs each reminder check in user TZ
-cron.schedule('0 0 * * *', async () => {
-    console.log('Running midnight daily goal reset (backup)...');
-    try {
-        await resetStaleCompletedGoals();
-    } catch (err) {
-        console.error('Error resetting daily goals at midnight:', err);
-    }
-});
+// Midnight reset in user timezone — backup; primary reset runs each reminder check
+cron.schedule(
+    '0 0 * * *',
+    async () => {
+        console.log(`Running midnight daily goal reset (${DEFAULT_TIMEZONE})...`);
+        try {
+            await resetStaleCompletedGoals();
+        } catch (err) {
+            console.error('Error resetting daily goals at midnight:', err);
+        }
+    },
+    { timezone: DEFAULT_TIMEZONE }
+);
 
 const getIncompleteReminderGoals = async (userId) =>
     DailyGoal.find({
@@ -57,6 +62,31 @@ const getIncompleteReminderGoals = async (userId) =>
         completed: false,
         emailReminders: true,
     });
+
+/**
+ * Atomically claim today's reminder slot so concurrent cron pings cannot double-send.
+ * Returns updated user doc or null if already sent today.
+ */
+const claimReminderSlot = async (userId, dateKey) =>
+    User.findOneAndUpdate(
+        {
+            _id: userId,
+            lastReminderDateKey: { $ne: dateKey },
+        },
+        {
+            $set: {
+                lastReminderDateKey: dateKey,
+                lastReminderSent: new Date(),
+            },
+        },
+        { new: true }
+    );
+
+const releaseReminderSlot = async (userId) => {
+    await User.findByIdAndUpdate(userId, {
+        $set: clearReminderSendMarkers(),
+    });
+};
 
 const checkAndSendReminders = async () => {
     const localNow = getLocalNow();
@@ -126,17 +156,6 @@ const checkAndSendReminders = async () => {
                 continue;
             }
 
-            const includeStreak = user.streakAlertNotification !== false;
-            const goalListText = incompleteGoals.map((g) => {
-                let streakText = '';
-                if (includeStreak && g.streak > 0) {
-                    streakText = ` (Current Streak: ${g.streak})`;
-                }
-                return `- ${g.title}${streakText}`;
-            }).join('\n');
-
-            const message = `Hello ${user.name},\n\nYou have some pending daily goals in Learning Tracker to complete today:\n\n${goalListText}\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe Learning Tracker Team`;
-
             const timeParts = to24HourParts(user.reminderTime, user.reminderAmPm);
             if (!timeParts) {
                 skipped += 1;
@@ -145,6 +164,26 @@ const checkAndSendReminders = async () => {
             }
             const { hour, minute } = timeParts;
 
+            const claimed = await claimReminderSlot(user._id, localNow.dateKey);
+            if (!claimed) {
+                skipped += 1;
+                skipReasons.already_sent += 1;
+                continue;
+            }
+
+            const includeStreak = user.streakAlertNotification !== false;
+            const goalListText = incompleteGoals
+                .map((g) => {
+                    let streakText = '';
+                    if (includeStreak && g.streak > 0) {
+                        streakText = ` (Current Streak: ${g.streak})`;
+                    }
+                    return `- ${g.title}${streakText}`;
+                })
+                .join('\n');
+
+            const message = `Hello ${user.name},\n\nYou have some pending daily goals in Learning Tracker to complete today:\n\n${goalListText}\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe Learning Tracker Team`;
+
             try {
                 await sendEmail({
                     email: user.email,
@@ -152,14 +191,12 @@ const checkAndSendReminders = async () => {
                     message,
                 });
                 console.log(
-                    `Reminder email sent to ${user.email} (scheduled ${pad(hour)}:${pad(minute)}, tz ${localNow.timezone}, local ${pad(localNow.hour)}:${pad(localNow.minute)})`
+                    `Reminder email sent to ${user.email} (scheduled ${pad(hour)}:${pad(minute)}, tz ${localNow.timezone}, local ${pad(localNow.hour)}:${pad(localNow.minute)}, date ${localNow.dateKey})`
                 );
-
-                user.lastReminderSent = new Date();
-                await user.save();
                 sent += 1;
             } catch (err) {
                 console.error(`Failed to send email to ${user.email}:`, err.message);
+                await releaseReminderSlot(user._id);
             }
         }
     } catch (err) {
@@ -168,20 +205,26 @@ const checkAndSendReminders = async () => {
     }
 
     if (sent === 0 && eligibleUsers > 0) {
-        console.log('Reminder check: no emails sent.', { skipped, skipReasons, timezone: localNow.timezone });
+        console.log('Reminder check: no emails sent.', {
+            skipped,
+            skipReasons,
+            timezone: localNow.timezone,
+            localTime: `${pad(localNow.hour)}:${pad(localNow.minute)}`,
+        });
     }
 
-    return { sent, skipped, skipReasons, timezone: localNow.timezone };
+    return { sent, skipped, skipReasons, timezone: localNow.timezone, localTime: `${pad(localNow.hour)}:${pad(localNow.minute)}` };
 };
 
-// Local dev fallback — production should use Render Cron pinging /api/cron/reminders
-const useInternalScheduler =
-    process.env.NODE_ENV !== 'production' || process.env.USE_INTERNAL_CRON === 'true';
+// Run every minute while the server process is alive (backup when Render web is awake).
+// Production still needs Render Cron pinging /api/cron/reminders to wake the sleeping instance.
+const disableInternal = process.env.DISABLE_INTERNAL_CRON === 'true';
 
-if (useInternalScheduler) {
+if (!disableInternal) {
     cron.schedule('* * * * *', async () => {
         await checkAndSendReminders();
     });
+    console.log(`Internal reminder scheduler enabled (timezone: ${DEFAULT_TIMEZONE})`);
 }
 
 module.exports = {

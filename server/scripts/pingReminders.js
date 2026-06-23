@@ -1,5 +1,5 @@
 /**
- * Render Cron / cron-job.org: run every minute to wake API and send due reminders.
+ * Ping Render cron endpoint with timeout + one retry.
  * Requires CRON_SECRET and API_URL (optional) in environment.
  */
 require('dotenv').config();
@@ -8,28 +8,52 @@ const apiUrl =
     process.env.API_URL ||
     'https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders';
 const secret = process.env.CRON_SECRET;
+const TIMEOUT_MS = 55000;
 
 if (!secret) {
     console.error('CRON_SECRET is not set — cannot ping reminder endpoint.');
     process.exit(1);
 }
 
-const run = async () => {
-    const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${secret}`,
-            'Content-Type': 'application/json',
-        },
-    });
+const ping = async () => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
-    const body = await response.text();
-    if (!response.ok) {
-        console.error(`Reminder ping failed (${response.status}):`, body);
-        process.exit(1);
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${secret}`,
+                'Content-Type': 'application/json',
+            },
+            signal: controller.signal,
+        });
+
+        const body = await response.text();
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${body}`);
+        }
+
+        console.log('Reminder ping OK:', body);
+        return true;
+    } finally {
+        clearTimeout(timer);
     }
+};
 
-    console.log('Reminder ping OK:', body);
+const run = async () => {
+    try {
+        await ping();
+    } catch (firstErr) {
+        console.warn('Reminder ping failed, retrying once:', firstErr.message);
+        await new Promise((r) => setTimeout(r, 3000));
+        try {
+            await ping();
+        } catch (retryErr) {
+            console.error('Reminder ping failed after retry:', retryErr.message);
+            process.exit(1);
+        }
+    }
 };
 
 run().catch((err) => {

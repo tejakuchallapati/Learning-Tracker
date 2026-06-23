@@ -223,6 +223,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
                 user.reminderTime = undefined;
                 user.reminderAmPm = undefined;
                 user.lastReminderSent = undefined;
+                user.lastReminderDateKey = undefined;
             } else {
                 const normalized = normalizeReminderStorage(
                     rawTime,
@@ -235,6 +236,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
                 user.reminderAmPm = normalized.reminderAmPm;
                 if (timeChanged) {
                     user.lastReminderSent = undefined;
+                    user.lastReminderDateKey = undefined;
                 }
             }
         }

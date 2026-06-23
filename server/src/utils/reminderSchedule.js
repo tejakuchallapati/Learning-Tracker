@@ -92,9 +92,20 @@ const isReminderDue = (user, localNow = getLocalNow()) => {
 };
 
 const wasReminderSentToday = (user, localNow = getLocalNow()) => {
-    if (!user.lastReminderSent) return false;
+    if (user?.lastReminderDateKey === localNow.dateKey) {
+        return true;
+    }
+    if (!user?.lastReminderSent) {
+        return false;
+    }
     return getLocalDateKey(user.lastReminderSent, localNow.timezone) === localNow.dateKey;
 };
+
+/** Clear reminder send markers (e.g. when user changes reminder time). */
+const clearReminderSendMarkers = () => ({
+    lastReminderSent: undefined,
+    lastReminderDateKey: undefined,
+});
 
 module.exports = {
     DEFAULT_TIMEZONE,
@@ -105,4 +116,5 @@ module.exports = {
     getLocalDateKey,
     isReminderDue,
     wasReminderSentToday,
+    clearReminderSendMarkers,
 };
