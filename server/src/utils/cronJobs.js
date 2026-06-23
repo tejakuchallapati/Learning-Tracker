@@ -10,7 +10,6 @@ const {
     wasReminderSentToday,
     hasReminderTime,
     to24HourParts,
-    clearReminderSendMarkers,
 } = require('./reminderSchedule');
 
 const pad = (n) => String(n).padStart(2, '0');
@@ -84,7 +83,10 @@ const claimReminderSlot = async (userId, dateKey) =>
 
 const releaseReminderSlot = async (userId) => {
     await User.findByIdAndUpdate(userId, {
-        $set: clearReminderSendMarkers(),
+        $unset: {
+            lastReminderSent: '',
+            lastReminderDateKey: '',
+        },
     });
 };
 
@@ -107,6 +109,7 @@ const checkAndSendReminders = async () => {
         not_due_yet: 0,
         no_incomplete_goals: 0,
         email_disabled: 0,
+        send_failed: 0,
     };
 
     try {
@@ -197,6 +200,8 @@ const checkAndSendReminders = async () => {
             } catch (err) {
                 console.error(`Failed to send email to ${user.email}:`, err.message);
                 await releaseReminderSlot(user._id);
+                skipped += 1;
+                skipReasons.send_failed = (skipReasons.send_failed || 0) + 1;
             }
         }
     } catch (err) {
