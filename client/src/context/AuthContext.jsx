@@ -22,33 +22,44 @@ const readStoredSession = () => {
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(() => readStoredSession());
-    const [loading] = useState(false);
+    const [loading, setLoading] = useState(() => Boolean(readStoredSession()));
 
     const applyAuthResponse = useCallback((data) => {
         persistSession(data);
         setUser(data);
+        setLoading(false);
         return data;
     }, []);
 
     useEffect(() => {
         let cancelled = false;
         const stored = readStoredSession();
+        const tokenAtStart = stored?.token || localStorage.getItem('token');
 
         if (!stored) {
             setUser(null);
+            setLoading(false);
             return undefined;
         }
 
         const validateSession = async () => {
             try {
                 const { data } = await authRequest((config) => API.get('auth/me', config));
-                if (!cancelled) applyAuthResponse(data);
-            } catch (err) {
-                // Only clear session when the token is invalid — not on cold-start / network errors.
-                if (err.response?.status === 401) {
-                    clearSession();
-                    if (!cancelled) setUser(null);
+                if (!cancelled && localStorage.getItem('token') === tokenAtStart) {
+                    applyAuthResponse(data);
                 }
+            } catch (err) {
+                // Only clear when this validation still owns the active token.
+                if (
+                    err.response?.status === 401 &&
+                    !cancelled &&
+                    localStorage.getItem('token') === tokenAtStart
+                ) {
+                    clearSession();
+                    setUser(null);
+                }
+            } finally {
+                if (!cancelled) setLoading(false);
             }
         };
 
@@ -67,10 +78,8 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (user) {
             persistSession(user);
-        } else if (!loading) {
-            clearSession();
         }
-    }, [user, loading]);
+    }, [user]);
 
     const login = async (email, password) => {
         const { data } = await authRequest((config) =>

@@ -27,9 +27,14 @@ import Sidebar from '../components/layout/Sidebar';
 import Navbar from '../components/layout/Navbar';
 import MobileNav from '../components/layout/MobileNav';
 import { DASHBOARD_MAIN } from '../components/layout/PageHeader';
+import LoadingScreen from '../components/ui/LoadingScreen';
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
+
+  if (loading) {
+    return <LoadingScreen message="Checking session…" />;
+  }
 
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -38,7 +43,11 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const AdminRoute = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
+
+  if (loading) {
+    return <LoadingScreen message="Checking session…" />;
+  }
 
   if (!user) return <Navigate to="/login" replace />;
   if (!user.isAdmin) return <Navigate to="/dashboard" replace />;
@@ -46,7 +55,11 @@ const AdminRoute = ({ children }) => {
 };
 
 const PublicRoute = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
+
+  if (loading) {
+    return <LoadingScreen message="Checking session…" />;
+  }
 
   if (user) {
     return <Navigate to={user.isAdmin ? '/admin' : '/dashboard'} replace />;
