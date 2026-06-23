@@ -1,6 +1,8 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowRight, FiX } from 'react-icons/fi';
+import { AuthContext } from '../context/AuthContext';
+import { getHomePath } from '../utils/authSession';
 import { Header } from '../components/ui/header-2';
 import LandingModuleIcon from '../components/landing/LandingModuleIcon';
 import SignupForm from '../components/auth/SignupForm';
@@ -23,10 +25,19 @@ const tickerItems = ['Roadmaps', 'Daily goals', 'Email reminders', 'Study notes'
 
 const Landing = () => {
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const [activeModule, setActiveModule] = useState(null);
 
     const scrollToSignup = () => {
         document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    const handleGetStarted = () => {
+        if (user) {
+            navigate(getHomePath(user));
+            return;
+        }
+        navigate('/login');
     };
 
     const focusModule = (moduleId) => {
@@ -100,10 +111,10 @@ const Landing = () => {
                         <div className="flex flex-col items-center gap-3">
                             <button
                                 type="button"
-                                onClick={scrollToSignup}
+                                onClick={handleGetStarted}
                                 className="landing-cta w-auto max-w-[240px] sm:max-w-none px-7 py-2.5 sm:px-10 sm:py-4 text-white rounded-full landing-nav-label text-[10px] sm:text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                             >
-                                Get started <FiArrowRight size={14} className="sm:w-4 sm:h-4" />
+                                {user ? 'Go to dashboard' : 'Get started'} <FiArrowRight size={14} className="sm:w-4 sm:h-4" />
                             </button>
                             <button
                                 type="button"

@@ -13,6 +13,8 @@ const CourseCatalog = () => {
         return category === 'All' || c.category === category;
     });
 
+    const desktopRows = Math.max(1, Math.ceil(filteredCourses.length / 4));
+
     const categoryFilters = (
         <div className="flex flex-nowrap sm:flex-wrap gap-1.5 bg-slate-50 dark:bg-slate-900 p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto max-w-full [-webkit-overflow-scrolling:touch] scrollbar-none">
             {categories.map((cat) => (
@@ -35,7 +37,7 @@ const CourseCatalog = () => {
     const openCourse = (courseId) => navigate(`/roadmap/${courseId}`);
 
     return (
-        <div className="w-full flex flex-col min-h-0 md:h-[calc(100dvh-5rem)] max-md:min-h-[calc(100dvh-8.5rem)] overflow-x-hidden">
+        <div className="w-full min-w-0 flex flex-col pt-3 md:pt-4 pb-4">
             <header className="shrink-0 flex flex-col lg:flex-row lg:items-end justify-between gap-2 md:gap-3 pb-2 md:pb-3 border-b border-slate-200 dark:border-slate-800">
                 <div className="min-w-0">
                     <h1 className="text-xl sm:text-2xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
@@ -49,7 +51,7 @@ const CourseCatalog = () => {
             </header>
 
             {/* Mobile — one card per row (like landing About us) */}
-            <div className="md:hidden flex flex-col items-center gap-4 flex-1 overflow-y-auto py-3 px-1 pb-4">
+            <div className="md:hidden flex flex-col items-center gap-4 py-4 px-1">
                 {filteredCourses.map((course) => (
                     <article
                         key={course.id}
@@ -115,10 +117,10 @@ const CourseCatalog = () => {
                 ))}
             </div>
 
-            {/* Desktop — 4×2 grid filling the viewport */}
+            {/* Desktop — 4 columns, rows stretch to fill viewport */}
             <div
-                className="hidden md:grid flex-1 min-h-0 grid-cols-4 gap-3 pt-3"
-                style={{ gridTemplateRows: `repeat(${Math.max(1, Math.ceil(filteredCourses.length / 4))}, minmax(0, 1fr))` }}
+                className="hidden md:grid grid-cols-4 gap-3 pt-3 min-h-[calc(100dvh-11rem)]"
+                style={{ gridTemplateRows: `repeat(${desktopRows}, minmax(0, 1fr))` }}
             >
                 {filteredCourses.map((course) => (
                     <article
@@ -132,7 +134,7 @@ const CourseCatalog = () => {
                                 openCourse(course.id);
                             }
                         }}
-                        className="group h-full min-h-0 bg-white rounded-xl p-3 lg:p-4 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer flex flex-col relative overflow-hidden border border-slate-200 hover:border-violet-300 hover:shadow-lg hover:shadow-violet-500/10 shadow-sm"
+                        className="group h-full min-h-[10rem] bg-white rounded-xl p-3 lg:p-4 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer flex flex-col relative overflow-hidden border border-slate-200 hover:border-violet-300 hover:shadow-lg hover:shadow-violet-500/10 shadow-sm"
                     >
                         <div className="absolute -top-8 -right-8 w-20 h-20 bg-violet-500/5 rounded-full group-hover:scale-150 transition-transform duration-700 blur-2xl pointer-events-none" />
 

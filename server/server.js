@@ -14,19 +14,33 @@ const app = express();
 
 // ─── CORS must be FIRST, before any body parsers ──────────────────────────────
 // Preflight OPTIONS requests must receive CORS headers before reaching any other middleware
+const parseOrigins = (value) =>
+    (value || '')
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+
 const allowedOrigins = [
     'http://localhost:3000',
+    'http://localhost:3001',
     'http://localhost:5173',
     'https://learning-tracker-two-xi.vercel.app',
     'https://learning-tracker-ycxw.vercel.app',
-    process.env.FRONTEND_URL,
-].filter(Boolean);
+    ...parseOrigins(process.env.FRONTEND_URL),
+];
+
+const isLocalDevOrigin = (origin) =>
+    /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
 
 const corsOptions = {
     origin: (origin, callback) => {
         // Allow requests with no origin (mobile apps, curl, Postman, etc.)
         if (!origin) return callback(null, true);
         if (allowedOrigins.includes(origin)) return callback(null, true);
+        // Vite may use 3001+ when 3000 is busy — allow any localhost port in dev
+        if (process.env.NODE_ENV !== 'production' && isLocalDevOrigin(origin)) {
+            return callback(null, true);
+        }
         // Allow Vercel preview/production deployments (*.vercel.app)
         if (/^https:\/\/[\w-]+\.vercel\.app$/.test(origin)) {
             return callback(null, true);
