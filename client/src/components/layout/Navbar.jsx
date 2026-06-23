@@ -5,6 +5,7 @@ import NavIcon from '../icons/NavIcon';
 import { useNavigate } from 'react-router-dom';
 import { courses } from '../../data/CourseData';
 import { formatReminderTime } from '../../utils/formatReminderTime';
+import ReportIssueModal from '../feedback/ReportIssueModal';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
