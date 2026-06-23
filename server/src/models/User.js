@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 const userSchema = mongoose.Schema(
     {
@@ -53,6 +54,14 @@ const userSchema = mongoose.Schema(
         lastReminderSent: {
             type: Date,
         },
+        resetPasswordToken: {
+            type: String,
+            select: false,
+        },
+        resetPasswordExpire: {
+            type: Date,
+            select: false,
+        },
     },
     {
         timestamps: true,
@@ -82,6 +91,13 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 
 userSchema.methods.usesGoogleAuth = function () {
     return Boolean(this.googleId);
+};
+
+userSchema.methods.getResetPasswordToken = function () {
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    this.resetPasswordExpire = Date.now() + 60 * 60 * 1000;
+    return resetToken;
 };
 
 const User = mongoose.model('User', userSchema);

@@ -6,6 +6,8 @@ import { AuthContext } from '../context/AuthContext';
 import LandingPage from '../pages/LandingPage';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 import Landing from '../pages/Landing';
 import AppWalkthrough from '../pages/AppWalkthrough';
 import Dashboard from '../pages/Dashboard';
@@ -28,6 +30,7 @@ import Navbar from '../components/layout/Navbar';
 import MobileNav from '../components/layout/MobileNav';
 import { DASHBOARD_MAIN } from '../components/layout/PageHeader';
 import LoadingScreen from '../components/ui/LoadingScreen';
+import AnalyticsPageTracker from '../components/analytics/AnalyticsPageTracker';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
@@ -101,12 +104,15 @@ const dashboardRoutes = [
 function App() {
   return (
     <Router>
+      <AnalyticsPageTracker />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/walkthrough" element={<AppWalkthrough />} />
         <Route path="/preview/mobile" element={<MobileLandingPreview />} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
+        <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         
         {/* Wrap all dashboard routes in the layout and protection once */}
         {dashboardRoutes.map(({ path, element, adminOnly }) => (

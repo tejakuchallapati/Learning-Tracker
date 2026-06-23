@@ -5,6 +5,7 @@ import { FiUser, FiBell, FiMail, FiCheckCircle, FiMessageCircle, FiLock } from '
 import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 import ReportIssueForm from '../components/feedback/ReportIssueForm';
 import { formatReminderTime } from '../utils/formatReminderTime';
+import { REMINDER_TIMEZONE_LABEL } from '../config/reminderTimezone';
 
 const Settings = () => {
     const { user, updateProfile } = useContext(AuthContext);
@@ -272,7 +273,7 @@ const Settings = () => {
 
                 {user?.reminderTime ? (
                     <div className="rounded-xl border border-emerald-100 dark:border-emerald-900/40 bg-emerald-50/80 dark:bg-emerald-950/30 px-4 py-3 text-xs text-emerald-800 dark:text-emerald-300 font-medium">
-                        Active: emails send at <strong>{formatReminderTime(user.reminderTime, user.reminderAmPm)} IST</strong> for incomplete goals with the bell on.
+                        Active: emails send at <strong>{formatReminderTime(user.reminderTime, user.reminderAmPm)} {REMINDER_TIMEZONE_LABEL}</strong> for incomplete goals with the bell on.
                     </div>
                 ) : (
                     <div className="rounded-xl border border-amber-100 dark:border-amber-900/40 bg-amber-50/80 dark:bg-amber-950/30 px-4 py-3 text-xs text-amber-800 dark:text-amber-300 font-medium">
@@ -284,7 +285,7 @@ const Settings = () => {
                     <div>
                         <h4 className="text-sm font-bold text-slate-900 dark:text-white">Send at</h4>
                         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                            {reminderTime ? 'IST — save to apply' : 'Pick a time — no default until you save'}
+                            {reminderTime ? `${REMINDER_TIMEZONE_LABEL} — save to apply` : 'Pick a time — no default until you save'}
                         </p>
                     </div>
                     <div className="flex items-center bg-slate-50 dark:bg-slate-800 rounded-xl p-2 gap-2 border border-slate-200 dark:border-slate-700 shrink-0">

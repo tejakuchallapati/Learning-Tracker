@@ -5,6 +5,7 @@ import NavIcon from '../icons/NavIcon';
 import { useNavigate } from 'react-router-dom';
 import { courses } from '../../data/CourseData';
 import { formatReminderTime } from '../../utils/formatReminderTime';
+import { REMINDER_TIMEZONE_LABEL } from '../../config/reminderTimezone';
 import ReportIssueModal from '../feedback/ReportIssueModal';
 
 const Navbar = () => {
@@ -119,7 +120,7 @@ const Navbar = () => {
                             <div className="space-y-2 text-sm">
                                 <p className="text-xs text-slate-500 font-medium">
                                     {user?.reminderTime
-                                        ? `Reminders at ${formatReminderTime(user.reminderTime, user.reminderAmPm)} (IST)`
+                                        ? `Reminders at ${formatReminderTime(user.reminderTime, user.reminderAmPm)} (${REMINDER_TIMEZONE_LABEL})`
                                         : 'Set your reminder time in Settings'}
                                 </p>
                                 <p className="text-xs text-slate-500 font-medium">

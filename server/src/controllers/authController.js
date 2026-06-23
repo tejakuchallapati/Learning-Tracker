@@ -1,9 +1,16 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
 const { verifyGoogleCredential } = require('../config/googleAuth');
 const { normalizeReminderStorage } = require('../utils/reminderSchedule');
 const { isAdminEmail } = require('../utils/adminAccess');
+const sendEmail = require('../utils/emailService');
+
+const getFrontendOrigin = () => {
+    const raw = process.env.FRONTEND_URL || 'http://localhost:3000';
+    return raw.split(',')[0].trim().replace(/\/$/, '');
+};
 
 const generateToken = (id) => {
     if (!process.env.JWT_SECRET) {
@@ -266,6 +273,117 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Request password reset email
+// @route   POST /api/auth/forgot-password
+// @access  Public
+const forgotPassword = asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    const genericMessage =
+        'If an account with that email exists, we sent a password reset link. Check your inbox and spam folder.';
+
+    if (!email?.trim()) {
+        res.status(400);
+        throw new Error('Please enter your email address');
+    }
+
+    const user = await User.findOne({ email: email.trim() });
+
+    if (!user) {
+        return res.json({ message: genericMessage });
+    }
+
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        res.status(503);
+        throw new Error('Password reset email is not configured on the server. Please try again later.');
+    }
+
+    const resetToken = user.getResetPasswordToken();
+    await user.save({ validateBeforeSave: false });
+
+    const resetUrl = `${getFrontendOrigin()}/reset-password?token=${resetToken}`;
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: 'Learning Tracker — Reset your password',
+            message: [
+                `Hi ${user.name || 'there'},`,
+                '',
+                'We received a request to reset your Learning Tracker password.',
+                '',
+                `Reset your password (link expires in 1 hour):`,
+                resetUrl,
+                '',
+                'If you did not request this, you can ignore this email.',
+                '',
+                '— Learning Tracker',
+            ].join('\n'),
+        });
+    } catch (err) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save({ validateBeforeSave: false });
+        console.error('Forgot password email failed:', err.message);
+        res.status(500);
+        throw new Error('Could not send reset email. Please try again in a few minutes.');
+    }
+
+    res.json({ message: genericMessage });
+});
+
+// @desc    Validate reset token before showing the form
+// @route   GET /api/auth/reset-password/:token
+// @access  Public
+const validateResetToken = asyncHandler(async (req, res) => {
+    const { token } = req.params;
+    if (!token) {
+        return res.json({ valid: false });
+    }
+
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+    const user = await User.findOne({
+        resetPasswordToken: hashedToken,
+        resetPasswordExpire: { $gt: Date.now() },
+    }).select('+resetPasswordToken');
+
+    res.json({ valid: Boolean(user) });
+});
+
+// @desc    Reset password with token from email
+// @route   POST /api/auth/reset-password
+// @access  Public
+const resetPassword = asyncHandler(async (req, res) => {
+    const { token, password } = req.body;
+
+    if (!token || !password) {
+        res.status(400);
+        throw new Error('Please provide a new password');
+    }
+
+    if (password.length < 6) {
+        res.status(400);
+        throw new Error('Password must be at least 6 characters');
+    }
+
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+    const user = await User.findOne({
+        resetPasswordToken: hashedToken,
+        resetPasswordExpire: { $gt: Date.now() },
+    }).select('+resetPasswordToken +resetPasswordExpire');
+
+    if (!user) {
+        res.status(400);
+        throw new Error('This reset link is invalid or has expired. Please request a new one.');
+    }
+
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save();
+
+    res.json({ message: 'Password updated successfully. You can log in with your new password.' });
+});
+
 module.exports = {
     registerUser,
     loginUser,
@@ -273,4 +391,7 @@ module.exports = {
     getMe,
     logoutUser,
     updateUserProfile,
+    forgotPassword,
+    validateResetToken,
+    resetPassword,
 };

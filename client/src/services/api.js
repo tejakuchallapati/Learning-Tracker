@@ -30,7 +30,9 @@ API.interceptors.response.use(
                 url.includes('auth/login') ||
                 url.includes('auth/google') ||
                 url.includes('auth/register') ||
-                url.includes('auth/me');
+                url.includes('auth/me') ||
+                url.includes('auth/forgot-password') ||
+                url.includes('auth/reset-password');
             if (!isAuthAttempt) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
