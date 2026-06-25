@@ -359,7 +359,7 @@ export const App = () => (
         topChannels: [
             { name: 'William Candillon (English)', url: 'https://youtube.com/@wcandillon' },
             { name: 'CodeStepByStep (Hindi)', url: 'https://youtube.com/@CodeStepByStep' },
-            { name: 'Native Rocket (English)', url: 'https://youtube.com/@nativerocket' },
+            { name: 'Expo (English)', url: 'https://youtube.com/@expo' },
             { name: 'Thapa Technical (Hindi)', url: 'https://youtube.com/@ThapaTechnical' },
             { name: 'Charlie Gerard (English)', url: 'https://youtube.com/@charliegerard' }
         ],
