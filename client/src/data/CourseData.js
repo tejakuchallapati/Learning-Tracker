@@ -284,7 +284,7 @@ export const App = () => (
             { name: 'NetworkChuck (English)', url: 'https://youtube.com/@networkchuck' },
             { name: 'Technical Sagar (Hindi)', url: 'https://youtube.com/@TechnicalSagar' },
             { name: 'David Bombal (Networking)', url: 'https://youtube.com/@davidbombal' },
-            { name: 'Cyber Mentors (English)', url: 'https://youtube.com/@thecybermentor' },
+            { name: 'TCM Security (English)', url: 'https://youtube.com/@TCMSecurity' },
             { name: 'Computer Phile (Academic)', url: 'https://youtube.com/@computerphile' }
         ],
         roadmap: [
