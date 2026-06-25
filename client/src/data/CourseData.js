@@ -357,7 +357,7 @@ export const App = () => (
         category: 'Development',
         tools: ['React Native', 'Expo', 'Redux', 'Native Components'],
         topChannels: [
-            { name: 'William Candillon (English)', url: 'https://youtube.com/@wcandill' },
+            { name: 'William Candillon (English)', url: 'https://youtube.com/@wcandillon' },
             { name: 'CodeStepByStep (Hindi)', url: 'https://youtube.com/@CodeStepByStep' },
             { name: 'Native Rocket (English)', url: 'https://youtube.com/@nativerocket' },
             { name: 'Thapa Technical (Hindi)', url: 'https://youtube.com/@ThapaTechnical' },
