@@ -1,6 +1,9 @@
 import { FiClock, FiAlertCircle } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const ReminderCard = ({ suggestion }) => {
+    const navigate = useNavigate();
+
     return (
         <div className="bg-amber-50 rounded-xl p-5 border border-amber-200">
             <div className="flex items-start gap-4">
