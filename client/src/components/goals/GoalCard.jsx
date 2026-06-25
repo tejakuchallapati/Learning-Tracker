@@ -18,6 +18,7 @@ const GoalCard = ({ goal, onDelete, onEdit }) => {
                 <div className="flex gap-1">
                     {onEdit && (
                         <button
+                            type="button"
                             onClick={() => onEdit(goal)}
                             className="p-1.5 text-slate-300 hover:text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-500/10 rounded-xl transition-all"
                             title="Edit Goal"
