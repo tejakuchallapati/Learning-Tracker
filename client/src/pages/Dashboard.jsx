@@ -253,7 +253,7 @@ const Dashboard = () => {
                             </div>
                             <div className="flex shrink-0 self-start sm:self-auto bg-slate-50 dark:bg-slate-800 p-1 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-700">
                                 <button type="button" className="px-3 sm:px-6 py-1.5 sm:py-2 bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black shadow-sm shadow-violet-100 transition-all">WEEKLY</button>
-                                <button type="button" className="px-3 sm:px-6 py-1.5 sm:py-2 text-slate-400 dark:text-slate-500 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black hover:text-slate-600 dark:hover:text-slate-300 transition-all">MONTHLY</button>
+                                <button type="button" disabled title="Coming soon" className="px-3 sm:px-6 py-1.5 sm:py-2 text-slate-300 dark:text-slate-600 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black cursor-not-allowed">MONTHLY</button>
                             </div>
                         </div>
                         <div className="h-[220px] -ml-6">
