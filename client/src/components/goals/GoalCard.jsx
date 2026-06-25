@@ -16,13 +16,15 @@ const GoalCard = ({ goal, onDelete, onEdit }) => {
                     </div>
                 </div>
                 <div className="flex gap-1">
-                    <button
-                        onClick={() => onEdit && onEdit(goal)}
-                        className="p-1.5 text-slate-300 hover:text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-500/10 rounded-xl transition-all"
-                        title="Edit Goal"
-                    >
-                        <FiEdit2 size={14} />
-                    </button>
+                    {onEdit && (
+                        <button
+                            onClick={() => onEdit(goal)}
+                            className="p-1.5 text-slate-300 hover:text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-500/10 rounded-xl transition-all"
+                            title="Edit Goal"
+                        >
+                            <FiEdit2 size={14} />
+                        </button>
+                    )}
                     <button
                         onClick={() => onDelete && onDelete(goal._id)}
                         className="p-1.5 text-slate-300 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-xl transition-all"
