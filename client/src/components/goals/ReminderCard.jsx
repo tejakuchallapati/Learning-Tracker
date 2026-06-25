@@ -15,7 +15,11 @@ const ReminderCard = ({ suggestion }) => {
                     <p className="text-amber-700 text-sm leading-relaxed">
                         {suggestion || "You haven't practiced today. Spend at least 1 hour learning to stay on track."}
                     </p>
-                    <button className="mt-3 text-sm font-semibold text-amber-700 hover:text-amber-900 flex items-center gap-2">
+                    <button
+                        type="button"
+                        onClick={() => navigate('/progress')}
+                        className="mt-3 text-sm font-semibold text-amber-700 hover:text-amber-900 flex items-center gap-2"
+                    >
                         <FiClock /> Log Time Now
                     </button>
                 </div>
