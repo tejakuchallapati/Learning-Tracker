@@ -1,14 +1,15 @@
+const resendApiKey = () => process.env.RESEND_API_KEY?.trim() || '';
+const gmailUser = () => process.env.EMAIL_USER?.trim() || '';
+const gmailPass = () => process.env.EMAIL_PASS?.trim() || '';
+
 /** True when Resend API or Gmail SMTP credentials are configured. */
 const isEmailConfigured = () =>
-    Boolean(
-        process.env.RESEND_API_KEY ||
-            (process.env.EMAIL_USER && process.env.EMAIL_PASS)
-    );
+    Boolean(resendApiKey() || (gmailUser() && gmailPass()));
 
 const getEmailProvider = () => {
-    if (process.env.RESEND_API_KEY) return 'resend';
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) return 'gmail';
+    if (resendApiKey()) return 'resend';
+    if (gmailUser() && gmailPass()) return 'gmail';
     return 'none';
 };
 
-module.exports = { isEmailConfigured, getEmailProvider };
+module.exports = { isEmailConfigured, getEmailProvider, resendApiKey, gmailUser, gmailPass };

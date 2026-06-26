@@ -1,16 +1,17 @@
 const nodemailer = require('nodemailer');
 const dns = require('dns');
+const { resendApiKey, gmailUser, gmailPass } = require('./emailConfig');
 
 const lookupIpv4 = (hostname, _options, callback) => {
     dns.lookup(hostname, { family: 4 }, callback);
 };
 
 const sendViaResend = async ({ email, subject, message }) => {
-    const from = process.env.EMAIL_FROM || `Learning Tracker <onboarding@resend.dev>`;
+    const from = process.env.EMAIL_FROM?.trim() || 'Learning Tracker <onboarding@resend.dev>';
     const response = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+            Authorization: `Bearer ${resendApiKey()}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -28,7 +29,9 @@ const sendViaResend = async ({ email, subject, message }) => {
 };
 
 const sendViaGmail = async ({ email, subject, message }) => {
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    const user = gmailUser();
+    const pass = gmailPass();
+    if (!user || !pass) {
         throw new Error('EMAIL_USER and EMAIL_PASS must be set in server/.env');
     }
 
@@ -37,10 +40,7 @@ const sendViaGmail = async ({ email, subject, message }) => {
         port: 465,
         secure: true,
         family: 4,
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        },
+        auth: { user, pass },
         connectionTimeout: 15000,
         greetingTimeout: 15000,
         socketTimeout: 20000,
@@ -48,7 +48,7 @@ const sendViaGmail = async ({ email, subject, message }) => {
     });
 
     await transporter.sendMail({
-        from: `Learning Tracker <${process.env.EMAIL_USER}>`,
+        from: `Learning Tracker <${user}>`,
         to: email,
         subject,
         text: message,
@@ -56,9 +56,16 @@ const sendViaGmail = async ({ email, subject, message }) => {
 };
 
 const sendEmail = async (options) => {
-    if (process.env.RESEND_API_KEY) {
+    if (resendApiKey()) {
         return sendViaResend(options);
     }
+
+    if (process.env.NODE_ENV === 'production') {
+        throw new Error(
+            'RESEND_API_KEY is not set on this server. Add it in Render → Environment, remove EMAIL_USER/EMAIL_PASS, then Save rebuild and deploy.'
+        );
+    }
+
     return sendViaGmail(options);
 };
 
