@@ -1,9 +1,10 @@
 /**
- * Send a test email via Resend.
+ * Send a test email via Brevo (or Resend if BREVO_API_KEY is unset).
  * Usage: node scripts/testEmail.js you@example.com
  */
 require('dotenv').config();
 const sendEmail = require('../src/utils/emailService');
+const { isEmailConfigured, getEmailProvider } = require('../src/utils/emailConfig');
 
 const to = process.argv[2];
 
@@ -12,10 +13,11 @@ const run = async () => {
         console.error('Usage: node scripts/testEmail.js you@example.com');
         process.exit(1);
     }
-    if (!process.env.RESEND_API_KEY?.trim()) {
-        console.error('RESEND_API_KEY must be set in server/.env');
+    if (!isEmailConfigured()) {
+        console.error('BREVO_API_KEY (or RESEND_API_KEY) must be set in server/.env');
         process.exit(1);
     }
+    console.log(`Provider: ${getEmailProvider()}`);
     console.log(`Sending test email to ${to}...`);
     await sendEmail({
         email: to,

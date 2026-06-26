@@ -14,6 +14,7 @@ const {
     wasReminderSentToday,
     DEFAULT_TIMEZONE,
 } = require('../src/utils/reminderSchedule');
+const { getEmailProvider } = require('../src/utils/emailConfig');
 
 const run = async () => {
     await connectDB();
@@ -22,7 +23,8 @@ const run = async () => {
     console.log('--- Reminder verification ---');
     console.log(`Timezone: ${DEFAULT_TIMEZONE}`);
     console.log(`Local now: ${localNow.dateKey} ${String(localNow.hour).padStart(2, '0')}:${String(localNow.minute).padStart(2, '0')}`);
-    console.log(`Resend configured: ${Boolean(process.env.RESEND_API_KEY)}`);
+    console.log(`Email provider: ${getEmailProvider()}`);
+    console.log(`Brevo configured: ${Boolean(process.env.BREVO_API_KEY)}`);
     console.log(`CRON_SECRET configured: ${Boolean(process.env.CRON_SECRET)}`);
     console.log('');
 

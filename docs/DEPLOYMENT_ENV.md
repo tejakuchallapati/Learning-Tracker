@@ -1,54 +1,68 @@
-# Production setup — email OTP login + email reminders
+# Production setup — email OTP login + email reminders (Brevo)
 
-One service (**Resend**) handles login codes and daily goal reminders.
-
----
-
-## Overview
-
-| What | How |
-|------|-----|
-| Login | Email + 6-digit OTP (Resend) |
-| Daily reminders | Same Resend account |
-| Cron | cron-job.org (free) |
-
-**User flow:** Log in once with email OTP → set reminder time in Settings → bell ON on goals → emails handle the rest.
+**Brevo free tier:** 300 emails/day · send to **any** email · no domain purchase needed.
 
 ---
 
-## Render — API environment
+## Step 1 — Brevo setup (one time)
 
-Remove if still present: `MSG91_AUTH_KEY`, `MSG91_SENDER_ID`, `GOOGLE_*`, `EMAIL_USER`, `EMAIL_PASS`, `ADMIN_PHONE`
+1. Log in at [app.brevo.com](https://app.brevo.com)
+2. **Senders & IP** → add and verify **`teja26kt@gmail.com`** (click link in inbox)
+3. **SMTP & API** → **API keys** → create key → copy it
+
+---
+
+## Step 2 — Render environment
+
+**Add:**
 
 | Variable | Value |
 |----------|--------|
-| `MONGO_URI` | MongoDB Atlas connection string |
-| `JWT_SECRET` | Long random string |
-| `RESEND_API_KEY` | From [resend.com](https://resend.com/api-keys) |
-| `EMAIL_FROM` | `Learning Tracker <onboarding@resend.dev>` |
-| `OTP_MOCK` | `false` in production |
-| `CRON_SECRET` | `openssl rand -hex 32` |
-| `REMINDER_TIMEZONE` | `Asia/Kolkata` |
-| `FRONTEND_URL` | `https://learning-tracker-two-xi.vercel.app` |
-| `ADMIN_EMAIL` | Your admin email |
+| `BREVO_API_KEY` | Your Brevo API key (`xkeysib-...`) |
+| `EMAIL_FROM` | `Learning Tracker <teja26kt@gmail.com>` |
+| `OTP_MOCK` | `false` |
 
-Verify: `https://learning-tracker-api-hqzm.onrender.com/api/health` → `"emailProvider":"resend"`
+**Remove** (no longer needed):
+
+- `RESEND_API_KEY`
+- `MSG91_AUTH_KEY`, `MSG91_SENDER_ID`
+- `GOOGLE_*`
+
+**Keep:** `MONGO_URI`, `JWT_SECRET`, `CRON_SECRET`, `FRONTEND_URL`, `REMINDER_TIMEZONE`, `ADMIN_EMAIL`, `NODE_ENV`, `PORT`
+
+Save → Render redeploys.
 
 ---
 
-## Vercel — frontend
+## Step 3 — Verify
+
+```
+https://learning-tracker-api-hqzm.onrender.com/api/health
+```
+
+Expected: `{"ok":true,"emailProvider":"brevo"}`
+
+---
+
+## Step 4 — Test login (any email)
+
+1. `/login` → enter **any** Gmail (e.g. `teja262005@gmail.com`)
+2. **Send OTP** → check inbox
+3. Settings → reminder time → bell ON on goals
+
+---
+
+## Vercel
 
 | Variable | Value |
 |----------|--------|
 | `VITE_API_BASE_URL` | `https://learning-tracker-api-hqzm.onrender.com/api` |
 
-Remove: `VITE_GOOGLE_CLIENT_ID`
-
 ---
 
-## cron-job.org (reminders)
+## cron-job.org
 
-Every **5 minutes**, GET:
+Every 5 min, GET:
 
 ```
 https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=YOUR_CRON_SECRET
@@ -56,30 +70,25 @@ https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=YOUR_CR
 
 ---
 
-## Local development
+## Local dev
 
 ```bash
 # server/.env
-OTP_MOCK=true          # login OTP in terminal
-RESEND_API_KEY=re_...  # optional — real emails when set
-```
-
-```bash
-cd server && npm run dev
-cd client && npm run dev
+BREVO_API_KEY=xkeysib-...
+EMAIL_FROM=Learning Tracker <teja26kt@gmail.com>
+OTP_MOCK=true   # optional — OTP in terminal instead of email
 ```
 
 ---
 
 ## Checklist
 
-- [ ] Render: `RESEND_API_KEY`, `EMAIL_FROM`, `OTP_MOCK=false`
-- [ ] Removed MSG91 / Google vars from Render
-- [ ] Vercel: `VITE_API_BASE_URL` only, redeployed
-- [ ] Login with email OTP works
-- [ ] Reminder time saved in Settings
-- [ ] Bell ON on daily goals
-- [ ] cron-job.org returning 200
+- [ ] Brevo sender `teja26kt@gmail.com` verified
+- [ ] Render: `BREVO_API_KEY` + `EMAIL_FROM` + `OTP_MOCK=false`
+- [ ] Removed `RESEND_API_KEY` from Render
+- [ ] `/api/health` shows `"emailProvider":"brevo"`
+- [ ] Login OTP works for any email
+- [ ] Reminder time + bell ON + cron-job.org
 
 ---
 
@@ -87,7 +96,7 @@ cd client && npm run dev
 
 | Problem | Fix |
 |---------|-----|
-| OTP fails for some emails | Resend test mode only sends to **your Resend signup email**. Use that email to log in, or [verify a domain](https://resend.com/domains) and update `EMAIL_FROM`. |
-| No login OTP email | Check spam. `RESEND_API_KEY` + `OTP_MOCK=false` on Render. |
-| No reminder emails | Reminder time + bell ON + cron-job.org returning 200 |
-| Old phone accounts | Re-register with email |
+| Sender not verified | Brevo → Senders → verify `teja26kt@gmail.com` |
+| OTP fails | Check `BREVO_API_KEY`, `EMAIL_FROM` matches verified sender |
+| 300/day limit hit | Brevo free cap — enough for small app; upgrade later if needed |
+| Cold start timeout | Wake API via `/api/health` first, wait up to 60s on login |

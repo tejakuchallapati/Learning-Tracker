@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const Otp = require('../models/Otp');
 const sendEmail = require('./emailService');
-const { resendApiKey } = require('./emailConfig');
+const { isEmailConfigured } = require('./emailConfig');
 const { maskEmail } = require('./emailUtils');
 
 const OTP_TTL_MS = 10 * 60 * 1000;
@@ -12,7 +12,7 @@ const hashCode = (code) => crypto.createHash('sha256').update(String(code)).dige
 const generateCode = () => String(crypto.randomInt(100000, 999999));
 
 const sendOtpEmail = async (email, code) => {
-    const mock = process.env.OTP_MOCK === 'true' || !resendApiKey();
+    const mock = process.env.OTP_MOCK === 'true' || !isEmailConfigured();
 
     if (mock) {
         console.log(`[OTP email → ${maskEmail(email)}] Your code is ${code} (valid 10 min)`);

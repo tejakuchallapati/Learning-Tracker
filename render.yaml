@@ -14,10 +14,10 @@ services:
         sync: false
       - key: JWT_SECRET
         sync: false
-      - key: RESEND_API_KEY
+      - key: BREVO_API_KEY
         sync: false
       - key: EMAIL_FROM
-        sync: false
+        value: Learning Tracker <teja26kt@gmail.com>
       - key: OTP_MOCK
         value: "false"
       - key: CRON_SECRET
@@ -30,7 +30,6 @@ services:
         value: https://learning-tracker-two-xi.vercel.app
 
   # FREE: use cron-job.org to POST /api/cron/reminders every 5 min (see docs/DEPLOYMENT_ENV.md).
-  # Paid Render cron below is optional — delete this block if using cron-job.org only.
   - type: cron
     name: learning-tracker-reminders
     env: node

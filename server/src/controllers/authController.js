@@ -5,7 +5,7 @@ const { normalizeReminderStorage } = require('../utils/reminderSchedule');
 const { isAdminUser } = require('../utils/adminAccess');
 const { normalizeEmail, maskEmail } = require('../utils/emailUtils');
 const { createAndSendOtp, verifyOtp: verifyOtpCode } = require('../utils/otpService');
-const { resendApiKey } = require('../utils/emailConfig');
+const { isEmailConfigured } = require('../utils/emailConfig');
 
 const generateToken = (id) => {
     if (!process.env.JWT_SECRET) {
@@ -43,7 +43,7 @@ const sendOtp = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email });
     await createAndSendOtp(email);
 
-    const mockMode = process.env.OTP_MOCK === 'true' || !resendApiKey();
+    const mockMode = process.env.OTP_MOCK === 'true' || !isEmailConfigured();
 
     res.json({
         message: `OTP sent to ${maskEmail(email)}.`,
