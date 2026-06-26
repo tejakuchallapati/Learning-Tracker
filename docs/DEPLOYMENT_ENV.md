@@ -87,6 +87,7 @@ cd client && npm run dev
 
 | Problem | Fix |
 |---------|-----|
-| No login OTP email | Check `RESEND_API_KEY`, spam folder. Use `OTP_MOCK=true` and read Render logs. |
-| No reminder emails | Reminder time + bell ON + `CRON_SECRET` on cron-job.org |
-| Old phone accounts | Re-register with email — old phone users cannot log in |
+| OTP fails for some emails | Resend test mode only sends to **your Resend signup email**. Use that email to log in, or [verify a domain](https://resend.com/domains) and update `EMAIL_FROM`. |
+| No login OTP email | Check spam. `RESEND_API_KEY` + `OTP_MOCK=false` on Render. |
+| No reminder emails | Reminder time + bell ON + cron-job.org returning 200 |
+| Old phone accounts | Re-register with email |
