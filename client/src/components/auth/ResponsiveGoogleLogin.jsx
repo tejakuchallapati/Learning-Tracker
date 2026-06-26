@@ -1,8 +1,5 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-
-const CLIENT_ID =
-    import.meta.env.VITE_GOOGLE_CLIENT_ID ||
-    '937868886257-sgoqf4onr843odrv2518eghvog3ppm97.apps.googleusercontent.com';
+import { useRef, useState, useEffect } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 
 const GoogleGIcon = () => (
     <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
@@ -25,116 +22,74 @@ const GoogleGIcon = () => (
     </svg>
 );
 
-let gsiInitialized = false;
-
 /**
- * Custom "Sign in with Google" label + hidden GIS standard button.
- * Avoids the personalized "Sign in as …" chip; click opens account picker.
+ * Custom "Sign in with Google" look with a real Google button on top (opacity 0)
+ * so the browser handles the click — programmatic .click() on GIS is blocked.
  */
 const ResponsiveGoogleLogin = ({
     className = '',
+    minWidth = 200,
+    maxWidth = 400,
     text = 'signin_with',
     onSuccess,
     onError,
 }) => {
-    const hiddenHostRef = useRef(null);
-    const onSuccessRef = useRef(onSuccess);
-    const onErrorRef = useRef(onError);
-    const [ready, setReady] = useState(false);
-
-    onSuccessRef.current = onSuccess;
-    onErrorRef.current = onError;
+    const containerRef = useRef(null);
+    const [width, setWidth] = useState(null);
 
     const label = text === 'signup_with' ? 'Sign up with Google' : 'Sign in with Google';
 
     useEffect(() => {
-        let cancelled = false;
-        let pollId;
+        const el = containerRef.current;
+        if (!el) return;
 
-        const setup = () => {
-            const gsi = window.google?.accounts?.id;
-            const host = hiddenHostRef.current;
-            if (!gsi || !host || cancelled) return;
-
-            if (!gsiInitialized) {
-                gsi.initialize({
-                    client_id: CLIENT_ID,
-                    callback: (response) => {
-                        if (response?.credential) {
-                            onSuccessRef.current?.(response);
-                        } else {
-                            onErrorRef.current?.();
-                        }
-                    },
-                    auto_select: false,
-                    cancel_on_tap_outside: true,
-                    use_fedcm_for_prompt: false,
-                    itp_support: false,
-                });
-                gsi.disableAutoSelect();
-                gsiInitialized = true;
-            }
-
-            host.replaceChildren();
-            gsi.renderButton(host, {
-                type: 'standard',
-                theme: 'outline',
-                size: 'large',
-                text,
-                shape: 'rectangular',
-                logo_alignment: 'left',
-                width: 320,
-            });
-
-            setReady(true);
+        const update = () => {
+            const measured = el.getBoundingClientRect().width;
+            if (measured <= 0) return;
+            setWidth(Math.floor(Math.max(minWidth, Math.min(measured, maxWidth))));
         };
 
-        if (window.google?.accounts?.id) {
-            setup();
-        } else {
-            pollId = window.setInterval(() => {
-                if (window.google?.accounts?.id) {
-                    window.clearInterval(pollId);
-                    setup();
-                }
-            }, 100);
-        }
-
+        update();
+        const observer = new ResizeObserver(update);
+        observer.observe(el);
+        window.addEventListener('orientationchange', update);
         return () => {
-            cancelled = true;
-            if (pollId) window.clearInterval(pollId);
+            observer.disconnect();
+            window.removeEventListener('orientationchange', update);
         };
-    }, [text]);
-
-    const handleClick = useCallback(() => {
-        const host = hiddenHostRef.current;
-        const googleBtn =
-            host?.querySelector('[role="button"]') ||
-            host?.querySelector('div[tabindex="0"]');
-
-        if (googleBtn) {
-            googleBtn.click();
-            return;
-        }
-        onErrorRef.current?.();
-    }, []);
+    }, [minWidth, maxWidth]);
 
     return (
-        <div className={`w-full min-w-0 ${className}`}>
-            <button
-                type="button"
-                onClick={handleClick}
-                disabled={!ready}
-                className="w-full h-12 flex items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm font-semibold shadow-sm hover:bg-slate-50 hover:border-slate-300 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+        <div ref={containerRef} className={`relative w-full h-12 min-w-0 ${className}`}>
+            {/* Visible label — pointer-events-none so clicks pass through */}
+            <div
+                className="absolute inset-0 z-0 flex items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm font-semibold shadow-sm pointer-events-none"
+                aria-hidden="true"
             >
                 <GoogleGIcon />
-                {ready ? label : 'Loading Google…'}
-            </button>
-            <div
-                ref={hiddenHostRef}
-                className="fixed left-[-9999px] top-0 w-[320px] h-12 overflow-hidden opacity-0 pointer-events-none"
-                aria-hidden="true"
-            />
+                {label}
+            </div>
+
+            {/* Real Google button — receives user clicks */}
+            {width != null && (
+                <div className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden opacity-[0.011]">
+                    <GoogleLogin
+                        onSuccess={onSuccess}
+                        onError={onError}
+                        width={String(width)}
+                        useOneTap={false}
+                        auto_select={false}
+                        use_fedcm_for_prompt={false}
+                        use_fedcm_for_button={false}
+                        type="standard"
+                        theme="outline"
+                        size="large"
+                        text={text}
+                        shape="rectangular"
+                        logo_alignment="left"
+                    />
+                </div>
+            )}
         </div>
     );
 };

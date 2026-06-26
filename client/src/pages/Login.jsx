@@ -73,7 +73,7 @@ const Login = () => {
 
     const handleGoogleError = () => {
         setError(
-            'Google sign-in was cancelled or blocked. Allow pop-ups for this site, then try again.'
+            'Google sign-in did not complete. Allow pop-ups for this site, disable ad blockers for this page, then tap the button again.'
         );
     };
 
