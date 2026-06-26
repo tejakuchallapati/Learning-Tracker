@@ -39,13 +39,24 @@ const Login = () => {
         e?.preventDefault();
         setError('');
         setSendingOtp(true);
+        const payload = { email: email.trim() };
+        const request = () => API.post('auth/send-otp', payload, { timeout: 60000 });
         try {
-            const { data } = await API.post('auth/send-otp', { email: email.trim() });
+            let data;
+            try {
+                ({ data } = await request());
+            } catch (err) {
+                const isColdStart =
+                    err?.code === 'ECONNABORTED' ||
+                    err?.code === 'ERR_NETWORK' ||
+                    /timeout|network/i.test(err?.message || '');
+                if (!isColdStart) throw err;
+                setError('Server is waking up — retrying…');
+                ({ data } = await request());
+            }
             setOtpSent(true);
             setIsNewUser(Boolean(data.isNewUser));
-            if (data.mock) {
-                setError('Dev mode: check server logs for the OTP code.');
-            }
+            setError(data.mock ? 'Dev mode: check server logs for the OTP code.' : '');
         } catch (err) {
             setError(formatApiError(err, 'Could not send OTP. Please try again.'));
         } finally {
@@ -123,7 +134,7 @@ const Login = () => {
                                 disabled={sendingOtp || !email.trim()}
                                 className="w-full h-12 bg-violet-600 hover:bg-violet-700 disabled:opacity-60 text-white font-bold text-sm rounded-xl shadow-lg shadow-violet-200 transition-all flex items-center justify-center gap-2"
                             >
-                                {sendingOtp ? 'Sending OTP…' : 'Send OTP'}
+                                {sendingOtp ? 'Sending OTP… (may take up to a minute)' : 'Send OTP'}
                             </button>
                         </form>
                     ) : (

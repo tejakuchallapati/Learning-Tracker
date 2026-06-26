@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
 
     const verifyOtpLogin = async ({ email, otp, name }) => {
         const { data } = await authRequest((config) =>
-            API.post('auth/verify-otp', { email, otp, name }, config)
+            API.post('auth/verify-otp', { email, otp, name }, { ...config, timeout: 60000 })
         );
         return applyAuthResponse(data);
     };
