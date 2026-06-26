@@ -58,7 +58,14 @@ const Login = () => {
             const session = await googleLogin(credentialResponse.credential);
             goToApp(session);
         } catch (err) {
-            setError(formatApiError(err, 'Google sign-in failed. Please try again.'));
+            const serverMsg = err?.response?.data?.message;
+            setError(
+                formatApiError(
+                    err,
+                    serverMsg ||
+                        'Google sign-in failed. Check that VITE_GOOGLE_CLIENT_ID on Vercel matches your Google Cloud OAuth client.'
+                )
+            );
         } finally {
             setGoogleLoading(false);
         }
@@ -66,7 +73,7 @@ const Login = () => {
 
     const handleGoogleError = () => {
         setError(
-            'Google sign-in was blocked. Make sure pop-ups are allowed for this site, then try again.'
+            'Google sign-in was cancelled or blocked. Allow pop-ups for this site, then try again.'
         );
     };
 
