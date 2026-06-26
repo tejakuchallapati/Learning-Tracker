@@ -217,6 +217,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         if (req.body.pushNotification !== undefined) {
             user.pushNotification = req.body.pushNotification;
         }
+        if (req.body.emailNotification !== undefined) {
+            user.emailNotification = req.body.emailNotification;
+        }
         if (req.body.reminderTime !== undefined || req.body.reminderAmPm !== undefined) {
             const rawTime = req.body.reminderTime ?? user.reminderTime;
             if (!rawTime) {

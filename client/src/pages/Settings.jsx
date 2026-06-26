@@ -268,8 +268,35 @@ const Settings = () => {
                 </h3>
 
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Set when you want reminder emails. On Daily Goals, turn on the bell for each goal you want included.
+                    Set when you want reminder emails. On Daily Goals, tap the bell once to turn reminders on for each goal — they stay on until you change it here.
                 </p>
+
+                <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3">
+                    <div>
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-white">Daily email reminders</h4>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            Turn off to stop all reminder emails. Per-goal bells cannot be turned off from the dashboard.
+                        </p>
+                    </div>
+                    <button
+                        type="button"
+                        role="switch"
+                        aria-checked={user?.emailNotification !== false}
+                        onClick={async () => {
+                            const next = user?.emailNotification === false;
+                            try {
+                                await updateProfile({ emailNotification: next });
+                            } catch (err) {
+                                console.error('Failed to update email reminders:', err);
+                            }
+                        }}
+                        className={`relative w-12 h-7 rounded-full transition-colors shrink-0 ${user?.emailNotification !== false ? 'bg-violet-600' : 'bg-slate-300 dark:bg-slate-700'}`}
+                    >
+                        <span
+                            className={`absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow transition-transform ${user?.emailNotification !== false ? 'translate-x-5' : ''}`}
+                        />
+                    </button>
+                </div>
 
                 {user?.reminderTime ? (
                     <div className="rounded-xl border border-emerald-100 dark:border-emerald-900/40 bg-emerald-50/80 dark:bg-emerald-950/30 px-4 py-3 text-xs text-emerald-800 dark:text-emerald-300 font-medium">

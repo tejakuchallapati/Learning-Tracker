@@ -93,10 +93,8 @@ const Landing = () => {
 
                         <ScrollReveal delay={200} distance={48}>
                         <p className="landing-hero-tagline text-lg sm:text-xl md:text-2xl landing-body-text mt-5 mb-8">
-                            <span className="landing-accent-text">Discipline</span>
-                            {' to begin. '}
-                            <span className="landing-accent-text">Consistency</span>
-                            {' to last.'}
+                            <span className="landing-accent-text">Build Consistency</span>
+                            {', Not Just Knowledge.'}
                         </p>
                         </ScrollReveal>
 

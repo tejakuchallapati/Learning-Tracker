@@ -124,7 +124,7 @@ const Navbar = () => {
                                         : 'Set your reminder time in Settings'}
                                 </p>
                                 <p className="text-xs text-slate-500 font-medium">
-                                    Turn on the bell on each daily goal to receive emails.
+                                    Tap the bell on a daily goal to turn reminders on. Turn off all emails in Settings.
                                 </p>
                             </div>
                             <button

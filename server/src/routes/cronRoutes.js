@@ -1,5 +1,6 @@
 const express = require('express');
 const { checkAndSendReminders } = require('../utils/cronJobs');
+const sendEmail = require('../utils/emailService');
 
 const router = express.Router();
 
@@ -28,6 +29,27 @@ router.post('/reminders', authorizeCron, async (req, res) => {
 router.get('/reminders', authorizeCron, async (req, res) => {
     const result = await checkAndSendReminders();
     res.json({ ok: true, ...result });
+});
+
+// Send a sample reminder email (protected — for launch verification)
+router.get('/sample-reminder', authorizeCron, async (req, res) => {
+    const email = req.query.email;
+    if (!email) {
+        return res.status(400).json({ message: 'email query param required' });
+    }
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        return res.status(503).json({ message: 'EMAIL_USER or EMAIL_PASS not configured' });
+    }
+
+    const message = `Hello,\n\nYou have some pending daily goals in Learning Tracker to complete today:\n\n- Watch roadmap video (Current Streak: 3)\n- Complete one module\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe Learning Tracker Team`;
+
+    await sendEmail({
+        email,
+        subject: 'Learning Tracker - Daily Reminder: Pending Goals',
+        message,
+    });
+
+    res.json({ ok: true, sentTo: email, sample: true });
 });
 
 module.exports = router;

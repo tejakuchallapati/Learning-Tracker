@@ -1,26 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import API from '../../services/api';
 import { readGoalsCache, writeGoalsCache } from '../../utils/goalsCache';
-import { FiCheckCircle, FiCircle, FiBell, FiTrash2, FiPlus } from 'react-icons/fi';
+import { FiCheckCircle, FiCircle, FiBell, FiBellOff, FiTrash2, FiPlus } from 'react-icons/fi';
 
 const DailyGoalsSection = ({ onGoalsChange }) => {
     const cachedGoals = readGoalsCache();
     const [goals, setGoals] = useState(() => (Array.isArray(cachedGoals) ? cachedGoals : []));
     const [newGoalTitle, setNewGoalTitle] = useState('');
-    const [emailReminders, setEmailReminders] = useState(true);
     const [loading, setLoading] = useState(!cachedGoals);
     const [adding, setAdding] = useState(false);
     const [reminderNotice, setReminderNotice] = useState(null);
     const noticeTimeoutRef = useRef(null);
 
-    const showReminderNotice = (enabled) => {
+    const showReminderNotice = (message) => {
         if (noticeTimeoutRef.current) clearTimeout(noticeTimeoutRef.current);
-        setReminderNotice(
-            enabled
-                ? 'Reminders on — set your send time in Settings if you have not yet'
-                : 'Email reminders are off'
-        );
-        noticeTimeoutRef.current = setTimeout(() => setReminderNotice(null), 3000);
+        setReminderNotice(message);
+        noticeTimeoutRef.current = setTimeout(() => setReminderNotice(null), 4000);
     };
 
     useEffect(() => () => {
@@ -49,20 +45,18 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
         if (!newGoalTitle.trim() || adding) return;
 
         const title = newGoalTitle.trim();
-        const reminders = emailReminders;
         const tempId = `temp-${Date.now()}`;
 
         setAdding(true);
         setGoals((prev) => {
-            const next = [...prev, { _id: tempId, title, completed: false, emailReminders: reminders, streak: 0 }];
+            const next = [...prev, { _id: tempId, title, completed: false, emailReminders: true, streak: 0 }];
             writeGoalsCache(next);
             return next;
         });
         setNewGoalTitle('');
-        setEmailReminders(true);
 
         try {
-            const { data } = await API.post('daily-goals/create', { title, emailReminders: reminders });
+            const { data } = await API.post('daily-goals/create', { title, emailReminders: true });
             setGoals((prev) => {
                 const next = prev.map((g) => (g._id === tempId ? data : g));
                 writeGoalsCache(next);
@@ -77,7 +71,6 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
                 return next;
             });
             setNewGoalTitle(title);
-            setEmailReminders(reminders);
         } finally {
             setAdding(false);
         }
@@ -88,7 +81,6 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
             await API.put(`daily-goals/${goal._id}`, {
                 completed: !goal.completed
             });
-            // Optimistically update
             const next = goals.map(g =>
                 g._id === goal._id ? { ...g, completed: !g.completed } : g
             );
@@ -103,7 +95,6 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
     const handleDelete = async (id) => {
         try {
             await API.delete(`daily-goals/${id}`);
-            // Optimistically update
             const next = goals.filter(g => g._id !== id);
             setGoals(next);
             writeGoalsCache(next);
@@ -113,28 +104,20 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
         }
     };
 
-    const toggleReminder = async (goal) => {
-        try {
-            await API.put(`daily-goals/${goal._id}`, {
-                emailReminders: !goal.emailReminders
-            });
-            // Optimistically update
-            const nextEnabled = !goal.emailReminders;
-            setGoals(goals.map(g =>
-                g._id === goal._id ? { ...g, emailReminders: nextEnabled } : g
-            ));
-            showReminderNotice(nextEnabled);
-        } catch (err) {
-            console.error('Error updating daily goal reminder:', err);
-        }
-    };
+    const enableReminder = async (goal) => {
+        if (goal.emailReminders) return;
 
-    const handleNewGoalReminderToggle = () => {
-        setEmailReminders((prev) => {
-            const next = !prev;
-            showReminderNotice(next);
-            return next;
-        });
+        try {
+            await API.put(`daily-goals/${goal._id}`, { emailReminders: true });
+            const next = goals.map(g =>
+                g._id === goal._id ? { ...g, emailReminders: true } : g
+            );
+            setGoals(next);
+            writeGoalsCache(next);
+            showReminderNotice('Reminders on for this goal — set your send time in Settings if you have not yet');
+        } catch (err) {
+            console.error('Error enabling daily goal reminder:', err);
+        }
     };
 
     return (
@@ -149,6 +132,14 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
                 </div>
             </div>
 
+            <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+                Tap the bell to turn reminders <strong>on</strong> for a goal. To turn reminders off, go to{' '}
+                <Link to="/settings#reminders" className="text-violet-600 dark:text-violet-400 font-bold hover:underline">
+                    Settings
+                </Link>
+                .
+            </p>
+
             {reminderNotice && (
                 <div
                     role="status"
@@ -162,20 +153,12 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
             <form onSubmit={handleAddGoal} className="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-100 dark:border-slate-800">
                 <input
                     type="text"
-                    placeholder="Add a new goal..."
+                    placeholder="Add a new goal (reminders on by default)..."
                     value={newGoalTitle}
                     onChange={(e) => setNewGoalTitle(e.target.value)}
                     className="flex-1 min-w-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1.5 text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500/10 focus:border-violet-500 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600"
                     required
                 />
-                <button
-                    type="button"
-                    onClick={handleNewGoalReminderToggle}
-                    title={emailReminders ? 'Email reminders on for this goal' : 'Email reminders off for this goal'}
-                    className={`p-1.5 rounded-lg transition-all shrink-0 ${emailReminders ? 'bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400' : 'bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-800 hover:text-violet-600'}`}
-                >
-                    <FiBell size={14} />
-                </button>
                 <button type="submit" disabled={adding} className="bg-violet-600 text-white p-1.5 rounded-lg hover:bg-violet-700 transition-all active:scale-95 shrink-0 disabled:opacity-50" title="Add goal">
                     <FiPlus size={14} />
                 </button>
@@ -197,6 +180,7 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
                         <div key={goal._id} className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg border transition-all ${goal.completed ? 'bg-slate-50/50 dark:bg-slate-900/30 border-slate-100 dark:border-slate-800 opacity-60' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-violet-300 dark:hover:border-violet-500/50'}`}>
                             <div className="flex items-center gap-2 flex-1 min-w-0">
                                 <button
+                                    type="button"
                                     onClick={() => toggleComplete(goal)}
                                     title={goal.completed ? 'Unmark Goal' : 'Mark as Completed'}
                                     className={`flex-shrink-0 transition-all ${goal.completed ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-200 dark:text-slate-700 hover:text-violet-500'}`}
@@ -216,14 +200,26 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
                             </div>
 
                             <div className="flex items-center gap-1 shrink-0 ml-2">
+                                {goal.emailReminders ? (
+                                    <span
+                                        title="Reminders on — turn off in Settings"
+                                        className="p-1 rounded-lg bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400"
+                                        aria-label="Reminders on"
+                                    >
+                                        <FiBell size={13} />
+                                    </span>
+                                ) : (
+                                    <button
+                                        type="button"
+                                        onClick={() => enableReminder(goal)}
+                                        title="Turn reminders on for this goal"
+                                        className="p-1 rounded-lg text-slate-400 dark:text-slate-600 hover:bg-violet-50 dark:hover:bg-violet-900/40 hover:text-violet-600 dark:hover:text-violet-400 transition-all"
+                                    >
+                                        <FiBellOff size={13} />
+                                    </button>
+                                )}
                                 <button
-                                    onClick={() => toggleReminder(goal)}
-                                    title={goal.emailReminders ? 'Reminders ON' : 'Reminders OFF'}
-                                    className={`p-1 rounded-lg transition-all ${goal.emailReminders ? 'bg-violet-50 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400' : 'text-slate-400 dark:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
-                                >
-                                    <FiBell size={13} />
-                                </button>
-                                <button
+                                    type="button"
                                     onClick={() => handleDelete(goal._id)}
                                     title="Delete Goal"
                                     className="p-1 text-slate-300 dark:text-slate-700 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-all"
