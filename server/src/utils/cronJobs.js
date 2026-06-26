@@ -2,6 +2,7 @@ const cron = require('node-cron');
 const DailyGoal = require('../models/DailyGoal');
 const User = require('../models/User');
 const sendEmail = require('./emailService');
+const { isEmailConfigured } = require('./emailConfig');
 const {
     DEFAULT_TIMEZONE,
     getLocalNow,
@@ -93,8 +94,8 @@ const releaseReminderSlot = async (userId) => {
 const checkAndSendReminders = async () => {
     const localNow = getLocalNow();
 
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-        console.warn('Email reminders skipped: EMAIL_USER or EMAIL_PASS not configured.');
+    if (!isEmailConfigured()) {
+        console.warn('Email reminders skipped: set RESEND_API_KEY or EMAIL_USER/EMAIL_PASS.');
         return { sent: 0, skipped: 0, reason: 'email_not_configured' };
     }
 

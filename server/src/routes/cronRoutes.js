@@ -1,6 +1,7 @@
 const express = require('express');
 const { checkAndSendReminders } = require('../utils/cronJobs');
 const sendEmail = require('../utils/emailService');
+const { isEmailConfigured } = require('../utils/emailConfig');
 
 const router = express.Router();
 
@@ -37,8 +38,8 @@ router.get('/sample-reminder', authorizeCron, async (req, res) => {
     if (!email) {
         return res.status(400).json({ message: 'email query param required' });
     }
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-        return res.status(503).json({ message: 'EMAIL_USER or EMAIL_PASS not configured' });
+    if (!isEmailConfigured()) {
+        return res.status(503).json({ message: 'Email is not configured (set RESEND_API_KEY or EMAIL_USER/EMAIL_PASS)' });
     }
 
     const message = `Hello,\n\nYou have some pending daily goals in Learning Tracker to complete today:\n\n- Watch roadmap video (Current Streak: 3)\n- Complete one module\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe Learning Tracker Team`;

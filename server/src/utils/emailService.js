@@ -5,7 +5,29 @@ const lookupIpv4 = (hostname, _options, callback) => {
     dns.lookup(hostname, { family: 4 }, callback);
 };
 
-const sendEmail = async (options) => {
+const sendViaResend = async ({ email, subject, message }) => {
+    const from = process.env.EMAIL_FROM || `Learning Tracker <onboarding@resend.dev>`;
+    const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            from,
+            to: [email],
+            subject,
+            text: message,
+        }),
+    });
+
+    if (!response.ok) {
+        const body = await response.text();
+        throw new Error(body || `Resend API error ${response.status}`);
+    }
+};
+
+const sendViaGmail = async ({ email, subject, message }) => {
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
         throw new Error('EMAIL_USER and EMAIL_PASS must be set in server/.env');
     }
@@ -25,16 +47,19 @@ const sendEmail = async (options) => {
         lookup: lookupIpv4,
     });
 
-    // Define the email options
-    const mailOptions = {
+    await transporter.sendMail({
         from: `Learning Tracker <${process.env.EMAIL_USER}>`,
-        to: options.email,
-        subject: options.subject,
-        text: options.message,
-    };
+        to: email,
+        subject,
+        text: message,
+    });
+};
 
-    // Send the email
-    await transporter.sendMail(mailOptions);
+const sendEmail = async (options) => {
+    if (process.env.RESEND_API_KEY) {
+        return sendViaResend(options);
+    }
+    return sendViaGmail(options);
 };
 
 module.exports = sendEmail;

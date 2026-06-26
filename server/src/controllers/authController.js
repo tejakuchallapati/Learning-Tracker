@@ -6,6 +6,7 @@ const { verifyGoogleCredential } = require('../config/googleAuth');
 const { normalizeReminderStorage } = require('../utils/reminderSchedule');
 const { isAdminEmail } = require('../utils/adminAccess');
 const sendEmail = require('../utils/emailService');
+const { isEmailConfigured } = require('../utils/emailConfig');
 
 const getFrontendOrigin = () => {
     const raw = process.env.FRONTEND_URL || 'http://localhost:3000';
@@ -297,7 +298,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
         return res.json({ message: genericMessage });
     }
 
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    if (!isEmailConfigured()) {
         res.status(503);
         throw new Error('Password reset email is not configured on the server. Please try again later.');
     }

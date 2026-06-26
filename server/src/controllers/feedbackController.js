@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Feedback = require('../models/Feedback');
 const sendEmail = require('../utils/emailService');
+const { isEmailConfigured } = require('../utils/emailConfig');
 
 const VALID_CATEGORIES = ['bug', 'ui', 'feature', 'other'];
 
@@ -13,7 +14,7 @@ const CATEGORY_LABELS = {
 
 const notifyAdminOfReport = async (report) => {
     const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
-    if (!adminEmail || !process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    if (!adminEmail || !isEmailConfigured()) {
         console.log('[feedback] New issue report (email not configured):', {
             id: report._id,
             from: report.userEmail,
