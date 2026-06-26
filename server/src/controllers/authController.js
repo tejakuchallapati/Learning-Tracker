@@ -298,6 +298,13 @@ const forgotPassword = asyncHandler(async (req, res) => {
         return res.json({ message: genericMessage });
     }
 
+    if (user.usesGoogleAuth() && !user.password) {
+        return res.json({
+            message:
+                'This account uses Google Sign-In. Go to Log in and click "Sign in with Google" — password reset does not apply to this account.',
+        });
+    }
+
     if (!isEmailConfigured()) {
         res.status(503);
         throw new Error('Password reset email is not configured on the server. Please try again later.');

@@ -42,6 +42,13 @@ const ForgotPassword = () => {
                     <p className="text-slate-500 text-sm mt-1 font-medium">
                         Enter your email and we&apos;ll send you a reset link.
                     </p>
+                    <p className="text-slate-400 text-xs mt-2 font-medium">
+                        Signed up with Google? Use{' '}
+                        <Link to="/login" className="text-violet-600 font-bold underline underline-offset-2">
+                            Sign in with Google
+                        </Link>{' '}
+                        on the log in page — no password reset needed.
+                    </p>
                 </div>
 
                 <div className="bg-white rounded-2xl shadow-xl shadow-slate-100 border border-slate-100 p-5 sm:p-8 space-y-5 w-full min-w-0">
