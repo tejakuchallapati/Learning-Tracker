@@ -4,7 +4,7 @@ import { dispatchSessionExpired } from '../utils/authEvents';
 const API = axios.create({
     baseURL:
         import.meta.env.VITE_API_BASE_URL ||
-        (import.meta.env.DEV ? '/api' : 'https://learning-tracker-api-hqzm.onrender.com/api'),
+        (import.meta.env.DEV ? '/api' : 'https://learning-tracker-ko02.onrender.com/api'),
     timeout: 15000,
 });
 

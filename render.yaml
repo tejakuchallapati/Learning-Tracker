@@ -18,6 +18,10 @@ services:
         sync: false
       - key: EMAIL_PASS
         sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
       - key: CRON_SECRET
         sync: false
       - key: REMINDER_TIMEZONE
@@ -42,4 +46,4 @@ services:
       - key: CRON_SECRET
         sync: false
       - key: API_URL
-        value: https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders
+        value: https://learning-tracker-ko02.onrender.com/api/cron/reminders

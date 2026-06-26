@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const apiUrl =
     process.env.API_URL ||
-    'https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders';
+    'https://learning-tracker-ko02.onrender.com/api/cron/reminders';
 const secret = process.env.CRON_SECRET;
 const TIMEOUT_MS = 55000;
 

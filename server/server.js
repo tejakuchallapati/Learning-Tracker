@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
 const connectDB = require('./src/config/db');
+const { getEmailProvider } = require('./src/utils/emailConfig');
 
 // Load env vars
 dotenv.config();
@@ -66,7 +67,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Lightweight health check (no DB) — warms Render instance for login
 app.get('/api/health', (req, res) => {
-    res.status(200).json({ ok: true });
+    res.status(200).json({ ok: true, emailProvider: getEmailProvider() });
 });
 
 // Routes
@@ -104,4 +105,5 @@ const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
     console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    console.log(`Email provider: ${getEmailProvider()}`);
 });

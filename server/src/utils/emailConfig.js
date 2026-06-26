@@ -5,4 +5,10 @@ const isEmailConfigured = () =>
             (process.env.EMAIL_USER && process.env.EMAIL_PASS)
     );
 
-module.exports = { isEmailConfigured };
+const getEmailProvider = () => {
+    if (process.env.RESEND_API_KEY) return 'resend';
+    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) return 'gmail';
+    return 'none';
+};
+
+module.exports = { isEmailConfigured, getEmailProvider };
