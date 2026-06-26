@@ -47,23 +47,22 @@ const Login = () => {
         }
     };
 
-    const handleGoogleSuccess = async (credentialResponse) => {
+    const handleGoogleSuccess = async (googleResponse) => {
         setError('');
-        if (!credentialResponse?.credential) {
+        const { code, redirectUri, credential } = googleResponse || {};
+        if (!code && !credential) {
             setError('Google did not return a sign-in token. Please try again.');
             return;
         }
         setGoogleLoading(true);
         try {
-            const session = await googleLogin(credentialResponse.credential);
+            const session = await googleLogin({ code, redirectUri, credential });
             goToApp(session);
         } catch (err) {
-            const serverMsg = err?.response?.data?.message;
             setError(
                 formatApiError(
                     err,
-                    serverMsg ||
-                        'Google sign-in failed. Check that VITE_GOOGLE_CLIENT_ID on Vercel matches your Google Cloud OAuth client.'
+                    'Google sign-in failed. Check GOOGLE_CLIENT_SECRET on Render and redirect URIs in Google Cloud Console.'
                 )
             );
         } finally {
@@ -73,7 +72,7 @@ const Login = () => {
 
     const handleGoogleError = () => {
         setError(
-            'Google sign-in did not complete. Allow pop-ups for this site, disable ad blockers for this page, then tap the button again.'
+            'Google sign-in did not complete. Allow pop-ups for this site, then try again.'
         );
     };
 
@@ -119,6 +118,7 @@ const Login = () => {
                                 onSuccess={handleGoogleSuccess}
                                 onError={handleGoogleError}
                                 text="signin_with"
+                                disabled={googleLoading}
                             />
                         )}
                     </div>

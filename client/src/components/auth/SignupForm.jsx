@@ -32,15 +32,16 @@ const SignupForm = ({ embedded = false }) => {
         navigate(getHomePath(session), { replace: true });
     };
 
-    const handleGoogleSuccess = async (credentialResponse) => {
+    const handleGoogleSuccess = async (googleResponse) => {
         setError('');
-        if (!credentialResponse?.credential) {
+        const { code, redirectUri, credential } = googleResponse || {};
+        if (!code && !credential) {
             setError('Google did not return a sign-in token. Please try again.');
             return;
         }
         setGoogleLoading(true);
         try {
-            const session = await googleLogin(credentialResponse.credential);
+            const session = await googleLogin({ code, redirectUri, credential });
             goToApp(session);
         } catch (err) {
             setError(formatApiError(err, 'Google sign up failed. Please try again.'));
@@ -193,6 +194,7 @@ const SignupForm = ({ embedded = false }) => {
                             onSuccess={handleGoogleSuccess}
                             onError={handleGoogleError}
                             text="signup_with"
+                            disabled={googleLoading}
                         />
                     )}
                 </div>

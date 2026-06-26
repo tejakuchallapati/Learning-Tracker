@@ -1,5 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 
 const GoogleGIcon = () => (
     <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
@@ -23,74 +22,45 @@ const GoogleGIcon = () => (
 );
 
 /**
- * Custom "Sign in with Google" look with a real Google button on top (opacity 0)
- * so the browser handles the click — programmatic .click() on GIS is blocked.
+ * OAuth auth-code popup — opens Google's account picker reliably in all browsers.
+ * onSuccess receives { code, redirectUri } for POST /api/auth/google.
  */
 const ResponsiveGoogleLogin = ({
     className = '',
-    minWidth = 200,
-    maxWidth = 400,
     text = 'signin_with',
     onSuccess,
     onError,
+    disabled = false,
 }) => {
-    const containerRef = useRef(null);
-    const [width, setWidth] = useState(null);
-
     const label = text === 'signup_with' ? 'Sign up with Google' : 'Sign in with Google';
 
-    useEffect(() => {
-        const el = containerRef.current;
-        if (!el) return;
-
-        const update = () => {
-            const measured = el.getBoundingClientRect().width;
-            if (measured <= 0) return;
-            setWidth(Math.floor(Math.max(minWidth, Math.min(measured, maxWidth))));
-        };
-
-        update();
-        const observer = new ResizeObserver(update);
-        observer.observe(el);
-        window.addEventListener('orientationchange', update);
-        return () => {
-            observer.disconnect();
-            window.removeEventListener('orientationchange', update);
-        };
-    }, [minWidth, maxWidth]);
+    const startGoogleLogin = useGoogleLogin({
+        flow: 'auth-code',
+        select_account: true,
+        onSuccess: (response) => {
+            if (response?.code) {
+                onSuccess?.({
+                    code: response.code,
+                    redirectUri: window.location.origin,
+                });
+            } else {
+                onError?.();
+            }
+        },
+        onError: () => onError?.(),
+        onNonOAuthError: () => onError?.(),
+    });
 
     return (
-        <div ref={containerRef} className={`relative w-full h-12 min-w-0 ${className}`}>
-            {/* Visible label — pointer-events-none so clicks pass through */}
-            <div
-                className="absolute inset-0 z-0 flex items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm font-semibold shadow-sm pointer-events-none"
-                aria-hidden="true"
-            >
-                <GoogleGIcon />
-                {label}
-            </div>
-
-            {/* Real Google button — receives user clicks */}
-            {width != null && (
-                <div className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden opacity-[0.011]">
-                    <GoogleLogin
-                        onSuccess={onSuccess}
-                        onError={onError}
-                        width={String(width)}
-                        useOneTap={false}
-                        auto_select={false}
-                        use_fedcm_for_prompt={false}
-                        use_fedcm_for_button={false}
-                        type="standard"
-                        theme="outline"
-                        size="large"
-                        text={text}
-                        shape="rectangular"
-                        logo_alignment="left"
-                    />
-                </div>
-            )}
-        </div>
+        <button
+            type="button"
+            disabled={disabled}
+            onClick={() => startGoogleLogin()}
+            className={`w-full h-12 flex items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm font-semibold shadow-sm hover:bg-slate-50 hover:border-slate-300 transition-all disabled:opacity-60 disabled:cursor-not-allowed ${className}`}
+        >
+            <GoogleGIcon />
+            {label}
+        </button>
     );
 };
 

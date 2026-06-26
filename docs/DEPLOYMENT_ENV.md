@@ -149,7 +149,12 @@ Expected: `{"ok":true,...}` or reminder skip stats — not `401` or `403`.
 - [ ] Vercel: `VITE_GA_MEASUREMENT_ID` set (optional)
 - [ ] Render web: all variables above set
 - [ ] **cron-job.org** (free): reminder ping every 5 min — not paid Render cron
-- [ ] Google Cloud Console: OAuth authorized origins include `https://learning-tracker-two-xi.vercel.app`
+- [ ] Google Cloud Console → OAuth client → **Authorized JavaScript origins:**
+  - `https://learning-tracker-two-xi.vercel.app`
+  - `http://localhost:3000`
+- [ ] Google Cloud Console → OAuth client → **Authorized redirect URIs** (required for Google sign-in popup):
+  - `https://learning-tracker-two-xi.vercel.app`
+  - `http://localhost:3000`
 - [ ] Test login on live site after redeploy
 
 ---

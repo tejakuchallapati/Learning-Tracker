@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
-const { verifyGoogleCredential } = require('../config/googleAuth');
+const { verifyGoogleCredential, verifyGoogleAuthCode } = require('../config/googleAuth');
 const { normalizeReminderStorage } = require('../utils/reminderSchedule');
 const { isAdminEmail } = require('../utils/adminAccess');
 const sendEmail = require('../utils/emailService');
@@ -98,15 +98,15 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 });
 
-// @desc    Authenticate user with Google
+// @desc    Authenticate user with Google (ID token or OAuth auth code)
 // @route   POST /api/auth/google
 // @access  Public
 const googleLogin = asyncHandler(async (req, res) => {
-    const { credential } = req.body;
+    const { credential, code, redirectUri } = req.body;
 
-    if (!credential) {
+    if (!credential && !code) {
         res.status(400);
-        throw new Error('No Google credential received. Please try again.');
+        throw new Error('No Google sign-in data received. Please try again.');
     }
 
     if (!process.env.JWT_SECRET) {
@@ -115,7 +115,13 @@ const googleLogin = asyncHandler(async (req, res) => {
     }
 
     try {
-        const payload = await verifyGoogleCredential(credential);
+        let payload;
+        if (credential) {
+            payload = await verifyGoogleCredential(credential);
+        } else {
+            payload = await verifyGoogleAuthCode(code, redirectUri || getFrontendOrigin());
+        }
+
         const { sub: googleId, email, name, picture } = payload;
 
         if (!email) {
@@ -126,7 +132,6 @@ const googleLogin = asyncHandler(async (req, res) => {
         console.log('Google Auth Success for:', email);
 
         let user = await User.findOne({ email });
-        let isNewUser = false;
 
         if (!user) {
             console.log('Creating new user from Google account');
@@ -136,7 +141,6 @@ const googleLogin = asyncHandler(async (req, res) => {
                     email,
                     googleId,
                 });
-                isNewUser = true;
             } catch (createErr) {
                 if (createErr.code === 11000) {
                     user = await User.findOne({ email });
@@ -163,12 +167,19 @@ const googleLogin = asyncHandler(async (req, res) => {
         });
     } catch (err) {
         console.error('Google Auth Error:', err.message);
-        res.status(401);
+        const status =
+            err.message?.includes('GOOGLE_CLIENT_SECRET') ||
+            err.message?.includes('redirect_uri')
+                ? 503
+                : 401;
+        res.status(status);
         const message =
             err.message?.includes('Token used too late') ||
             err.message?.includes('audience')
                 ? 'Google sign-in configuration mismatch. Ensure GOOGLE_CLIENT_ID on the server matches VITE_GOOGLE_CLIENT_ID on the frontend.'
-                : `Google sign-in failed: ${err.message}`;
+                : err.message?.includes('redirect_uri')
+                  ? 'Google redirect URI mismatch. In Google Cloud Console, add your site URL under Authorized redirect URIs.'
+                  : `Google sign-in failed: ${err.message}`;
         throw new Error(message);
     }
 });

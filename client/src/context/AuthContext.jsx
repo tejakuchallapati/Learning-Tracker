@@ -95,9 +95,12 @@ export const AuthProvider = ({ children }) => {
         return applyAuthResponse(data);
     };
 
-    const googleLogin = async (credential) => {
+    const googleLogin = async ({ credential, code, redirectUri } = {}) => {
+        const body = credential
+            ? { credential }
+            : { code, redirectUri: redirectUri || window.location.origin };
         const { data } = await authRequest((config) =>
-            API.post('auth/google', { credential }, config)
+            API.post('auth/google', body, config)
         );
         return applyAuthResponse(data);
     };
