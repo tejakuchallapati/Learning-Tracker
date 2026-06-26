@@ -166,7 +166,7 @@ const Navbar = () => {
                         <div className="absolute top-full right-0 mt-3 w-64 bg-white rounded-3xl shadow-2xl border border-slate-200 p-3 z-50 animate-in fade-in slide-in-from-bottom-2 text-slate-900">
                             <div className="p-4 border-b border-slate-100 mb-2">
                                 <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
-                                <p className="text-sm font-black text-slate-900 truncate">{user?.email || 'guest@example.com'}</p>
+                                <p className="text-sm font-black text-slate-900 truncate">{user?.phone || user?.name || 'Guest'}</p>
                             </div>
                             <button onClick={() => { setShowProfileMenu(false); navigate('/settings'); }} className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-cyan-600">
                                 <FiUser className="text-cyan-500" /> My Profile

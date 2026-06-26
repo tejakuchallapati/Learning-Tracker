@@ -37,7 +37,7 @@ const AppWalkthrough = () => {
                     <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
                         <button
                             type="button"
-                            onClick={() => navigate('/signup')}
+                            onClick={() => navigate('/login')}
                             className="landing-cta w-full sm:w-auto px-8 py-3 rounded-full landing-nav-label text-xs text-white flex items-center justify-center gap-2"
                         >
                             Create free account <FiArrowRight size={14} />

@@ -28,7 +28,7 @@ export const walkthroughSteps = [
         step: 1,
         short: 'Login',
         title: 'Sign in',
-        desc: 'Open the login page and sign in with email or Google.',
+        desc: 'Open the login page and sign in with your mobile OTP.',
         path: 'learning-tracker.app/login',
         Screen: () => (
             <div className="flex flex-col items-center justify-center min-h-[min(52vh,380px)] py-4 sm:py-6">
@@ -54,7 +54,7 @@ export const walkthroughSteps = [
                             <TapHint label="Tap sign in" className="justify-center mt-2 sm:mt-3" />
                         </div>
                         <div className="h-px bg-slate-100" />
-                        <button type="button" className="w-full h-10 sm:h-11 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-600">Continue with Google</button>
+                        <button type="button" className="w-full h-10 sm:h-11 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-600">Sign in with OTP</button>
                     </div>
                 </div>
             </div>

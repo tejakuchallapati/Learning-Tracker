@@ -22,7 +22,7 @@ const run = async () => {
     console.log('--- Reminder verification ---');
     console.log(`Timezone: ${DEFAULT_TIMEZONE}`);
     console.log(`Local now: ${localNow.dateKey} ${String(localNow.hour).padStart(2, '0')}:${String(localNow.minute).padStart(2, '0')}`);
-    console.log(`EMAIL configured: ${Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS)}`);
+    console.log(`Resend configured: ${Boolean(process.env.RESEND_API_KEY)}`);
     console.log(`CRON_SECRET configured: ${Boolean(process.env.CRON_SECRET)}`);
     console.log('');
 
@@ -45,7 +45,8 @@ const run = async () => {
             emailReminders: true,
         });
         const status = {
-            email: user.email,
+            phone: user.phone,
+            reminderEmail: user.reminderEmail || '(none)',
             reminderTime: user.reminderTime,
             reminderAmPm: user.reminderAmPm,
             goals: goals.length,

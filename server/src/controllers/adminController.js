@@ -35,7 +35,7 @@ const getOverview = asyncHandler(async (req, res) => {
 // @access  Admin
 const getUsers = asyncHandler(async (req, res) => {
     const users = await User.find()
-        .select('-password')
+        .select('name phone reminderEmail createdAt')
         .sort({ createdAt: -1 });
 
     res.json(users);

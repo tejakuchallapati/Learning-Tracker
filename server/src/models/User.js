@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
 
 const userSchema = mongoose.Schema(
     {
@@ -8,18 +6,16 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a name'],
         },
-        email: {
+        phone: {
             type: String,
-            required: [true, 'Please add an email'],
+            required: [true, 'Please add a phone number'],
             unique: true,
+            trim: true,
         },
-        password: {
+        reminderEmail: {
             type: String,
-            required: false, // Optional for Google OAuth users
-        },
-        googleId: {
-            type: String,
-            required: false,
+            trim: true,
+            lowercase: true,
         },
         bio: {
             type: String,
@@ -57,50 +53,14 @@ const userSchema = mongoose.Schema(
         lastReminderDateKey: {
             type: String,
         },
-        resetPasswordToken: {
-            type: String,
-            select: false,
-        },
-        resetPasswordExpire: {
-            type: Date,
-            select: false,
-        },
     },
     {
         timestamps: true,
     }
 );
 
-// Encrypt password before saving (skip for Google-only accounts with no password)
-userSchema.pre('save', async function () {
-    if (!this.isModified('password') || !this.password) {
-        if (!this.password) {
-            this.password = undefined;
-        }
-        return;
-    }
-
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-});
-
-// Match user entered password to hashed password in database
-userSchema.methods.matchPassword = async function (enteredPassword) {
-    if (!this.password || !enteredPassword) {
-        return false;
-    }
-    return await bcrypt.compare(enteredPassword, this.password);
-};
-
-userSchema.methods.usesGoogleAuth = function () {
-    return Boolean(this.googleId);
-};
-
-userSchema.methods.getResetPasswordToken = function () {
-    const resetToken = crypto.randomBytes(32).toString('hex');
-    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
-    this.resetPasswordExpire = Date.now() + 60 * 60 * 1000;
-    return resetToken;
+userSchema.methods.getReminderEmail = function getReminderEmail() {
+    return this.reminderEmail?.trim() || '';
 };
 
 const User = mongoose.model('User', userSchema);

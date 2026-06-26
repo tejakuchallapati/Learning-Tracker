@@ -26,11 +26,7 @@ export function Header() {
 
     const goToSignup = () => {
         setOpen(false);
-        if (location.pathname === '/') {
-            document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            navigate('/signup');
-        }
+        navigate('/login');
     };
 
     const goToLogin = () => {

@@ -1,17 +1,26 @@
 import { useState, useContext, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { FiUser, FiBell, FiMail, FiCheckCircle, FiMessageCircle, FiLock } from 'react-icons/fi';
+import { FiUser, FiBell, FiMail, FiCheckCircle, FiMessageCircle, FiPhone } from 'react-icons/fi';
 import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 import ReportIssueForm from '../components/feedback/ReportIssueForm';
 import { formatReminderTime } from '../utils/formatReminderTime';
 import { REMINDER_TIMEZONE_LABEL } from '../config/reminderTimezone';
 
+const formatPhone = (phone) => {
+    if (!phone) return '';
+    const digits = phone.replace(/\D/g, '');
+    if (digits.length >= 10) {
+        return `+91 ${digits.slice(-10)}`;
+    }
+    return phone;
+};
+
 const Settings = () => {
     const { user, updateProfile } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         name: user?.name || '',
-        email: user?.email || '',
+        reminderEmail: user?.reminderEmail || '',
     });
 
     const [saved, setSaved] = useState(false);
@@ -19,17 +28,12 @@ const Settings = () => {
     const [saveError, setSaveError] = useState('');
     const [amPm, setAmPm] = useState(user?.reminderAmPm || 'AM');
     const [reminderTime, setReminderTime] = useState(user?.reminderTime || '');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [passwordSaved, setPasswordSaved] = useState(false);
-    const [passwordSaving, setPasswordSaving] = useState(false);
 
     const savedSnapshot = useMemo(() => {
         if (!user) return null;
         return JSON.stringify({
             name: user.name || '',
-            email: user.email || '',
+            reminderEmail: user.reminderEmail || '',
             reminderTime: user.reminderTime || '',
             reminderAmPm: user.reminderAmPm || 'AM',
         });
@@ -39,7 +43,7 @@ const Settings = () => {
         if (!savedSnapshot) return false;
         const current = JSON.stringify({
             name: formData.name,
-            email: formData.email,
+            reminderEmail: formData.reminderEmail,
             reminderTime,
             reminderAmPm: amPm,
         });
@@ -50,7 +54,7 @@ const Settings = () => {
         if (user) {
             setFormData({
                 name: user.name || '',
-                email: user.email || '',
+                reminderEmail: user.reminderEmail || '',
             });
             setAmPm(user.reminderAmPm || 'AM');
             setReminderTime(user.reminderTime || '');
@@ -88,40 +92,14 @@ const Settings = () => {
         if (value) setSaveError('');
     };
 
-    const handleSetPassword = async () => {
-        setPasswordError('');
-        setPasswordSaved(false);
-
-        if (newPassword.length < 6) {
-            setPasswordError('Password must be at least 6 characters.');
-            return;
-        }
-        if (newPassword !== confirmPassword) {
-            setPasswordError('Passwords do not match.');
-            return;
-        }
-
-        setPasswordSaving(true);
-        try {
-            await updateProfile({ password: newPassword });
-            setNewPassword('');
-            setConfirmPassword('');
-            setPasswordSaved(true);
-            setTimeout(() => setPasswordSaved(false), 3000);
-        } catch (error) {
-            setPasswordError(error.response?.data?.message || 'Failed to set password. Please try again.');
-        } finally {
-            setPasswordSaving(false);
-        }
-    };
-
     const handleSave = async () => {
         setSaveError('');
         setSaving(true);
         setSaved(false);
         try {
             await updateProfile({
-                ...formData,
+                name: formData.name,
+                reminderEmail: formData.reminderEmail.trim(),
                 ...(reminderTime ? { reminderTime, reminderAmPm: amPm } : { reminderTime: '', reminderAmPm: '' }),
             });
             setSaved(true);
@@ -168,12 +146,10 @@ const Settings = () => {
             }`}>
                 <div>
                     <p className="text-sm font-black text-slate-900 dark:text-white">
-                        Signed in as <span className="text-sky-600">{user?.email}</span>
+                        Signed in as <span className="text-sky-600">{formatPhone(user?.phone)}</span>
                     </p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                        {user?.isAdmin
-                            ? 'You have admin access.'
-                            : 'This account is a learner account. Admin uses the email set in server ADMIN_EMAIL.'}
+                        {user?.isAdmin ? 'You have admin access.' : 'Your session stays active on this device.'}
                     </p>
                 </div>
                 {user?.isAdmin ? (
@@ -202,64 +178,19 @@ const Settings = () => {
                         />
                     </div>
                     <div className="space-y-1.5">
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Email</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Mobile</label>
                         <div className="relative">
-                            <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                            <FiPhone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                             <input
-                                type="email"
-                                value={formData.email}
-                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                className="w-full h-11 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-3.5 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all"
+                                type="text"
+                                readOnly
+                                value={formatPhone(user?.phone)}
+                                className="w-full h-11 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-3.5 text-sm font-semibold text-slate-500 dark:text-slate-400 cursor-not-allowed"
                             />
                         </div>
                     </div>
                 </div>
             </div>
-
-            {!user?.hasPassword && (
-                <div className="max-w-2xl bg-white dark:bg-slate-900 premium-shadow rounded-2xl p-6 border border-slate-100 dark:border-slate-800 space-y-5">
-                    <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
-                        <FiLock size={16} className="text-violet-500" />
-                        Email login password
-                    </h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                        You signed up with Google. Set a password here if you also want to sign in with email on the login page.
-                    </p>
-                    <div className="space-y-4">
-                        <div className="space-y-1.5">
-                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">New password</label>
-                            <input
-                                type="password"
-                                value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
-                                className="w-full h-11 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all"
-                                autoComplete="new-password"
-                            />
-                        </div>
-                        <div className="space-y-1.5">
-                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Confirm password</label>
-                            <input
-                                type="password"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="w-full h-11 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all"
-                                autoComplete="new-password"
-                            />
-                        </div>
-                    </div>
-                    {passwordError && (
-                        <p className="text-xs font-semibold text-rose-600">{passwordError}</p>
-                    )}
-                    <button
-                        type="button"
-                        onClick={handleSetPassword}
-                        disabled={passwordSaving || !newPassword || !confirmPassword}
-                        className="px-5 py-2.5 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-bold text-sm hover:bg-sky-600 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
-                    >
-                        Set password {passwordSaved && <FiCheckCircle />}
-                    </button>
-                </div>
-            )}
 
             <div id="reminders" className="max-w-2xl bg-white dark:bg-slate-900 premium-shadow rounded-2xl p-6 border border-slate-100 dark:border-slate-800 scroll-mt-24 space-y-5">
                 <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
@@ -268,14 +199,35 @@ const Settings = () => {
                 </h3>
 
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Set when you want reminder emails. On Daily Goals, tap the bell once to turn reminders on for each goal — they stay on until you change it here.
+                    Add the email where you want daily reminders. Turn the bell on for each goal on Daily Goals.
                 </p>
+
+                <div className="space-y-1.5">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                        Reminder email
+                    </label>
+                    <div className="relative">
+                        <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                        <input
+                            type="email"
+                            placeholder="you@example.com"
+                            value={formData.reminderEmail}
+                            onChange={(e) => setFormData({ ...formData, reminderEmail: e.target.value })}
+                            className="w-full h-11 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-3.5 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all"
+                        />
+                    </div>
+                    {!formData.reminderEmail && (
+                        <p className="text-xs text-amber-600 dark:text-amber-400 font-medium">
+                            No reminder email yet — you won&apos;t receive daily emails until you add one and save.
+                        </p>
+                    )}
+                </div>
 
                 <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3">
                     <div>
                         <h4 className="text-sm font-bold text-slate-900 dark:text-white">Daily email reminders</h4>
                         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                            Turn off to stop all reminder emails. Per-goal bells cannot be turned off from the dashboard.
+                            Turn off to stop all reminder emails.
                         </p>
                     </div>
                     <button

@@ -105,6 +105,7 @@ const checkAndSendReminders = async () => {
     let skipped = 0;
     let eligibleUsers = 0;
     const skipReasons = {
+        no_reminder_email: 0,
         no_reminder_time: 0,
         already_sent: 0,
         not_due_yet: 0,
@@ -131,6 +132,13 @@ const checkAndSendReminders = async () => {
             if (user.emailNotification === false) {
                 skipped += 1;
                 skipReasons.email_disabled += 1;
+                continue;
+            }
+
+            const reminderEmail = user.getReminderEmail?.() || user.reminderEmail?.trim();
+            if (!reminderEmail) {
+                skipped += 1;
+                skipReasons.no_reminder_email += 1;
                 continue;
             }
 
@@ -190,16 +198,16 @@ const checkAndSendReminders = async () => {
 
             try {
                 await sendEmail({
-                    email: user.email,
+                    email: reminderEmail,
                     subject: 'Learning Tracker - Daily Reminder: Pending Goals',
                     message,
                 });
                 console.log(
-                    `Reminder email sent to ${user.email} (scheduled ${pad(hour)}:${pad(minute)}, tz ${localNow.timezone}, local ${pad(localNow.hour)}:${pad(localNow.minute)}, date ${localNow.dateKey})`
+                    `Reminder email sent to ${reminderEmail} (scheduled ${pad(hour)}:${pad(minute)}, tz ${localNow.timezone}, local ${pad(localNow.hour)}:${pad(localNow.minute)}, date ${localNow.dateKey})`
                 );
                 sent += 1;
             } catch (err) {
-                console.error(`Failed to send email to ${user.email}:`, err.message);
+                console.error(`Failed to send email to ${reminderEmail}:`, err.message);
                 await releaseReminderSlot(user._id);
                 skipped += 1;
                 skipReasons.send_failed = (skipReasons.send_failed || 0) + 1;

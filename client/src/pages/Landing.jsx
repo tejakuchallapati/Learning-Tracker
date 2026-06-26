@@ -1,11 +1,10 @@
-import { Fragment, useState, useContext } from 'react';
+import { Fragment, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowRight, FiX } from 'react-icons/fi';
 import { AuthContext } from '../context/AuthContext';
 import { getHomePath } from '../utils/authSession';
 import { Header } from '../components/ui/header-2';
 import LandingModuleIcon from '../components/landing/LandingModuleIcon';
-import SignupForm from '../components/auth/SignupForm';
 import ModulePreview from '../components/landing/ModulePreview';
 import ScrollReveal from '../components/landing/ScrollReveal';
 import Logo from '../components/brand/Logo';
@@ -19,7 +18,7 @@ const modules = [
     { id: 'study-notes', icon: 'notes', title: 'Study Notes', desc: 'Save daily learnings and future plans — synced securely to your account.' },
 ];
 
-const stack = ['React', 'Node.js', 'MongoDB', 'JWT', 'Google OAuth', 'Tailwind'];
+const stack = ['React', 'Node.js', 'MongoDB', 'JWT', 'Phone OTP', 'Tailwind'];
 
 const tickerItems = ['Roadmaps', 'Daily goals', 'Email reminders', 'Study notes', 'Resources', 'Dashboard'];
 
@@ -28,8 +27,14 @@ const Landing = () => {
     const { user } = useContext(AuthContext);
     const [activeModule, setActiveModule] = useState(null);
 
+    useEffect(() => {
+        if (user) {
+            navigate(getHomePath(user), { replace: true });
+        }
+    }, [user, navigate]);
+
     const scrollToSignup = () => {
-        document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' });
+        navigate('/login');
     };
 
     const handleGetStarted = () => {
@@ -369,8 +374,18 @@ const Landing = () => {
                         </p>
                     </ScrollReveal>
                     <ScrollReveal delay={150} direction="left" distance={80} amount={0.2}>
-                    <div className="bg-white border border-slate-200 rounded-2xl shadow-lg shadow-slate-200/50 p-6 sm:p-10">
-                        <SignupForm embedded />
+                    <div className="bg-white border border-slate-200 rounded-2xl shadow-lg shadow-slate-200/50 p-6 sm:p-10 text-center space-y-6">
+                        <p className="text-slate-600 font-medium">
+                            Sign in with your mobile number. Add your reminder email in Settings after login.
+                        </p>
+                        <button
+                            type="button"
+                            onClick={() => navigate('/login')}
+                            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-xl shadow-lg shadow-violet-200 transition-all"
+                        >
+                            Get started with OTP
+                            <FiArrowRight />
+                        </button>
                     </div>
                     </ScrollReveal>
                 </div>

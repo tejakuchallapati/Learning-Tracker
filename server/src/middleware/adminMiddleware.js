@@ -1,12 +1,12 @@
 const asyncHandler = require('express-async-handler');
-const { isAdminEmail } = require('../utils/adminAccess');
+const { isAdminUser } = require('../utils/adminAccess');
 
 const admin = asyncHandler(async (req, res, next) => {
-    if (!isAdminEmail(req.user?.email)) {
+    if (!isAdminUser(req.user)) {
         res.status(403);
-        throw new Error('Admin access required');
+        throw new Error('Not authorized as admin');
     }
     next();
 });
 
-module.exports = { admin };
+module.exports = admin;

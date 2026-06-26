@@ -14,21 +14,23 @@ services:
         sync: false
       - key: JWT_SECRET
         sync: false
-      - key: EMAIL_USER
-        sync: false
-      - key: EMAIL_PASS
-        sync: false
       - key: RESEND_API_KEY
         sync: false
       - key: EMAIL_FROM
         sync: false
+      - key: MSG91_AUTH_KEY
+        sync: false
+      - key: MSG91_SENDER_ID
+        sync: false
+      - key: OTP_MOCK
+        value: "false"
       - key: CRON_SECRET
         sync: false
       - key: REMINDER_TIMEZONE
         value: Asia/Kolkata
-      - key: GOOGLE_CLIENT_ID
-        sync: false
       - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PHONE
         sync: false
       - key: FRONTEND_URL
         value: https://learning-tracker-two-xi.vercel.app

@@ -49,7 +49,6 @@ export const AuthProvider = ({ children }) => {
                     applyAuthResponse(data);
                 }
             } catch (err) {
-                // Only clear when this validation still owns the active token.
                 if (
                     err.response?.status === 401 &&
                     !cancelled &&
@@ -81,26 +80,9 @@ export const AuthProvider = ({ children }) => {
         }
     }, [user]);
 
-    const login = async (email, password) => {
+    const verifyOtpLogin = async ({ phone, otp, name }) => {
         const { data } = await authRequest((config) =>
-            API.post('auth/login', { email, password }, config)
-        );
-        return applyAuthResponse(data);
-    };
-
-    const register = async (name, email, password) => {
-        const { data } = await authRequest((config) =>
-            API.post('auth/register', { name, email, password }, config)
-        );
-        return applyAuthResponse(data);
-    };
-
-    const googleLogin = async ({ credential, code, redirectUri } = {}) => {
-        const body = credential
-            ? { credential }
-            : { code, redirectUri: redirectUri || window.location.origin };
-        const { data } = await authRequest((config) =>
-            API.post('auth/google', body, config)
+            API.post('auth/verify-otp', { phone, otp, name }, config)
         );
         return applyAuthResponse(data);
     };
@@ -150,7 +132,9 @@ export const AuthProvider = ({ children }) => {
     }, [applyAuthResponse]);
 
     return (
-        <AuthContext.Provider value={{ user, login, register, googleLogin, logout, updateProfile, refreshUser, loading }}>
+        <AuthContext.Provider
+            value={{ user, verifyOtpLogin, logout, updateProfile, refreshUser, loading }}
+        >
             {children}
         </AuthContext.Provider>
     );

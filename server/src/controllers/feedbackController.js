@@ -69,7 +69,7 @@ const submitFeedback = asyncHandler(async (req, res) => {
     const report = await Feedback.create({
         userId: req.user.id,
         userName: req.user.name || '',
-        userEmail: req.user.email || '',
+        userEmail: req.user.reminderEmail || req.user.phone || '',
         category: safeCategory,
         message: trimmed,
         page: page ? String(page).slice(0, 500) : '',

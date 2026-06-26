@@ -2,12 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
-// Pages
-import LandingPage from '../pages/LandingPage';
 import Login from '../pages/Login';
-import Signup from '../pages/Signup';
-import ForgotPassword from '../pages/ForgotPassword';
-import ResetPassword from '../pages/ResetPassword';
 import Landing from '../pages/Landing';
 import AppWalkthrough from '../pages/AppWalkthrough';
 import Dashboard from '../pages/Dashboard';
@@ -24,7 +19,6 @@ import Goals from '../pages/Goals';
 import Admin from '../pages/Admin';
 import MobileLandingPreview from '../pages/MobileLandingPreview';
 
-// Layout
 import Sidebar from '../components/layout/Sidebar';
 import Navbar from '../components/layout/Navbar';
 import MobileNav from '../components/layout/MobileNav';
@@ -85,7 +79,6 @@ const DashboardLayout = ({ children }) => {
   );
 };
 
-// Define all dashboard routes in a separate array or component to keep App clean
 const dashboardRoutes = [
   { path: "/dashboard", element: <Dashboard /> },
   { path: "/courses", element: <CourseCatalog /> },
@@ -110,11 +103,8 @@ function App() {
         <Route path="/walkthrough" element={<AppWalkthrough />} />
         <Route path="/preview/mobile" element={<MobileLandingPreview />} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-        <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
-        <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        
-        {/* Wrap all dashboard routes in the layout and protection once */}
+        <Route path="/signup" element={<Navigate to="/login" replace />} />
+
         {dashboardRoutes.map(({ path, element, adminOnly }) => (
           <Route
             key={path}

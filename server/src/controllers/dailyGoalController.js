@@ -210,17 +210,19 @@ const updateDailyGoal = asyncHandler(async (req, res) => {
         await removeGoalCompletion(req.user.id, goal._id);
     }
 
-    // Send email notification if goal was marked as completed and reminders are enabled
     if (req.body.completed === true && goal.completed === false && updatedGoal.emailReminders) {
-        try {
-            await sendEmail({
-                email: req.user.email,
-                subject: `Goal Completed: ${updatedGoal.title} 🚀`,
-                message: `Great job, ${req.user.name}!\n\nYou've successfully completed your daily goal: "${updatedGoal.title}".\n\n🔥 CURRENT STREAK: ${updatedGoal.streak} DAYS 🔥\n\nKeep up the amazing momentum and finish the week strong!\n\nBest,\nThe Learning Tracker Team`,
-            });
-            console.log(`Completion email sent to ${req.user.email} for goal: ${updatedGoal.title}`);
-        } catch (error) {
-            console.error('Error sending goal completion email:', error.message);
+        const reminderEmail = req.user.reminderEmail?.trim();
+        if (reminderEmail) {
+            try {
+                await sendEmail({
+                    email: reminderEmail,
+                    subject: `Goal Completed: ${updatedGoal.title} 🚀`,
+                    message: `Great job, ${req.user.name}!\n\nYou've successfully completed your daily goal: "${updatedGoal.title}".\n\n🔥 CURRENT STREAK: ${updatedGoal.streak} DAYS 🔥\n\nKeep up the amazing momentum and finish the week strong!\n\nBest,\nThe Learning Tracker Team`,
+                });
+                console.log(`Completion email sent to ${reminderEmail} for goal: ${updatedGoal.title}`);
+            } catch (error) {
+                console.error('Error sending goal completion email:', error.message);
+            }
         }
     }
 

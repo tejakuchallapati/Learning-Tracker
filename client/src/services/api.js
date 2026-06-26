@@ -27,12 +27,9 @@ API.interceptors.response.use(
         if (error.response?.status === 401) {
             const url = error.config?.url || '';
             const isAuthAttempt =
-                url.includes('auth/login') ||
-                url.includes('auth/google') ||
-                url.includes('auth/register') ||
-                url.includes('auth/me') ||
-                url.includes('auth/forgot-password') ||
-                url.includes('auth/reset-password');
+                url.includes('auth/send-otp') ||
+                url.includes('auth/verify-otp') ||
+                url.includes('auth/me');
             if (!isAuthAttempt) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
