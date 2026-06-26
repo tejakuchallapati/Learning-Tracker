@@ -1,4 +1,9 @@
 const nodemailer = require('nodemailer');
+const dns = require('dns');
+
+const lookupIpv4 = (hostname, _options, callback) => {
+    dns.lookup(hostname, { family: 4 }, callback);
+};
 
 const sendEmail = async (options) => {
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
@@ -17,6 +22,7 @@ const sendEmail = async (options) => {
         connectionTimeout: 15000,
         greetingTimeout: 15000,
         socketTimeout: 20000,
+        lookup: lookupIpv4,
     });
 
     // Define the email options
