@@ -111,11 +111,7 @@ const Login = () => {
                             <ResponsiveGoogleLogin
                                 onSuccess={handleGoogleSuccess}
                                 onError={handleGoogleError}
-                                size="large"
-                                shape="rectangular"
-                                theme="outline"
                                 text="signin_with"
-                                logo_alignment="left"
                             />
                         )}
                     </div>
@@ -211,7 +207,8 @@ const Login = () => {
                 </div>
 
                 <p className="text-center text-xs text-slate-400 mt-6 leading-relaxed">
-                    Google Sign-In requires pop-ups to be <span className="font-semibold">allowed</span> in your browser settings.
+                    Click <span className="font-semibold">Sign in with Google</span>, then choose your
+                    Google account. Allow pop-ups if the account picker does not appear.
                 </p>
             </div>
         </div>

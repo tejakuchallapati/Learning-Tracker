@@ -192,11 +192,7 @@ const SignupForm = ({ embedded = false }) => {
                         <ResponsiveGoogleLogin
                             onSuccess={handleGoogleSuccess}
                             onError={handleGoogleError}
-                            size="large"
-                            shape="rectangular"
-                            theme="outline"
                             text="signup_with"
-                            logo_alignment="left"
                         />
                     )}
                 </div>
