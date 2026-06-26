@@ -95,7 +95,7 @@ const checkAndSendReminders = async () => {
     const localNow = getLocalNow();
 
     if (!isEmailConfigured()) {
-        console.warn('Email reminders skipped: set RESEND_API_KEY or EMAIL_USER/EMAIL_PASS.');
+        console.warn('Email reminders skipped: set RESEND_API_KEY on Render.');
         return { sent: 0, skipped: 0, reason: 'email_not_configured' };
     }
 

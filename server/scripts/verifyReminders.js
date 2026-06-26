@@ -45,7 +45,7 @@ const run = async () => {
             emailReminders: true,
         });
         const status = {
-            phone: user.phone,
+            email: user.email,
             reminderEmail: user.reminderEmail || '(none)',
             reminderTime: user.reminderTime,
             reminderAmPm: user.reminderAmPm,

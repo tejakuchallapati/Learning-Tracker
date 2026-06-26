@@ -39,7 +39,7 @@ router.get('/sample-reminder', authorizeCron, async (req, res) => {
         return res.status(400).json({ message: 'email query param required' });
     }
     if (!isEmailConfigured()) {
-        return res.status(503).json({ message: 'Email is not configured (set RESEND_API_KEY or EMAIL_USER/EMAIL_PASS)' });
+        return res.status(503).json({ message: 'Email is not configured (set RESEND_API_KEY on Render)' });
     }
 
     const message = `Hello,\n\nYou have some pending daily goals in Learning Tracker to complete today:\n\n- Watch roadmap video (Current Streak: 3)\n- Complete one module\n\nKeep up the great work and mark them complete when done!\n\nBest,\nThe Learning Tracker Team`;

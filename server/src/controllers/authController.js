@@ -3,8 +3,9 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
 const { normalizeReminderStorage } = require('../utils/reminderSchedule');
 const { isAdminUser } = require('../utils/adminAccess');
-const { normalizePhone, maskPhone } = require('../utils/phoneUtils');
+const { normalizeEmail, maskEmail } = require('../utils/emailUtils');
 const { createAndSendOtp, verifyOtp: verifyOtpCode } = require('../utils/otpService');
+const { resendApiKey } = require('../utils/emailConfig');
 
 const generateToken = (id) => {
     if (!process.env.JWT_SECRET) {
@@ -18,8 +19,8 @@ const generateToken = (id) => {
 const formatAuthResponse = (user) => ({
     _id: user.id,
     name: user.name,
-    phone: user.phone,
-    reminderEmail: user.reminderEmail || '',
+    email: user.email,
+    reminderEmail: user.reminderEmail || user.email || '',
     emailNotification: user.emailNotification,
     streakAlertNotification: user.streakAlertNotification,
     pushNotification: user.pushNotification,
@@ -29,23 +30,23 @@ const formatAuthResponse = (user) => ({
     token: generateToken(user._id),
 });
 
-// @desc    Send OTP to phone
+// @desc    Send OTP to email
 // @route   POST /api/auth/send-otp
 // @access  Public
 const sendOtp = asyncHandler(async (req, res) => {
-    const phone = normalizePhone(req.body.phone);
-    if (!phone) {
+    const email = normalizeEmail(req.body.email);
+    if (!email) {
         res.status(400);
-        throw new Error('Enter a valid 10-digit Indian mobile number.');
+        throw new Error('Enter a valid email address.');
     }
 
-    const user = await User.findOne({ phone });
-    await createAndSendOtp(phone);
+    const user = await User.findOne({ email });
+    await createAndSendOtp(email);
 
-    const mockMode = process.env.OTP_MOCK === 'true' || !process.env.MSG91_AUTH_KEY?.trim();
+    const mockMode = process.env.OTP_MOCK === 'true' || !resendApiKey();
 
     res.json({
-        message: `OTP sent to ${maskPhone(phone)}.`,
+        message: `OTP sent to ${maskEmail(email)}.`,
         isNewUser: !user,
         mock: mockMode,
     });
@@ -55,29 +56,29 @@ const sendOtp = asyncHandler(async (req, res) => {
 // @route   POST /api/auth/verify-otp
 // @access  Public
 const verifyOtp = asyncHandler(async (req, res) => {
-    const phone = normalizePhone(req.body.phone);
+    const email = normalizeEmail(req.body.email);
     const otp = String(req.body.otp || '').trim();
     const name = String(req.body.name || '').trim();
 
-    if (!phone) {
+    if (!email) {
         res.status(400);
-        throw new Error('Enter a valid 10-digit Indian mobile number.');
+        throw new Error('Enter a valid email address.');
     }
     if (!otp || otp.length < 4) {
         res.status(400);
-        throw new Error('Enter the OTP sent to your phone.');
+        throw new Error('Enter the OTP sent to your email.');
     }
 
-    await verifyOtpCode(phone, otp);
+    await verifyOtpCode(email, otp);
 
-    let user = await User.findOne({ phone });
+    let user = await User.findOne({ email });
 
     if (!user) {
         if (!name) {
             res.status(400);
             throw new Error('Please enter your name to create your account.');
         }
-        user = await User.create({ phone, name });
+        user = await User.create({ email, name, reminderEmail: email });
     } else if (name && name !== user.name) {
         user.name = name;
         await user.save();
@@ -128,7 +129,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
     if (req.body.reminderEmail !== undefined) {
         const next = String(req.body.reminderEmail || '').trim().toLowerCase();
-        user.reminderEmail = next || undefined;
+        user.reminderEmail = next || user.email;
     }
     if (req.body.bio) user.bio = req.body.bio;
     if (req.body.specialization) user.specialization = req.body.specialization;
@@ -169,8 +170,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     res.json({
         _id: updatedUser._id,
         name: updatedUser.name,
-        phone: updatedUser.phone,
-        reminderEmail: updatedUser.reminderEmail || '',
+        email: updatedUser.email,
+        reminderEmail: updatedUser.reminderEmail || updatedUser.email || '',
         bio: updatedUser.bio,
         specialization: updatedUser.specialization,
         role: updatedUser.role,

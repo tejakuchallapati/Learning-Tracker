@@ -18,10 +18,6 @@ services:
         sync: false
       - key: EMAIL_FROM
         sync: false
-      - key: MSG91_AUTH_KEY
-        sync: false
-      - key: MSG91_SENDER_ID
-        sync: false
       - key: OTP_MOCK
         value: "false"
       - key: CRON_SECRET
@@ -29,8 +25,6 @@ services:
       - key: REMINDER_TIMEZONE
         value: Asia/Kolkata
       - key: ADMIN_EMAIL
-        sync: false
-      - key: ADMIN_PHONE
         sync: false
       - key: FRONTEND_URL
         value: https://learning-tracker-two-xi.vercel.app

@@ -1,164 +1,92 @@
-# Production environment variables
+# Production setup — email OTP login + email reminders
 
-Set these in **Vercel** (frontend) and **Render** (API) before launch.  
-Reminders use **cron-job.org** (free) — see below.
-
----
-
-## Vercel — Project → Settings → Environment Variables
-
-Apply to **Production**, **Preview**, and **Development**.
-
-| Variable | Value | Required |
-|----------|--------|----------|
-| `VITE_API_BASE_URL` | `https://learning-tracker-api-hqzm.onrender.com/api` | Yes |
-| `VITE_GOOGLE_CLIENT_ID` | Same as `GOOGLE_CLIENT_ID` in `server/.env` | Yes |
-| `VITE_GA_MEASUREMENT_ID` | Your GA4 ID, e.g. `G-XXXXXXXXXX` | Optional |
-
-**After saving:** Deployments → … → **Redeploy** (env vars only apply on new builds).
-
-**Vercel build settings**
-
-| Setting | Value |
-|---------|--------|
-| Root Directory | `client` |
-| Build Command | `npm run build` |
-| Output Directory | `dist` |
+One service (**Resend**) handles login codes and daily goal reminders.
 
 ---
 
-## Render — Web service (`learning-tracker-api`)
+## Overview
 
-Dashboard → your API service → **Settings** → confirm **URL** is  
-`https://learning-tracker-api-hqzm.onrender.com` (not an old `ko02` or other slug).
+| What | How |
+|------|-----|
+| Login | Email + 6-digit OTP (Resend) |
+| Daily reminders | Same Resend account |
+| Cron | cron-job.org (free) |
 
-Then → **Environment**.
-
-| Variable | Value | Required |
-|----------|--------|----------|
-| `NODE_ENV` | `production` | Yes |
-| `PORT` | `5001` | Yes |
-| `MONGO_URI` | MongoDB Atlas connection string (from `server/.env`) | Yes |
-| `JWT_SECRET` | Long random string — **use a new secret for production**, not the dev default | Yes |
-| `RESEND_API_KEY` | From [resend.com](https://resend.com/api-keys) — **required on Render free tier** (Gmail SMTP is blocked) | Yes |
-| `EMAIL_FROM` | `Learning Tracker <onboarding@resend.dev>` (or your verified domain) | Yes |
-| `GOOGLE_CLIENT_ID` | Same as Vercel `VITE_GOOGLE_CLIENT_ID` | Yes |
-| `GOOGLE_CLIENT_SECRET` | From Google Cloud Console — not a placeholder | Yes |
-| `FRONTEND_URL` | `https://learning-tracker-two-xi.vercel.app` | Yes |
-| `REMINDER_TIMEZONE` | `Asia/Kolkata` (IST — covers all of India including Telangana) | Yes |
-| `CRON_SECRET` | Long random string — **secret only, not a URL** | Yes |
-| `ADMIN_EMAIL` | Admin inbox for issue reports | Recommended |
-
-**Do not set** `EMAIL_USER` / `EMAIL_PASS` on Render — they force Gmail SMTP, which times out on the free tier.
-
-**Verify email is wired after deploy:** open  
-`https://learning-tracker-api-hqzm.onrender.com/api/health` — you should see  
-`{"ok":true,"emailProvider":"resend"}`. If it says `"gmail"` or `"none"`, fix env vars and **Save, rebuild, and deploy**.
-
-**Generate `CRON_SECRET` (run once locally):**
-
-```bash
-openssl rand -hex 32
-```
-
-Copy the output into Render **web service** env as `CRON_SECRET`. You will use the same value in **cron-job.org** (free) below — **do not** create a paid Render Cron Job.
+**User flow:** Log in once with email OTP → set reminder time in Settings → bell ON on goals → emails handle the rest.
 
 ---
 
-## Free reminders — cron-job.org ($0)
+## Render — API environment
 
-**Skip Render Cron Job** (that costs money). Use this instead:
+Remove if still present: `MSG91_AUTH_KEY`, `MSG91_SENDER_ID`, `GOOGLE_*`, `EMAIL_USER`, `EMAIL_PASS`, `ADMIN_PHONE`
 
-1. **Wake the API first** (Render free tier sleeps): open  
-   `https://learning-tracker-api-hqzm.onrender.com/api/health` in your browser and wait until you see `{"ok":true,"emailProvider":"resend"}`
+| Variable | Value |
+|----------|--------|
+| `MONGO_URI` | MongoDB Atlas connection string |
+| `JWT_SECRET` | Long random string |
+| `RESEND_API_KEY` | From [resend.com](https://resend.com/api-keys) |
+| `EMAIL_FROM` | `Learning Tracker <onboarding@resend.dev>` |
+| `OTP_MOCK` | `false` in production |
+| `CRON_SECRET` | `openssl rand -hex 32` |
+| `REMINDER_TIMEZONE` | `Asia/Kolkata` |
+| `FRONTEND_URL` | `https://learning-tracker-two-xi.vercel.app` |
+| `ADMIN_EMAIL` | Your admin email |
 
-2. Go to [cron-job.org](https://cron-job.org) → sign up free → **Create cronjob**
+Verify: `https://learning-tracker-api-hqzm.onrender.com/api/health` → `"emailProvider":"resend"`
 
-3. Use **GET** and put your secret **in the URL** (cron-job.org validates the URL without custom headers, so POST + `Authorization` often shows *“This URL does not look to be valid”*):
+---
 
-| Field | Value |
-|-------|--------|
-| **Title** | Learning Tracker reminders |
-| **URL** | `https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=PASTE_CRON_SECRET_HERE` |
-| **Schedule** | Every **5 minutes** |
-| **Request method** | `GET` (default) |
+## Vercel — frontend
 
-Replace `PASTE_CRON_SECRET_HERE` with the exact `CRON_SECRET` from Render → API service → Environment.  
-No spaces, no quotes, no `Bearer` — just the secret string after `?secret=`.
+| Variable | Value |
+|----------|--------|
+| `VITE_API_BASE_URL` | `https://learning-tracker-api-hqzm.onrender.com/api` |
 
-4. **Save** and **Enable** the job  
-5. Open **History** after a few minutes — you should see **200** responses
+Remove: `VITE_GOOGLE_CLIENT_ID`
 
-**Alternative (Advanced tab):** POST with header `Authorization: Bearer YOUR_CRON_SECRET` — only if GET with `?secret=` still fails after waking the API.
+---
 
-**Test the exact URL in your browser** (replace secret):
+## cron-job.org (reminders)
+
+Every **5 minutes**, GET:
 
 ```
 https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=YOUR_CRON_SECRET
 ```
 
-You should see JSON like `{"ok":true,...}`. If that works in the browser, paste the same URL into cron-job.org.
-
 ---
 
-## Paid option (optional) — Render Cron Job
-
-Only if you prefer everything on Render (~$0.10–1.50/month). **Not required.**
-
-| Variable | Value |
-|----------|--------|
-| `CRON_SECRET` | Same as web service |
-| `API_URL` | `https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders` |
-
-Command: `node scripts/pingReminders.js` · Root: `server` · Schedule: `*/5 * * * *`
-
----
-
-## Quick verification
+## Local development
 
 ```bash
-# API health (emailProvider should be "resend")
-curl https://learning-tracker-api-hqzm.onrender.com/api/health
-
-# Sample reminder email (replace YOUR_CRON_SECRET)
-curl 'https://learning-tracker-api-hqzm.onrender.com/api/cron/sample-reminder?secret=YOUR_CRON_SECRET&email=you@example.com'
-
-# Reminders cron (replace YOUR_CRON_SECRET)
-curl 'https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=YOUR_CRON_SECRET'
-
-# Local: who would get a reminder right now?
-cd server && node scripts/verifyReminders.js
+# server/.env
+OTP_MOCK=true          # login OTP in terminal
+RESEND_API_KEY=re_...  # optional — real emails when set
 ```
 
-Expected: `{"ok":true,...}` or reminder skip stats — not `401` or `403`.
-
-### Reminder checklist (must all be true)
-
-1. **Render web** has `RESEND_API_KEY`, `EMAIL_FROM`, `CRON_SECRET`, `REMINDER_TIMEZONE=Asia/Kolkata`
-2. `/api/health` returns `"emailProvider":"resend"`
-3. **cron-job.org** pings `/api/cron/reminders` every 5 min (GET with `?secret=`)
-4. User saved a **reminder time** in Settings
-5. At least one daily goal has the **bell ON** and is **not completed**
-6. `emailNotification` is not disabled on the user account
+```bash
+cd server && npm run dev
+cd client && npm run dev
+```
 
 ---
 
 ## Checklist
 
-- [ ] Vercel: `VITE_API_BASE_URL` + `VITE_GOOGLE_CLIENT_ID` set, redeployed
-- [ ] Vercel: `VITE_GA_MEASUREMENT_ID` set (optional)
-- [ ] Render web: all variables above set
-- [ ] **cron-job.org** (free): reminder ping every 5 min — not paid Render cron
-- [ ] Google Cloud Console → OAuth client → **Authorized JavaScript origins:**
-  - `https://learning-tracker-two-xi.vercel.app`
-  - `http://localhost:3000`
-- [ ] Google Cloud Console → OAuth client → **Authorized redirect URIs** (required for Google sign-in popup):
-  - `https://learning-tracker-two-xi.vercel.app`
-  - `http://localhost:3000`
-- [ ] Test login on live site after redeploy
+- [ ] Render: `RESEND_API_KEY`, `EMAIL_FROM`, `OTP_MOCK=false`
+- [ ] Removed MSG91 / Google vars from Render
+- [ ] Vercel: `VITE_API_BASE_URL` only, redeployed
+- [ ] Login with email OTP works
+- [ ] Reminder time saved in Settings
+- [ ] Bell ON on daily goals
+- [ ] cron-job.org returning 200
 
 ---
 
-## Next (after env setup)
+## Troubleshooting
 
-- Forgot password: `/forgot-password` → email link → `/reset-password?token=...` (requires `RESEND_API_KEY` or Gmail on Render).
+| Problem | Fix |
+|---------|-----|
+| No login OTP email | Check `RESEND_API_KEY`, spam folder. Use `OTP_MOCK=true` and read Render logs. |
+| No reminder emails | Reminder time + bell ON + `CRON_SECRET` on cron-job.org |
+| Old phone accounts | Re-register with email — old phone users cannot log in |

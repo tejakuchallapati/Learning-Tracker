@@ -28,7 +28,7 @@ export const walkthroughSteps = [
         step: 1,
         short: 'Login',
         title: 'Sign in',
-        desc: 'Open the login page and sign in with your mobile OTP.',
+        desc: 'Open the login page and sign in with the OTP sent to your email.',
         path: 'learning-tracker.app/login',
         Screen: () => (
             <div className="flex flex-col items-center justify-center min-h-[min(52vh,380px)] py-4 sm:py-6">
@@ -41,20 +41,18 @@ export const walkthroughSteps = [
                     <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-lg space-y-3 sm:space-y-4">
                         <div className="space-y-1">
                             <label className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase">Email</label>
-                            <div className="h-10 sm:h-11 rounded-xl bg-slate-50 border border-slate-200 px-3 flex items-center text-xs sm:text-sm text-slate-400">you@email.com</div>
+                            <div className="h-10 sm:h-11 rounded-xl bg-slate-50 border border-slate-200 px-3 flex items-center text-xs sm:text-sm text-slate-400">you@example.com</div>
                         </div>
                         <div className="space-y-1">
-                            <label className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase">Password</label>
-                            <div className="h-10 sm:h-11 rounded-xl bg-slate-50 border border-slate-200 px-3 flex items-center text-xs sm:text-sm text-slate-400">••••••••</div>
+                            <label className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase">OTP</label>
+                            <div className="h-10 sm:h-11 rounded-xl bg-slate-50 border border-slate-200 px-3 flex items-center text-xs sm:text-sm text-slate-400">6-digit code</div>
                         </div>
                         <div className="relative pt-1 sm:pt-2">
                             <button type="button" className="w-full h-11 sm:h-12 bg-sky-600 text-white font-bold text-sm rounded-xl shadow-lg shadow-sky-200 ring-2 ring-sky-400 ring-offset-2">
-                                Sign In →
+                                Verify &amp; continue →
                             </button>
-                            <TapHint label="Tap sign in" className="justify-center mt-2 sm:mt-3" />
+                            <TapHint label="Enter OTP" className="justify-center mt-2 sm:mt-3" />
                         </div>
-                        <div className="h-px bg-slate-100" />
-                        <button type="button" className="w-full h-10 sm:h-11 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-600">Sign in with OTP</button>
                     </div>
                 </div>
             </div>

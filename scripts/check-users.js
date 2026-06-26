@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
 
-// Load env vars from the server directory
 dotenv.config({ path: path.join(__dirname, '..', 'server', '.env') });
 
 const checkUsers = async () => {
@@ -16,26 +15,25 @@ const checkUsers = async () => {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected!');
 
-    // Define a minimal User model for querying
     const userSchema = new mongoose.Schema({
       name: String,
       email: String,
-      googleId: String,
-      createdAt: Date
+      reminderEmail: String,
+      createdAt: Date,
     });
     const User = mongoose.model('User', userSchema);
 
-    const users = await User.find({}, 'name email googleId createdAt');
-    
+    const users = await User.find({}, 'name email reminderEmail createdAt');
+
     if (users.length === 0) {
       console.log('No users found in the database.');
     } else {
       console.log(`\nFound ${users.length} user(s):`);
-      console.table(users.map(u => ({
+      console.table(users.map((u) => ({
         Name: u.name,
         Email: u.email,
-        'Google Auth': u.googleId ? 'Yes' : 'No',
-        Joined: u.createdAt
+        'Reminder email': u.reminderEmail || u.email || '(not set)',
+        Joined: u.createdAt,
       })));
     }
 

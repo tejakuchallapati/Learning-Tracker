@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Phone, User, KeyRound, AlertCircle } from 'lucide-react';
+import { Mail, User, KeyRound, AlertCircle } from 'lucide-react';
 import Logo from '../components/brand/Logo';
 import { formatApiError } from '../utils/apiErrors';
 import { warmApi } from '../utils/warmApi';
@@ -11,7 +11,7 @@ import API from '../services/api';
 
 const Login = () => {
     const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [otpSent, setOtpSent] = useState(false);
     const [isNewUser, setIsNewUser] = useState(false);
@@ -40,7 +40,7 @@ const Login = () => {
         setError('');
         setSendingOtp(true);
         try {
-            const { data } = await API.post('auth/send-otp', { phone: phone.trim() });
+            const { data } = await API.post('auth/send-otp', { email: email.trim() });
             setOtpSent(true);
             setIsNewUser(Boolean(data.isNewUser));
             if (data.mock) {
@@ -63,7 +63,7 @@ const Login = () => {
         setLoading(true);
         try {
             const session = await verifyOtpLogin({
-                phone: phone.trim(),
+                email: email.trim(),
                 otp: otp.trim(),
                 name: name.trim(),
             });
@@ -85,8 +85,8 @@ const Login = () => {
                     </h1>
                     <p className="text-slate-500 text-sm mt-1 font-medium">
                         {otpSent
-                            ? `Code sent to +91 ${phone.replace(/\D/g, '').slice(-10)}`
-                            : 'Sign in with your mobile number'}
+                            ? `Code sent to ${email.trim()}`
+                            : 'Sign in with your email'}
                     </p>
                 </div>
 
@@ -101,28 +101,26 @@ const Login = () => {
                     {!otpSent ? (
                         <form onSubmit={handleSendOtp} className="space-y-4">
                             <div className="space-y-1.5">
-                                <label htmlFor="login-phone" className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                    Mobile number
+                                <label htmlFor="login-email" className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Email
                                 </label>
                                 <div className="relative">
-                                    <Phone size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-                                    <span className="absolute left-10 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-500">+91</span>
+                                    <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
                                     <input
-                                        id="login-phone"
-                                        type="tel"
-                                        inputMode="numeric"
+                                        id="login-email"
+                                        type="email"
                                         required
-                                        maxLength={10}
-                                        placeholder="9876543210"
-                                        value={phone}
-                                        onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                                        className="w-full h-12 pl-16 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-base font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500"
+                                        autoComplete="email"
+                                        placeholder="you@example.com"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="w-full h-12 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-base font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500"
                                     />
                                 </div>
                             </div>
                             <button
                                 type="submit"
-                                disabled={sendingOtp || phone.length < 10}
+                                disabled={sendingOtp || !email.trim()}
                                 className="w-full h-12 bg-violet-600 hover:bg-violet-700 disabled:opacity-60 text-white font-bold text-sm rounded-xl shadow-lg shadow-violet-200 transition-all flex items-center justify-center gap-2"
                             >
                                 {sendingOtp ? 'Sending OTP…' : 'Send OTP'}
@@ -184,14 +182,14 @@ const Login = () => {
                                 }}
                                 className="w-full text-sm font-semibold text-slate-500 hover:text-violet-600"
                             >
-                                Change number
+                                Change email
                             </button>
                         </form>
                     )}
                 </div>
 
                 <p className="text-center text-xs text-slate-400 mt-6 leading-relaxed">
-                    You stay signed in on this device. Add your <strong>reminder email</strong> in Settings after login.
+                    You stay signed in on this device. Set your <strong>reminder time</strong> in Settings and turn the <strong>bell ON</strong> on daily goals.
                 </p>
             </div>
         </div>

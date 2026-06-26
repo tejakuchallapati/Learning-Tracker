@@ -136,7 +136,7 @@ const Admin = () => {
                         <thead className="bg-slate-50 dark:bg-slate-950/50 text-left">
                             <tr>
                                 <th className="px-5 py-3 text-xs font-black uppercase tracking-wider text-slate-500">Name</th>
-                                <th className="px-5 py-3 text-xs font-black uppercase tracking-wider text-slate-500">Phone</th>
+                                <th className="px-5 py-3 text-xs font-black uppercase tracking-wider text-slate-500">Email</th>
                                 <th className="px-5 py-3 text-xs font-black uppercase tracking-wider text-slate-500">Reminder email</th>
                                 <th className="px-5 py-3 text-xs font-black uppercase tracking-wider text-slate-500">Joined</th>
                             </tr>
@@ -145,7 +145,7 @@ const Admin = () => {
                             {users.map((u) => (
                                 <tr key={u._id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/30">
                                     <td className="px-5 py-3 font-bold text-slate-900 dark:text-white">{u.name}</td>
-                                    <td className="px-5 py-3 text-slate-600 dark:text-slate-300">{u.phone || '—'}</td>
+                                    <td className="px-5 py-3 text-slate-600 dark:text-slate-300">{u.email || '—'}</td>
                                     <td className="px-5 py-3 text-slate-600 dark:text-slate-300">{u.reminderEmail || '—'}</td>
                                     <td className="px-5 py-3 text-slate-500 whitespace-nowrap">{formatDate(u.createdAt)}</td>
                                 </tr>

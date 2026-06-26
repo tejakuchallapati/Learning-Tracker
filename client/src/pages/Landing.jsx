@@ -18,7 +18,7 @@ const modules = [
     { id: 'study-notes', icon: 'notes', title: 'Study Notes', desc: 'Save daily learnings and future plans — synced securely to your account.' },
 ];
 
-const stack = ['React', 'Node.js', 'MongoDB', 'JWT', 'Phone OTP', 'Tailwind'];
+const stack = ['React', 'Node.js', 'MongoDB', 'JWT', 'Email OTP', 'Tailwind'];
 
 const tickerItems = ['Roadmaps', 'Daily goals', 'Email reminders', 'Study notes', 'Resources', 'Dashboard'];
 
@@ -33,7 +33,7 @@ const Landing = () => {
         }
     }, [user, navigate]);
 
-    const scrollToSignup = () => {
+    const scrollToLogin = () => {
         navigate('/login');
     };
 
@@ -50,7 +50,7 @@ const Landing = () => {
     };
 
     const workflowSteps = [
-        { step: '01', label: 'Sign up', desc: 'Create your free account', action: scrollToSignup },
+        { step: '01', label: 'Log in', desc: 'Sign in with email OTP', action: scrollToLogin },
         { step: '02', label: 'Pick a roadmap', desc: 'Choose your learning path', action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
         { step: '03', label: 'Set daily goals', desc: 'Build streaks & habits', action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
         { step: '04', label: 'Track progress', desc: 'Dashboard & resources', action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
@@ -237,7 +237,7 @@ const Landing = () => {
                                             </div>
                                             <button
                                                 type="button"
-                                                onClick={(e) => { e.stopPropagation(); scrollToSignup(); }}
+                                                onClick={(e) => { e.stopPropagation(); scrollToLogin(); }}
                                                 className="text-left landing-nav-label text-xs landing-accent-text hover:text-sky-300 flex items-center gap-1.5 mt-3 pt-2 border-t border-white/10"
                                             >
                                                 Unlock free <FiArrowRight size={14} />
@@ -331,10 +331,10 @@ const Landing = () => {
                             <div className="mt-7 sm:mt-14 md:mt-16 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
                                 <button
                                     type="button"
-                                    onClick={scrollToSignup}
+                                    onClick={scrollToLogin}
                                     className="landing-cta landing-nav-label text-xs md:text-sm text-white px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full inline-flex items-center gap-2 transition-all group active:scale-[0.98]"
                                 >
-                                    Sign up <FiArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                                    Get started <FiArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
                                 </button>
                                 <button
                                     type="button"
@@ -362,7 +362,7 @@ const Landing = () => {
                 </ScrollReveal>
             </section>
 
-            <section id="signup" className="py-24 md:py-32">
+            <section id="get-started" className="py-24 md:py-32">
                 <div className="max-w-3xl mx-auto px-5 sm:px-8">
                     <ScrollReveal className="text-center mb-14 md:mb-16" distance={64} amount={0.3}>
                         <h2 className="landing-display flex flex-col items-center gap-2 md:gap-3 text-4xl md:text-6xl landing-heading-text mb-6 !tracking-[0.02em]">
@@ -376,7 +376,7 @@ const Landing = () => {
                     <ScrollReveal delay={150} direction="left" distance={80} amount={0.2}>
                     <div className="bg-white border border-slate-200 rounded-2xl shadow-lg shadow-slate-200/50 p-6 sm:p-10 text-center space-y-6">
                         <p className="text-slate-600 font-medium">
-                            Sign in with your mobile number. Add your reminder email in Settings after login.
+                            Sign in with your email. Set reminder time in Settings and turn the bell on for daily goals.
                         </p>
                         <button
                             type="button"

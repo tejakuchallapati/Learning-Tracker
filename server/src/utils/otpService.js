@@ -1,6 +1,8 @@
 const crypto = require('crypto');
 const Otp = require('../models/Otp');
-const { maskPhone } = require('./phoneUtils');
+const sendEmail = require('./emailService');
+const { resendApiKey } = require('./emailConfig');
+const { maskEmail } = require('./emailUtils');
 
 const OTP_TTL_MS = 10 * 60 * 1000;
 const MAX_VERIFY_ATTEMPTS = 5;
@@ -9,52 +11,39 @@ const hashCode = (code) => crypto.createHash('sha256').update(String(code)).dige
 
 const generateCode = () => String(crypto.randomInt(100000, 999999));
 
-const sendSms = async (phone, message) => {
-    const authKey = process.env.MSG91_AUTH_KEY?.trim();
-    const mock = process.env.OTP_MOCK === 'true' || !authKey;
+const sendOtpEmail = async (email, code) => {
+    const mock = process.env.OTP_MOCK === 'true' || !resendApiKey();
 
     if (mock) {
-        console.log(`[OTP SMS → ${maskPhone(phone)}] ${message}`);
+        console.log(`[OTP email → ${maskEmail(email)}] Your code is ${code} (valid 10 min)`);
         return;
     }
 
-    const mobile = phone.replace(/\D/g, '').replace(/^91/, '');
-    const sender = process.env.MSG91_SENDER_ID?.trim() || 'LTTRCK';
-    const url = new URL('https://control.msg91.com/api/v5/flow/');
-    // Fallback: MSG91 legacy HTTP API
-    const legacyUrl =
-        `https://api.msg91.com/api/sendhttp.php?authkey=${encodeURIComponent(authKey)}` +
-        `&mobiles=${encodeURIComponent(mobile)}` +
-        `&message=${encodeURIComponent(message)}` +
-        `&sender=${encodeURIComponent(sender)}` +
-        `&route=4&country=91`;
-
-    const response = await fetch(legacyUrl);
-    const body = await response.text();
-    if (!response.ok || body.toLowerCase().includes('error')) {
-        console.error('MSG91 SMS failed:', body);
-        throw new Error('Could not send OTP SMS. Try again in a moment.');
-    }
+    await sendEmail({
+        email,
+        subject: 'Your Learning Tracker login code',
+        message: `Your login code is ${code}.\n\nIt expires in 10 minutes. If you didn't request this, you can ignore this email.\n\n— Learning Tracker`,
+    });
 };
 
-const createAndSendOtp = async (phone) => {
+const createAndSendOtp = async (email) => {
     const code = generateCode();
     const expiresAt = new Date(Date.now() + OTP_TTL_MS);
 
-    await Otp.deleteMany({ phone });
+    await Otp.deleteMany({ email });
     await Otp.create({
-        phone,
+        email,
         codeHash: hashCode(code),
         expiresAt,
     });
 
-    await sendSms(phone, `Your Learning Tracker login code is ${code}. Valid for 10 minutes.`);
+    await sendOtpEmail(email, code);
 
     return { expiresInSeconds: OTP_TTL_MS / 1000 };
 };
 
-const verifyOtp = async (phone, code) => {
-    const record = await Otp.findOne({ phone }).sort({ createdAt: -1 });
+const verifyOtp = async (email, code) => {
+    const record = await Otp.findOne({ email }).sort({ createdAt: -1 });
     if (!record) {
         throw new Error('OTP expired or not found. Please request a new code.');
     }

@@ -211,7 +211,7 @@ const updateDailyGoal = asyncHandler(async (req, res) => {
     }
 
     if (req.body.completed === true && goal.completed === false && updatedGoal.emailReminders) {
-        const reminderEmail = req.user.reminderEmail?.trim();
+        const reminderEmail = req.user.getReminderEmail?.() || req.user.reminderEmail?.trim() || req.user.email?.trim();
         if (reminderEmail) {
             try {
                 await sendEmail({

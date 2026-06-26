@@ -1,26 +1,17 @@
 import { useState, useContext, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { FiUser, FiBell, FiMail, FiCheckCircle, FiMessageCircle, FiPhone } from 'react-icons/fi';
+import { FiUser, FiBell, FiMail, FiCheckCircle, FiMessageCircle } from 'react-icons/fi';
 import PageHeader, { PAGE_SHELL } from '../components/layout/PageHeader';
 import ReportIssueForm from '../components/feedback/ReportIssueForm';
 import { formatReminderTime } from '../utils/formatReminderTime';
 import { REMINDER_TIMEZONE_LABEL } from '../config/reminderTimezone';
 
-const formatPhone = (phone) => {
-    if (!phone) return '';
-    const digits = phone.replace(/\D/g, '');
-    if (digits.length >= 10) {
-        return `+91 ${digits.slice(-10)}`;
-    }
-    return phone;
-};
-
 const Settings = () => {
     const { user, updateProfile } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         name: user?.name || '',
-        reminderEmail: user?.reminderEmail || '',
+        reminderEmail: user?.reminderEmail || user?.email || '',
     });
 
     const [saved, setSaved] = useState(false);
@@ -33,7 +24,7 @@ const Settings = () => {
         if (!user) return null;
         return JSON.stringify({
             name: user.name || '',
-            reminderEmail: user.reminderEmail || '',
+            reminderEmail: user.reminderEmail || user.email || '',
             reminderTime: user.reminderTime || '',
             reminderAmPm: user.reminderAmPm || 'AM',
         });
@@ -54,7 +45,7 @@ const Settings = () => {
         if (user) {
             setFormData({
                 name: user.name || '',
-                reminderEmail: user.reminderEmail || '',
+                reminderEmail: user.reminderEmail || user.email || '',
             });
             setAmPm(user.reminderAmPm || 'AM');
             setReminderTime(user.reminderTime || '');
@@ -146,7 +137,7 @@ const Settings = () => {
             }`}>
                 <div>
                     <p className="text-sm font-black text-slate-900 dark:text-white">
-                        Signed in as <span className="text-sky-600">{formatPhone(user?.phone)}</span>
+                        Signed in as <span className="text-sky-600">{user?.email}</span>
                     </p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         {user?.isAdmin ? 'You have admin access.' : 'Your session stays active on this device.'}
@@ -178,13 +169,13 @@ const Settings = () => {
                         />
                     </div>
                     <div className="space-y-1.5">
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Mobile</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Email</label>
                         <div className="relative">
-                            <FiPhone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                            <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                             <input
-                                type="text"
+                                type="email"
                                 readOnly
-                                value={formatPhone(user?.phone)}
+                                value={user?.email || ''}
                                 className="w-full h-11 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-3.5 text-sm font-semibold text-slate-500 dark:text-slate-400 cursor-not-allowed"
                             />
                         </div>
@@ -199,7 +190,7 @@ const Settings = () => {
                 </h3>
 
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Add the email where you want daily reminders. Turn the bell on for each goal on Daily Goals.
+                    Daily reminders go to your reminder email (defaults to your login email). Turn the bell on for each goal on Daily Goals.
                 </p>
 
                 <div className="space-y-1.5">

@@ -1,18 +1,22 @@
 /**
- * Send a test email using server/.env EMAIL_USER / EMAIL_PASS.
- * Usage: node scripts/testEmail.js [to@email.com]
+ * Send a test email via Resend.
+ * Usage: node scripts/testEmail.js you@example.com
  */
 require('dotenv').config();
 const sendEmail = require('../src/utils/emailService');
 
-const to = process.argv[2] || process.env.EMAIL_USER;
+const to = process.argv[2];
 
 const run = async () => {
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-        console.error('EMAIL_USER and EMAIL_PASS must be set in server/.env');
+    if (!to) {
+        console.error('Usage: node scripts/testEmail.js you@example.com');
         process.exit(1);
     }
-    console.log(`Sending test email from ${process.env.EMAIL_USER} to ${to}...`);
+    if (!process.env.RESEND_API_KEY?.trim()) {
+        console.error('RESEND_API_KEY must be set in server/.env');
+        process.exit(1);
+    }
+    console.log(`Sending test email to ${to}...`);
     await sendEmail({
         email: to,
         subject: 'Learning Tracker - Test Email',

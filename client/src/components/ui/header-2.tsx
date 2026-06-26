@@ -24,20 +24,15 @@ export function Header() {
         setOpen(false);
     };
 
-    const goToSignup = () => {
-        setOpen(false);
-        navigate('/login');
-    };
-
     const goToLogin = () => {
-        navigate('/login');
         setOpen(false);
+        navigate('/login');
     };
 
 	const links = [
 		{ label: 'About us', onClick: scrollToAbout },
 		{ label: 'Workflow', onClick: scrollToWorkflow },
-		{ label: 'Sign up', onClick: goToSignup, accent: true },
+		{ label: 'Get started', onClick: goToLogin, accent: true },
 		{ label: 'Log in', onClick: goToLogin },
 	];
 
@@ -160,7 +155,7 @@ export function Header() {
 					<button
                         type="button"
                         className="text-left py-3 landing-display text-lg text-sky-300 border-b border-white/10"
-                        onClick={goToSignup}
+                        onClick={goToLogin}
                     >
 						Sign up
 					</button>

@@ -13,7 +13,7 @@ const CATEGORY_LABELS = {
 };
 
 const notifyAdminOfReport = async (report) => {
-    const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
+    const adminEmail = process.env.ADMIN_EMAIL;
     if (!adminEmail || !isEmailConfigured()) {
         console.log('[feedback] New issue report (email not configured):', {
             id: report._id,
@@ -69,7 +69,7 @@ const submitFeedback = asyncHandler(async (req, res) => {
     const report = await Feedback.create({
         userId: req.user.id,
         userName: req.user.name || '',
-        userEmail: req.user.reminderEmail || req.user.phone || '',
+        userEmail: req.user.getReminderEmail?.() || req.user.reminderEmail || req.user.email || '',
         category: safeCategory,
         message: trimmed,
         page: page ? String(page).slice(0, 500) : '',

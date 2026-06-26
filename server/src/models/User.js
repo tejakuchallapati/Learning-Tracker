@@ -6,11 +6,12 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a name'],
         },
-        phone: {
+        email: {
             type: String,
-            required: [true, 'Please add a phone number'],
+            required: [true, 'Please add an email'],
             unique: true,
             trim: true,
+            lowercase: true,
         },
         reminderEmail: {
             type: String,
@@ -60,7 +61,7 @@ const userSchema = mongoose.Schema(
 );
 
 userSchema.methods.getReminderEmail = function getReminderEmail() {
-    return this.reminderEmail?.trim() || '';
+    return this.reminderEmail?.trim() || this.email?.trim() || '';
 };
 
 const User = mongoose.model('User', userSchema);

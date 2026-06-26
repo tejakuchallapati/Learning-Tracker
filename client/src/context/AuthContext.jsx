@@ -80,9 +80,9 @@ export const AuthProvider = ({ children }) => {
         }
     }, [user]);
 
-    const verifyOtpLogin = async ({ phone, otp, name }) => {
+    const verifyOtpLogin = async ({ email, otp, name }) => {
         const { data } = await authRequest((config) =>
-            API.post('auth/verify-otp', { phone, otp, name }, config)
+            API.post('auth/verify-otp', { email, otp, name }, config)
         );
         return applyAuthResponse(data);
     };
