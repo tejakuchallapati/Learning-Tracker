@@ -46,4 +46,4 @@ services:
       - key: CRON_SECRET
         sync: false
       - key: API_URL
-        value: https://learning-tracker-ko02.onrender.com/api/cron/reminders
+        value: https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders

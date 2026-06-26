@@ -11,7 +11,7 @@ Apply to **Production**, **Preview**, and **Development**.
 
 | Variable | Value | Required |
 |----------|--------|----------|
-| `VITE_API_BASE_URL` | `https://learning-tracker-ko02.onrender.com/api` | Yes |
+| `VITE_API_BASE_URL` | `https://learning-tracker-api-hqzm.onrender.com/api` | Yes |
 | `VITE_GOOGLE_CLIENT_ID` | Same as `GOOGLE_CLIENT_ID` in `server/.env` | Yes |
 | `VITE_GA_MEASUREMENT_ID` | Your GA4 ID, e.g. `G-XXXXXXXXXX` | Optional |
 
@@ -29,7 +29,10 @@ Apply to **Production**, **Preview**, and **Development**.
 
 ## Render — Web service (`learning-tracker-api`)
 
-Dashboard → your API service → **Environment**.
+Dashboard → your API service → **Settings** → confirm **URL** is  
+`https://learning-tracker-api-hqzm.onrender.com` (not an old `ko02` or other slug).
+
+Then → **Environment**.
 
 | Variable | Value | Required |
 |----------|--------|----------|
@@ -49,7 +52,7 @@ Dashboard → your API service → **Environment**.
 **Do not set** `EMAIL_USER` / `EMAIL_PASS` on Render — they force Gmail SMTP, which times out on the free tier.
 
 **Verify email is wired after deploy:** open  
-`https://learning-tracker-ko02.onrender.com/api/health` — you should see  
+`https://learning-tracker-api-hqzm.onrender.com/api/health` — you should see  
 `{"ok":true,"emailProvider":"resend"}`. If it says `"gmail"` or `"none"`, fix env vars and **Save, rebuild, and deploy**.
 
 **Generate `CRON_SECRET` (run once locally):**
@@ -67,7 +70,7 @@ Copy the output into Render **web service** env as `CRON_SECRET`. You will use t
 **Skip Render Cron Job** (that costs money). Use this instead:
 
 1. **Wake the API first** (Render free tier sleeps): open  
-   `https://learning-tracker-ko02.onrender.com/api/health` in your browser and wait until you see `{"ok":true,"emailProvider":"resend"}`
+   `https://learning-tracker-api-hqzm.onrender.com/api/health` in your browser and wait until you see `{"ok":true,"emailProvider":"resend"}`
 
 2. Go to [cron-job.org](https://cron-job.org) → sign up free → **Create cronjob**
 
@@ -76,7 +79,7 @@ Copy the output into Render **web service** env as `CRON_SECRET`. You will use t
 | Field | Value |
 |-------|--------|
 | **Title** | Learning Tracker reminders |
-| **URL** | `https://learning-tracker-ko02.onrender.com/api/cron/reminders?secret=PASTE_CRON_SECRET_HERE` |
+| **URL** | `https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=PASTE_CRON_SECRET_HERE` |
 | **Schedule** | Every **5 minutes** |
 | **Request method** | `GET` (default) |
 
@@ -91,7 +94,7 @@ No spaces, no quotes, no `Bearer` — just the secret string after `?secret=`.
 **Test the exact URL in your browser** (replace secret):
 
 ```
-https://learning-tracker-ko02.onrender.com/api/cron/reminders?secret=YOUR_CRON_SECRET
+https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=YOUR_CRON_SECRET
 ```
 
 You should see JSON like `{"ok":true,...}`. If that works in the browser, paste the same URL into cron-job.org.
@@ -105,7 +108,7 @@ Only if you prefer everything on Render (~$0.10–1.50/month). **Not required.**
 | Variable | Value |
 |----------|--------|
 | `CRON_SECRET` | Same as web service |
-| `API_URL` | `https://learning-tracker-ko02.onrender.com/api/cron/reminders` |
+| `API_URL` | `https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders` |
 
 Command: `node scripts/pingReminders.js` · Root: `server` · Schedule: `*/5 * * * *`
 
@@ -115,13 +118,13 @@ Command: `node scripts/pingReminders.js` · Root: `server` · Schedule: `*/5 * *
 
 ```bash
 # API health (emailProvider should be "resend")
-curl https://learning-tracker-ko02.onrender.com/api/health
+curl https://learning-tracker-api-hqzm.onrender.com/api/health
 
 # Sample reminder email (replace YOUR_CRON_SECRET)
-curl 'https://learning-tracker-ko02.onrender.com/api/cron/sample-reminder?secret=YOUR_CRON_SECRET&email=you@example.com'
+curl 'https://learning-tracker-api-hqzm.onrender.com/api/cron/sample-reminder?secret=YOUR_CRON_SECRET&email=you@example.com'
 
 # Reminders cron (replace YOUR_CRON_SECRET)
-curl 'https://learning-tracker-ko02.onrender.com/api/cron/reminders?secret=YOUR_CRON_SECRET'
+curl 'https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=YOUR_CRON_SECRET'
 
 # Local: who would get a reminder right now?
 cd server && node scripts/verifyReminders.js
