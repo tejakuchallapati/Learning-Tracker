@@ -1,15 +1,15 @@
-/** Shared dashboard layout — symmetric inset from sidebar and right edge (matches Navbar). */
+/** Shared dashboard layout — flex column; pages scroll inside their own shell. */
 export const DASHBOARD_MAIN =
-    'flex-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-slate-950 px-3 sm:px-4 md:px-6 lg:px-8 pt-5 md:pt-6 pb-20 md:pb-8 transition-colors max-md:overscroll-y-contain max-md:[-webkit-overflow-scrolling:touch]';
+    'flex-1 flex flex-col min-h-0 overflow-hidden bg-white dark:bg-slate-950 px-3 sm:px-4 md:px-6 lg:px-8 pt-5 md:pt-6 transition-colors';
 
 /** Standard pages — Goals, Notes, Settings, Insights */
-export const PAGE_SHELL = 'w-full max-w-5xl mx-auto space-y-5 pb-4 min-w-0 overflow-x-hidden';
+export const PAGE_SHELL = 'w-full max-w-5xl mx-auto space-y-5 pb-4 min-w-0';
 
-/** Wide grid pages — Roadmaps, Dashboard (4-column cards) */
-export const PAGE_SHELL_WIDE = 'w-full max-w-7xl mx-auto space-y-5 pb-4 min-w-0 overflow-x-hidden';
+/** Wide grid pages — Dashboard (4-column cards) */
+export const PAGE_SHELL_WIDE = 'w-full max-w-7xl mx-auto space-y-5 pb-4 min-w-0';
 
-/** Admin / edge-to-edge tables & full-width grids (Roadmaps) */
-export const PAGE_SHELL_FULL = 'w-full space-y-5 pb-4 min-w-0 overflow-x-hidden';
+/** Admin / edge-to-edge tables */
+export const PAGE_SHELL_FULL = 'w-full space-y-5 pb-4 min-w-0';
 
 export default function PageHeader({ title, description, actions, dense = false, embedded = false }) {
     return (
