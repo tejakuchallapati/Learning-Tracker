@@ -119,14 +119,17 @@ const CourseCatalog = () => {
     const openCourse = (courseId) => navigate(`/roadmap/${courseId}`);
 
     return (
-        <div className={`${PAGE_SHELL_FULL} flex flex-col gap-6`}>
-            <PageHeader
-                title="Mastery Tracks"
-                description="Systematic learning paths engineered for rapid technical progression."
-            />
-
-            <div className="w-full min-w-0">
-                {categoryFilters}
+        <div className={`${PAGE_SHELL_FULL} flex flex-col gap-3 md:gap-3`}>
+            <div className="border-b border-slate-200 dark:border-slate-800 pb-2 space-y-2">
+                <PageHeader
+                    dense
+                    embedded
+                    title="Mastery Tracks"
+                    description="Systematic learning paths engineered for rapid technical progression."
+                />
+                <div className="w-full min-w-0 pb-0.5">
+                    {categoryFilters}
+                </div>
             </div>
 
             {/* Mobile — stacked cards */}

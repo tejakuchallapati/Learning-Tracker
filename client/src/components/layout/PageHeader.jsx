@@ -11,15 +11,23 @@ export const PAGE_SHELL_WIDE = 'w-full max-w-7xl mx-auto space-y-5 pb-4 min-w-0 
 /** Admin / edge-to-edge tables & full-width grids (Roadmaps) */
 export const PAGE_SHELL_FULL = 'w-full space-y-5 pb-4 min-w-0 overflow-x-hidden';
 
-export default function PageHeader({ title, description, actions }) {
+export default function PageHeader({ title, description, actions, dense = false, embedded = false }) {
     return (
-        <header className="flex flex-col lg:flex-row lg:items-end justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
+        <header
+            className={`flex flex-col lg:flex-row lg:items-end justify-between ${
+                embedded ? '' : 'border-b border-slate-200 dark:border-slate-800'
+            } ${dense ? 'gap-2' : 'gap-3'} ${embedded ? 'pb-0' : dense ? 'pb-2' : 'pb-4'}`}
+        >
             <div className="max-w-xl min-w-0">
                 <h1 className="text-xl sm:text-3xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-tight break-words">
                     {title}
                 </h1>
                 {description && (
-                    <p className="text-slate-500 dark:text-slate-400 mt-1.5 text-[11px] sm:text-sm md:text-base font-medium leading-relaxed break-words line-clamp-2 sm:line-clamp-none">
+                    <p
+                        className={`text-slate-500 dark:text-slate-400 text-[11px] sm:text-sm md:text-base font-medium break-words line-clamp-2 sm:line-clamp-none ${
+                            dense ? 'mt-0.5 leading-snug' : 'mt-1.5 leading-relaxed'
+                        }`}
+                    >
                         {description}
                     </p>
                 )}
