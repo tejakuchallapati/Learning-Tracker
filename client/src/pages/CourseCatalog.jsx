@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { courses } from '../data/CourseData';
 import { FiChevronRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import PageHeader, { PAGE_SHELL_FULL } from '../components/layout/PageHeader';
+import PageHeader from '../components/layout/PageHeader';
 
 const countTopics = (roadmap = []) =>
     roadmap.reduce((sum, chapter) => sum + (chapter.topics?.length ?? 0), 0);
@@ -119,8 +119,8 @@ const CourseCatalog = () => {
     const openCourse = (courseId) => navigate(`/roadmap/${courseId}`);
 
     return (
-        <div className={`${PAGE_SHELL_FULL} flex flex-col gap-3`}>
-            <div className="border-b border-slate-200 dark:border-slate-800 pb-2 space-y-2">
+        <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col">
+            <div className="shrink-0 space-y-2 border-b border-slate-200 bg-white pb-2 dark:border-slate-800 dark:bg-slate-950">
                 <PageHeader
                     dense
                     embedded
@@ -132,18 +132,20 @@ const CourseCatalog = () => {
                 </div>
             </div>
 
-            {/* Mobile — stacked cards */}
-            <div className="flex w-full min-w-0 flex-col gap-5 md:hidden">
-                {filteredCourses.map((course) => (
-                    <TrackCard key={course.id} course={course} onOpen={openCourse} compact />
-                ))}
-            </div>
+            <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto pb-20 pt-3 md:pb-4 max-md:overscroll-y-contain max-md:[-webkit-overflow-scrolling:touch]">
+                {/* Mobile — stacked cards */}
+                <div className="flex w-full min-w-0 flex-col gap-5 md:hidden">
+                    {filteredCourses.map((course) => (
+                        <TrackCard key={course.id} course={course} onOpen={openCourse} compact />
+                    ))}
+                </div>
 
-            {/* Desktop — full-width grid, equal margins from sidebar & screen edge */}
-            <div className="hidden w-full min-w-0 md:grid md:grid-cols-2 md:gap-4 lg:gap-5 xl:grid-cols-4 xl:gap-5 pb-2">
-                {filteredCourses.map((course) => (
-                    <TrackCard key={course.id} course={course} onOpen={openCourse} />
-                ))}
+                {/* Desktop — full-width grid */}
+                <div className="hidden w-full min-w-0 md:grid md:grid-cols-2 md:gap-4 lg:gap-5 xl:grid-cols-4 xl:gap-5 pb-2">
+                    {filteredCourses.map((course) => (
+                        <TrackCard key={course.id} course={course} onOpen={openCourse} />
+                    ))}
+                </div>
             </div>
         </div>
     );
