@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { courses } from '../data/CourseData';
 import { FiChevronRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import PageHeader, { PAGE_SHELL_FULL } from '../components/layout/PageHeader';
+import PageHeader, { PAGE_SHELL_WIDE } from '../components/layout/PageHeader';
 
 const TrackCard = ({ course, onOpen, compact = false }) => (
     <article
@@ -104,7 +104,7 @@ const CourseCatalog = () => {
     const openCourse = (courseId) => navigate(`/roadmap/${courseId}`);
 
     return (
-        <div className={`${PAGE_SHELL_FULL} min-w-0 flex flex-col`}>
+        <div className={`${PAGE_SHELL_WIDE} flex flex-col`}>
             <PageHeader
                 title="Mastery Tracks"
                 description="Systematic learning paths engineered for rapid technical progression."
@@ -120,10 +120,9 @@ const CourseCatalog = () => {
 
             {/* Desktop — 4×2 structured grid */}
             <div
-                className="hidden md:grid grid-cols-4 gap-4 pb-2"
+                className="hidden md:grid grid-cols-2 xl:grid-cols-4 gap-4 pb-2"
                 style={{
-                    minHeight: 'calc(100dvh - 12rem)',
-                    gridTemplateRows: `repeat(${desktopRows}, minmax(12.5rem, 1fr))`,
+                    gridTemplateRows: `repeat(${desktopRows}, minmax(12.5rem, auto))`,
                 }}
             >
                 {filteredCourses.map((course) => (

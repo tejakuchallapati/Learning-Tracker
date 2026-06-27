@@ -8,7 +8,7 @@ import ChartCard from '../components/dashboard/ChartCard';
 import ReminderCard from '../components/goals/ReminderCard';
 import GoalCard from '../components/goals/GoalCard';
 import { FiClock, FiTarget, FiActivity, FiCalendar, FiPlus, FiArrowRight } from 'react-icons/fi';
-import { PAGE_SHELL_FULL } from '../components/layout/PageHeader';
+import { PAGE_SHELL_WIDE } from '../components/layout/PageHeader';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const emptyWeekChart = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((name) => ({
@@ -151,7 +151,7 @@ const Dashboard = () => {
     const activeStreakDays = weekActivity.filter((d) => d.count > 0 || d.allCompleted).length;
 
     return (
-        <div className={`${PAGE_SHELL_FULL} min-w-0`}>
+        <div className={PAGE_SHELL_WIDE}>
             {goalNotice && (
                 <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900 rounded-xl px-4 py-2.5 break-words">
                     {goalNotice}
