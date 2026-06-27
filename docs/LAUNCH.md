@@ -60,6 +60,8 @@
 |----------|--------|
 | `VITE_API_BASE_URL` | `https://learning-tracker-api-hqzm.onrender.com/api` |
 
+**Must be the full `https://...` URL — not `/api`** (that sends requests to Vercel and login fails).
+
 Optional: `VITE_GA_MEASUREMENT_ID`
 
 ## Vercel — DELETE

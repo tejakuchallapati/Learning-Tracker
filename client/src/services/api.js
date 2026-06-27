@@ -1,14 +1,25 @@
 import axios from 'axios';
 import { dispatchSessionExpired } from '../utils/authEvents';
 
+const PRODUCTION_API = 'https://learning-tracker-api-hqzm.onrender.com/api';
+
+/** In production, only absolute http(s) URLs are valid — not `/api` (that hits Vercel, not Render). */
+const resolveBaseUrl = () => {
+    const envUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+    if (import.meta.env.DEV) {
+        return envUrl || '/api';
+    }
+    if (envUrl && /^https?:\/\//i.test(envUrl)) {
+        return envUrl.replace(/\/$/, '');
+    }
+    return PRODUCTION_API;
+};
+
 const API = axios.create({
-    baseURL:
-        import.meta.env.VITE_API_BASE_URL ||
-        (import.meta.env.DEV ? '/api' : 'https://learning-tracker-api-hqzm.onrender.com/api'),
-    timeout: 15000,
+    baseURL: resolveBaseUrl(),
+    timeout: 60000,
 });
 
-// Add a request interceptor to attach the JWT token
 API.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
@@ -20,7 +31,6 @@ API.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-// Add a response interceptor
 API.interceptors.response.use(
     (response) => response,
     (error) => {
