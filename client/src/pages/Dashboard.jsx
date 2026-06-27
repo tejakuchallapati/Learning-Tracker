@@ -256,9 +256,9 @@ const Dashboard = () => {
                                 <button type="button" disabled title="Coming soon" className="px-3 sm:px-6 py-1.5 sm:py-2 text-slate-300 dark:text-slate-600 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black cursor-not-allowed">MONTHLY</button>
                             </div>
                         </div>
-                        <div className="h-[220px] -ml-6">
+                        <div className="h-[220px] ml-0 sm:-ml-2 md:-ml-4">
                             <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                                <AreaChart data={chartData} margin={{ top: 10, right: 8, left: 4, bottom: 0 }}>
                                     <defs>
                                         <linearGradient id="colorHours" x1="0" y1="0" x2="0" y2="1">
                                             <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.4} />
@@ -313,9 +313,9 @@ const Dashboard = () => {
 
                     {/* Active Goals Horizontal */}
                     <div className="space-y-6">
-                        <div className="flex items-center justify-between px-2">
-                             <h3 className="text-2xl font-black text-slate-900 dark:text-white">Active Paths</h3>
-                             <button onClick={() => navigate('/courses')} className="text-sm font-black text-violet-600 hover:text-violet-700 transition-all flex items-center gap-2">View Curriculum <FiArrowRight /></button>
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between px-0 sm:px-2 min-w-0">
+                             <h3 className="text-lg sm:text-2xl font-black text-slate-900 dark:text-white min-w-0 truncate">Active Paths</h3>
+                             <button onClick={() => navigate('/courses')} className="self-start sm:self-auto shrink-0 text-xs sm:text-sm font-black text-violet-600 hover:text-violet-700 transition-all flex items-center gap-2 whitespace-nowrap">View Curriculum <FiArrowRight /></button>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-4">
                             {loadingGoals ? (
@@ -382,15 +382,15 @@ const Dashboard = () => {
                             <FiCalendar className="text-indigo-600" /> Focus Streak
                         </h3>
                         {weekActivity.length > 0 ? (
-                            <div className="grid grid-cols-7 gap-2">
+                            <div className="grid grid-cols-7 gap-1 sm:gap-2 min-w-0">
                                 {weekActivity.map((day) => {
                                     const dateNum = day.date?.split('-')[2] ?? '';
                                     const dayLabel = ['S', 'M', 'T', 'W', 'T', 'F', 'S'][day.dayOfWeek] ?? '';
                                     const isActive = day.count > 0 || day.allCompleted;
                                     return (
-                                        <div key={day.date} className="flex flex-col items-center gap-3">
-                                            <span className={`text-xs font-black uppercase ${day.isToday ? 'text-violet-600 dark:text-violet-400' : 'text-slate-600 dark:text-slate-500'}`}>{dayLabel}</span>
-                                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black ${isActive ? 'bg-violet-600 text-white shadow-lg shadow-violet-100' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${day.isToday ? 'ring-2 ring-violet-400 ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
+                                        <div key={day.date} className="flex flex-col items-center gap-1.5 sm:gap-3 min-w-0">
+                                            <span className={`text-[10px] sm:text-xs font-black uppercase truncate ${day.isToday ? 'text-violet-600 dark:text-violet-400' : 'text-slate-600 dark:text-slate-500'}`}>{dayLabel}</span>
+                                            <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center text-[10px] sm:text-xs font-black ${isActive ? 'bg-violet-600 text-white shadow-lg shadow-violet-100' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${day.isToday ? 'ring-2 ring-violet-400 ring-offset-1 sm:ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
                                                 {dateNum}
                                             </div>
                                         </div>

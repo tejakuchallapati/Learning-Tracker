@@ -94,7 +94,7 @@ const Login = () => {
                     <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                         {otpSent ? 'Enter OTP' : 'Welcome'}
                     </h1>
-                    <p className="text-slate-500 text-sm mt-1 font-medium">
+                    <p className="text-slate-500 text-sm mt-1 font-medium break-all px-2">
                         {otpSent
                             ? `Code sent to ${email.trim()}`
                             : 'Sign in with your email'}
@@ -134,7 +134,12 @@ const Login = () => {
                                 disabled={sendingOtp || !email.trim()}
                                 className="w-full h-12 bg-violet-600 hover:bg-violet-700 disabled:opacity-60 text-white font-bold text-sm rounded-xl shadow-lg shadow-violet-200 transition-all flex items-center justify-center gap-2"
                             >
-                                {sendingOtp ? 'Sending OTP… (may take up to a minute)' : 'Send OTP'}
+                                {sendingOtp ? (
+                                    <>
+                                        <span className="sm:hidden">Sending…</span>
+                                        <span className="hidden sm:inline">Sending OTP… (may take up to a minute)</span>
+                                    </>
+                                ) : 'Send OTP'}
                             </button>
                         </form>
                     ) : (

@@ -90,7 +90,7 @@ const Landing = () => {
 
                 <div className="relative z-10 max-w-6xl mx-auto text-center">
                         <ScrollReveal delay={100} distance={72} duration={0.7}>
-                        <h1 className="landing-display flex flex-col items-center gap-2 md:gap-3 text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] xl:text-[8.5rem] landing-heading-text mb-2 leading-[0.9] !tracking-[0.02em]">
+                        <h1 className="landing-display flex flex-col items-center gap-1 sm:gap-2 md:gap-3 text-[2.75rem] leading-[0.95] sm:text-6xl md:text-8xl lg:text-[7.5rem] xl:text-[8.5rem] landing-heading-text mb-2 !tracking-[0.02em] max-w-full px-1">
                             <span className="landing-accent-text">Learning</span>
                             <span>Tracker</span>
                         </h1>
@@ -204,7 +204,7 @@ const Landing = () => {
                                             focusModule(mod.id);
                                         }
                                     }}
-                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 overflow-hidden w-full max-sm:w-[88%] sm:w-full ${
+                                    className={`group relative rounded-2xl landing-card-dark flex flex-col cursor-pointer transition-all duration-300 overflow-hidden w-full min-w-0 ${
                                         isActive
                                             ? 'min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem]'
                                             : 'max-sm:min-h-[11.5rem] max-sm:hover:-translate-y-0.5 max-sm:active:scale-[0.99]'

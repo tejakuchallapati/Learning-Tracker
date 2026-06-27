@@ -50,17 +50,17 @@ export function Header() {
 	return (
 		<header
 			className={cn(
-				'sticky z-50 mx-auto w-full px-4 sm:px-6 transition-all duration-500 ease-out',
+				'sticky z-50 mx-auto w-full min-w-0 max-w-full px-3 sm:px-6 transition-all duration-500 ease-out',
 				compact ? 'top-6 md:top-8 max-w-3xl' : 'top-10 md:top-12 max-w-5xl',
 			)}
 		>
 			<nav
 				className={cn(
-					'flex w-full items-center justify-between rounded-full border transition-all duration-500 ease-out',
+					'flex w-full min-w-0 items-center justify-between rounded-full border transition-all duration-500 ease-out',
 					'landing-nav-glass',
 					compact
-						? 'h-11 md:h-12 px-4 md:px-5'
-						: 'h-16 md:h-[4.5rem] px-6 md:px-10',
+						? 'h-11 md:h-12 px-3 md:px-5'
+						: 'h-16 md:h-[4.5rem] px-4 md:px-10',
 				)}
 			>
 				<div
@@ -154,17 +154,10 @@ export function Header() {
 					</button>
 					<button
                         type="button"
-                        className="text-left py-3 landing-display text-lg text-sky-300 border-b border-white/10"
+                        className="text-left py-3 landing-display text-lg text-sky-300"
                         onClick={goToLogin}
                     >
-						Log in
-					</button>
-					<button
-                        type="button"
-                        className="text-left py-3 landing-display text-lg text-slate-100"
-                        onClick={goToLogin}
-                    >
-						Log in
+						Get started
 					</button>
 				</div>
 			</div>

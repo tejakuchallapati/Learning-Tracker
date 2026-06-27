@@ -119,18 +119,14 @@ const GoalMomentumPanel = ({ refreshKey = 0 }) => {
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1">
                             <FiCalendar size={11} /> Last 7 days
                         </p>
-                        <div className="flex items-center gap-0">
-                            {last7.map((day, i) => {
+                        <div className="grid grid-cols-7 gap-0.5 sm:gap-1 min-w-0">
+                            {last7.map((day) => {
                                 const done = day.allCompleted || day.count > 0;
                                 const label = new Date(day.date + 'T12:00:00').toLocaleDateString(undefined, { weekday: 'narrow' });
                                 return (
-                                    <div key={day.date} className="flex items-center flex-1 min-w-0">
-                                        {i > 0 && (
-                                            <div className={`h-0.5 flex-1 min-w-[6px] ${done ? 'bg-sky-400' : 'bg-slate-200 dark:bg-slate-700'}`} />
-                                        )}
-                                        <div className="flex flex-col items-center gap-1 shrink-0">
-                                            <div
-                                                className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black border-2 transition-all ${
+                                    <div key={day.date} className="flex flex-col items-center gap-0.5 sm:gap-1 min-w-0">
+                                        <div
+                                            className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-black border-2 transition-all ${
                                                     day.isToday
                                                         ? 'border-sky-500 bg-sky-500 text-white shadow-md shadow-sky-500/30 scale-110'
                                                         : done
@@ -141,8 +137,7 @@ const GoalMomentumPanel = ({ refreshKey = 0 }) => {
                                             >
                                                 {done ? '✓' : '·'}
                                             </div>
-                                            <span className="text-[9px] font-bold text-slate-400">{label}</span>
-                                        </div>
+                                        <span className="text-[8px] sm:text-[9px] font-bold text-slate-400 truncate w-full text-center">{label}</span>
                                     </div>
                                 );
                             })}

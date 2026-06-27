@@ -143,7 +143,7 @@ const DailyGoalsSection = ({ onGoalsChange }) => {
             {reminderNotice && (
                 <div
                     role="status"
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 rounded-lg text-xs font-bold animate-in fade-in duration-300"
+                    className="flex items-start gap-1.5 px-3 py-1.5 bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 rounded-lg text-xs font-bold animate-in fade-in duration-300 min-w-0 break-words"
                 >
                     <FiBell size={12} />
                     {reminderNotice}

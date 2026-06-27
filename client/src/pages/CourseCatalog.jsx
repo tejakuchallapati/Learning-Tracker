@@ -2,75 +2,92 @@ import { useState } from 'react';
 import { courses } from '../data/CourseData';
 import { FiChevronRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import PageHeader, { PAGE_SHELL_WIDE } from '../components/layout/PageHeader';
+import PageHeader, { PAGE_SHELL_FULL } from '../components/layout/PageHeader';
 
-const TrackCard = ({ course, onOpen, compact = false }) => (
-    <article
-        role="button"
-        tabIndex={0}
-        onClick={() => onOpen(course.id)}
-        onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                onOpen(course.id);
-            }
-        }}
-        className={`group relative flex flex-col cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-lg hover:shadow-violet-500/10 active:scale-[0.99] ${
-            compact ? 'w-[88%] p-4 gap-3' : 'h-full min-h-[12.5rem] p-4 lg:p-5'
-        }`}
-    >
-        <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-violet-500/5 blur-2xl transition-transform duration-700 group-hover:scale-150" />
+const countTopics = (roadmap = []) =>
+    roadmap.reduce((sum, chapter) => sum + (chapter.topics?.length ?? 0), 0);
 
-        <div className="relative z-10 flex flex-col gap-3 flex-1 min-h-0">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-xl shadow-sm transition-all group-hover:scale-105 group-hover:border-violet-200">
-                {course.icon}
-            </div>
+const TrackCard = ({ course, onOpen, compact = false }) => {
+    const chapterCount = course.roadmap?.length ?? 0;
+    const topicCount = countTopics(course.roadmap);
+    const visibleTools = compact ? 4 : 5;
 
-            <div className="min-w-0 space-y-1.5">
-                <span className="inline-flex items-center rounded-full border border-violet-100 bg-violet-50 px-2 py-0.5 text-[9px] font-black uppercase tracking-wide text-violet-600">
-                    {course.category}
-                </span>
-                <h3 className="text-sm font-black leading-tight text-slate-900 transition-colors group-hover:text-violet-600 break-words line-clamp-2 lg:text-[0.95rem]">
-                    {course.title}
-                </h3>
-            </div>
+    return (
+        <article
+            role="button"
+            tabIndex={0}
+            onClick={() => onOpen(course.id)}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onOpen(course.id);
+                }
+            }}
+            className={`group relative flex h-full min-w-0 cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-lg hover:shadow-violet-500/10 active:scale-[0.99] ${
+                compact ? 'min-h-[15rem] p-5 gap-4' : 'min-h-[17.5rem] p-5 lg:p-6'
+            }`}
+        >
+            <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-violet-500/5 blur-2xl transition-transform duration-700 group-hover:scale-150" />
 
-            <p className={`relative z-10 text-xs font-medium leading-relaxed text-slate-500 line-clamp-2 ${compact ? 'text-center px-1' : 'flex-1'}`}>
-                {course.description}
-            </p>
-
-            <div className={`relative z-10 flex flex-wrap gap-1.5 ${compact ? 'justify-center' : ''}`}>
-                {course.tools.slice(0, 3).map((tool) => (
-                    <span
-                        key={tool}
-                        className="max-w-[6rem] truncate rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 text-[9px] font-bold capitalize text-slate-600"
-                    >
-                        {tool}
+            <div className="relative z-10 flex min-h-0 flex-1 flex-col gap-4">
+                <div className="flex items-start justify-between gap-3">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-2xl shadow-sm transition-all group-hover:scale-105 group-hover:border-violet-200">
+                        {course.icon}
+                    </div>
+                    <span className="inline-flex shrink-0 items-center rounded-full border border-violet-100 bg-violet-50 px-2.5 py-1 text-[9px] font-black uppercase tracking-wide text-violet-600">
+                        {course.category}
                     </span>
-                ))}
-                {course.tools.length > 3 && (
-                    <span className="shrink-0 rounded-md border border-violet-100 bg-violet-50 px-2 py-0.5 text-[9px] font-black text-violet-600">
-                        +{course.tools.length - 3}
-                    </span>
-                )}
-            </div>
-        </div>
+                </div>
 
-        <div className="relative z-10 mt-3 flex shrink-0 items-center justify-between gap-2 border-t border-slate-100 pt-3">
-            <div className="flex items-baseline gap-1">
-                <span className="text-base font-black tabular-nums leading-none text-slate-900">
-                    {course.roadmap.length}
-                </span>
-                <span className="text-[9px] font-black uppercase tracking-wider text-violet-500">
-                    Chapters
+                <div className="min-w-0 space-y-2">
+                    <h3 className="text-base font-black leading-snug text-slate-900 transition-colors group-hover:text-violet-600 break-words line-clamp-2 lg:text-[1.05rem]">
+                        {course.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm font-medium leading-relaxed text-slate-500 line-clamp-3">
+                        {course.description}
+                    </p>
+                </div>
+
+                <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
+                    {course.tools.slice(0, visibleTools).map((tool) => (
+                        <span
+                            key={tool}
+                            className="max-w-[7rem] truncate rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-[10px] font-bold capitalize text-slate-600"
+                        >
+                            {tool}
+                        </span>
+                    ))}
+                    {course.tools.length > visibleTools && (
+                        <span className="shrink-0 rounded-md border border-violet-100 bg-violet-50 px-2.5 py-1 text-[10px] font-black text-violet-600">
+                            +{course.tools.length - visibleTools}
+                        </span>
+                    )}
+                </div>
+            </div>
+
+            <div className="relative z-10 mt-4 flex shrink-0 items-center justify-between gap-3 border-t border-slate-100 pt-4">
+                <div className="min-w-0">
+                    <div className="flex items-baseline gap-1">
+                        <span className="text-lg font-black tabular-nums leading-none text-slate-900">
+                            {chapterCount}
+                        </span>
+                        <span className="text-[10px] font-black uppercase tracking-wider text-violet-500">
+                            Chapters
+                        </span>
+                    </div>
+                    {topicCount > 0 && (
+                        <p className="mt-0.5 text-[10px] font-bold text-slate-400">
+                            {topicCount} topics · {course.tools.length} tools
+                        </p>
+                    )}
+                </div>
+                <span className="inline-flex shrink-0 items-center gap-0.5 rounded-lg bg-red-600 px-3.5 py-2 text-[10px] font-black uppercase tracking-wide text-white shadow-md shadow-red-500/25 transition-colors group-hover:bg-red-700">
+                    Begin <FiChevronRight size={12} />
                 </span>
             </div>
-            <span className="inline-flex items-center gap-0.5 rounded-lg bg-red-600 px-3 py-1.5 text-[9px] font-black uppercase tracking-wide text-white shadow-md shadow-red-500/25 transition-colors group-hover:bg-red-700">
-                Begin <FiChevronRight size={11} />
-            </span>
-        </div>
-    </article>
-);
+        </article>
+    );
+};
 
 const CourseCatalog = () => {
     const [category, setCategory] = useState('All');
@@ -79,8 +96,6 @@ const CourseCatalog = () => {
     const categories = ['All', ...new Set(courses.map((c) => c.category))];
 
     const filteredCourses = courses.filter((c) => category === 'All' || c.category === category);
-
-    const desktopRows = Math.max(1, Math.ceil(filteredCourses.length / 4));
 
     const categoryFilters = (
         <div className="flex max-w-full flex-nowrap gap-1.5 overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-1.5 [-webkit-overflow-scrolling:touch] scrollbar-none sm:flex-wrap">
@@ -104,27 +119,25 @@ const CourseCatalog = () => {
     const openCourse = (courseId) => navigate(`/roadmap/${courseId}`);
 
     return (
-        <div className={`${PAGE_SHELL_WIDE} flex flex-col`}>
+        <div className={`${PAGE_SHELL_FULL} flex flex-col gap-6`}>
             <PageHeader
                 title="Mastery Tracks"
                 description="Systematic learning paths engineered for rapid technical progression."
-                actions={categoryFilters}
             />
 
+            <div className="w-full min-w-0">
+                {categoryFilters}
+            </div>
+
             {/* Mobile — stacked cards */}
-            <div className="flex flex-col items-center gap-4 py-2 md:hidden">
+            <div className="flex w-full min-w-0 flex-col gap-5 md:hidden">
                 {filteredCourses.map((course) => (
                     <TrackCard key={course.id} course={course} onOpen={openCourse} compact />
                 ))}
             </div>
 
-            {/* Desktop — 4×2 structured grid */}
-            <div
-                className="hidden md:grid grid-cols-2 xl:grid-cols-4 gap-4 pb-2"
-                style={{
-                    gridTemplateRows: `repeat(${desktopRows}, minmax(12.5rem, auto))`,
-                }}
-            >
+            {/* Desktop — full-width grid, equal margins from sidebar & screen edge */}
+            <div className="hidden w-full min-w-0 md:grid md:grid-cols-2 md:gap-5 lg:gap-6 xl:grid-cols-4 xl:gap-6 pb-2">
                 {filteredCourses.map((course) => (
                     <TrackCard key={course.id} course={course} onOpen={openCourse} />
                 ))}

@@ -13,7 +13,7 @@ const BrowserChrome = ({ title, children }) => (
 const DashboardPreview = () => (
     <BrowserChrome title="learning-tracker.app/dashboard">
         <div className="space-y-3">
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {[
                     { label: 'Study hours', value: '12.4h', color: 'bg-sky-500' },
                     { label: 'Active goals', value: '3', color: 'bg-blue-500' },
@@ -58,7 +58,7 @@ const RoadmapsPreview = () => (
                     </span>
                 ))}
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {[
                     { title: 'React Mastery', emoji: '⚛️' },
                     { title: 'Node.js Backend', emoji: '🟢' },
@@ -164,7 +164,7 @@ const TopicVideosPreview = () => (
         <div className="space-y-2">
             <p className="text-xs font-black text-slate-900">Expert video sources</p>
             <p className="text-[10px] font-semibold text-slate-500">Curated YouTube channels for each topic in your roadmap.</p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {[
                     { name: 'Fireship', tag: 'YouTube' },
                     { name: 'Traversy Media', tag: 'YouTube' },

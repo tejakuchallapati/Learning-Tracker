@@ -135,9 +135,9 @@ const Settings = () => {
                     ? 'bg-violet-50 dark:bg-violet-950/30 border-violet-100 dark:border-violet-900/50'
                     : 'bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800'
             }`}>
-                <div>
-                    <p className="text-sm font-black text-slate-900 dark:text-white">
-                        Signed in as <span className="text-sky-600">{user?.email}</span>
+                <div className="min-w-0 flex-1">
+                    <p className="text-sm font-black text-slate-900 dark:text-white break-words">
+                        Signed in as <span className="text-sky-600 break-all">{user?.email}</span>
                     </p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         {user?.isAdmin ? 'You have admin access.' : 'Your session stays active on this device.'}
@@ -242,7 +242,7 @@ const Settings = () => {
                 </div>
 
                 {user?.reminderTime ? (
-                    <div className="rounded-xl border border-emerald-100 dark:border-emerald-900/40 bg-emerald-50/80 dark:bg-emerald-950/30 px-4 py-3 text-xs text-emerald-800 dark:text-emerald-300 font-medium">
+                    <div className="rounded-xl border border-emerald-100 dark:border-emerald-900/40 bg-emerald-50/80 dark:bg-emerald-950/30 px-4 py-3 text-xs text-emerald-800 dark:text-emerald-300 font-medium break-words">
                         Active: emails send at <strong>{formatReminderTime(user.reminderTime, user.reminderAmPm)} {REMINDER_TIMEZONE_LABEL}</strong> for incomplete goals with the bell on.
                     </div>
                 ) : (
@@ -251,14 +251,14 @@ const Settings = () => {
                     </div>
                 )}
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 min-w-0">
+                    <div className="min-w-0">
                         <h4 className="text-sm font-bold text-slate-900 dark:text-white">Send at</h4>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 break-words">
                             {reminderTime ? `${REMINDER_TIMEZONE_LABEL} — save to apply` : 'Pick a time — no default until you save'}
                         </p>
                     </div>
-                    <div className="flex items-center bg-slate-50 dark:bg-slate-800 rounded-xl p-2 gap-2 border border-slate-200 dark:border-slate-700 shrink-0">
+                    <div className="flex w-full sm:w-auto items-center justify-between sm:justify-start bg-slate-50 dark:bg-slate-800 rounded-xl p-2 gap-2 border border-slate-200 dark:border-slate-700 shrink-0">
                         <input
                             type="time"
                             value={reminderTime}

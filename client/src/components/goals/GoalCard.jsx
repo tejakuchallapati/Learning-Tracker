@@ -54,14 +54,14 @@ const GoalCard = ({ goal, onDelete, onEdit }) => {
                 </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-50 dark:border-slate-800 flex justify-between text-xs font-black uppercase tracking-widest text-slate-400">
-                <div className="flex flex-col gap-0.5">
+            <div className="mt-4 pt-3 border-t border-slate-50 dark:border-slate-800 flex justify-between gap-2 text-xs font-black uppercase tracking-widest text-slate-400 min-w-0">
+                <div className="flex flex-col gap-0.5 min-w-0 flex-1">
                     <span className="text-[7px] text-slate-300 dark:text-slate-600">Start</span>
-                    <span className="text-slate-600 dark:text-slate-400">{startDate}</span>
+                    <span className="text-[10px] sm:text-xs text-slate-600 dark:text-slate-400 truncate">{startDate}</span>
                 </div>
-                <div className="flex flex-col gap-0.5 text-right">
+                <div className="flex flex-col gap-0.5 text-right min-w-0 flex-1">
                     <span className="text-[7px] text-slate-300 dark:text-slate-600">End</span>
-                    <span className="text-slate-600 dark:text-slate-400">{endDate}</span>
+                    <span className="text-[10px] sm:text-xs text-slate-600 dark:text-slate-400 truncate">{endDate}</span>
                 </div>
             </div>
         </div>

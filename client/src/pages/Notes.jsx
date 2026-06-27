@@ -138,13 +138,13 @@ const Notes = () => {
 
             <div id="notes-editor" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Column 1: Today's Learnings */}
-                <div className="bg-white dark:bg-slate-900 premium-shadow p-6 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-6 transition-all">
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-3 uppercase tracking-[0.2em]">
-                            <div className="w-8 h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm"><FiEdit size={16} /></div>
-                            Daily Manifest
+                <div className="bg-white dark:bg-slate-900 premium-shadow p-4 sm:p-6 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-4 sm:space-y-6 transition-all min-w-0">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between min-w-0">
+                        <h3 className="text-[10px] sm:text-xs font-black text-slate-900 dark:text-white flex items-center gap-2 sm:gap-3 uppercase tracking-[0.15em] sm:tracking-[0.2em] min-w-0">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm shrink-0"><FiEdit size={16} /></div>
+                            <span className="truncate">Daily Manifest</span>
                         </h3>
-                        <span className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-500 rounded-xl text-xs font-black uppercase tracking-widest border border-slate-100 dark:border-slate-700">
+                        <span className="self-start sm:self-auto max-w-full px-3 sm:px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-500 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wide sm:tracking-widest border border-slate-100 dark:border-slate-700 truncate">
                             {formatDisplayDate(selectedDate)}
                         </span>
                     </div>
@@ -152,12 +152,12 @@ const Notes = () => {
                         value={learned}
                         onChange={(e) => setLearned(e.target.value)}
                         placeholder="Write your learnings here..."
-                        className="w-full h-[250px] bg-slate-50/50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-6 text-[13px] font-bold text-slate-800 dark:text-slate-300 focus:ring-4 focus:ring-violet-500/10 transition-all resize-none placeholder-slate-500 dark:placeholder-slate-600 leading-relaxed font-mono outline-none"
+                        className="w-full h-[220px] sm:h-[250px] bg-slate-50/50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-4 sm:p-6 text-[13px] font-bold text-slate-800 dark:text-slate-300 focus:ring-4 focus:ring-violet-500/10 transition-all resize-none placeholder-slate-500 dark:placeholder-slate-600 leading-relaxed font-mono outline-none"
                     />
                 </div>
 
                 {/* Column 2: Tomorrow's Agenda */}
-                <div className="bg-white dark:bg-slate-900 premium-shadow p-6 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-6 transition-all relative overflow-hidden group">
+                <div className="bg-white dark:bg-slate-900 premium-shadow p-4 sm:p-6 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-4 sm:space-y-6 transition-all relative overflow-hidden group min-w-0">
                     <div className="absolute top-0 right-0 w-48 h-48 bg-violet-500/5 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
                     
                     <div className="flex items-center justify-between relative z-10">
@@ -170,18 +170,19 @@ const Notes = () => {
                         value={future}
                         onChange={(e) => setFuture(e.target.value)}
                         placeholder="Write your future plan here..."
-                        className="w-full h-[250px] bg-slate-50/50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-6 text-[13px] font-bold text-slate-800 dark:text-slate-300 focus:ring-4 focus:ring-violet-500/10 transition-all resize-none placeholder-slate-500 dark:placeholder-slate-600 leading-relaxed font-mono relative z-10 outline-none"
+                        className="w-full h-[220px] sm:h-[250px] bg-slate-50/50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-4 sm:p-6 text-[13px] font-bold text-slate-800 dark:text-slate-300 focus:ring-4 focus:ring-violet-500/10 transition-all resize-none placeholder-slate-500 dark:placeholder-slate-600 leading-relaxed font-mono relative z-10 outline-none"
                     />
-                    <div className="pt-2 flex items-center gap-3 text-xs font-black text-violet-600 dark:text-violet-400 uppercase tracking-[0.3em] relative z-10">
-                        <FiArrowRight className="animate-pulse" /> BUILD SMALL • SHIP OFTEN • REPEAT
+                    <div className="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3 text-[10px] sm:text-xs font-black text-violet-600 dark:text-violet-400 uppercase tracking-[0.15em] sm:tracking-[0.3em] relative z-10 text-center sm:text-left">
+                        <FiArrowRight className="animate-pulse shrink-0" />
+                        <span className="break-words">BUILD SMALL • SHIP OFTEN • REPEAT</span>
                     </div>
                 </div>
             </div>
 
             {/* Persistence Reminder */}
-            <div className="p-6 bg-slate-100/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center gap-6 group transition-all">
-                <div className="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 flex items-center justify-center text-xl shrink-0 shadow-sm group-hover:rotate-12 transition-transform duration-500"><FiTrash2 /></div>
-                <div>
+            <div className="p-4 sm:p-6 bg-slate-100/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 group transition-all min-w-0">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 flex items-center justify-center text-xl shrink-0 shadow-sm group-hover:rotate-12 transition-transform duration-500"><FiTrash2 /></div>
+                <div className="min-w-0">
                     <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-widest">Persistence Active</p>
                     <p className="text-xs text-slate-600 dark:text-slate-500 font-bold mt-1.5 uppercase tracking-tight leading-relaxed">Log data is stored securely in the database. Connected to your user profile.</p>
                 </div>
