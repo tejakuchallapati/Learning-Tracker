@@ -12,7 +12,7 @@ const modules = [
 ];
 
 const workflowSteps = [
-    { step: '01', label: 'Sign up', desc: 'Create your free account' },
+    { step: '01', label: 'Log in', desc: 'Email OTP — one tap' },
     { step: '02', label: 'Pick a roadmap', desc: 'Choose your learning path' },
     { step: '03', label: 'Set daily goals', desc: 'Build streaks & habits' },
     { step: '04', label: 'Track progress', desc: 'Dashboard & resources' },
@@ -39,7 +39,7 @@ const MobileLandingPreview = () => (
                         <h2 className="landing-display text-2xl landing-heading-text mb-2">About us</h2>
                         <p className="landing-body-text text-xs leading-relaxed px-1">
                             Learning Tracker is a free app for self-learners — plan roadmaps, hit daily goals, save notes,
-                            and get email reminders. Everything below is what you get when you sign up.
+                            and get email reminders. Everything below is what you get after you log in.
                         </p>
                         <p className="landing-accent-text landing-nav-label text-xs mt-2">Tap any module to preview</p>
                     </div>

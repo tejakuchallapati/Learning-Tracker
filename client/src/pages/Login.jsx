@@ -150,7 +150,7 @@ const Login = () => {
                                             id="login-name"
                                             type="text"
                                             required
-                                            placeholder="Teja"
+                                            placeholder="Your name"
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
                                             className="w-full h-12 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-base font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500"

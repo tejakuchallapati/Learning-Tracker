@@ -157,7 +157,7 @@ export function Header() {
                         className="text-left py-3 landing-display text-lg text-sky-300 border-b border-white/10"
                         onClick={goToLogin}
                     >
-						Sign up
+						Log in
 					</button>
 					<button
                         type="button"

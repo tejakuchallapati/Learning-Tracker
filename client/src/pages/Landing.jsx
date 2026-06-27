@@ -172,7 +172,7 @@ const Landing = () => {
                         </h2>
                         <p className="landing-body-text font-medium max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                             Learning Tracker is a free app for self-learners — plan roadmaps, hit daily goals, save notes,
-                            and get email reminders. Everything below is what you get when you sign up.
+                            and get email reminders. Everything below is what you get after you log in.
                         </p>
                         <p className="landing-accent-text landing-nav-label text-xs mt-3 max-sm:hidden">Click any module to preview</p>
                         <p className="landing-accent-text landing-nav-label text-xs mt-3 sm:hidden">Tap any module to preview</p>
@@ -283,7 +283,7 @@ const Landing = () => {
                                 Start here, <span className="landing-accent-text">stay consistent</span>
                             </h3>
                             <p className="landing-body-text font-medium text-xs sm:text-sm md:text-base max-w-sm sm:max-w-xl mx-auto leading-relaxed">
-                                Sign up once, follow four simple steps, and turn scattered study sessions into a routine that lasts.
+                                Log in once with email OTP, follow four simple steps, and turn scattered study sessions into a routine that lasts.
                             </p>
                         </div>
 

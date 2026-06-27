@@ -1,5 +1,5 @@
 /**
- * Send a test email via Brevo (or Resend if BREVO_API_KEY is unset).
+ * Send a test email via Brevo.
  * Usage: node scripts/testEmail.js you@example.com
  */
 require('dotenv').config();
@@ -14,7 +14,7 @@ const run = async () => {
         process.exit(1);
     }
     if (!isEmailConfigured()) {
-        console.error('BREVO_API_KEY (or RESEND_API_KEY) must be set in server/.env');
+        console.error('BREVO_API_KEY must be set in server/.env');
         process.exit(1);
     }
     console.log(`Provider: ${getEmailProvider()}`);
@@ -22,7 +22,7 @@ const run = async () => {
     await sendEmail({
         email: to,
         subject: 'Learning Tracker - Test Email',
-        message: 'If you received this, email reminders are configured correctly.',
+        message: 'If you received this, email is configured correctly.',
     });
     console.log('Test email sent successfully.');
 };

@@ -1,14 +1,8 @@
 const brevoApiKey = () => process.env.BREVO_API_KEY?.trim() || '';
-const resendApiKey = () => process.env.RESEND_API_KEY?.trim() || '';
 
-/** True when Brevo or Resend API key is configured. */
-const isEmailConfigured = () => Boolean(brevoApiKey() || resendApiKey());
+const isEmailConfigured = () => Boolean(brevoApiKey());
 
-const getEmailProvider = () => {
-    if (brevoApiKey()) return 'brevo';
-    if (resendApiKey()) return 'resend';
-    return 'none';
-};
+const getEmailProvider = () => (brevoApiKey() ? 'brevo' : 'none');
 
 /** Parse `Name <email@example.com>` or plain email for Brevo sender. */
 const parseSender = () => {
@@ -34,6 +28,5 @@ module.exports = {
     isEmailConfigured,
     getEmailProvider,
     brevoApiKey,
-    resendApiKey,
     parseSender,
 };

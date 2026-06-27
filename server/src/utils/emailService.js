@@ -1,29 +1,31 @@
-const {
-    brevoApiKey,
-    resendApiKey,
-    parseSender,
-} = require('./emailConfig');
+const { brevoApiKey, parseSender } = require('./emailConfig');
 
-const parseApiError = (body, status, provider) => {
+const parseBrevoError = (body, status) => {
     try {
         const data = JSON.parse(body);
-        const msg = data.message || data.error || '';
-        if (provider === 'resend' && status === 403 && msg.includes('only send testing emails')) {
-            return 'This email cannot receive messages yet. Verify a domain on Resend or switch to Brevo.';
+        const msg = String(data.message || data.error || '').toLowerCase();
+        if (msg.includes('key not found') || status === 401) {
+            return 'Email service misconfigured: invalid Brevo API key. In Render, set BREVO_API_KEY to a new key from Brevo → SMTP & API → API keys (starts with xkeysib-).';
         }
-        if (msg) return msg;
+        if (data.message) return data.message;
     } catch {
         // not JSON
     }
-    return body || `${provider} API error ${status}`;
+    return body || `Brevo API error ${status}`;
 };
 
-const sendViaBrevo = async ({ email, subject, message }) => {
+const sendEmail = async ({ email, subject, message }) => {
     const apiKey = brevoApiKey();
+    if (!apiKey) {
+        throw new Error(
+            'BREVO_API_KEY is not set. Add it in Render → Environment (Brevo → SMTP & API → API keys).'
+        );
+    }
+
     const sender = parseSender();
     if (!sender.email) {
         throw new Error(
-            'EMAIL_FROM must include your verified Brevo sender, e.g. Learning Tracker <teja26kt@gmail.com>'
+            'EMAIL_FROM must include your verified Brevo sender, e.g. Learning Tracker <you@gmail.com>'
         );
     }
 
@@ -44,43 +46,8 @@ const sendViaBrevo = async ({ email, subject, message }) => {
 
     if (!response.ok) {
         const body = await response.text();
-        throw new Error(parseApiError(body, response.status, 'brevo'));
+        throw new Error(parseBrevoError(body, response.status));
     }
-};
-
-const sendViaResend = async ({ email, subject, message }) => {
-    const apiKey = resendApiKey();
-    const from = process.env.EMAIL_FROM?.trim() || 'Learning Tracker <onboarding@resend.dev>';
-    const response = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            from,
-            to: [email],
-            subject,
-            text: message,
-        }),
-    });
-
-    if (!response.ok) {
-        const body = await response.text();
-        throw new Error(parseApiError(body, response.status, 'resend'));
-    }
-};
-
-const sendEmail = async (options) => {
-    if (brevoApiKey()) {
-        return sendViaBrevo(options);
-    }
-    if (resendApiKey()) {
-        return sendViaResend(options);
-    }
-    throw new Error(
-        'BREVO_API_KEY is not set. Add it in Render → Environment (Brevo → SMTP & API → API keys).'
-    );
 };
 
 module.exports = sendEmail;
