@@ -1,11 +1,12 @@
 # Server (backend)
 
-Express + MongoDB API. Deployed on **Render** with root directory `server`.
+Express + MongoDB API. Email OTP login and reminders via **Brevo**.
 
 ```bash
 npm run dev      # from repo root, or npm run dev here
-npm start        # production
+npm start        # production (Render)
 ```
 
-- Local API: http://localhost:5001/api
-- Copy `.env.example` → `.env` and set `MONGO_URI`, `JWT_SECRET`, etc.
+- Local: http://localhost:5001/api  
+- Copy `.env.example` → `.env`  
+- Deploy checklist: [../docs/LAUNCH.md](../docs/LAUNCH.md)

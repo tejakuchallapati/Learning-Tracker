@@ -38,10 +38,6 @@ const userSchema = mongoose.Schema(
             type: Boolean,
             default: true,
         },
-        pushNotification: {
-            type: Boolean,
-            default: false,
-        },
         reminderTime: {
             type: String,
         },

@@ -23,7 +23,6 @@ const formatAuthResponse = (user) => ({
     reminderEmail: user.reminderEmail || user.email || '',
     emailNotification: user.emailNotification,
     streakAlertNotification: user.streakAlertNotification,
-    pushNotification: user.pushNotification,
     reminderTime: user.reminderTime,
     reminderAmPm: user.reminderAmPm,
     isAdmin: isAdminUser(user),
@@ -135,9 +134,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     if (req.body.specialization) user.specialization = req.body.specialization;
     if (req.body.role) user.role = req.body.role;
 
-    if (req.body.pushNotification !== undefined) {
-        user.pushNotification = req.body.pushNotification;
-    }
     if (req.body.emailNotification !== undefined) {
         user.emailNotification = req.body.emailNotification;
     }
@@ -177,7 +173,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         role: updatedUser.role,
         emailNotification: updatedUser.emailNotification,
         streakAlertNotification: updatedUser.streakAlertNotification,
-        pushNotification: updatedUser.pushNotification,
         reminderTime: updatedUser.reminderTime,
         reminderAmPm: updatedUser.reminderAmPm,
         isAdmin: isAdminUser(updatedUser),

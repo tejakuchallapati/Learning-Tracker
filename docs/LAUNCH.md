@@ -1,82 +1,66 @@
-# Launch checklist — Learning Tracker
+# Launch guide — Learning Tracker
 
-**One auth flow:** Email OTP login (Brevo) · **One email service:** Brevo · **Reminders:** same Brevo account.
-
----
-
-## What users do
-
-1. **Log in** → email → OTP in inbox → dashboard (stays signed in)
-2. **Settings** → reminder time + reminder email
-3. **Daily Goals** → bell **ON** on goals
-4. **Emails** arrive at reminder time for incomplete goals
+**Auth:** Email OTP (Brevo) · **Reminders:** Brevo · **300 emails/day free**
 
 ---
 
-## Brevo (one-time, free)
+## User flow
 
-1. [app.brevo.com](https://app.brevo.com) → **Senders** → verify `teja26kt@gmail.com`
-2. **SMTP & API** → **API keys** tab → **Generate** → copy full `xkeysib-...` key (shown once)
+1. Log in → email → OTP → dashboard (stays signed in)
+2. Settings → reminder time + email
+3. Daily Goals → bell **ON**
+4. Reminder emails at scheduled time
 
 ---
 
-## Render — KEEP only these
+## Brevo setup
+
+1. [app.brevo.com](https://app.brevo.com) → **Senders** → verify sender email
+2. **SMTP & API** → **API keys** → generate → copy `xkeysib-...` (once)
+
+---
+
+## Render environment (API)
 
 | Variable | Value |
 |----------|--------|
-| `BREVO_API_KEY` | `xkeysib-...` (from API keys tab, not SMTP) |
+| `BREVO_API_KEY` | `xkeysib-...` |
 | `EMAIL_FROM` | `Learning Tracker <teja26kt@gmail.com>` |
-| `MONGO_URI` | MongoDB Atlas connection string |
-| `JWT_SECRET` | Long random string |
-| `CRON_SECRET` | Long random string |
+| `MONGO_URI` | MongoDB Atlas URI |
+| `JWT_SECRET` | Random secret |
+| `CRON_SECRET` | Random secret |
 | `FRONTEND_URL` | `https://learning-tracker-two-xi.vercel.app` |
 | `REMINDER_TIMEZONE` | `Asia/Kolkata` |
-| `ADMIN_EMAIL` | `teja26kt@gmail.com` |
+| `ADMIN_EMAIL` | Your admin email |
 | `NODE_ENV` | `production` |
 | `PORT` | `5001` |
 | `OTP_MOCK` | `false` |
 
-## Render — DELETE these (old experiments)
+**Health:** `https://learning-tracker-api-hqzm.onrender.com/api/health` → `"emailProvider":"brevo"`
 
-| Remove | Why |
-|--------|-----|
-| `RESEND_API_KEY` | Replaced by Brevo |
-| `MSG91_AUTH_KEY` | Phone SMS removed |
-| `MSG91_SENDER_ID` | Phone SMS removed |
-| `GOOGLE_CLIENT_ID` | Google login removed |
-| `GOOGLE_CLIENT_SECRET` | Google login removed |
-| `EMAIL_USER` | Old Gmail SMTP |
-| `EMAIL_PASS` | Old Gmail SMTP |
-| `ADMIN_PHONE` | Phone auth removed |
-
-**Health check:** `https://learning-tracker-api-hqzm.onrender.com/api/health`  
-→ `{"ok":true,"emailProvider":"brevo"}`
+**Do not add:** `RESEND_*`, `MSG91_*`, `GOOGLE_*`, `EMAIL_USER`, `EMAIL_PASS`, `ADMIN_PHONE`
 
 ---
 
-## Vercel — KEEP only these
+## Vercel environment (frontend)
 
 | Variable | Value |
 |----------|--------|
 | `VITE_API_BASE_URL` | `https://learning-tracker-api-hqzm.onrender.com/api` |
 
-**Must be the full `https://...` URL — not `/api`** (that sends requests to Vercel and login fails).
+Must be the **full https URL** — not `/api`, not the Vercel site URL.
 
 Optional: `VITE_GA_MEASUREMENT_ID`
 
-## Vercel — DELETE
+**Do not add:** `VITE_GOOGLE_CLIENT_ID`
 
-| Remove |
-|--------|
-| `VITE_GOOGLE_CLIENT_ID` |
-
-**Redeploy** after env changes.
+Redeploy after changes.
 
 ---
 
-## cron-job.org (free reminders)
+## cron-job.org (reminders)
 
-Every **5 minutes**, GET:
+Every 5 minutes, GET:
 
 ```
 https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=YOUR_CRON_SECRET
@@ -84,37 +68,28 @@ https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders?secret=YOUR_CR
 
 ---
 
-## Accounts you can ignore now
+## Local dev (`server/.env`)
 
-| Service | Status |
-|---------|--------|
-| **Resend** | Not used — remove API key from Render |
-| **MSG91** | Not used — delete account optional |
-| **Google Cloud OAuth** | Not used — delete OAuth client optional |
-
----
-
-## Test before sharing the site
-
-1. Wake API: open `/api/health` in browser
-2. Login with any email → OTP arrives
-3. Settings → save reminder time
-4. Goals → bell ON → create incomplete goal
-5. Browser: `.../api/cron/reminders?secret=CRON_SECRET` → `ok: true`
+```
+BREVO_API_KEY=xkeysib-...
+EMAIL_FROM=Learning Tracker <teja26kt@gmail.com>
+MONGO_URI=...
+JWT_SECRET=...
+OTP_MOCK=true
+```
 
 ---
 
-## If login OTP fails
+## Pre-launch test
 
-| Error | Fix |
-|-------|-----|
-| `Key not found` | New `xkeysib-` key from Brevo **API keys** tab → Render `BREVO_API_KEY` |
-| Timeout / waking up | Open `/api/health` first, wait 60s on login |
-| No email in inbox | Check spam; sender must be verified in Brevo |
+- [ ] `/api/health` → brevo
+- [ ] Login with any email → OTP arrives
+- [ ] Settings → reminder time saved
+- [ ] Goals → bell ON
+- [ ] cron-job.org returns 200
 
 ---
 
-## Limits (free tier)
+## Unused services (safe to delete accounts)
 
-- **Brevo:** 300 emails/day (login + reminders combined)
-- **Render:** sleeps after 15 min idle — first request may take ~30s
+Resend, MSG91, Google Cloud OAuth — not used by this app anymore.

@@ -29,16 +29,4 @@ services:
       - key: FRONTEND_URL
         value: https://learning-tracker-two-xi.vercel.app
 
-  # FREE: use cron-job.org to POST /api/cron/reminders every 5 min (see docs/DEPLOYMENT_ENV.md).
-  - type: cron
-    name: learning-tracker-reminders
-    env: node
-    schedule: "* * * * *"
-    rootDir: server
-    buildCommand: npm install --omit=dev
-    startCommand: node scripts/pingReminders.js
-    envVars:
-      - key: CRON_SECRET
-        sync: false
-      - key: API_URL
-        value: https://learning-tracker-api-hqzm.onrender.com/api/cron/reminders
+  # Reminders: use free cron-job.org — see docs/LAUNCH.md (no paid Render cron needed).

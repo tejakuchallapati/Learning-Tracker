@@ -1,34 +1,22 @@
-# Project Structure
+# Project structure
 
 ```
 Learning-Tracker/
-├── client/              # React frontend (Vercel deploys this folder)
-│   ├── src/             # App source
-│   ├── public/          # Static assets
-│   ├── index.html       # Vite entry
-│   ├── vite.config.js
-│   ├── vercel.json
-│   └── package.json
-├── server/              # Express API (Render deploys this folder)
-│   ├── server.js        # Entry point
-│   ├── src/             # Controllers, models, routes, etc.
-│   ├── scripts/         # Maintenance scripts
-│   └── package.json
-├── docs/                  # Documentation
-├── scripts/               # Repo-level utilities
-└── package.json           # Dev scripts to run client + server
+├── client/              # React frontend (Vercel)
+├── server/              # Express API (Render)
+├── docs/                # LAUNCH.md — env vars & deploy
+├── scripts/             # check-users.js
+└── package.json
 ```
 
 ## Frontend (`client/`)
 
 | Path | Purpose |
 |------|---------|
-| `src/app/` | App entry, routing |
-| `src/pages/` | Route screens |
-| `src/components/` | UI by feature |
-| `src/context/` | React context |
-| `src/services/` | API client |
-| `src/styles/` | Global CSS |
+| `src/app/` | Routing |
+| `src/pages/` | Screens (Login, Dashboard, Goals, Settings, …) |
+| `src/services/api.js` | API client → Render |
+| `src/context/` | Auth session |
 
 **Run:** `npm run dev --prefix client` (port 3000)
 
@@ -37,28 +25,25 @@ Learning-Tracker/
 | Path | Purpose |
 |------|---------|
 | `server.js` | Express entry |
-| `src/controllers/` | Route handlers |
-| `src/models/` | Mongoose models |
-| `src/routes/` | API routes |
-| `src/middleware/` | Auth |
-| `src/config/` | DB & OAuth |
-| `src/utils/` | Email, cron |
-| `scripts/` | Maintenance scripts |
+| `src/controllers/authController.js` | Email OTP login |
+| `src/utils/otpService.js` | OTP + Brevo send |
+| `src/utils/emailService.js` | Brevo transactional email |
+| `src/utils/cronJobs.js` | Daily reminder emails |
+| `scripts/` | testEmail, verifyReminders, pingReminders |
 
 **Run:** `npm run dev --prefix server` (port 5001)
 
-## Deploy
+## Environment variables
 
-| Platform | Root directory | Build | Start |
-|----------|----------------|-------|-------|
-| **Vercel** | `client` | `npm run build` | static (`dist`) |
-| **Render** | `server` | `npm install` | `npm start` |
+**Render:** `BREVO_API_KEY`, `EMAIL_FROM`, `MONGO_URI`, `JWT_SECRET`, `CRON_SECRET`, `FRONTEND_URL`, …  
+**Vercel:** `VITE_API_BASE_URL` only (full Render URL with `/api`)
 
-## Quick commands
+Full list: [LAUNCH.md](./LAUNCH.md)
+
+## Commands
 
 ```bash
-npm run install:all   # Install root + server + client deps
-npm run dev           # Frontend + API together
-npm run dev:client    # Frontend only
-npm run dev:server    # API only
+npm run install:all
+npm run dev
+npm run build
 ```
