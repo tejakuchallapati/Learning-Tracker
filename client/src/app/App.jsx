@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
@@ -65,13 +65,22 @@ const PublicRoute = ({ children }) => {
 };
 
 const DashboardLayout = ({ children }) => {
+  const { pathname } = useLocation();
+  const isCourseCatalog = pathname === '/courses';
+
   return (
     <div className="dashboard-shell font-body flex h-screen max-md:min-h-[100dvh] max-md:max-h-[100dvh] bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-300 flex-col md:flex-row transition-colors duration-300">
       <Sidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden min-h-0">
         <Navbar />
         <main className={DASHBOARD_MAIN}>
-          {children}
+          {isCourseCatalog ? (
+            children
+          ) : (
+            <div className="flex min-h-0 flex-1 flex-col overflow-x-hidden overflow-y-auto pb-20 md:pb-8 max-md:overscroll-y-contain max-md:[-webkit-overflow-scrolling:touch]">
+              {children}
+            </div>
+          )}
         </main>
         <MobileNav />
       </div>
