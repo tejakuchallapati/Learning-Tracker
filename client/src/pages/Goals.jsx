@@ -7,7 +7,7 @@ const Goals = () => {
     const [momentumRefreshKey, setMomentumRefreshKey] = useState(0);
 
     return (
-        <div className={`${PAGE_SHELL} min-w-0 overflow-x-hidden`}>
+        <div className={`${PAGE_SHELL} min-w-0`}>
             <PageHeader
                 title="DAILY GOALS"
                 description="Set today's tasks, track streaks, and build consistency."
