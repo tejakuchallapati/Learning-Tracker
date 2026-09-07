@@ -79,7 +79,7 @@ const GoalMomentumPanel = ({ refreshKey = 0 }) => {
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                         <span className="text-xl font-black text-slate-900 dark:text-white leading-none">{weekly}%</span>
-                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">This week</span>
+                        <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mt-0.5">This week</span>
                     </div>
                 </div>
 
@@ -112,17 +112,17 @@ const GoalMomentumPanel = ({ refreshKey = 0 }) => {
                     {error && <p className="text-xs font-bold text-rose-600 dark:text-rose-400">{error}</p>}
 
                     <div className="pt-1">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1">
                             <FiCalendar size={11} /> Last 7 days
                         </p>
-                        <div className="grid grid-cols-7 gap-0.5 sm:gap-1 min-w-0">
+                        <div className="grid grid-cols-7 gap-1 sm:gap-1.5 min-w-0">
                             {last7.map((day) => {
                                 const done = day.allCompleted || day.count > 0;
                                 const label = new Date(day.date + 'T12:00:00').toLocaleDateString(undefined, { weekday: 'narrow' });
                                 return (
                                     <div key={day.date} className="flex flex-col items-center gap-0.5 sm:gap-1 min-w-0">
                                         <div
-                                            className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-black border-2 transition-all ${
+                                            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-black border-2 transition-all ${
                                                     day.isToday
                                                         ? 'border-sky-500 bg-sky-500 text-white shadow-md shadow-sky-500/30 scale-110'
                                                         : done
@@ -133,7 +133,7 @@ const GoalMomentumPanel = ({ refreshKey = 0 }) => {
                                             >
                                                 {done ? '✓' : '·'}
                                             </div>
-                                        <span className="text-[8px] sm:text-[9px] font-bold text-slate-400 truncate w-full text-center">{label}</span>
+                                        <span className="text-[10px] sm:text-xs font-bold text-slate-400 truncate w-full text-center">{label}</span>
                                     </div>
                                 );
                             })}

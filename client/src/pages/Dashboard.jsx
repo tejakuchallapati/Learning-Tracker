@@ -177,7 +177,7 @@ const Dashboard = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 lg:gap-4 items-end">
                         <div className="sm:col-span-2 lg:col-span-4 space-y-1">
-                            <label htmlFor="banner-course" className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">
+                            <label htmlFor="banner-course" className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">
                                 Course Choice
                             </label>
                             <select
@@ -192,7 +192,7 @@ const Dashboard = () => {
                             </select>
                         </div>
                         <div className="sm:col-span-2 lg:col-span-3 space-y-1">
-                            <label htmlFor="banner-date" className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">
+                            <label htmlFor="banner-date" className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1">
                                 Target Date
                             </label>
                             <input
@@ -206,7 +206,7 @@ const Dashboard = () => {
                         <div className="sm:col-span-2 lg:col-span-2 flex items-center justify-center py-2 px-2 min-h-[44px] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-center">
                             <div>
                                 <p className="text-lg sm:text-xl font-black text-violet-600 dark:text-violet-400 leading-none">{daysLeft}</p>
-                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-wider mt-0.5">Days Left</p>
+                                <p className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-wider mt-0.5">Days Left</p>
                             </div>
                         </div>
                         <div className="sm:col-span-2 lg:col-span-3">

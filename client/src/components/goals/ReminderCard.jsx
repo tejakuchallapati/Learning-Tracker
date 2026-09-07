@@ -14,7 +14,7 @@ const ReminderCard = ({ suggestion }) => {
                 <button
                     type="button"
                     onClick={() => navigate('/progress')}
-                    className="mt-3 text-sm font-semibold text-violet-700 dark:text-violet-300 hover:text-violet-900 dark:hover:text-violet-100 flex items-center gap-2"
+                    className="mt-3 w-full sm:w-auto text-sm font-semibold text-violet-700 dark:text-violet-300 hover:text-violet-900 dark:hover:text-violet-100 inline-flex items-center gap-2 min-h-[44px] px-3 py-2.5 -ml-3 rounded-lg hover:bg-violet-100/60 dark:hover:bg-violet-900/40 transition-colors"
                 >
                     <FiClock /> Log Time Now
                 </button>
