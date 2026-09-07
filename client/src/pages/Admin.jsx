@@ -167,7 +167,7 @@ const Admin = () => {
                                 key={status}
                                 type="button"
                                 onClick={() => setIssueFilter(status)}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider border transition-all ${
+                                className={`px-3 py-2.5 min-h-[44px] rounded-lg text-xs font-black uppercase tracking-wider border transition-all ${
                                     issueFilter === status
                                         ? 'bg-sky-600 text-white border-sky-500'
                                         : 'bg-white dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700 hover:border-sky-400'
@@ -187,17 +187,17 @@ const Admin = () => {
                                 <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-3">
                                     <div className="min-w-0 flex-1">
                                         <div className="flex flex-wrap items-center gap-2 mb-2">
-                                            <span className={`inline-flex px-2 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider border ${STATUS_STYLES[issue.status] || STATUS_STYLES.open}`}>
+                                            <span className={`inline-flex px-2 py-0.5 rounded-lg text-xs font-black uppercase tracking-wider border ${STATUS_STYLES[issue.status] || STATUS_STYLES.open}`}>
                                                 {issue.status}
                                             </span>
-                                            <span className="inline-flex px-2 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 border border-slate-200">
+                                            <span className="inline-flex px-2 py-0.5 rounded-lg text-xs font-black uppercase tracking-wider bg-slate-100 text-slate-600 border border-slate-200">
                                                 {CATEGORY_LABELS[issue.category] || issue.category}
                                             </span>
                                             <span className="text-xs text-slate-400">{formatDate(issue.createdAt)}</span>
                                         </div>
-                                        <p className="text-sm font-bold text-slate-900 dark:text-white">
+                                        <p className="text-sm font-bold text-slate-900 dark:text-white break-words">
                                             {issue.userName || 'Unknown user'}
-                                            <span className="font-medium text-slate-500"> · {issue.userEmail}</span>
+                                            <span className="font-medium text-slate-500 max-w-[12rem] sm:max-w-none truncate inline-block align-bottom ml-1"> · {issue.userEmail}</span>
                                         </p>
                                         {issue.page && (
                                             <p className="text-xs text-slate-500 mt-1">Page: <code className="text-sky-600">{issue.page}</code></p>
@@ -208,7 +208,7 @@ const Admin = () => {
                                         value={issue.status}
                                         disabled={updatingId === issue._id}
                                         onChange={(e) => handleStatusChange(issue._id, e.target.value)}
-                                        className="shrink-0 h-10 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 text-xs font-bold text-slate-900 dark:text-white outline-none cursor-pointer disabled:opacity-50"
+                                        className="shrink-0 min-h-[44px] h-11 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 text-xs font-bold text-slate-900 dark:text-white outline-none cursor-pointer disabled:opacity-50"
                                     >
                                         <option value="open">Open</option>
                                         <option value="reviewed">Reviewed</option>
