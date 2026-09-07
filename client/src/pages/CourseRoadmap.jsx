@@ -20,7 +20,7 @@ const CourseRoadmap = () => {
     // Split View Selection
     if (course.subTracks && !activeSubTrack) {
         return (
-            <div className="w-full max-w-6xl mx-auto px-3 sm:px-4 md:px-6 pb-20 min-w-0 overflow-x-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000">
+            <div className="w-full max-w-6xl mx-auto pb-4 min-w-0 overflow-x-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <button 
                     onClick={() => navigate('/courses')}
                     className="flex items-center gap-2 text-xs font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 uppercase tracking-widest transition-all mb-6 sm:mb-10 group"
@@ -69,7 +69,7 @@ const CourseRoadmap = () => {
                                     </div>
                                 </div>
 
-                                <button type="button" className="mt-4 sm:mt-14 px-4 sm:px-10 py-3 sm:py-5 bg-red-600 text-white rounded-xl font-black text-[10px] sm:text-xs flex items-center gap-2 sm:gap-3 hover:bg-red-700 transition-all shadow-xl shadow-red-200 uppercase tracking-widest shrink-0">
+                                <button type="button" className="mt-4 sm:mt-14 px-4 sm:px-10 py-3 sm:py-5 min-h-[44px] bg-red-600 text-white rounded-xl font-black text-xs flex items-center gap-2 sm:gap-3 hover:bg-red-700 transition-all shadow-xl shadow-red-200 uppercase tracking-widest shrink-0">
                                     BEGIN <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </div>
@@ -86,7 +86,7 @@ const CourseRoadmap = () => {
         : course.roadmap;
 
     return (
-        <div className="w-full max-w-5xl mx-auto px-3 sm:px-4 md:px-6 pb-20 min-w-0 overflow-x-hidden animate-in fade-in slide-in-from-right-4 duration-1000">
+        <div className="w-full max-w-5xl mx-auto pb-4 min-w-0 overflow-x-hidden animate-in fade-in slide-in-from-right-4 duration-1000">
             <button 
                 onClick={() => activeSubTrack ? setActiveSubTrack(null) : navigate('/courses')}
                 className="flex items-center gap-2 text-xs font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 uppercase tracking-widest transition-all mb-6 sm:mb-10 group"

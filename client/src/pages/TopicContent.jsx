@@ -82,7 +82,7 @@ const TopicContent = () => {
     );
 
     return (
-        <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-16 relative max-md:overflow-x-hidden max-md:pb-20">
+        <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-4 relative max-md:overflow-x-hidden min-w-0">
             {/* Header */}
             <div className="space-y-4">
                 <button 
@@ -208,7 +208,7 @@ const TopicContent = () => {
             </div>
 
             {/* AI Mentor CTA Banner */}
-            <div className="bg-gradient-to-br from-violet-600 via-fuchsia-600 to-violet-700 rounded-3xl p-12 text-white overflow-hidden relative group border border-violet-500/50 shadow-2xl shadow-violet-200 max-md:p-6">
+            <div className="bg-gradient-to-br from-violet-600 via-fuchsia-600 to-violet-700 rounded-3xl p-6 sm:p-10 md:p-12 text-white overflow-hidden relative group border border-violet-500/50 shadow-2xl shadow-violet-200">
                 <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/10 rounded-full blur-[150px] -mr-48 -mt-48 max-md:w-64 max-md:h-64 max-md:mr-0 max-md:mt-0"></div>
                 <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
                     <div className="space-y-4">
@@ -225,7 +225,7 @@ const TopicContent = () => {
             </div>
 
             {/* AI Mentor Slide-In Panel */}
-            <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl z-50 flex flex-col transition-transform duration-500 ease-in-out ${mentorOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl z-50 flex flex-col transition-transform duration-500 ease-in-out pb-[max(1rem,env(safe-area-inset-bottom))] ${mentorOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="bg-gradient-to-r from-violet-600 to-fuchsia-600 p-6 flex items-center justify-between shrink-0">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
@@ -265,7 +265,7 @@ const TopicContent = () => {
                     <div className="px-4 pb-2 flex flex-wrap gap-2 bg-slate-50 dark:bg-slate-950 shrink-0">
                         {[`Explain ${topic.title} simply`, 'Give me a code example', 'Common interview questions'].map(q => (
                             <button key={q} onClick={() => setInput(q)}
-                                className="px-4 py-2 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl text-xs font-bold border border-violet-100 dark:border-violet-800 hover:bg-violet-100 transition-all">
+                                className="px-4 py-2.5 min-h-[40px] bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl text-xs font-bold border border-violet-100 dark:border-violet-800 hover:bg-violet-100 transition-all">
                                 {q}
                             </button>
                         ))}
@@ -276,7 +276,7 @@ const TopicContent = () => {
                     <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 rounded-2xl p-3 border border-slate-300 dark:border-slate-700 focus-within:border-violet-300 focus-within:ring-2 focus-within:ring-violet-50 transition-all">
                         <input type="text" value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && sendMessage()}
                             placeholder={`Ask about ${topic.title}...`}
-                            className="flex-1 bg-transparent border-none text-sm font-medium outline-none placeholder-slate-400 dark:text-white"
+                            className="flex-1 min-h-[44px] bg-transparent border-none text-sm font-medium outline-none placeholder-slate-400 dark:text-white"
                         />
                         <button onClick={sendMessage} disabled={aiLoading || !input.trim()}
                             className="tap-target-icon bg-violet-600 text-white rounded-xl flex items-center justify-center disabled:opacity-40 hover:bg-violet-700 transition-all shrink-0" aria-label="Send message">
