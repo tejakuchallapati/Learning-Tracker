@@ -133,7 +133,7 @@ const Navbar = () => {
                                     setShowNotifications(false);
                                     navigate('/settings#reminders');
                                 }}
-                                className="mt-4 w-full text-center py-2.5 rounded-xl bg-violet-50 text-violet-700 text-xs font-bold uppercase tracking-wider hover:bg-violet-100 transition-colors"
+                                className="mt-4 w-full text-center py-3 min-h-[44px] rounded-xl bg-violet-50 text-violet-700 text-xs font-bold uppercase tracking-wider hover:bg-violet-100 transition-colors"
                             >
                                 Manage reminders
                             </button>
@@ -141,7 +141,7 @@ const Navbar = () => {
                     )}
                 </div>
 
-                <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2" />
+                <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-1 sm:mx-2" />
 
                 <div className="relative" ref={menuRef}>
                     <button
@@ -150,7 +150,7 @@ const Navbar = () => {
                             setShowProfileMenu(!showProfileMenu);
                             setShowNotifications(false);
                         }}
-                        className="flex items-center gap-4 group"
+                        className="flex items-center gap-4 group min-h-[44px] min-w-[44px]"
                         aria-label="Account menu"
                     >
                         <div className="text-right hidden sm:block leading-tight">
@@ -163,7 +163,7 @@ const Navbar = () => {
                     </button>
 
                     {showProfileMenu && (
-                        <div className="absolute top-full right-0 mt-3 w-64 bg-white rounded-3xl shadow-2xl border border-slate-200 p-3 z-50 animate-in fade-in slide-in-from-bottom-2 text-slate-900">
+                        <div className="absolute top-full right-0 mt-3 w-64 max-w-[calc(100vw-2rem)] bg-white rounded-3xl shadow-2xl border border-slate-200 p-3 z-50 animate-in fade-in slide-in-from-bottom-2 text-slate-900">
                             <div className="p-4 border-b border-slate-100 mb-2">
                                 <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
                                 <p className="text-sm font-black text-slate-900 truncate">{user?.email || user?.name || 'Guest'}</p>

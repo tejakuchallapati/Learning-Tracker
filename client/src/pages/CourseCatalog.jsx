@@ -132,7 +132,7 @@ const CourseCatalog = () => {
                 </div>
             </div>
 
-            <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto pb-20 pt-3 md:pb-4 max-md:overscroll-y-contain max-md:[-webkit-overflow-scrolling:touch]">
+            <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto pb-mobile-nav pt-3 md:pb-4 max-md:overscroll-y-contain max-md:[-webkit-overflow-scrolling:touch]">
                 {/* Mobile — stacked cards */}
                 <div className="flex w-full min-w-0 flex-col gap-5 md:hidden">
                     {filteredCourses.map((course) => (

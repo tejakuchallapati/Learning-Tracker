@@ -77,7 +77,7 @@ const DashboardLayout = ({ children }) => {
           {isCourseCatalog ? (
             children
           ) : (
-            <div className="flex min-h-0 flex-1 flex-col overflow-x-hidden overflow-y-auto pb-20 md:pb-8 max-md:overscroll-y-contain max-md:[-webkit-overflow-scrolling:touch]">
+            <div className="flex min-h-0 flex-1 flex-col overflow-x-hidden overflow-y-auto pb-mobile-nav md:pb-8 max-md:overscroll-y-contain max-md:[-webkit-overflow-scrolling:touch]">
               {children}
             </div>
           )}

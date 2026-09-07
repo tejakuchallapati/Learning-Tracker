@@ -24,7 +24,7 @@ export default function PageHeader({ title, description, actions, dense = false,
                 </h1>
                 {description && (
                     <p
-                        className={`text-slate-500 dark:text-slate-400 text-[11px] sm:text-sm md:text-base font-medium break-words line-clamp-2 sm:line-clamp-none ${
+                        className={`text-slate-500 dark:text-slate-400 text-xs sm:text-sm md:text-base font-medium break-words line-clamp-2 sm:line-clamp-none ${
                             dense ? 'mt-0.5 leading-snug' : 'mt-1.5 leading-relaxed'
                         }`}
                     >

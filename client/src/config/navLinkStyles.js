@@ -3,8 +3,8 @@ const base =
 
 export const sidebarNavLinkClass = (isActive) =>
     isActive
-        ? `${base} flex items-center gap-2.5 px-3 py-2 rounded-xl bg-sky-500/12 border-sky-500/40 text-sky-600 dark:text-sky-400 font-extrabold`
-        : `${base} flex items-center gap-2.5 px-3 py-2 rounded-xl border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold hover:bg-sky-500/8 hover:border-sky-500/30 hover:text-sky-600 dark:hover:text-sky-400`;
+        ? `${base} flex items-center gap-2.5 px-3 py-2.5 min-h-[44px] rounded-xl bg-sky-500/12 border-sky-500/40 text-sky-600 dark:text-sky-400 font-extrabold`
+        : `${base} flex items-center gap-2.5 px-3 py-2.5 min-h-[44px] rounded-xl border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold hover:bg-sky-500/8 hover:border-sky-500/30 hover:text-sky-600 dark:hover:text-sky-400`;
 
 export const mobileNavLinkClass = (isActive) =>
     isActive
