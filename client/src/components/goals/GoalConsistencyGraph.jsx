@@ -107,11 +107,11 @@ const GoalConsistencyGraph = ({ refreshKey = 0 }) => {
                 <p className="mb-3 text-sm font-bold text-rose-600 dark:text-rose-400">{error}</p>
             )}
 
-            <div ref={scrollRef} className="overflow-x-auto pb-1 scroll-smooth">
+            <div ref={scrollRef} className="overflow-x-auto pb-1 scroll-smooth touch-pan-x">
                 <div className="inline-flex gap-2 min-w-full">
                     <div className="flex flex-col justify-between py-0.5 text-xs font-bold text-slate-400 dark:text-slate-500 shrink-0">
                         {DAY_LABELS.map((label, i) => (
-                            <span key={label} className={`h-4 leading-4 ${i % 2 === 0 ? '' : 'opacity-0 sm:opacity-100'}`}>
+                            <span key={label} className={`h-5 sm:h-6 leading-5 sm:leading-6 ${i % 2 === 0 ? '' : 'opacity-0 sm:opacity-100'}`}>
                                 {label}
                             </span>
                         ))}
@@ -126,7 +126,7 @@ const GoalConsistencyGraph = ({ refreshKey = 0 }) => {
                                         return (
                                             <span
                                                 key={rowIndex}
-                                                className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-transparent"
+                                                className="w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-transparent"
                                             />
                                         );
                                     }
@@ -147,7 +147,7 @@ const GoalConsistencyGraph = ({ refreshKey = 0 }) => {
                                             onMouseLeave={() => setHovered(null)}
                                             onFocus={() => setHovered(day)}
                                             onBlur={() => setHovered(null)}
-                                            className={`w-4 h-4 sm:w-5 sm:h-5 rounded-md border transition-transform ${intensityClass(day)} ${isToday ? 'ring-2 ring-violet-400/70 dark:ring-violet-300/80' : ''} ${isHovered ? 'scale-110 ring-2 ring-violet-300 dark:ring-violet-500' : ''}`}
+                                            className={`w-5 h-5 sm:w-6 sm:h-6 rounded-md border transition-transform ${intensityClass(day)} ${isToday ? 'ring-2 ring-violet-400/70 dark:ring-violet-300/80' : ''} ${isHovered ? 'scale-110 ring-2 ring-violet-300 dark:ring-violet-500' : ''}`}
                                         />
                                     );
                                 })}
@@ -172,7 +172,7 @@ const GoalConsistencyGraph = ({ refreshKey = 0 }) => {
                     {[0, 1, 2, 3, 4].map((level) => (
                         <span
                             key={level}
-                            className={`w-4 h-4 sm:w-5 sm:h-5 rounded-md border ${intensityClass({ count: level, allCompleted: level === 4 })}`}
+                            className={`w-5 h-5 sm:w-6 sm:h-6 rounded-md border ${intensityClass({ count: level, allCompleted: level === 4 })}`}
                         />
                     ))}
                     <span>More</span>

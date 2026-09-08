@@ -75,9 +75,15 @@ const TopicContent = () => {
     };
 
     if (!topic) return (
-        <div className="p-20 text-center animate-in fade-in duration-500">
+        <div className="p-8 sm:p-12 md:p-20 text-center animate-in fade-in duration-500">
             <h2 className="text-2xl font-black text-slate-800">Concept not found</h2>
-            <button onClick={() => navigate(-1)} className="mt-4 text-violet-600 font-bold hover:underline">Go Back</button>
+            <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="mt-4 inline-flex items-center justify-center min-h-[44px] px-4 text-violet-600 font-bold hover:underline"
+            >
+                Go Back
+            </button>
         </div>
     );
 
