@@ -17,13 +17,13 @@ const AppWalkthrough = () => {
                     <button
                         type="button"
                         onClick={() => navigate('/')}
-                        className="flex items-center gap-2 text-xs font-bold landing-muted-text hover:text-sky-300 transition-colors mb-6 sm:mb-8"
+                        className="inline-flex items-center gap-2 text-xs font-bold landing-muted-text hover:text-sky-300 transition-colors mb-6 sm:mb-8 min-h-[44px]"
                     >
                         <FiChevronLeft size={16} /> Back to home
                     </button>
 
                     <div className="text-center mb-6 sm:mb-8 md:mb-10">
-                        <p className="landing-nav-label text-[10px] sm:text-xs landing-accent-text mb-2">Interactive preview</p>
+                        <p className="landing-nav-label text-xs landing-accent-text mb-2">Interactive preview</p>
                         <h1 className="landing-display text-2xl sm:text-3xl md:text-4xl landing-heading-text mb-2 sm:mb-3 leading-tight">
                             See the app in action
                         </h1>
@@ -38,14 +38,14 @@ const AppWalkthrough = () => {
                         <button
                             type="button"
                             onClick={() => navigate('/login')}
-                            className="landing-cta w-full sm:w-auto px-8 py-3 rounded-full landing-nav-label text-xs text-white flex items-center justify-center gap-2"
+                            className="landing-cta w-full sm:w-auto px-8 py-3 min-h-[44px] rounded-full landing-nav-label text-xs text-white flex items-center justify-center gap-2"
                         >
                             Create free account <FiArrowRight size={14} />
                         </button>
                         <button
                             type="button"
                             onClick={() => navigate('/login')}
-                            className="w-full sm:w-auto px-8 py-3 rounded-full landing-nav-label text-xs landing-body-text border border-white/15 hover:border-sky-400/40 hover:text-sky-300 transition-colors"
+                            className="w-full sm:w-auto px-8 py-3 min-h-[44px] rounded-full landing-nav-label text-xs landing-body-text border border-white/15 hover:border-sky-400/40 hover:text-sky-300 transition-colors"
                         >
                             I already have an account
                         </button>
