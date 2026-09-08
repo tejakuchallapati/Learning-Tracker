@@ -256,7 +256,7 @@ const Landing = () => {
                                             <p className="text-xs sm:text-sm landing-body-text font-medium leading-relaxed text-center sm:text-left mt-3 sm:mt-0 mb-3 sm:mb-5 sm:flex-1">
                                                 {mod.desc}
                                             </p>
-                                            <span className="landing-nav-label text-[10px] sm:text-xs landing-accent-text flex items-center justify-center sm:justify-start gap-1 shrink-0">
+                                            <span className="landing-nav-label text-xs landing-accent-text flex items-center justify-center sm:justify-start gap-1 shrink-0">
                                                 <span className="sm:hidden">Tap to preview</span>
                                                 <span className="hidden sm:inline">Click to preview</span>
                                                 <FiArrowRight size={11} className="sm:w-3.5 sm:h-3.5" />
@@ -332,14 +332,14 @@ const Landing = () => {
                                 <button
                                     type="button"
                                     onClick={scrollToLogin}
-                                    className="landing-cta landing-nav-label text-xs md:text-sm text-white px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full inline-flex items-center gap-2 transition-all group active:scale-[0.98]"
+                                    className="landing-cta landing-nav-label text-xs md:text-sm text-white px-6 sm:px-8 py-3 sm:py-3.5 min-h-[44px] rounded-full inline-flex items-center justify-center gap-2 transition-all group active:scale-[0.98]"
                                 >
                                     Get started <FiArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => navigate('/walkthrough')}
-                                    className="landing-nav-label text-xs md:text-sm landing-body-text px-6 py-3 rounded-full border border-white/15 hover:border-sky-400/40 hover:text-sky-300 transition-colors inline-flex items-center gap-2"
+                                    className="landing-nav-label text-xs md:text-sm landing-body-text px-6 py-3 min-h-[44px] rounded-full border border-white/15 hover:border-sky-400/40 hover:text-sky-300 transition-colors inline-flex items-center justify-center gap-2"
                                 >
                                     Preview the app <FiArrowRight size={14} />
                                 </button>

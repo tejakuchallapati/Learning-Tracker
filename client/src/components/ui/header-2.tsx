@@ -61,7 +61,7 @@ export function Header() {
 		<header
 			className={cn(
 				'sticky z-50 mx-auto w-full min-w-0 max-w-full px-3 sm:px-6 transition-all duration-500 ease-out',
-				compact ? 'top-6 md:top-8 max-w-3xl' : 'top-10 md:top-12 max-w-5xl',
+				compact ? 'top-3 sm:top-6 md:top-8 max-w-3xl' : 'top-4 sm:top-10 md:top-12 max-w-5xl',
 			)}
 		>
 			<nav
@@ -143,28 +143,28 @@ export function Header() {
 			<div
 				className={cn(
 					'landing-nav-glass fixed right-4 left-4 z-50 flex flex-col overflow-hidden rounded-2xl md:hidden transition-all duration-300',
-					compact ? 'top-[4.75rem] md:top-[5.25rem]' : 'top-32',
+					compact ? 'top-[4.25rem] sm:top-[4.75rem] md:top-[5.25rem]' : 'top-[5.5rem] sm:top-32',
 					open ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none',
 				)}
 			>
-				<div className="flex flex-col gap-2 p-5">
+				<div className="flex flex-col gap-2 p-4 sm:p-5">
 					<button
                         type="button"
-                        className="text-left py-3 landing-display text-lg text-slate-100 border-b border-white/10"
+                        className="text-left min-h-[44px] py-3 landing-display text-lg text-slate-100 border-b border-white/10"
                         onClick={scrollToAbout}
                     >
 						About us
 					</button>
 					<button
                         type="button"
-                        className="text-left py-3 landing-display text-lg text-slate-100 border-b border-white/10"
+                        className="text-left min-h-[44px] py-3 landing-display text-lg text-slate-100 border-b border-white/10"
                         onClick={scrollToWorkflow}
                     >
 						Workflow
 					</button>
 					<button
                         type="button"
-                        className="text-left py-3 landing-display text-lg text-sky-300"
+                        className="text-left min-h-[44px] py-3 landing-display text-lg text-sky-300"
                         onClick={goToLogin}
                     >
 						Get started
