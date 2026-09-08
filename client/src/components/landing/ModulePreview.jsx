@@ -52,7 +52,7 @@ const RoadmapsPreview = () => (
                 {['All', 'Frontend', 'AI'].map((c, i) => (
                     <span
                         key={c}
-                        className={`text-[7px] font-black px-2 py-0.5 rounded ${i === 0 ? 'bg-sky-600 text-white' : 'bg-slate-100 text-slate-500'}`}
+                        className={`text-[10px] font-black px-2 py-0.5 rounded ${i === 0 ? 'bg-sky-600 text-white' : 'bg-slate-100 text-slate-500'}`}
                     >
                         {c}
                     </span>
@@ -108,7 +108,7 @@ const ResourcesPreview = () => (
             ].map((b) => (
                 <div key={b.title} className="flex items-center justify-between rounded-lg border border-slate-100 px-2 py-1.5">
                     <p className="text-xs font-bold text-slate-800 truncate pr-2">{b.title}</p>
-                    <span className={`text-[7px] font-black px-1.5 py-0.5 rounded shrink-0 ${b.color}`}>{b.tag}</span>
+                    <span className={`text-[10px] font-black px-1.5 py-0.5 rounded shrink-0 ${b.color}`}>{b.tag}</span>
                 </div>
             ))}
         </div>
@@ -163,7 +163,7 @@ const TopicVideosPreview = () => (
     <BrowserChrome title="learning-tracker.app/roadmap/react/0/0">
         <div className="space-y-2">
             <p className="text-xs font-black text-slate-900">Expert video sources</p>
-            <p className="text-[10px] font-semibold text-slate-500">Curated YouTube channels for each topic in your roadmap.</p>
+            <p className="text-xs font-semibold text-slate-500">Curated YouTube channels for each topic in your roadmap.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {[
                     { name: 'Fireship', tag: 'YouTube' },
@@ -174,8 +174,8 @@ const TopicVideosPreview = () => (
                             <span className="text-xs">▶</span>
                         </div>
                         <div className="min-w-0">
-                            <p className="text-[10px] font-black text-slate-800 truncate">{c.name}</p>
-                            <p className="text-[8px] font-bold text-rose-600 uppercase">{c.tag}</p>
+                            <p className="text-xs font-black text-slate-800 truncate">{c.name}</p>
+                            <p className="text-[10px] font-bold text-rose-600 uppercase">{c.tag}</p>
                         </div>
                     </div>
                 ))}
@@ -188,14 +188,14 @@ const AiMentorPreview = () => (
     <BrowserChrome title="learning-tracker.app — AI Mentor">
         <div className="space-y-2">
             <div className="rounded-lg bg-sky-50 border border-sky-100 px-2 py-1.5">
-                <p className="text-[10px] font-semibold text-sky-800">Ask anything about this topic — concepts, code, or interview prep.</p>
+                <p className="text-xs font-semibold text-sky-800">Ask anything about this topic — concepts, code, or interview prep.</p>
             </div>
             <div className="rounded-lg bg-slate-100 px-2 py-1.5">
-                <p className="text-[10px] font-bold text-slate-500 mb-0.5">You</p>
+                <p className="text-xs font-bold text-slate-500 mb-0.5">You</p>
                 <p className="text-xs text-slate-700">Explain React hooks simply</p>
             </div>
             <div className="rounded-lg bg-sky-600/10 border border-sky-100 px-2 py-1.5">
-                <p className="text-[10px] font-bold text-sky-600 mb-0.5">AI Mentor</p>
+                <p className="text-xs font-bold text-sky-600 mb-0.5">AI Mentor</p>
                 <p className="text-xs text-slate-700">Hooks let you use state in function components…</p>
             </div>
         </div>
@@ -216,7 +216,7 @@ const DailyRemindersPreview = () => (
                 </div>
             ))}
             <div className="rounded-lg bg-blue-50 border border-blue-100 px-2 py-1.5 text-center">
-                <p className="text-[10px] font-bold text-blue-700">Email reminder if incomplete</p>
+                <p className="text-xs font-bold text-blue-700">Email reminder if incomplete</p>
             </div>
         </div>
     </BrowserChrome>

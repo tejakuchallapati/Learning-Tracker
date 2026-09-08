@@ -72,7 +72,7 @@ const MobileLandingPreview = () => (
                                     <p className="text-xs landing-body-text font-medium leading-relaxed text-center mt-3 mb-3">
                                         {mod.desc}
                                     </p>
-                                    <span className="landing-nav-label text-[10px] landing-accent-text flex items-center justify-center gap-1">
+                                    <span className="landing-nav-label text-xs landing-accent-text flex items-center justify-center gap-1">
                                         Tap to preview <FiArrowRight size={11} />
                                     </span>
                                 </div>
