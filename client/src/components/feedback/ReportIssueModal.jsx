@@ -34,7 +34,7 @@ const ReportIssueModal = ({ open, onClose }) => {
                 aria-labelledby="report-issue-title"
                 className="relative w-full sm:max-w-lg bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 max-h-[90dvh] overflow-y-auto"
             >
-                <div className="sticky top-0 z-10 flex items-center justify-between gap-3 px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm rounded-t-3xl sm:rounded-t-2xl">
+                <div className="sticky top-0 z-10 flex items-center justify-between gap-3 px-4 sm:px-5 py-3 sm:py-4 border-b border-slate-100 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm rounded-t-3xl sm:rounded-t-2xl">
                     <div className="flex items-center gap-2 min-w-0">
                         <div className="w-9 h-9 rounded-xl bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center text-sky-600 shrink-0">
                             <FiMessageCircle size={18} />
@@ -43,19 +43,19 @@ const ReportIssueModal = ({ open, onClose }) => {
                             <h2 id="report-issue-title" className="text-base font-black text-slate-900 dark:text-white truncate">
                                 Report an issue
                             </h2>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400">We&apos;ll use this to improve the app</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">We&apos;ll use this to improve the app</p>
                         </div>
                     </div>
                     <button
                         type="button"
                         onClick={onClose}
-                        className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0"
+                        className="min-h-[44px] min-w-[44px] p-2.5 inline-flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0"
                         aria-label="Close dialog"
                     >
                         <FiX size={20} />
                     </button>
                 </div>
-                <div className="p-5">
+                <div className="p-4 sm:p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
                     <ReportIssueForm compact onSuccess={() => setTimeout(onClose, 1800)} />
                 </div>
             </div>

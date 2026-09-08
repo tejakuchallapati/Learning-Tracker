@@ -99,7 +99,7 @@ const ReportIssueForm = ({ onSuccess, compact = false }) => {
             <button
                 type="submit"
                 disabled={submitting || message.trim().length < 10}
-                className="w-full sm:w-auto px-5 py-2.5 bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-bold text-sm hover:bg-sky-600 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
+                className="w-full sm:w-auto px-5 py-3 min-h-[44px] bg-slate-900 dark:bg-slate-800 text-white rounded-xl font-bold text-sm hover:bg-sky-600 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
             >
                 <FiSend size={16} />
                 {submitting ? 'Sending…' : 'Send report'}
