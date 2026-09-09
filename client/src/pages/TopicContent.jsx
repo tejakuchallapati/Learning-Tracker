@@ -92,8 +92,9 @@ const TopicContent = () => {
             {/* Header */}
             <div className="space-y-4">
                 <button 
+                    type="button"
                     onClick={() => navigate(-1)}
-                    className="flex items-center gap-3 text-xs font-black text-slate-400 hover:text-violet-600 uppercase tracking-widest transition-all group"
+                    className="inline-flex items-center gap-3 min-h-[44px] text-xs font-black text-slate-400 hover:text-violet-600 uppercase tracking-widest transition-all group"
                 >
                     <FiChevronLeft className="group-hover:-translate-x-1 transition-transform" /> Back to Roadmap
                 </button>
@@ -105,13 +106,13 @@ const TopicContent = () => {
                     <div className="flex flex-col gap-2 shrink-0 max-md:w-full">
                         <button 
                             onClick={handleComplete}
-                            className={`px-6 py-3 rounded-xl font-black text-sm transition-all flex items-center gap-2 shadow-lg btn-hover-scale max-md:w-full max-md:justify-center ${isCompleted ? 'bg-emerald-50 text-emerald-600 shadow-emerald-100 border border-emerald-100' : 'bg-violet-600 text-white shadow-violet-200 hover:bg-violet-700'}`}
+                            className={`px-6 py-3 min-h-[44px] rounded-xl font-black text-sm transition-all flex items-center gap-2 shadow-lg btn-hover-scale max-md:w-full max-md:justify-center ${isCompleted ? 'bg-emerald-50 text-emerald-600 shadow-emerald-100 border border-emerald-100' : 'bg-violet-600 text-white shadow-violet-200 hover:bg-violet-700'}`}
                         >
                             {isCompleted ? <><FiCheckCircle size={20} /> Accomplished</> : 'Mark as Completed'}
                         </button>
                         <button 
                             onClick={openMentor}
-                            className="px-6 py-3 rounded-xl font-black text-sm transition-all flex items-center gap-2 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-200 btn-hover-scale hover:from-violet-700 hover:to-fuchsia-700 max-md:w-full max-md:justify-center"
+                            className="px-6 py-3 min-h-[44px] rounded-xl font-black text-sm transition-all flex items-center gap-2 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-200 btn-hover-scale hover:from-violet-700 hover:to-fuchsia-700 max-md:w-full max-md:justify-center"
                         >
                             <FiZap size={20} /> Ask AI Mentor
                         </button>
@@ -232,17 +233,17 @@ const TopicContent = () => {
 
             {/* AI Mentor Slide-In Panel */}
             <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl z-50 flex flex-col transition-transform duration-500 ease-in-out pb-[max(1rem,env(safe-area-inset-bottom))] ${mentorOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                <div className="bg-gradient-to-r from-violet-600 to-fuchsia-600 p-6 flex items-center justify-between shrink-0">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                <div className="bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 pb-6 pt-[max(1.5rem,env(safe-area-inset-top))] flex items-center justify-between shrink-0">
+                    <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
                             <FiZap className="text-white" size={20} />
                         </div>
-                        <div>
+                        <div className="min-w-0">
                             <h3 className="text-white font-black text-sm">AI Topic Mentor</h3>
-                            <p className="text-white/70 text-xs font-bold uppercase tracking-widest truncate max-w-[180px]">{topic.title}</p>
+                            <p className="text-white/70 text-xs font-bold uppercase tracking-widest truncate max-w-[min(180px,50vw)]">{topic.title}</p>
                         </div>
                     </div>
-                    <button onClick={() => setMentorOpen(false)} className="text-white/80 hover:text-white rounded-xl tap-target-icon hover:bg-white/10 transition-all" aria-label="Close AI mentor">
+                    <button onClick={() => setMentorOpen(false)} className="text-white/80 hover:text-white rounded-xl tap-target-icon hover:bg-white/10 transition-all shrink-0" aria-label="Close AI mentor">
                         <FiX size={22} />
                     </button>
                 </div>
@@ -271,7 +272,7 @@ const TopicContent = () => {
                     <div className="px-4 pb-2 flex flex-wrap gap-2 bg-slate-50 dark:bg-slate-950 shrink-0">
                         {[`Explain ${topic.title} simply`, 'Give me a code example', 'Common interview questions'].map(q => (
                             <button key={q} onClick={() => setInput(q)}
-                                className="px-4 py-2.5 min-h-[40px] bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl text-xs font-bold border border-violet-100 dark:border-violet-800 hover:bg-violet-100 transition-all">
+                                className="px-4 py-2.5 min-h-[44px] bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl text-xs font-bold border border-violet-100 dark:border-violet-800 hover:bg-violet-100 transition-all">
                                 {q}
                             </button>
                         ))}
