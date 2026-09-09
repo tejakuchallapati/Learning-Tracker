@@ -286,11 +286,15 @@ const Settings = () => {
                                 console.error('Failed to update email reminders:', err);
                             }
                         }}
-                        className={`relative w-12 h-7 rounded-full transition-colors shrink-0 ${user?.emailNotification !== false ? 'bg-violet-600' : 'bg-slate-300 dark:bg-slate-700'}`}
+                        className={`relative inline-flex items-center justify-center min-h-[44px] min-w-[44px] shrink-0`}
                     >
                         <span
-                            className={`absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow transition-transform ${user?.emailNotification !== false ? 'translate-x-5' : ''}`}
-                        />
+                            className={`relative w-12 h-7 rounded-full transition-colors ${user?.emailNotification !== false ? 'bg-violet-600' : 'bg-slate-300 dark:bg-slate-700'}`}
+                        >
+                            <span
+                                className={`absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow transition-transform ${user?.emailNotification !== false ? 'translate-x-5' : ''}`}
+                            />
+                        </span>
                     </button>
                 </div>
 
@@ -316,7 +320,7 @@ const Settings = () => {
                             type="time"
                             value={reminderTime}
                             onChange={(e) => handleTimeChange(e.target.value)}
-                            className="bg-transparent border-none text-sm font-bold text-slate-900 dark:text-white focus:ring-0 p-1 cursor-pointer outline-none"
+                            className="bg-transparent border-none text-sm font-bold text-slate-900 dark:text-white focus:ring-0 min-h-[44px] px-2 cursor-pointer outline-none"
                         />
                         <div className="h-5 w-px bg-slate-200 dark:bg-slate-700" />
                         {['AM', 'PM'].map((period) => (

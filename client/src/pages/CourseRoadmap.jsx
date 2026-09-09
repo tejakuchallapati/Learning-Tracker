@@ -13,7 +13,7 @@ const CourseRoadmap = () => {
     if (!course) return (
         <div className="text-center py-20 animate-in fade-in duration-500 px-4">
             <h2 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white">Course not found</h2>
-            <button onClick={() => navigate('/courses')} className="mt-8 px-8 py-4 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl font-black text-sm btn-hover-scale">Back to Catalog</button>
+            <button onClick={() => navigate('/courses')} className="mt-8 px-8 py-4 min-h-[44px] bg-slate-900 dark:bg-slate-800 text-white rounded-2xl font-black text-sm btn-hover-scale">Back to Catalog</button>
         </div>
     );
 
@@ -23,7 +23,7 @@ const CourseRoadmap = () => {
             <div className="w-full max-w-6xl mx-auto pb-4 min-w-0 overflow-x-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <button 
                     onClick={() => navigate('/courses')}
-                    className="flex items-center gap-2 text-xs font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 uppercase tracking-widest transition-all mb-6 sm:mb-10 group"
+                    className="inline-flex items-center gap-2 min-h-[44px] text-xs font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 uppercase tracking-widest transition-all mb-6 sm:mb-10 group"
                 >
                     <FiChevronLeft className="group-hover:-translate-x-1 transition-transform shrink-0" />
                     Back to Catalog
@@ -56,7 +56,7 @@ const CourseRoadmap = () => {
                                 <h2 className="text-base sm:text-4xl font-black text-slate-900 dark:text-white mb-2 sm:mb-6 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors uppercase tracking-tight leading-tight break-words w-full px-1">
                                     {track.title}
                                 </h2>
-                                <p className="text-slate-700 dark:text-slate-400 leading-snug sm:leading-relaxed mb-4 sm:mb-10 text-[11px] sm:text-lg font-bold line-clamp-2 sm:line-clamp-none px-1">
+                                <p className="text-slate-700 dark:text-slate-400 leading-snug sm:leading-relaxed mb-4 sm:mb-10 text-xs sm:text-lg font-bold line-clamp-2 sm:line-clamp-none px-1">
                                     {track.description}
                                 </p>
                                 
@@ -89,7 +89,7 @@ const CourseRoadmap = () => {
         <div className="w-full max-w-5xl mx-auto pb-4 min-w-0 overflow-x-hidden animate-in fade-in slide-in-from-right-4 duration-1000">
             <button 
                 onClick={() => activeSubTrack ? setActiveSubTrack(null) : navigate('/courses')}
-                className="flex items-center gap-2 text-xs font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 uppercase tracking-widest transition-all mb-6 sm:mb-10 group"
+                className="inline-flex items-center gap-2 min-h-[44px] text-xs font-black text-slate-600 dark:text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 uppercase tracking-widest transition-all mb-6 sm:mb-10 group"
             >
                 <FiChevronLeft className="group-hover:-translate-x-1 transition-transform shrink-0" />
                 {activeSubTrack ? `Switch ${course.title} Path` : 'Back to Catalog'}
@@ -170,7 +170,7 @@ const CourseRoadmap = () => {
                                         const originalIdx = course.roadmap.findIndex(r => r.step === milestone.step);
                                         navigate(`/roadmap/${course.id}/${originalIdx}`);
                                     }}
-                                    className="w-full lg:w-auto self-stretch lg:self-center px-6 sm:px-12 py-4 sm:py-5 bg-red-600 hover:bg-red-700 text-white rounded-xl sm:rounded-2xl font-black text-xs flex items-center justify-center gap-3 sm:gap-4 shadow-xl shadow-red-200 transition-all active:scale-95 shrink-0 uppercase tracking-widest"
+                                    className="w-full lg:w-auto self-stretch lg:self-center px-6 sm:px-12 py-4 sm:py-5 min-h-[44px] bg-red-600 hover:bg-red-700 text-white rounded-xl sm:rounded-2xl font-black text-xs flex items-center justify-center gap-3 sm:gap-4 shadow-xl shadow-red-200 transition-all active:scale-95 shrink-0 uppercase tracking-widest"
                                 >
                                     Start Workshop <FiArrowRight size={18} />
                                 </button>
