@@ -34,7 +34,7 @@ const TrackCard = ({ course, onOpen, compact = false }) => {
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-2xl shadow-sm transition-all group-hover:scale-105 group-hover:border-violet-200">
                         {course.icon}
                     </div>
-                    <span className="inline-flex shrink-0 items-center rounded-full border border-violet-100 bg-violet-50 px-2.5 py-1 text-[9px] font-black uppercase tracking-wide text-violet-600">
+                    <span className="inline-flex shrink-0 items-center rounded-full border border-violet-100 bg-violet-50 px-2.5 py-1 text-[10px] sm:text-xs font-black uppercase tracking-wide text-violet-600">
                         {course.category}
                     </span>
                 </div>
@@ -52,13 +52,13 @@ const TrackCard = ({ course, onOpen, compact = false }) => {
                     {course.tools.slice(0, visibleTools).map((tool) => (
                         <span
                             key={tool}
-                            className="max-w-[7rem] truncate rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-[10px] font-bold capitalize text-slate-600"
+                            className="max-w-[7rem] truncate rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-bold capitalize text-slate-600"
                         >
                             {tool}
                         </span>
                     ))}
                     {course.tools.length > visibleTools && (
-                        <span className="shrink-0 rounded-md border border-violet-100 bg-violet-50 px-2.5 py-1 text-[10px] font-black text-violet-600">
+                        <span className="shrink-0 rounded-md border border-violet-100 bg-violet-50 px-2.5 py-1 text-xs font-black text-violet-600">
                             +{course.tools.length - visibleTools}
                         </span>
                     )}
@@ -71,17 +71,17 @@ const TrackCard = ({ course, onOpen, compact = false }) => {
                         <span className="text-lg font-black tabular-nums leading-none text-slate-900">
                             {chapterCount}
                         </span>
-                        <span className="text-[10px] font-black uppercase tracking-wider text-violet-500">
+                        <span className="text-xs font-black uppercase tracking-wider text-violet-500">
                             Chapters
                         </span>
                     </div>
                     {topicCount > 0 && (
-                        <p className="mt-0.5 text-[10px] font-bold text-slate-400">
+                        <p className="mt-0.5 text-xs font-bold text-slate-400">
                             {topicCount} topics · {course.tools.length} tools
                         </p>
                     )}
                 </div>
-                <span className="inline-flex shrink-0 items-center gap-0.5 rounded-lg bg-red-600 px-3.5 py-2 text-[10px] font-black uppercase tracking-wide text-white shadow-md shadow-red-500/25 transition-colors group-hover:bg-red-700">
+                <span className="inline-flex shrink-0 items-center gap-0.5 rounded-lg bg-red-600 px-4 py-2.5 min-h-[44px] text-xs font-black uppercase tracking-wide text-white shadow-md shadow-red-500/25 transition-colors group-hover:bg-red-700">
                     Begin <FiChevronRight size={12} />
                 </span>
             </div>
@@ -104,7 +104,7 @@ const CourseCatalog = () => {
                     key={cat}
                     type="button"
                     onClick={() => setCategory(cat)}
-                    className={`shrink-0 rounded-lg border px-3.5 py-2.5 min-h-[40px] sm:min-h-[44px] text-[10px] font-black transition-all active:scale-95 sm:px-4 sm:py-2 sm:text-xs ${
+                    className={`shrink-0 rounded-lg border px-3.5 py-2.5 min-h-[44px] text-xs font-black transition-all active:scale-95 sm:px-4 sm:py-2 ${
                         category === cat
                             ? 'border-sky-500 bg-sky-600 text-white shadow-md shadow-sky-500/20'
                             : 'border-slate-200 bg-white text-slate-500 hover:border-sky-300 hover:text-sky-600'

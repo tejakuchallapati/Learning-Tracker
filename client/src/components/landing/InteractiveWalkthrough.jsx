@@ -82,7 +82,7 @@ const InteractiveWalkthrough = () => {
                             key={s.step}
                             type="button"
                             onClick={() => setStep(i)}
-                            className={`shrink-0 px-3 py-2 min-h-[40px] sm:min-h-[44px] rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wide transition-all ${
+                            className={`shrink-0 px-3 py-2 min-h-[44px] rounded-full text-xs font-bold uppercase tracking-wide transition-all ${
                                 i === step
                                     ? 'bg-sky-500/30 text-sky-200 border border-sky-400/40'
                                     : 'bg-white/5 text-slate-500 border border-white/10 hover:border-white/20'
