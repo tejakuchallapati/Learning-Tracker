@@ -67,7 +67,7 @@ const FocusDistributionChart = ({ weeklyActivity = [], monthlyActivity = [] }) =
                     <button
                         type="button"
                         onClick={() => setRange('weekly')}
-                        className={`px-4 sm:px-5 py-2.5 min-h-[44px] rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wide transition-all ${
+                        className={`px-4 sm:px-5 py-2.5 min-h-[44px] rounded-lg text-xs font-black uppercase tracking-wide transition-all ${
                             range === 'weekly'
                                 ? 'bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 shadow-sm'
                                 : 'text-slate-400 dark:text-slate-500 hover:text-slate-600'
@@ -78,7 +78,7 @@ const FocusDistributionChart = ({ weeklyActivity = [], monthlyActivity = [] }) =
                     <button
                         type="button"
                         onClick={() => setRange('monthly')}
-                        className={`px-4 sm:px-5 py-2.5 min-h-[44px] rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wide transition-all ${
+                        className={`px-4 sm:px-5 py-2.5 min-h-[44px] rounded-lg text-xs font-black uppercase tracking-wide transition-all ${
                             range === 'monthly'
                                 ? 'bg-white dark:bg-slate-700 text-violet-600 dark:text-violet-400 shadow-sm'
                                 : 'text-slate-400 dark:text-slate-500 hover:text-slate-600'
@@ -89,9 +89,9 @@ const FocusDistributionChart = ({ weeklyActivity = [], monthlyActivity = [] }) =
                 </div>
             </div>
 
-            <div className="h-[220px] sm:h-[260px] w-full sm:-ml-1">
+            <div className="h-[220px] sm:h-[260px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={chartData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+                    <AreaChart data={chartData} margin={{ top: 8, right: 4, left: 0, bottom: 0 }}>
                         <defs>
                             <linearGradient id="focusPurple" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="0%" stopColor="#7c3aed" stopOpacity={0.35} />
@@ -107,7 +107,7 @@ const FocusDistributionChart = ({ weeklyActivity = [], monthlyActivity = [] }) =
                         />
                         <XAxis
                             dataKey="name"
-                            tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 600 }}
+                            tick={{ fill: '#94a3b8', fontSize: 12, fontWeight: 600 }}
                             tickLine={false}
                             axisLine={false}
                             dy={10}
@@ -117,11 +117,11 @@ const FocusDistributionChart = ({ weeklyActivity = [], monthlyActivity = [] }) =
                         <YAxis
                             domain={domain}
                             ticks={ticks}
-                            tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 600 }}
+                            tick={{ fill: '#94a3b8', fontSize: 12, fontWeight: 600 }}
                             tickLine={false}
                             axisLine={false}
                             dx={-2}
-                            width={26}
+                            width={32}
                         />
                         <Tooltip content={<FocusTooltip />} cursor={{ stroke: '#c4b5fd', strokeWidth: 1 }} />
                         <Area

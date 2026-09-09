@@ -122,7 +122,7 @@ const GoalMomentumPanel = ({ refreshKey = 0 }) => {
                                 return (
                                     <div key={day.date} className="flex flex-col items-center gap-0.5 sm:gap-1 min-w-0">
                                         <div
-                                            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-black border-2 transition-all ${
+                                            className={`w-10 h-10 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xs font-black border-2 transition-all ${
                                                     day.isToday
                                                         ? 'border-sky-500 bg-sky-500 text-white shadow-md shadow-sky-500/30 scale-110'
                                                         : done
@@ -133,7 +133,7 @@ const GoalMomentumPanel = ({ refreshKey = 0 }) => {
                                             >
                                                 {done ? '✓' : '·'}
                                             </div>
-                                        <span className="text-[10px] sm:text-xs font-bold text-slate-400 truncate w-full text-center">{label}</span>
+                                        <span className="text-xs font-bold text-slate-400 truncate w-full text-center">{label}</span>
                                     </div>
                                 );
                             })}

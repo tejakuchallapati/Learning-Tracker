@@ -280,7 +280,7 @@ const Dashboard = () => {
                     <div className="space-y-6">
                         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between px-0 sm:px-2 min-w-0">
                              <h3 className="text-lg sm:text-2xl font-black text-slate-900 dark:text-white min-w-0 truncate">Active Paths</h3>
-                             <button onClick={() => navigate('/courses')} className="self-start sm:self-auto shrink-0 text-xs sm:text-sm font-black text-violet-600 hover:text-violet-700 transition-all flex items-center gap-2 whitespace-nowrap">View Curriculum <FiArrowRight /></button>
+                             <button onClick={() => navigate('/courses')} className="self-start sm:self-auto shrink-0 min-h-[44px] inline-flex items-center text-xs sm:text-sm font-black text-violet-600 hover:text-violet-700 transition-all gap-2 whitespace-nowrap">View Curriculum <FiArrowRight /></button>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-4">
                             {loadingGoals ? (
@@ -313,8 +313,8 @@ const Dashboard = () => {
                                     const isActive = day.count > 0 || day.allCompleted;
                                     return (
                                         <div key={day.date} className="flex flex-col items-center gap-1.5 sm:gap-3 min-w-0">
-                                            <span className={`text-[10px] sm:text-xs font-black uppercase truncate ${day.isToday ? 'text-violet-600 dark:text-violet-400' : 'text-slate-600 dark:text-slate-500'}`}>{dayLabel}</span>
-                                            <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center text-[10px] sm:text-xs font-black ${isActive ? 'bg-violet-600 text-white shadow-lg shadow-violet-100' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${day.isToday ? 'ring-2 ring-violet-400 ring-offset-1 sm:ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
+                                            <span className={`text-xs font-black uppercase truncate ${day.isToday ? 'text-violet-600 dark:text-violet-400' : 'text-slate-600 dark:text-slate-500'}`}>{dayLabel}</span>
+                                            <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-xs font-black ${isActive ? 'bg-violet-600 text-white shadow-lg shadow-violet-100' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${day.isToday ? 'ring-2 ring-violet-400 ring-offset-1 sm:ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
                                                 {dateNum}
                                             </div>
                                         </div>
