@@ -61,7 +61,9 @@ export function Header() {
 		<header
 			className={cn(
 				'sticky z-50 mx-auto w-full min-w-0 max-w-full px-3 sm:px-6 transition-all duration-500 ease-out',
-				compact ? 'top-3 sm:top-6 md:top-8 max-w-3xl' : 'top-4 sm:top-10 md:top-12 max-w-5xl',
+				compact
+					? 'top-[max(0.75rem,env(safe-area-inset-top))] sm:top-6 md:top-8 max-w-3xl'
+					: 'top-[max(1rem,env(safe-area-inset-top))] sm:top-10 md:top-12 max-w-5xl',
 			)}
 		>
 			<nav
@@ -143,7 +145,9 @@ export function Header() {
 			<div
 				className={cn(
 					'landing-nav-glass fixed right-4 left-4 z-50 flex flex-col overflow-hidden rounded-2xl md:hidden transition-all duration-300',
-					compact ? 'top-[4.25rem] sm:top-[4.75rem] md:top-[5.25rem]' : 'top-[5.5rem] sm:top-32',
+					compact
+						? 'top-[calc(4.25rem+env(safe-area-inset-top))] sm:top-[4.75rem] md:top-[5.25rem]'
+						: 'top-[calc(5.5rem+env(safe-area-inset-top))] sm:top-32',
 					open ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none',
 				)}
 			>
