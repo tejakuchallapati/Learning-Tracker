@@ -225,14 +225,14 @@ const Progress = () => {
                                 <button 
                                     onClick={() => setTimerActive(true)} 
                                     disabled={!activeGoalId} 
-                                    className={`w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5 text-white rounded-xl font-black text-[10px] sm:text-xs uppercase tracking-widest transition-all shadow-2xl disabled:opacity-20 flex items-center justify-center gap-3 btn-hover-scale ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-600 shadow-emerald-600/20' : 'bg-violet-600 shadow-violet-600/20'}`}
+                                    className={`w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5 min-h-[44px] text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-2xl disabled:opacity-20 flex items-center justify-center gap-3 btn-hover-scale ${timerMode === 'pomodoro' && pomoState === 'break' ? 'bg-emerald-600 shadow-emerald-600/20' : 'bg-violet-600 shadow-violet-600/20'}`}
                                 >
                                     <FiPlay size={16} /> Start Protocol
                                 </button>
                             ) : (
                                 <button 
                                     onClick={timerMode === 'stopwatch' ? handleStopTimer : () => setTimerActive(false)} 
-                                    className="w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5 bg-rose-600 text-white rounded-xl font-black text-[10px] sm:text-xs uppercase tracking-widest hover:bg-rose-700 transition-all shadow-2xl shadow-rose-600/20 flex items-center justify-center gap-3 btn-hover-scale"
+                                    className="w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5 min-h-[44px] bg-rose-600 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-rose-700 transition-all shadow-2xl shadow-rose-600/20 flex items-center justify-center gap-3 btn-hover-scale"
                                 >
                                     <FiPause size={16} /> {timerMode === 'stopwatch' ? 'Log & Reset' : 'Pause Protocol'}
                                 </button>
@@ -243,7 +243,7 @@ const Progress = () => {
                                         if (timerMode === 'stopwatch') setTime(0);
                                         else setPomoTimeLeft(pomoState === 'focus' ? 25*60 : 5*60);
                                     }} 
-                                    className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-5 bg-white text-slate-500 rounded-xl font-black text-[10px] sm:text-xs uppercase tracking-widest hover:text-slate-800 hover:bg-slate-50 transition-all border border-slate-200 flex items-center justify-center gap-2"
+                                    className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-5 min-h-[44px] bg-white text-slate-500 rounded-xl font-black text-xs uppercase tracking-widest hover:text-slate-800 hover:bg-slate-50 transition-all border border-slate-200 flex items-center justify-center gap-2"
                                 >
                                     <FiRotateCcw /> Reset
                                 </button>
@@ -306,7 +306,7 @@ const Progress = () => {
                     );
                 })}
                 {goals.length === 0 && (
-                    <div className="col-span-1 md:col-span-2 p-10 sm:p-16 md:p-24 text-center glass-card rounded-3xl border-2 border-dashed border-slate-200">
+                    <div className="col-span-1 md:col-span-2 p-6 sm:p-12 md:p-20 text-center glass-card rounded-3xl border-2 border-dashed border-slate-200">
                         <p className="text-slate-400 font-black uppercase tracking-[0.2em] text-xs sm:text-sm">No Active Mastery Protocols</p>
                         <button onClick={() => navigate('/courses')} className="mt-6 text-sm font-black text-violet-600 hover:underline px-4 min-h-[44px]">Initialize Roadmap</button>
                     </div>
