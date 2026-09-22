@@ -94,7 +94,7 @@ const Admin = () => {
                             setLoading(true);
                             loadData().finally(() => setLoading(false));
                         }}
-                        className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700"
+                        className="flex items-center justify-center gap-2 px-4 py-2.5 min-h-[44px] w-full sm:w-auto bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700"
                     >
                         <FiRefreshCw size={16} /> Refresh
                     </button>
@@ -132,7 +132,7 @@ const Admin = () => {
                     </h2>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
+                    <table className="w-full min-w-[36rem] text-sm">
                         <thead className="bg-slate-50 dark:bg-slate-950/50 text-left">
                             <tr>
                                 <th className="px-5 py-3 text-xs font-black uppercase tracking-wider text-slate-500">Name</th>

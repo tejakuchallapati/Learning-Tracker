@@ -144,11 +144,11 @@ const Notes = () => {
                 {/* Column 1: Today's Learnings */}
                 <div className="bg-white dark:bg-slate-900 premium-shadow p-4 sm:p-6 rounded-3xl border border-slate-100 dark:border-slate-800 space-y-4 sm:space-y-6 transition-all min-w-0">
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between min-w-0">
-                        <h3 className="text-[10px] sm:text-xs font-black text-slate-900 dark:text-white flex items-center gap-2 sm:gap-3 uppercase tracking-[0.15em] sm:tracking-[0.2em] min-w-0">
+                        <h3 className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-2 sm:gap-3 uppercase tracking-[0.15em] sm:tracking-[0.2em] min-w-0">
                             <div className="w-7 h-7 sm:w-8 sm:h-8 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center shadow-sm shrink-0"><FiEdit size={16} /></div>
                             <span className="truncate">Daily Manifest</span>
                         </h3>
-                        <span className="self-start sm:self-auto max-w-full px-3 sm:px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-500 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wide sm:tracking-widest border border-slate-100 dark:border-slate-700 truncate">
+                        <span className="self-start sm:self-auto max-w-full px-3 sm:px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-500 rounded-xl text-xs font-black uppercase tracking-wide sm:tracking-widest border border-slate-100 dark:border-slate-700 truncate">
                             {formatDisplayDate(selectedDate)}
                         </span>
                     </div>
@@ -176,7 +176,7 @@ const Notes = () => {
                         placeholder="Write your future plan here..."
                         className="w-full h-[220px] sm:h-[250px] bg-slate-50/50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-4 sm:p-6 text-[13px] font-bold text-slate-800 dark:text-slate-300 focus:ring-4 focus:ring-violet-500/10 transition-all resize-none placeholder-slate-500 dark:placeholder-slate-600 leading-relaxed font-mono relative z-10 outline-none"
                     />
-                    <div className="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3 text-[10px] sm:text-xs font-black text-violet-600 dark:text-violet-400 uppercase tracking-[0.15em] sm:tracking-[0.3em] relative z-10 text-center sm:text-left">
+                    <div className="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3 text-xs font-black text-violet-600 dark:text-violet-400 uppercase tracking-[0.15em] sm:tracking-[0.3em] relative z-10 text-center sm:text-left">
                         <FiArrowRight className="animate-pulse shrink-0" />
                         <span className="break-words">BUILD SMALL • SHIP OFTEN • REPEAT</span>
                     </div>
@@ -208,7 +208,7 @@ const Notes = () => {
                                 type="date" 
                                 value={selectedDate}
                                 onChange={(e) => loadNoteForDate(e.target.value)}
-                                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-xs font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 transition-all outline-none"
+                                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl min-h-[44px] px-4 py-3 text-sm font-black text-slate-900 dark:text-white focus:ring-4 focus:ring-violet-500/10 transition-all outline-none"
                             />
                         </div>
                         <p className="text-xs text-violet-600 dark:text-violet-400 font-black uppercase tracking-tight">
