@@ -206,7 +206,7 @@ const Dashboard = () => {
                         <div className="sm:col-span-2 lg:col-span-2 flex items-center justify-center py-2 px-2 min-h-[44px] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl text-center">
                             <div>
                                 <p className="text-lg sm:text-xl font-black text-violet-600 dark:text-violet-400 leading-none">{daysLeft}</p>
-                                <p className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-wider mt-0.5">Days Left</p>
+                                <p className="text-xs font-black text-slate-400 uppercase tracking-wider mt-0.5">Days Left</p>
                             </div>
                         </div>
                         <div className="sm:col-span-2 lg:col-span-3">
@@ -214,7 +214,7 @@ const Dashboard = () => {
                                 type="button"
                                 onClick={handleAddGoal}
                                 disabled={addingGoal}
-                                className="w-full min-h-[44px] py-3.5 bg-violet-600 hover:bg-violet-700 text-white font-black rounded-xl transition-all shadow-md shadow-violet-200 dark:shadow-none flex items-center justify-center gap-2 uppercase tracking-widest text-[10px] sm:text-xs disabled:opacity-60 disabled:pointer-events-none"
+                                className="w-full min-h-[44px] py-3.5 bg-violet-600 hover:bg-violet-700 text-white font-black rounded-xl transition-all shadow-md shadow-violet-200 dark:shadow-none flex items-center justify-center gap-2 uppercase tracking-widest text-xs disabled:opacity-60 disabled:pointer-events-none"
                             >
                                 <FiPlus className="shrink-0" /> {addingGoal ? 'Adding…' : 'Add Goal'}
                             </button>
@@ -314,7 +314,7 @@ const Dashboard = () => {
                                     return (
                                         <div key={day.date} className="flex flex-col items-center gap-1.5 sm:gap-3 min-w-0">
                                             <span className={`text-xs font-black uppercase truncate ${day.isToday ? 'text-violet-600 dark:text-violet-400' : 'text-slate-600 dark:text-slate-500'}`}>{dayLabel}</span>
-                                            <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-xs font-black ${isActive ? 'bg-violet-600 text-white shadow-lg shadow-violet-100' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${day.isToday ? 'ring-2 ring-violet-400 ring-offset-1 sm:ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
+                                            <div className={`w-10 h-10 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-xs font-black ${isActive ? 'bg-violet-600 text-white shadow-lg shadow-violet-100' : 'bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 border border-slate-100 dark:border-slate-700'} ${day.isToday ? 'ring-2 ring-violet-400 ring-offset-1 sm:ring-offset-2 dark:ring-offset-slate-900' : ''}`}>
                                                 {dateNum}
                                             </div>
                                         </div>

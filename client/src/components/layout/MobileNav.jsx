@@ -24,7 +24,7 @@ const MobileNav = () => {
                                     active={isActive}
                                     compact
                                 />
-                                <span className={`text-[10px] sm:text-xs tracking-tight text-center leading-none w-full px-0.5 ${navLabelClass(isActive)}`}>
+                                <span className={`text-xs tracking-tight text-center leading-none w-full px-0.5 ${navLabelClass(isActive)}`}>
                                     {item.name}
                                 </span>
                             </>
