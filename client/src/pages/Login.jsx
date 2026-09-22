@@ -90,7 +90,7 @@ const Login = () => {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-sky-50/40 flex items-center justify-center px-4 py-12 max-md:min-h-[100dvh]">
             <div className="w-full max-w-md min-w-0">
                 <p className="text-center mb-4">
-                    <button type="button" onClick={() => navigate('/')} className="text-sm font-semibold text-slate-500 hover:text-violet-600">
+                    <button type="button" onClick={() => navigate('/')} className="inline-flex items-center justify-center min-h-[44px] px-3 text-sm font-semibold text-slate-500 hover:text-violet-600">
                         ← Back to home
                     </button>
                 </p>

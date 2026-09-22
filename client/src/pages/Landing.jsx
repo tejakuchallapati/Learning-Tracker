@@ -122,7 +122,7 @@ const Landing = () => {
                             <button
                                 type="button"
                                 onClick={() => navigate('/walkthrough')}
-                                className="landing-nav-label text-[10px] sm:text-xs landing-muted-text hover:text-sky-300 transition-colors underline underline-offset-4"
+                                className="landing-nav-label text-xs landing-muted-text hover:text-sky-300 transition-colors underline underline-offset-4 min-h-[44px] inline-flex items-center"
                             >
                                 See the app in action
                             </button>
