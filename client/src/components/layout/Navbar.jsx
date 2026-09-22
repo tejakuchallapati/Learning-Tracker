@@ -168,16 +168,16 @@ const Navbar = () => {
                                 <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Signed in as</p>
                                 <p className="text-sm font-black text-slate-900 truncate">{user?.email || user?.name || 'Guest'}</p>
                             </div>
-                            <button onClick={() => { setShowProfileMenu(false); navigate('/settings'); }} className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-cyan-600">
+                            <button onClick={() => { setShowProfileMenu(false); navigate('/settings'); }} className="w-full text-left p-3 min-h-[44px] hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-cyan-600">
                                 <FiUser className="text-cyan-500" /> My Profile
                             </button>
-                            <button onClick={() => { setShowProfileMenu(false); navigate('/dashboard'); }} className="group w-full text-left p-3 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-600 hover:bg-sky-500/10 hover:text-sky-600">
+                            <button onClick={() => { setShowProfileMenu(false); navigate('/dashboard'); }} className="group w-full text-left p-3 min-h-[44px] rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-600 hover:bg-sky-500/10 hover:text-sky-600">
                                 <NavIcon name="dashboard" size={18} compact /> Dashboard
                             </button>
                             <button
                                 type="button"
                                 onClick={() => { setShowProfileMenu(false); setShowReportIssue(true); }}
-                                className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-sky-600"
+                                className="w-full text-left p-3 min-h-[44px] hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-sky-600"
                             >
                                 <FiMessageCircle className="text-sky-500" /> Report an issue
                             </button>
@@ -185,7 +185,7 @@ const Navbar = () => {
                                 <button
                                     type="button"
                                     onClick={() => { setShowProfileMenu(false); navigate('/admin'); }}
-                                    className="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-violet-600"
+                                    className="w-full text-left p-3 min-h-[44px] hover:bg-slate-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-slate-700 hover:text-violet-600"
                                 >
                                     <NavIcon name="admin" size={18} compact /> Admin panel
                                 </button>
@@ -193,7 +193,7 @@ const Navbar = () => {
                             <div className="pt-2 mt-2 border-t border-slate-100">
                                 <button
                                     onClick={() => { setShowProfileMenu(false); logout(); navigate('/login'); }}
-                                    className="w-full text-left p-3 hover:bg-rose-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-rose-600 hover:text-rose-700"
+                                    className="w-full text-left p-3 min-h-[44px] hover:bg-rose-50 rounded-xl transition-all flex items-center gap-3 text-sm font-bold text-rose-600 hover:text-rose-700"
                                 >
                                     <FiLogOut /> Sign Out
                                 </button>
