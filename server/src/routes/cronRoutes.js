@@ -25,11 +25,17 @@ const authorizeCron = (req, res, next) => {
 // Ping from Render Cron / cron-job.org every minute so reminders run on hosted API
 router.post('/reminders', authorizeCron, async (req, res) => {
     const result = await checkAndSendReminders();
+    if (result.error) {
+        return res.status(500).json({ ok: false, ...result });
+    }
     res.json({ ok: true, ...result });
 });
 
 router.get('/reminders', authorizeCron, async (req, res) => {
     const result = await checkAndSendReminders();
+    if (result.error) {
+        return res.status(500).json({ ok: false, ...result });
+    }
     res.json({ ok: true, ...result });
 });
 

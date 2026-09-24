@@ -100,8 +100,6 @@ const checkAndSendReminders = async () => {
         return { sent: 0, skipped: 0, reason: 'email_not_configured' };
     }
 
-    await resetStaleCompletedGoals(localNow);
-
     let sent = 0;
     let skipped = 0;
     let eligibleUsers = 0;
@@ -116,6 +114,8 @@ const checkAndSendReminders = async () => {
     };
 
     try {
+        await resetStaleCompletedGoals(localNow);
+
         const userIds = await DailyGoal.distinct('userId', {
             completed: false,
             emailReminders: true,
