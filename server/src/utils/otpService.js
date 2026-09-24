@@ -8,16 +8,32 @@ const { notifyAdmin } = require('./alertService');
 const OTP_TTL_MS = 10 * 60 * 1000;
 const MAX_VERIFY_ATTEMPTS = 5;
 
+class OtpClientError extends Error {
+    constructor(message, statusCode = 400) {
+        super(message);
+        this.name = 'OtpClientError';
+        this.statusCode = statusCode;
+    }
+}
+
 const hashCode = (code) => crypto.createHash('sha256').update(String(code)).digest('hex');
 
 const generateCode = () => String(crypto.randomInt(100000, 999999));
 
-const sendOtpEmail = async (email, code) => {
-    const mock = process.env.OTP_MOCK === 'true' || !isEmailConfigured();
+const isOtpMockEnabled = () =>
+    process.env.OTP_MOCK === 'true' && process.env.NODE_ENV !== 'production';
 
-    if (mock) {
+const sendOtpEmail = async (email, code) => {
+    if (isOtpMockEnabled()) {
         console.log(`[OTP email → ${maskEmail(email)}] Your code is ${code} (valid 10 min)`);
         return;
+    }
+
+    if (!isEmailConfigured()) {
+        throw new OtpClientError(
+            'Login email is temporarily unavailable. Please try again later.',
+            503
+        );
     }
 
     try {
@@ -62,27 +78,27 @@ const createAndSendOtp = async (email) => {
 const verifyOtp = async (email, code) => {
     const record = await Otp.findOne({ email }).sort({ createdAt: -1 });
     if (!record) {
-        throw new Error('OTP expired or not found. Please request a new code.');
+        throw new OtpClientError('OTP expired or not found. Please request a new code.');
     }
 
     if (record.expiresAt.getTime() < Date.now()) {
         await Otp.deleteOne({ _id: record._id });
-        throw new Error('OTP has expired. Please request a new code.');
+        throw new OtpClientError('OTP has expired. Please request a new code.');
     }
 
     if (record.attempts >= MAX_VERIFY_ATTEMPTS) {
         await Otp.deleteOne({ _id: record._id });
-        throw new Error('Too many wrong attempts. Please request a new code.');
+        throw new OtpClientError('Too many wrong attempts. Please request a new code.');
     }
 
     if (hashCode(code) !== record.codeHash) {
         record.attempts += 1;
         await record.save();
-        throw new Error('Invalid OTP. Please try again.');
+        throw new OtpClientError('Invalid OTP. Please try again.');
     }
 
     await Otp.deleteOne({ _id: record._id });
     return true;
 };
 
-module.exports = { createAndSendOtp, verifyOtp };
+module.exports = { createAndSendOtp, verifyOtp, isOtpMockEnabled, OtpClientError };

@@ -5,7 +5,7 @@ const DailyGoal = require('../models/DailyGoal');
 const { normalizeReminderStorage, getLocalNow, hasReminderTime, isReminderDue, wasReminderSentToday, DEFAULT_TIMEZONE } = require('../utils/reminderSchedule');
 const { isAdminUser } = require('../utils/adminAccess');
 const { normalizeEmail, maskEmail } = require('../utils/emailUtils');
-const { createAndSendOtp, verifyOtp: verifyOtpCode } = require('../utils/otpService');
+const { createAndSendOtp, verifyOtp: verifyOtpCode, isOtpMockEnabled } = require('../utils/otpService');
 const { isEmailConfigured } = require('../utils/emailConfig');
 
 const generateToken = (id) => {
@@ -43,7 +43,7 @@ const sendOtp = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email });
     await createAndSendOtp(email);
 
-    const mockMode = process.env.OTP_MOCK === 'true' || !isEmailConfigured();
+    const mockMode = isOtpMockEnabled();
 
     res.json({
         message: `OTP sent to ${maskEmail(email)}.`,
