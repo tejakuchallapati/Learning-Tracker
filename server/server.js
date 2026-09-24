@@ -49,7 +49,8 @@ const corsOptions = {
         if (/^https:\/\/[\w-]+\.vercel\.app$/.test(origin)) {
             return callback(null, true);
         }
-        callback(new Error(`CORS: origin ${origin} not allowed`));
+        // Reject without throwing — avoids turning policy denies into HTTP 500
+        return callback(null, false);
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -100,6 +101,13 @@ app.use('/api/feedback', require('./src/routes/feedbackRoutes'));
 app.use('/api/admin', require('./src/routes/adminRoutes'));
 app.use('/api/cron', require('./src/routes/cronRoutes'));
 
+// JSON 404 for unknown API routes (before error middleware)
+app.use((req, res) => {
+    res.status(404).json({
+        message: `Not found: ${req.method} ${req.originalUrl || req.url}`,
+    });
+});
+
 // Initialize cron jobs (also exposed at POST /api/cron/reminders for hosted cron pings)
 const mongoose = require('mongoose');
 const { checkAndSendReminders, startInternalReminderCron } = require('./src/utils/cronJobs');
@@ -112,13 +120,23 @@ mongoose.connection.once('open', () => {
 
 // Error handling middleware — emails admin on server errors (rate-limited)
 app.use((err, req, res, next) => {
-    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-    const path = `${req.method} ${req.originalUrl || req.url}`;
+    let statusCode = err.statusCode || (res.statusCode === 200 ? 500 : res.statusCode);
+    let message = err.message || 'Server error';
 
-    const message = String(err.message || '');
+    if (err.name === 'CastError') {
+        statusCode = 400;
+        message = 'Invalid ID';
+    } else if (err.name === 'ValidationError') {
+        statusCode = 400;
+    } else if (/CORS/i.test(String(message))) {
+        statusCode = 403;
+    }
+
+    const path = `${req.method} ${req.originalUrl || req.url}`;
     const isAuthError = /not authorized/i.test(message);
     const isClientBug = /cannot read properties of null/i.test(message);
-    const shouldAlert = statusCode >= 500 && !message.includes('CORS:') && !isAuthError && !isClientBug;
+    const shouldAlert =
+        statusCode >= 500 && !/CORS/i.test(message) && !isAuthError && !isClientBug;
 
     if (shouldAlert) {
         notifyAdmin({
@@ -128,14 +146,14 @@ app.use((err, req, res, next) => {
                 'A user request triggered a server error.',
                 '',
                 `Path: ${path}`,
-                `Error: ${err.message}`,
+                `Error: ${message}`,
             ].join('\n'),
         }).catch(() => {});
     }
 
     res.status(statusCode);
     res.json({
-        message: err.message,
+        message,
         stack: process.env.NODE_ENV === 'production' ? null : err.stack,
     });
 });
